@@ -23,9 +23,11 @@
 
   <ItemGroup>
     <Content Include="Assets\Fonts\*.ttf" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\materials.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\weapons.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Weapon\weapons.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Weapon\weapon_curves.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Weapon\weapon_promotes.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Artifact\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />

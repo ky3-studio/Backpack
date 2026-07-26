@@ -11,7 +11,7 @@ public sealed class MaterialMetaService
 
     public MaterialMetaService()
     {
-        var jsonPath = Path.Combine(AppContext.BaseDirectory, "Assets", "materials.json");
+        var jsonPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Material", "materials.json");
         try
         {
             if (File.Exists(jsonPath))

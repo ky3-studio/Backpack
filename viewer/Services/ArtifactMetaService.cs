@@ -12,7 +12,7 @@ public sealed class ArtifactMetaService
 
     public ArtifactMetaService()
     {
-        var jsonPath = Path.Combine(AppContext.BaseDirectory, "Assets", "artifacts.json");
+        var jsonPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Artifact", "artifacts.json");
         try
         {
             if (File.Exists(jsonPath))

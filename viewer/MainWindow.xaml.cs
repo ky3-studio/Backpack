@@ -11,11 +11,11 @@ namespace Backpack.Viewer;
 
 public sealed partial class MainWindow : Window
 {
-    private readonly PipeListenerService     _pipe = new();
-    private readonly CancellationTokenSource _cts  = new();
-    private readonly BackpackDbService        _db   = new();
-    private readonly DispatcherTimer          _gameMonitor = new() { Interval = TimeSpan.FromSeconds(2) };
-    private ContentDialog?                    _syncDialog;
+    private readonly PipeListenerService     _pipe        = new();
+    private readonly CancellationTokenSource _cts         = new();
+    private readonly BackpackDbService       _db          = new();
+    private readonly DispatcherTimer         _gameMonitor = new() { Interval = TimeSpan.FromSeconds(2) };
+    private ContentDialog?                   _syncDialog;
 
     public MainViewModel ViewModel { get; }
 
@@ -43,47 +43,26 @@ public sealed partial class MainWindow : Window
             ViewModel.IsGameRunning = System.Diagnostics.Process.GetProcessesByName("YuanShen").Length > 0;
         _gameMonitor.Start();
 
+        SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();
+
         Closed += (_, _) => { _cts.Cancel(); _db.Dispose(); _gameMonitor.Stop(); };
     }
 
-    private async void OnPickGamePath(object sender, RoutedEventArgs e)
+    private async void OnPickGamePath(object sender, RoutedEventArgs e) => await PickGamePathAsync();
+
+    private async Task PickGamePathAsync()
     {
         ViewModel.SetupError = string.Empty;
-
         var picker = new FileOpenPicker();
         WinRT.Interop.InitializeWithWindow.Initialize(
             picker,
             WinRT.Interop.WindowNative.GetWindowHandle(this));
         picker.FileTypeFilter.Add(".exe");
         picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-
         var file = await picker.PickSingleFileAsync();
         if (file is null) return;
-
         if (!ViewModel.GamePathService.TryAdd(file.Path))
             ViewModel.SetupError = Localized.Get("PathInvalidMsg");
-    }
-
-    private void OnPathItemClick(object sender, ItemClickEventArgs e)
-    {
-        if (e.ClickedItem is not string path) return;
-        ViewModel.GamePathService.Select(path);
-        ViewModel.HasSelectedPath = true;
-    }
-
-    private void OnRemovePathClick(object sender, RoutedEventArgs e)
-    {
-        if ((sender as Button)?.Tag is not string path) return;
-        ViewModel.GamePathService.Remove(path);
-        if (!ViewModel.GamePathService.HasSelection)
-            ViewModel.HasSelectedPath = false;
-    }
-
-    private void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e)
-    {
-        if (sender is not Microsoft.UI.Xaml.Controls.Image img) return;
-        img.Source = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(
-            new Uri("ms-appx:///Assets/Quality/UI_ItemIcon_None.png"));
     }
 
     private async void OnSyncBag(object sender, RoutedEventArgs e)
@@ -108,15 +87,15 @@ public sealed partial class MainWindow : Window
 
         _syncDialog = new ContentDialog
         {
-            XamlRoot            = Content.XamlRoot,
-            Title               = Localized.Get("SyncBagDialogTitle"),
-            CloseButtonText     = Localized.Get("SyncBagDialogCancel"),
-            DefaultButton       = ContentDialogButton.None,
-            Content             = new StackPanel
+            XamlRoot        = Content.XamlRoot,
+            Title           = Localized.Get("SyncBagDialogTitle"),
+            CloseButtonText = Localized.Get("SyncBagDialogCancel"),
+            DefaultButton   = ContentDialogButton.None,
+            Content         = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
                 Spacing     = 12,
-                Children =
+                Children    =
                 {
                     new ProgressRing { IsActive = true, Width = 24, Height = 24 },
                     new TextBlock
@@ -130,7 +109,7 @@ public sealed partial class MainWindow : Window
         };
 
         await _syncDialog.ShowAsync();
-        _syncDialog       = null;
+        _syncDialog           = null;
         ViewModel.IsLaunching = false;
     }
 
