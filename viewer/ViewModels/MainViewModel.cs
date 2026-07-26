@@ -14,6 +14,7 @@ public sealed partial class MainViewModel : ObservableObject
 {
     private readonly DispatcherQueue      _dispatcher;
     private readonly MaterialMetaService  _materialMeta;
+    private readonly FoodMetaService      _foodMeta;
     private readonly WeaponMetaService    _weaponMeta;
     private readonly ArtifactMetaService  _artifactMeta;
     private readonly BackpackDbService    _db;
@@ -23,6 +24,7 @@ public sealed partial class MainViewModel : ObservableObject
     public ObservableCollection<WeaponViewModel>       Weapons        { get; } = [];
     public ObservableCollection<ArtifactViewModel>     Artifacts      { get; } = [];
     public ObservableCollection<MaterialGroupViewModel> MaterialGroups { get; } = [];
+    public ObservableCollection<FoodGroupViewModel>    FoodGroups     { get; } = [];
 
     private readonly Dictionary<uint, ulong>      _activeCounts = [];
     private const string PropKeyResin = "原粹树脂";
@@ -67,11 +69,12 @@ public sealed partial class MainViewModel : ObservableObject
     public bool       CanLaunch              => HasSelectedPath && !IsLaunching;
 
     public MainViewModel(DispatcherQueue dispatcher, GamePathService gamePathService,
-        MaterialMetaService materialMeta, WeaponMetaService weaponMeta, ArtifactMetaService artifactMeta,
-        BackpackDbService db)
+        MaterialMetaService materialMeta, FoodMetaService foodMeta, WeaponMetaService weaponMeta,
+        ArtifactMetaService artifactMeta, BackpackDbService db)
     {
         _dispatcher   = dispatcher;
         _materialMeta = materialMeta;
+        _foodMeta     = foodMeta;
         _weaponMeta   = weaponMeta;
         _artifactMeta = artifactMeta;
         _db           = db;
@@ -93,6 +96,7 @@ public sealed partial class MainViewModel : ObservableObject
 
         _activeCounts = db.LoadMaterialCounts();
         RebuildMaterialGroups();
+        RebuildFoodGroups();
     }
 
     private void LoadDefaultArtifacts()
@@ -107,11 +111,6 @@ public sealed partial class MainViewModel : ObservableObject
             Weapons.Add(new WeaponViewModel(e, _weaponMeta));
     }
 
-    private void LoadDefaultMaterials()
-    {
-        RebuildMaterialGroups();
-    }
-
     private void RebuildMaterialGroups()
     {
         MaterialGroups.Clear();
@@ -124,6 +123,25 @@ public sealed partial class MainViewModel : ObservableObject
             MaterialGroups.Add(new MaterialGroupViewModel(
                 grp.Key,
                 [.. grp.Select(e => new MaterialViewModel(e, _materialMeta))]));
+        }
+    }
+
+    private void RebuildFoodGroups()
+    {
+        FoodGroups.Clear();
+        foreach (var grp in _foodMeta.AllIds
+            .Select(id => (id, meta: _foodMeta.GetMeta(id)))
+            .Where(x => x.meta is not null)
+            .GroupBy(x => x.meta!.DishType)
+            .OrderBy(g => FoodMetaService.DishTypeOrder(g.Key)))
+        {
+            FoodGroups.Add(new FoodGroupViewModel(
+                grp.Key,
+                [.. grp.Select(x =>
+                {
+                    var count = _activeCounts.TryGetValue(x.id, out var c) ? c : 0UL;
+                    return new FoodViewModel(x.meta!, count);
+                })]));
         }
     }
 
@@ -165,6 +183,7 @@ public sealed partial class MainViewModel : ObservableObject
                     _activeCounts[e.Id] = e.Count;
                 _db.SaveMaterials(_activeCounts);
                 RebuildMaterialGroups();
+                RebuildFoodGroups();
                 break;
             }
             case "prop":
@@ -178,6 +197,7 @@ public sealed partial class MainViewModel : ObservableObject
                 }
                 _db.SaveMaterials(_activeCounts);
                 RebuildMaterialGroups();
+                RebuildFoodGroups();
                 break;
             }
         }

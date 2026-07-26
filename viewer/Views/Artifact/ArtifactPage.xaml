@@ -11,7 +11,10 @@
         BorderThickness="0"
         CornerRadius="{ThemeResource ControlCornerRadius}">
       <ScrollViewer Padding="16">
-        <ItemsRepeater ItemsSource="{x:Bind Artifacts, Mode=OneWay}">
+        <ItemsRepeater x:Name="TheRepeater"
+                       ItemsSource="{x:Bind Artifacts, Mode=OneWay}"
+                       ElementPrepared="OnRepeaterElementPrepared"
+                       ElementClearing="OnRepeaterElementClearing">
           <ItemsRepeater.Layout>
             <UniformGridLayout
                 MinItemWidth="220"
@@ -21,7 +24,9 @@
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="vm:ArtifactViewModel">
-              <Grid Padding="10,10" Style="{ThemeResource GridShimmerStyle}">
+              <Grid
+                  Padding="10,10"
+                  Style="{ThemeResource GridShimmerStyle}">
                 <StackPanel Spacing="6">
 
                   <Grid ColumnSpacing="10">
@@ -40,7 +45,7 @@
                       <Image
                           Width="36"
                           Height="36"
-                          Source="{x:Bind IconSource}"
+                          Source="{x:Bind IconSource, Mode=OneWay}"
                           Stretch="Uniform"
                           ImageFailed="OnItemIconFailed" />
                     </Grid>
@@ -51,12 +56,12 @@
                       <TextBlock
                           Style="{StaticResource AppBodyStrongTextBlockStyle}"
                           Text="{x:Bind Source.SetName}"
-                          TextTrimming="CharacterEllipsis" />
+                          TextWrapping="WrapWholeWords" />
                       <TextBlock
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
                           Text="{x:Bind Source.Name}"
-                          TextTrimming="CharacterEllipsis" />
+                          TextWrapping="WrapWholeWords" />
                       <TextBlock
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
@@ -96,34 +101,31 @@
                         ItemsSource="{x:Bind SubStatItems}">
                       <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="vm:SubStatItemViewModel">
-                          <Grid Margin="0,2">
-                            <Grid.ColumnDefinitions>
-                              <ColumnDefinition Width="*" />
-                              <ColumnDefinition Width="Auto" />
-                              <ColumnDefinition Width="24" />
-                            </Grid.ColumnDefinitions>
+                          <StackPanel Margin="0,2" Spacing="1">
+                            <Grid>
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="22" />
+                              </Grid.ColumnDefinitions>
+                              <TextBlock
+                                  Grid.Column="0"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                                  Text="{x:Bind Name}" />
+                              <Image
+                                  Grid.Column="1"
+                                  Width="20"
+                                  Height="20"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Source="{x:Bind BadgeSource}" />
+                            </Grid>
                             <TextBlock
-                                Grid.Column="0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource AppCaptionTextBlockStyle}"
-                                Text="{x:Bind Name}" />
-                            <TextBlock
-                                Grid.Column="1"
-                                Margin="8,0"
-                                Style="{StaticResource AppCaptionTextBlockStyle}"
-                                Text="{x:Bind ValueDisplay}" />
-                            <Image
-                                Grid.Column="2"
-                                Width="20"
-                                Height="20"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Source="{x:Bind BadgeSource}">
-                              <ToolTipService.ToolTip>
-                                <ToolTip Content="{x:Bind RollsDetail}" />
-                              </ToolTipService.ToolTip>
-                            </Image>
-                          </Grid>
+                                Text="{x:Bind ValueDisplay}"
+                                TextWrapping="WrapWholeWords" />
+                          </StackPanel>
                         </DataTemplate>
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -137,10 +139,16 @@
                         Margin="0,2,0,0"
                         Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
                     <TextBlock
+                        MaxLines="5"
                         Style="{StaticResource AppCaptionTextBlockStyle}"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Text="{x:Bind BonusText}"
-                        TextWrapping="WrapWholeWords" />
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="WrapWholeWords">
+                      <ToolTipService.ToolTip>
+                        <ToolTip Content="{x:Bind BonusText}" MaxWidth="400" />
+                      </ToolTipService.ToolTip>
+                    </TextBlock>
                   </StackPanel>
 
                 </StackPanel>

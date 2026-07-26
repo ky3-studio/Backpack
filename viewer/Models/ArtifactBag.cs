@@ -20,7 +20,7 @@ public sealed record ArtifactEntry(
     [property: JsonPropertyName("setName")]  string            SetName,
     [property: JsonPropertyName("name")]     string            Name,
     [property: JsonPropertyName("slot")]     string            Slot,
-    [property: JsonPropertyName("equipped")] bool              Equipped,
+    [property: JsonPropertyName("locked")]    bool              Locked,
     [property: JsonPropertyName("level")]    int               Level,
     [property: JsonPropertyName("rank")]     int               Rank,
     [property: JsonPropertyName("mainStat")] ArtifactMainStat  MainStat,

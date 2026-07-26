@@ -39,7 +39,7 @@ public sealed class BackpackDbService : IDisposable
                 set_name         TEXT    NOT NULL,
                 name             TEXT    NOT NULL,
                 slot             TEXT    NOT NULL,
-                equipped         INTEGER NOT NULL,
+                locked           INTEGER NOT NULL,
                 level            INTEGER NOT NULL,
                 rank             INTEGER NOT NULL,
                 main_stat_type   TEXT    NOT NULL,
@@ -51,6 +51,8 @@ public sealed class BackpackDbService : IDisposable
                 count INTEGER NOT NULL
             );
             """);
+        // 旧版 equipped 列迁移
+        try { Exec("ALTER TABLE artifacts RENAME COLUMN equipped TO locked"); } catch { }
     }
 
     public IReadOnlyList<WeaponEntry> LoadWeapons()
@@ -78,7 +80,7 @@ public sealed class BackpackDbService : IDisposable
     {
         using var cmd = _db.CreateCommand();
         cmd.CommandText =
-            "SELECT guid,id,set_name,name,slot,equipped,level,rank,main_stat_type,main_stat_raw,sub_stats FROM artifacts ORDER BY rank DESC,id";
+            "SELECT guid,id,set_name,name,slot,locked,level,rank,main_stat_type,main_stat_raw,sub_stats FROM artifacts ORDER BY locked DESC,rank DESC,level DESC";
         using var r = cmd.ExecuteReader();
         var list = new List<ArtifactEntry>();
         while (r.Read())
@@ -157,14 +159,14 @@ public sealed class BackpackDbService : IDisposable
         using var ins = _db.CreateCommand();
         ins.CommandText =
             "INSERT INTO artifacts " +
-            "(guid,id,set_name,name,slot,equipped,level,rank,main_stat_type,main_stat_raw,sub_stats) " +
-            "VALUES ($g,$i,$sn,$n,$sl,$eq,$l,$r,$mt,$mr,$ss)";
+            "(guid,id,set_name,name,slot,locked,level,rank,main_stat_type,main_stat_raw,sub_stats) " +
+            "VALUES ($g,$i,$sn,$n,$sl,$lk,$l,$r,$mt,$mr,$ss)";
         var pg  = ins.Parameters.Add("$g",  SqliteType.Text);
         var pi  = ins.Parameters.Add("$i",  SqliteType.Integer);
         var psn = ins.Parameters.Add("$sn", SqliteType.Text);
         var pn  = ins.Parameters.Add("$n",  SqliteType.Text);
         var psl = ins.Parameters.Add("$sl", SqliteType.Text);
-        var peq = ins.Parameters.Add("$eq", SqliteType.Integer);
+        var plk = ins.Parameters.Add("$lk", SqliteType.Integer);
         var pl  = ins.Parameters.Add("$l",  SqliteType.Integer);
         var pr  = ins.Parameters.Add("$r",  SqliteType.Integer);
         var pmt = ins.Parameters.Add("$mt", SqliteType.Text);
@@ -178,7 +180,7 @@ public sealed class BackpackDbService : IDisposable
             psn.Value = a.SetName;
             pn.Value  = a.Name;
             psl.Value = a.Slot;
-            peq.Value = a.Equipped ? 1 : 0;
+            plk.Value = a.Locked ? 1 : 0;
             pl.Value  = a.Level;
             pr.Value  = a.Rank;
             pmt.Value = a.MainStat.Type;

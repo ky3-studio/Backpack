@@ -1,15 +1,29 @@
+using System.ComponentModel;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class MaterialViewModel
+public sealed class MaterialViewModel : INotifyPropertyChanged, IIconUpdatable
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public string       Name          { get; }
     public string       Count         { get; }
-    public BitmapImage? IconSource    { get; }
     public BitmapImage  QualitySource { get; }
+
+    private BitmapImage? _iconSource;
+    public  BitmapImage? IconSource
+    {
+        get => _iconSource;
+        set
+        {
+            if (_iconSource == value) return;
+            _iconSource = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IconSource)));
+        }
+    }
 
     public MaterialViewModel(MaterialEntry entry, MaterialMetaService meta)
     {
@@ -18,18 +32,8 @@ public sealed class MaterialViewModel
 
         var (iconUri, rank) = meta.GetMeta(entry.Id);
         if (iconUri is not null)
-            IconSource = new BitmapImage(iconUri);
+            _iconSource = new BitmapImage(iconUri);
 
-        QualitySource = new BitmapImage(
-            new Uri($"ms-appx:///Assets/Quality/{RankToQualityName(rank)}.png"));
+        QualitySource = new BitmapImage(StaticResources.QualityIcon(rank));
     }
-
-    private static string RankToQualityName(int rank) => rank switch
-    {
-        5 => "UI_QUALITY_ORANGE",
-        4 => "UI_QUALITY_PURPLE",
-        3 => "UI_QUALITY_BLUE",
-        2 => "UI_QUALITY_GREEN",
-        _ => "UI_QUALITY_WHITE",
-    };
 }

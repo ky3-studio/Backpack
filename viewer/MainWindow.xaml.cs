@@ -23,9 +23,10 @@ public sealed partial class MainWindow : Window
     {
         var gps          = new GamePathService();
         var meta         = new MaterialMetaService();
+        var foodMeta     = new FoodMetaService();
         var weaponMeta   = new WeaponMetaService();
         var artifactMeta = new ArtifactMetaService();
-        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, weaponMeta, artifactMeta, _db);
+        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, foodMeta, weaponMeta, artifactMeta, _db);
         InitializeComponent();
 
         Title = "Backpack 0.1.0";

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml;
@@ -5,8 +6,10 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class WeaponViewModel
+public sealed class WeaponViewModel : INotifyPropertyChanged, IIconUpdatable
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     private static readonly int[] MaxLevelByPromote = [20, 40, 50, 60, 70, 80, 90];
 
     public WeaponEntry  Source                { get; }
@@ -25,8 +28,19 @@ public sealed class WeaponViewModel
     public Visibility   SubVisibility         { get; }
     public Visibility   PassiveVisibility     { get; }
     public Visibility   FlavorVisibility      { get; }
-    public BitmapImage? IconSource            { get; }
     public BitmapImage  QualitySource         { get; }
+
+    private BitmapImage? _iconSource;
+    public  BitmapImage? IconSource
+    {
+        get => _iconSource;
+        set
+        {
+            if (_iconSource == value) return;
+            _iconSource = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IconSource)));
+        }
+    }
 
     public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta)
     {
@@ -71,18 +85,8 @@ public sealed class WeaponViewModel
 
         var iconUri = meta.GetIcon(entry.Id);
         if (iconUri is not null)
-            IconSource = new BitmapImage(iconUri);
+            _iconSource = new BitmapImage(iconUri);
 
-        QualitySource = new BitmapImage(
-            new Uri($"ms-appx:///Assets/Quality/{RankToQualityName(entry.Rank)}.png"));
+        QualitySource = new BitmapImage(StaticResources.QualityIcon(entry.Rank));
     }
-
-    private static string RankToQualityName(int rank) => rank switch
-    {
-        5 => "UI_QUALITY_ORANGE",
-        4 => "UI_QUALITY_PURPLE",
-        3 => "UI_QUALITY_BLUE",
-        2 => "UI_QUALITY_GREEN",
-        _ => "UI_QUALITY_WHITE",
-    };
 }

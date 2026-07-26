@@ -62,8 +62,7 @@ static std::string BuildJson(const std::vector<Inst>& arts) {
     std::vector<size_t> idx(arts.size());
     for (size_t i = 0; i < idx.size(); ++i) idx[i] = i;
     std::sort(idx.begin(), idx.end(), [&](size_t a, size_t b) {
-        int sa = ArtifactDb::SlotOrder(arts[a].slotDigit), sb = ArtifactDb::SlotOrder(arts[b].slotDigit);
-        if (sa != sb) return sa < sb;
+        if (arts[a].equipped != arts[b].equipped) return arts[a].equipped;
         if (arts[a].rank  != arts[b].rank)  return arts[a].rank  > arts[b].rank;
         return arts[a].level > arts[b].level;
     });

@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="Backpack.Viewer.Views.MaterialPage"
+    x:Class="Backpack.Viewer.Views.FoodPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cw="using:CommunityToolkit.WinUI"
@@ -11,21 +11,22 @@
         BorderThickness="0"
         CornerRadius="{ThemeResource ControlCornerRadius}">
       <ScrollViewer Padding="16">
-        <ItemsControl ItemsSource="{x:Bind MaterialGroups, Mode=OneWay}">
+        <ItemsControl ItemsSource="{x:Bind FoodGroups, Mode=OneWay}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel Spacing="16" />
             </ItemsPanelTemplate>
           </ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
-            <DataTemplate x:DataType="vm:MaterialGroupViewModel">
+            <DataTemplate x:DataType="vm:FoodGroupViewModel">
               <StackPanel Spacing="8">
                 <TextBlock
                     Text="{x:Bind Header}"
                     Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-                <ItemsRepeater ItemsSource="{x:Bind Items}"
-                               ElementPrepared="OnRepeaterElementPrepared"
-                               ElementClearing="OnRepeaterElementClearing">
+                <ItemsRepeater
+                    ItemsSource="{x:Bind Items}"
+                    ElementPrepared="OnRepeaterElementPrepared"
+                    ElementClearing="OnRepeaterElementClearing">
                   <ItemsRepeater.Layout>
                     <UniformGridLayout
                         MinItemWidth="260"
@@ -34,7 +35,7 @@
                         ItemsStretch="Fill" />
                   </ItemsRepeater.Layout>
                   <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="vm:MaterialViewModel">
+                    <DataTemplate x:DataType="vm:FoodViewModel">
                       <Grid
                           Padding="10,8"
                           Style="{ThemeResource GridShimmerStyle}"
@@ -59,12 +60,18 @@
                               Stretch="Uniform"
                               ImageFailed="OnItemIconFailed" />
                         </Grid>
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{StaticResource AppBodyTextBlockStyle}"
-                            Text="{x:Bind Name}"
-                            TextTrimming="CharacterEllipsis"
-                            VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                          <TextBlock
+                              Style="{StaticResource AppBodyTextBlockStyle}"
+                              Text="{x:Bind Name}"
+                              TextTrimming="CharacterEllipsis" />
+                          <TextBlock
+                              Style="{StaticResource AppCaptionTextBlockStyle}"
+                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                              Text="{x:Bind Character}"
+                              Visibility="{x:Bind CharacterVisibility}"
+                              TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
                         <TextBlock
                             Grid.Column="2"
                             MinWidth="40"

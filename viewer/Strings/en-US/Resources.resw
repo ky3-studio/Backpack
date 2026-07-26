@@ -27,6 +27,9 @@
   <data name="TabMaterial.Header" xml:space="preserve">
     <value>Materials</value>
   </data>
+  <data name="TabFood.Header" xml:space="preserve">
+    <value>Food</value>
+  </data>
   <data name="StatusWaiting" xml:space="preserve">
     <value>Waiting for data…</value>
   </data>
@@ -57,8 +60,8 @@
   <data name="SyncBagDialogCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Equipped" xml:space="preserve">
-    <value>Equipped</value>
+  <data name="Locked" xml:space="preserve">
+    <value>Locked</value>
   </data>
   <data name="SlotFlower" xml:space="preserve">
     <value>Flower of Life</value>

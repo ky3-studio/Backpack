@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -18,10 +19,15 @@ public sealed partial class MaterialPage : UserControl
 
     public MaterialPage() => InitializeComponent();
 
-    private void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e)
+    private void OnRepeaterElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
     {
-        if (sender is not Image img) return;
-        img.Source = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(
-            new Uri("ms-appx:///Assets/Quality/UI_ItemIcon_None.png"));
+        if (args.Element is FrameworkElement fe &&
+            sender.ItemsSourceView?.GetAt(args.Index) is IIconUpdatable vm)
+            fe.Tag = vm;
     }
+
+    private void OnRepeaterElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args) { }
+
+    private async void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e) =>
+        await GfxLoader.HandleIconFailedAsync(sender);
 }

@@ -27,6 +27,9 @@
   <data name="TabMaterial.Header" xml:space="preserve">
     <value>材料</value>
   </data>
+  <data name="TabFood.Header" xml:space="preserve">
+    <value>食物</value>
+  </data>
   <data name="StatusWaiting" xml:space="preserve">
     <value>等待数据…</value>
   </data>
@@ -57,8 +60,8 @@
   <data name="SyncBagDialogCancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Equipped" xml:space="preserve">
-    <value>已装备</value>
+  <data name="Locked" xml:space="preserve">
+    <value>已锁定</value>
   </data>
   <data name="SlotFlower" xml:space="preserve">
     <value>生之花</value>
