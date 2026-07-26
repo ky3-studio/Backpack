@@ -9,11 +9,11 @@ namespace Backpack.Viewer.ViewModels;
 public sealed class ArtifactViewModel
 {
     public ArtifactEntry Source             { get; }
-    public string                    RankDisplay         { get; }
-    public string                    Level               { get; }
-    public string                    SlotRankEquipped    { get; }
+    public string                    RankDisplay          { get; }
+    public string                    Level                { get; }
+    public string                    SlotRankEquipped     { get; }
     public string                    MainStatValueDisplay { get; }
-    public IReadOnlyList<SubStatItemViewModel> SubStatItems       { get; }
+    public IReadOnlyList<SubStatItemViewModel> SubStatItems        { get; }
     public Visibility                HasInstanceVisibility { get; }
     public BitmapImage?  IconSource          { get; }
     public BitmapImage   QualitySource       { get; }

@@ -2894,14 +2894,11 @@ inline const ItemInfo* BinSearch(const ItemInfo* t, size_t n, uint32_t id) {
 }
 
 inline const ItemInfo* LookupItem(uint32_t id) {
-    switch ((id / 10) % 10) {
-        case 4: return detail::BinSearch(kFlowerTable,  kFlowerCount,  id);
-        case 2: return detail::BinSearch(kFeatherTable, kFeatherCount, id);
-        case 5: return detail::BinSearch(kSandsTable,   kSandsCount,   id);
-        case 1: return detail::BinSearch(kGobletTable,  kGobletCount,  id);
-        case 3: return detail::BinSearch(kCircletTable, kCircletCount, id);
-        default: return nullptr;
-    }
+    const ItemInfo* r = detail::BinSearch(kFlowerTable,  kFlowerCount,  id); if (r) return r;
+                    r = detail::BinSearch(kFeatherTable, kFeatherCount, id); if (r) return r;
+                    r = detail::BinSearch(kSandsTable,   kSandsCount,   id); if (r) return r;
+                    r = detail::BinSearch(kGobletTable,  kGobletCount,  id); if (r) return r;
+    return            detail::BinSearch(kCircletTable, kCircletCount, id);
 }
 
 }

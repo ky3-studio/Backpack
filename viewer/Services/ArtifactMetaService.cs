@@ -9,7 +9,8 @@ namespace Backpack.Viewer.Services;
 public sealed class ArtifactMetaService
 {
     private readonly Dictionary<string, (int SetId, string Icon, int MaxRank)> _map;
-    private readonly Dictionary<int, Dictionary<string, float[]>> _mainProps;
+    private readonly Dictionary<string, Dictionary<string, string>>           _pieces;
+    private readonly Dictionary<int, Dictionary<string, float[]>>             _mainProps;
 
     public ArtifactMetaService()
     {
@@ -29,13 +30,20 @@ public sealed class ArtifactMetaService
                         e => e.Name,
                         e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4),
                         StringComparer.OrdinalIgnoreCase);
+                _pieces = items
+                    .Where(e => !string.IsNullOrEmpty(e.Name) && e.Pieces is { Count: > 0 })
+                    .ToDictionary(
+                        e => e.Name,
+                        e => e.Pieces!,
+                        StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                _map = [];
+                _map    = [];
+                _pieces = [];
             }
         }
-        catch { _map = []; }
+        catch { _map = []; _pieces = []; }
 
         try
         {
@@ -55,6 +63,13 @@ public sealed class ArtifactMetaService
             }
         }
         catch { _mainProps = []; }
+    }
+
+    public string GetPieceName(string setName, string slot)
+    {
+        if (_pieces.TryGetValue(setName, out var bySlot) && bySlot.TryGetValue(slot, out var name))
+            return name;
+        return slot;
     }
 
     public float GetMainPropValue(int rank, int level, string propTypeRaw)
@@ -92,7 +107,7 @@ public sealed class ArtifactMetaService
                     (uint)kvp.Value.SetId,
                     string.Empty,
                     kvp.Key,
-                    string.Empty,
+                    GetPieceName(kvp.Key, slot),
                     slot,
                     false,
                     0,
@@ -135,6 +150,7 @@ public sealed class ArtifactMetaService
         [property: JsonPropertyName("id")]        int    Id,
         [property: JsonPropertyName("name")]      string Name,
         [property: JsonPropertyName("levelList")] int[]  LevelList,
-        [property: JsonPropertyName("icon")]      string Icon
+        [property: JsonPropertyName("icon")]      string Icon,
+        [property: JsonPropertyName("pieces")]    Dictionary<string, string>? Pieces
     );
 }
