@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>Backpack.Viewer</RootNamespace>
+    <AssemblyName>BackpackViewer</AssemblyName>
+    <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <SatelliteResourceLanguages>zh-CN;en-US</SatelliteResourceLanguages>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <LangVersion>preview</LangVersion>
+    <NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Fonts\*.ttf" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\materials.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\weapons.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Styles\PivotStyle.xaml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\x64\Release\backpack.dll" CopyToOutputDirectory="PreserveNewest" Link="modules\backpack.dll" Condition="Exists('..\x64\Release\backpack.dll')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Include="Strings\**\*.resw" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.2.251219" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.7" />
+  </ItemGroup>
+
+  <Target Name="RemoveUnusedLanguages" AfterTargets="Build">
+    <Exec Command="for /d %%d in (&quot;$(OutDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; rd /s /q &quot;%%d&quot;" />
+  </Target>
+
+</Project>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitleText.Text" xml:space="preserve">
+    <value>Backpack 0.1.0</value>
+  </data>
+  <data name="PageTitleText.Text" xml:space="preserve">
+    <value>原神背包数据</value>
+  </data>
+  <data name="TabWeapon.Header" xml:space="preserve">
+    <value>武器</value>
+  </data>
+  <data name="TabArtifact.Header" xml:space="preserve">
+    <value>圣遗物</value>
+  </data>
+  <data name="TabMaterial.Header" xml:space="preserve">
+    <value>材料</value>
+  </data>
+  <data name="StatusWaiting" xml:space="preserve">
+    <value>等待数据…</value>
+  </data>
+  <data name="StatusReceived" xml:space="preserve">
+    <value>已接收</value>
+  </data>
+  <data name="StatusLaunching" xml:space="preserve">
+    <value>启动中…</value>
+  </data>
+  <data name="StatusLaunched" xml:space="preserve">
+    <value>游戏已启动，等待数据…</value>
+  </data>
+  <data name="BtnSelectPath.Label" xml:space="preserve">
+    <value>选择游戏路径</value>
+  </data>
+  <data name="BtnKillGame.Label" xml:space="preserve">
+    <value>结束进程</value>
+  </data>
+  <data name="BtnSyncBag.Label" xml:space="preserve">
+    <value>同步背包</value>
+  </data>
+  <data name="SyncBagDialogTitle" xml:space="preserve">
+    <value>同步背包</value>
+  </data>
+  <data name="SyncBagDialogWaiting" xml:space="preserve">
+    <value>游戏已启动，正在等待背包数据…</value>
+  </data>
+  <data name="SyncBagDialogCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Equipped" xml:space="preserve">
+    <value>已装备</value>
+  </data>
+  <data name="SlotFlower" xml:space="preserve">
+    <value>生之花</value>
+  </data>
+  <data name="SlotPlume" xml:space="preserve">
+    <value>死之羽</value>
+  </data>
+  <data name="SlotSands" xml:space="preserve">
+    <value>时之沙</value>
+  </data>
+  <data name="SlotGoblet" xml:space="preserve">
+    <value>空之杯</value>
+  </data>
+  <data name="SlotCirclet" xml:space="preserve">
+    <value>理之冠</value>
+  </data>
+  <data name="PathInvalidMsg" xml:space="preserve">
+    <value>路径无效，请选择国服游戏本体（YuanShen.exe）。</value>
+  </data>
+  <data name="SelectPathTitle.Text" xml:space="preserve">
+    <value>选择游戏路径</value>
+  </data>
+  <data name="SelectPathHint.Text" xml:space="preserve">
+    <value>在下方列表中选中以切换到该路径</value>
+  </data>
+  <data name="AddPathHeader.Text" xml:space="preserve">
+    <value>游戏路径</value>
+  </data>
+  <data name="AddPathDesc.Text" xml:space="preserve">
+    <value>请选择国服游戏本体（YuanShen.exe）而非启动器（launcher.exe）</value>
+  </data>
+</root>

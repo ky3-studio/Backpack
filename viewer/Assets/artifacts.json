@@ -1,0 +1,554 @@
+[
+  {
+    "id": 10001,
+    "name": "行者之心",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10001_4"
+  },
+  {
+    "id": 10002,
+    "name": "勇士之心",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10002_4"
+  },
+  {
+    "id": 10003,
+    "name": "守护之心",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10003_4"
+  },
+  {
+    "id": 10004,
+    "name": "奇迹",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10004_4"
+  },
+  {
+    "id": 10005,
+    "name": "战狂",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10005_4"
+  },
+  {
+    "id": 10006,
+    "name": "武人",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10006_4"
+  },
+  {
+    "id": 10007,
+    "name": "教官",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10007_4"
+  },
+  {
+    "id": 10008,
+    "name": "赌徒",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10008_4"
+  },
+  {
+    "id": 10009,
+    "name": "流放者",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10009_4"
+  },
+  {
+    "id": 10010,
+    "name": "冒险家",
+    "levelList": [
+      1,
+      2,
+      3
+    ],
+    "icon": "UI_RelicIcon_10010_4"
+  },
+  {
+    "id": 10011,
+    "name": "幸运儿",
+    "levelList": [
+      1,
+      2,
+      3
+    ],
+    "icon": "UI_RelicIcon_10011_4"
+  },
+  {
+    "id": 10012,
+    "name": "学士",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_10012_4"
+  },
+  {
+    "id": 10013,
+    "name": "游医",
+    "levelList": [
+      1,
+      2,
+      3
+    ],
+    "icon": "UI_RelicIcon_10013_4"
+  },
+  {
+    "id": 14001,
+    "name": "冰风迷途的勇士",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_14001_4"
+  },
+  {
+    "id": 14002,
+    "name": "平息鸣雷的尊者",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_14002_4"
+  },
+  {
+    "id": 14003,
+    "name": "渡过烈火的贤人",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_14003_4"
+  },
+  {
+    "id": 14004,
+    "name": "被怜爱的少女",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_14004_4"
+  },
+  {
+    "id": 15001,
+    "name": "角斗士的终幕礼",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15001_4"
+  },
+  {
+    "id": 15002,
+    "name": "翠绿之影",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15002_4"
+  },
+  {
+    "id": 15003,
+    "name": "流浪大地的乐团",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15003_4"
+  },
+  {
+    "id": 15005,
+    "name": "如雷的盛怒",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15005_4"
+  },
+  {
+    "id": 15006,
+    "name": "炽烈的炎之魔女",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15006_4"
+  },
+  {
+    "id": 15007,
+    "name": "昔日宗室之仪",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15007_4"
+  },
+  {
+    "id": 15008,
+    "name": "染血的骑士道",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15008_4"
+  },
+  {
+    "id": 15009,
+    "name": "祭火之人",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_15009_3"
+  },
+  {
+    "id": 15010,
+    "name": "祭水之人",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_15010_3"
+  },
+  {
+    "id": 15011,
+    "name": "祭雷之人",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_15011_3"
+  },
+  {
+    "id": 15013,
+    "name": "祭冰之人",
+    "levelList": [
+      3,
+      4
+    ],
+    "icon": "UI_RelicIcon_15013_3"
+  },
+  {
+    "id": 15014,
+    "name": "悠古的磐岩",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15014_4"
+  },
+  {
+    "id": 15015,
+    "name": "逆飞的流星",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15015_4"
+  },
+  {
+    "id": 15016,
+    "name": "沉沦之心",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15016_4"
+  },
+  {
+    "id": 15017,
+    "name": "千岩牢固",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15017_4"
+  },
+  {
+    "id": 15018,
+    "name": "苍白之火",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15018_4"
+  },
+  {
+    "id": 15019,
+    "name": "追忆之注连",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15019_4"
+  },
+  {
+    "id": 15020,
+    "name": "绝缘之旗印",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15020_4"
+  },
+  {
+    "id": 15021,
+    "name": "华馆梦醒形骸记",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15021_4"
+  },
+  {
+    "id": 15022,
+    "name": "海染砗磲",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15022_4"
+  },
+  {
+    "id": 15023,
+    "name": "辰砂往生录",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15023_4"
+  },
+  {
+    "id": 15024,
+    "name": "来歆余响",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15024_4"
+  },
+  {
+    "id": 15025,
+    "name": "深林的记忆",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15025_4"
+  },
+  {
+    "id": 15026,
+    "name": "饰金之梦",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15026_4"
+  },
+  {
+    "id": 15027,
+    "name": "沙上楼阁史话",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15027_4"
+  },
+  {
+    "id": 15028,
+    "name": "乐园遗落之花",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15028_4"
+  },
+  {
+    "id": 15029,
+    "name": "水仙之梦",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15029_4"
+  },
+  {
+    "id": 15030,
+    "name": "花海甘露之光",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15030_4"
+  },
+  {
+    "id": 15031,
+    "name": "逐影猎人",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15031_4"
+  },
+  {
+    "id": 15032,
+    "name": "黄金剧团",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15032_4"
+  },
+  {
+    "id": 15033,
+    "name": "昔时之歌",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15033_4"
+  },
+  {
+    "id": 15034,
+    "name": "回声之林夜话",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15034_4"
+  },
+  {
+    "id": 15035,
+    "name": "谐律异想断章",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15035_4"
+  },
+  {
+    "id": 15036,
+    "name": "未竟的遐思",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15036_4"
+  },
+  {
+    "id": 15037,
+    "name": "烬城勇者绘卷",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15037_4"
+  },
+  {
+    "id": 15038,
+    "name": "黑曜秘典",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15038_4"
+  },
+  {
+    "id": 15039,
+    "name": "长夜之誓",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15039_4"
+  },
+  {
+    "id": 15040,
+    "name": "深廊终曲",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15040_4"
+  },
+  {
+    "id": 15041,
+    "name": "穹境示现之夜",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15041_4"
+  },
+  {
+    "id": 15042,
+    "name": "纺月的夜歌",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15042_4"
+  },
+  {
+    "id": 15043,
+    "name": "晨星与月的晓歌",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15043_4"
+  },
+  {
+    "id": 15044,
+    "name": "风起之日",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15044_4"
+  },
+  {
+    "id": 15045,
+    "name": "天之美赐",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15045_4"
+  },
+  {
+    "id": 15046,
+    "name": "影中沉凝的幻灭",
+    "levelList": [
+      4,
+      5
+    ],
+    "icon": "UI_RelicIcon_15046_4"
+  }
+]

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitleText.Text" xml:space="preserve">
+    <value>Backpack 0.1.0</value>
+  </data>
+  <data name="PageTitleText.Text" xml:space="preserve">
+    <value>Genshin Inventory</value>
+  </data>
+  <data name="TabWeapon.Header" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
+  <data name="TabArtifact.Header" xml:space="preserve">
+    <value>Artifacts</value>
+  </data>
+  <data name="TabMaterial.Header" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="StatusWaiting" xml:space="preserve">
+    <value>Waiting for data…</value>
+  </data>
+  <data name="StatusReceived" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="StatusLaunching" xml:space="preserve">
+    <value>Launching…</value>
+  </data>
+  <data name="StatusLaunched" xml:space="preserve">
+    <value>Game launched, waiting for data…</value>
+  </data>
+  <data name="BtnSelectPath.Label" xml:space="preserve">
+    <value>Select Game Path</value>
+  </data>
+  <data name="BtnKillGame.Label" xml:space="preserve">
+    <value>Kill Process</value>
+  </data>
+  <data name="BtnSyncBag.Label" xml:space="preserve">
+    <value>Sync Backpack</value>
+  </data>
+  <data name="SyncBagDialogTitle" xml:space="preserve">
+    <value>Sync Backpack</value>
+  </data>
+  <data name="SyncBagDialogWaiting" xml:space="preserve">
+    <value>Game launched, waiting for backpack data…</value>
+  </data>
+  <data name="SyncBagDialogCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Equipped" xml:space="preserve">
+    <value>Equipped</value>
+  </data>
+  <data name="SlotFlower" xml:space="preserve">
+    <value>Flower of Life</value>
+  </data>
+  <data name="SlotPlume" xml:space="preserve">
+    <value>Plume of Death</value>
+  </data>
+  <data name="SlotSands" xml:space="preserve">
+    <value>Sands of Eon</value>
+  </data>
+  <data name="SlotGoblet" xml:space="preserve">
+    <value>Goblet of Eonothem</value>
+  </data>
+  <data name="SlotCirclet" xml:space="preserve">
+    <value>Circlet of Logos</value>
+  </data>
+  <data name="PathInvalidMsg" xml:space="preserve">
+    <value>Invalid path. Please select YuanShen.exe (CN server only).</value>
+  </data>
+  <data name="SelectPathTitle.Text" xml:space="preserve">
+    <value>Select Game Path</value>
+  </data>
+  <data name="SelectPathHint.Text" xml:space="preserve">
+    <value>Click an entry below to switch to that path</value>
+  </data>
+  <data name="AddPathHeader.Text" xml:space="preserve">
+    <value>Game Path</value>
+  </data>
+  <data name="AddPathDesc.Text" xml:space="preserve">
+    <value>Select YuanShen.exe (CN only), not launcher.exe</value>
+  </data>
+</root>

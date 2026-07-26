@@ -1,0 +1,143 @@
+using Backpack.Viewer.Localization;
+using Backpack.Viewer.Services;
+using Backpack.Viewer.ViewModels;
+using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Windows.Graphics;
+using Windows.Storage.Pickers;
+
+namespace Backpack.Viewer;
+
+public sealed partial class MainWindow : Window
+{
+    private readonly PipeListenerService     _pipe = new();
+    private readonly CancellationTokenSource _cts  = new();
+    private readonly BackpackDbService        _db   = new();
+    private readonly DispatcherTimer          _gameMonitor = new() { Interval = TimeSpan.FromSeconds(2) };
+    private ContentDialog?                    _syncDialog;
+
+    public MainViewModel ViewModel { get; }
+
+    public MainWindow()
+    {
+        var gps          = new GamePathService();
+        var meta         = new MaterialMetaService();
+        var weaponMeta   = new WeaponMetaService();
+        var artifactMeta = new ArtifactMetaService();
+        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, weaponMeta, artifactMeta, _db);
+        InitializeComponent();
+
+        Title = "Backpack 0.1.0";
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(TitleBarArea);
+        AppWindow.SetIcon(System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "logo.ico"));
+        AppWindow.Resize(new SizeInt32(1280, 800));
+
+        _pipe.PacketReceived += ViewModel.OnPacketReceived;
+        _ = _pipe.RunAsync(_cts.Token);
+
+        ViewModel.DataReceived += () => _syncDialog?.Hide();
+
+        _gameMonitor.Tick += (_, _) =>
+            ViewModel.IsGameRunning = System.Diagnostics.Process.GetProcessesByName("YuanShen").Length > 0;
+        _gameMonitor.Start();
+
+        Closed += (_, _) => { _cts.Cancel(); _db.Dispose(); _gameMonitor.Stop(); };
+    }
+
+    private async void OnPickGamePath(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetupError = string.Empty;
+
+        var picker = new FileOpenPicker();
+        WinRT.Interop.InitializeWithWindow.Initialize(
+            picker,
+            WinRT.Interop.WindowNative.GetWindowHandle(this));
+        picker.FileTypeFilter.Add(".exe");
+        picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+
+        var file = await picker.PickSingleFileAsync();
+        if (file is null) return;
+
+        if (!ViewModel.GamePathService.TryAdd(file.Path))
+            ViewModel.SetupError = Localized.Get("PathInvalidMsg");
+    }
+
+    private void OnPathItemClick(object sender, ItemClickEventArgs e)
+    {
+        if (e.ClickedItem is not string path) return;
+        ViewModel.GamePathService.Select(path);
+        ViewModel.HasSelectedPath = true;
+    }
+
+    private void OnRemovePathClick(object sender, RoutedEventArgs e)
+    {
+        if ((sender as Button)?.Tag is not string path) return;
+        ViewModel.GamePathService.Remove(path);
+        if (!ViewModel.GamePathService.HasSelection)
+            ViewModel.HasSelectedPath = false;
+    }
+
+    private void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e)
+    {
+        if (sender is not Microsoft.UI.Xaml.Controls.Image img) return;
+        img.Source = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(
+            new Uri("ms-appx:///Assets/Quality/UI_ItemIcon_None.png"));
+    }
+
+    private async void OnSyncBag(object sender, RoutedEventArgs e)
+    {
+        var gamePath = ViewModel.GamePathService.SelectedPath;
+        if (gamePath is null) return;
+
+        ViewModel.IsLaunching = true;
+        ViewModel.StatusText  = Localized.Get("StatusLaunching");
+
+        try
+        {
+            await GameLaunchService.LaunchAsync(gamePath);
+            ViewModel.IsGameRunning = true;
+        }
+        catch (Exception ex)
+        {
+            ViewModel.StatusText  = ex.Message;
+            ViewModel.IsLaunching = false;
+            return;
+        }
+
+        _syncDialog = new ContentDialog
+        {
+            XamlRoot            = Content.XamlRoot,
+            Title               = Localized.Get("SyncBagDialogTitle"),
+            CloseButtonText     = Localized.Get("SyncBagDialogCancel"),
+            DefaultButton       = ContentDialogButton.None,
+            Content             = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing     = 12,
+                Children =
+                {
+                    new ProgressRing { IsActive = true, Width = 24, Height = 24 },
+                    new TextBlock
+                    {
+                        Text              = Localized.Get("SyncBagDialogWaiting"),
+                        VerticalAlignment = VerticalAlignment.Center,
+                        FontFamily        = (Microsoft.UI.Xaml.Media.FontFamily)Application.Current.Resources["AppFontFamily"]
+                    }
+                }
+            }
+        };
+
+        await _syncDialog.ShowAsync();
+        _syncDialog       = null;
+        ViewModel.IsLaunching = false;
+    }
+
+    private void OnKillGame(object sender, RoutedEventArgs e)
+    {
+        foreach (var p in System.Diagnostics.Process.GetProcessesByName("YuanShen"))
+            try { p.Kill(); } catch { }
+        ViewModel.IsGameRunning = false;
+    }
+}
