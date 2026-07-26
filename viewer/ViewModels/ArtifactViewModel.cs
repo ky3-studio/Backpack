@@ -1,4 +1,5 @@
-﻿using Backpack.Viewer.Localization;
+﻿using Backpack.Viewer;
+using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -44,7 +45,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
                     new BitmapImage(new Uri($"ms-appx:///Assets/badge/badge-{Math.Clamp(s.Rolls.Length, 1, 11)}.ico")));
             }).ToList()
             : System.Array.Empty<SubStatItemViewModel>();
-        HasInstanceVisibility = hasInstance ? Visibility.Visible : Visibility.Collapsed;
+        HasInstanceVisibility = hasInstance.ToVisibility();
 
         if (hasInstance && !string.IsNullOrEmpty(entry.MainStat.TypeRaw))
         {
@@ -68,7 +69,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
 
         var allBonuses = meta.GetAllSetBonuses(entry.SetName);
         BonusText             = string.Join("\n", allBonuses.Select(b => $"{b.Count}件套：{b.Desc}"));
-        HasAnyBonusVisibility = allBonuses.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        HasAnyBonusVisibility = (allBonuses.Count > 0).ToVisibility();
 
         QualitySource = new BitmapImage(StaticResources.QualityIcon(entry.Rank));
     }

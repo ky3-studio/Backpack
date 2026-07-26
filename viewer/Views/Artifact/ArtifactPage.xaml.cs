@@ -38,25 +38,8 @@ public sealed partial class ArtifactPage : UserControl
 
     private void OnCardDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
-        if (sender is not FrameworkElement fe) return;
-        if (fe.Tag is not ArtifactViewModel vm || string.IsNullOrEmpty(vm.BonusText)) return;
-
-        var res   = Application.Current.Resources;
-        var panel = new StackPanel { MaxWidth = 380, Spacing = 8 };
-        panel.Children.Add(new TextBlock
-        {
-            Text         = vm.Source.SetName,
-            Style        = res["AppBodyStrongTextBlockStyle"] as Style,
-            TextWrapping = TextWrapping.WrapWholeWords
-        });
-        panel.Children.Add(new TextBlock
-        {
-            Text         = vm.BonusText,
-            Style        = res["AppCaptionTextBlockStyle"] as Style,
-            Foreground   = res["TextFillColorSecondaryBrush"] as Microsoft.UI.Xaml.Media.Brush,
-            TextWrapping = TextWrapping.WrapWholeWords
-        });
-        new Flyout { Content = panel }.ShowAt(fe);
+        if (sender is FrameworkElement fe && fe.Tag is ArtifactViewModel vm)
+            UiHelper.ShowDetailFlyout(fe, vm.Source.SetName, vm.BonusText);
     }
 
     private async void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e) =>

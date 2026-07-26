@@ -1,13 +1,7 @@
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class MaterialGroupViewModel
+public sealed class MaterialGroupViewModel : GroupViewModel<MaterialViewModel>
 {
-    public string                           Header { get; }
-    public IReadOnlyList<MaterialViewModel> Items  { get; }
-
     public MaterialGroupViewModel(string header, IReadOnlyList<MaterialViewModel> items)
-    {
-        Header = header;
-        Items  = items;
-    }
+        : base(header, items) { }
 }

@@ -1,3 +1,4 @@
+using Backpack.Viewer;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -37,7 +38,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
         RankDisplay = new string('\u2605', Math.Clamp(entry.Rank, 0, 5));
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
-        HasInstanceVisibility = hasInstance ? Visibility.Visible : Visibility.Collapsed;
+        HasInstanceVisibility = hasInstance.ToVisibility();
         TypeRankDisplay       = $"{entry.Type}  {RankDisplay}";
 
         if (hasInstance)
@@ -62,15 +63,9 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
             SkillDesc   = string.Empty;
         }
 
-        SubVisibility     = hasInstance && !string.IsNullOrEmpty(SubDisplay)
-            ? Visibility.Visible
-            : Visibility.Collapsed;
-        PassiveVisibility = !string.IsNullOrEmpty(PassiveName)
-            ? Visibility.Visible
-            : Visibility.Collapsed;
-        FlavorVisibility  = !string.IsNullOrEmpty(FlavorText)
-            ? Visibility.Visible
-            : Visibility.Collapsed;
+        SubVisibility     = (hasInstance && !string.IsNullOrEmpty(SubDisplay)).ToVisibility();
+        PassiveVisibility = (!string.IsNullOrEmpty(PassiveName)).ToVisibility();
+        FlavorVisibility  = (!string.IsNullOrEmpty(FlavorText)).ToVisibility();
 
         var iconUri = meta.GetIcon(entry.Id);
         if (iconUri is not null)

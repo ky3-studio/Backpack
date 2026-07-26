@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text.Json;
+using Backpack.Viewer;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
@@ -60,12 +61,12 @@ public sealed partial class MainViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(SetupErrorVisibility))]
     public partial string SetupError { get; set; } = string.Empty;
 
-    public Visibility DataVisibility         => HasSelectedPath ? Visibility.Visible   : Visibility.Collapsed;
-    public Visibility SetupVisibility        => HasSelectedPath ? Visibility.Collapsed : Visibility.Visible;
-    public Visibility ProgressRingVisibility => HasSelectedPath && IsLaunching ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility PathListVisibility     => GamePathService.Paths.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility SetupErrorVisibility   => string.IsNullOrEmpty(SetupError) ? Visibility.Collapsed : Visibility.Visible;
-    public Visibility LaunchButtonVisibility => HasSelectedPath ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility DataVisibility         => HasSelectedPath.ToVisibility();
+    public Visibility SetupVisibility        => HasSelectedPath.ToCollapsed();
+    public Visibility ProgressRingVisibility => (HasSelectedPath && IsLaunching).ToVisibility();
+    public Visibility PathListVisibility     => (GamePathService.Paths.Count > 0).ToVisibility();
+    public Visibility SetupErrorVisibility   => (!string.IsNullOrEmpty(SetupError)).ToVisibility();
+    public Visibility LaunchButtonVisibility => HasSelectedPath.ToVisibility();
     public bool       CanLaunch              => HasSelectedPath && !IsLaunching;
 
     public MainViewModel(DispatcherQueue dispatcher, GamePathService gamePathService,

@@ -1,3 +1,4 @@
+using Backpack.Viewer;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
@@ -22,9 +23,7 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
         Name      = meta.Name;
         Count     = count.ToString("N0");
         Character = meta.Character;
-        CharacterVisibility = string.IsNullOrEmpty(meta.Character)
-            ? Visibility.Collapsed
-            : Visibility.Visible;
+        CharacterVisibility = (!string.IsNullOrEmpty(meta.Character)).ToVisibility();
 
         _iconSource   = new BitmapImage(StaticResources.MaterialIcon(meta.Icon));
         QualitySource = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
