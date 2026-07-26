@@ -12,9 +12,9 @@ public sealed class ArtifactViewModel
     public string                    RankDisplay         { get; }
     public string                    Level               { get; }
     public string                    SlotRankEquipped    { get; }
+    public string                    MainStatValueDisplay { get; }
     public IReadOnlyList<SubStatItemViewModel> SubStatItems       { get; }
     public Visibility                HasInstanceVisibility { get; }
-    public Visibility                NoInstanceVisibility  { get; }
     public BitmapImage?  IconSource          { get; }
     public BitmapImage   QualitySource       { get; }
 
@@ -33,7 +33,18 @@ public sealed class ArtifactViewModel
               .ToList()
             : System.Array.Empty<SubStatItemViewModel>();
         HasInstanceVisibility = hasInstance ? Visibility.Visible : Visibility.Collapsed;
-        NoInstanceVisibility  = hasInstance ? Visibility.Collapsed : Visibility.Visible;
+
+        if (hasInstance && !string.IsNullOrEmpty(entry.MainStat.TypeRaw))
+        {
+            var v = meta.GetMainPropValue(entry.Rank, entry.Level, entry.MainStat.TypeRaw);
+            MainStatValueDisplay = IsMainPropPercent(entry.MainStat.TypeRaw)
+                ? $"{v * 100f:F1}%"
+                : ((int)Math.Round(v)).ToString();
+        }
+        else
+        {
+            MainStatValueDisplay = string.Empty;
+        }
 
         var slotParts = new System.Collections.Generic.List<string> { entry.Slot, RankDisplay };
         if (hasInstance && entry.Equipped) slotParts.Add(Localized.Get("Equipped"));
@@ -47,6 +58,9 @@ public sealed class ArtifactViewModel
             new Uri($"ms-appx:///Assets/Quality/{RankToQualityName(entry.Rank)}.png"));
     }
 
+    private static bool IsMainPropPercent(string propTypeRaw) => propTypeRaw is not
+        ("FIGHT_PROP_HP" or "FIGHT_PROP_ATTACK" or "FIGHT_PROP_DEFENSE" or "FIGHT_PROP_ELEMENT_MASTERY");
+
     private static string RollsToCircle(int rolls) => rolls switch
     {
         0 => "\u24ea",  // ⓪
@@ -56,12 +70,6 @@ public sealed class ArtifactViewModel
         4 => "\u2463",  // ④
         _ => rolls.ToString()
     };
-
-    private static string FormatSubStat(ArtifactSubStat s)
-    {
-        string val = s.Value == Math.Floor(s.Value) ? ((long)s.Value).ToString() : s.Value.ToString("F1");
-        return $"{s.Type}+{val}";
-    }
 
     private static string RankToQualityName(int rank) => rank switch
     {

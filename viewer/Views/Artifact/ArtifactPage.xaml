@@ -15,7 +15,6 @@
           <ItemsRepeater.Layout>
             <UniformGridLayout
                 MinItemWidth="220"
-                MinItemHeight="210"
                 MinColumnSpacing="8"
                 MinRowSpacing="8"
                 ItemsStretch="Fill" />
@@ -23,7 +22,7 @@
           <ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="vm:ArtifactViewModel">
               <Grid Padding="10,10" Style="{ThemeResource GridShimmerStyle}">
-                <StackPanel Spacing="0">
+                <StackPanel Spacing="6">
 
                   <Grid ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
@@ -51,6 +50,11 @@
                         VerticalAlignment="Center">
                       <TextBlock
                           Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                          Text="{x:Bind Source.SetName}"
+                          TextTrimming="CharacterEllipsis" />
+                      <TextBlock
+                          Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                          Style="{StaticResource AppCaptionTextBlockStyle}"
                           Text="{x:Bind Source.Name}"
                           TextTrimming="CharacterEllipsis" />
                       <TextBlock
@@ -64,17 +68,29 @@
                         Style="{StaticResource AppBodyStrongTextBlockStyle}"
                         Text="{x:Bind Level}"
                         TextAlignment="Right"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Visibility="{x:Bind HasInstanceVisibility}" />
                   </Grid>
 
                   <StackPanel Spacing="0" Visibility="{x:Bind HasInstanceVisibility}">
                     <Border
                         Height="1"
-                        Margin="0,8,0,6"
+                        Margin="0,2,0,6"
                         Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <TextBlock
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind Source.MainStat.Type}" />
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock
+                          Grid.Column="0"
+                          Style="{StaticResource AppCaptionTextBlockStyle}"
+                          Text="{x:Bind Source.MainStat.Type}" />
+                      <TextBlock
+                          Grid.Column="1"
+                          Style="{StaticResource AppCaptionTextBlockStyle}"
+                          Text="{x:Bind MainStatValueDisplay}" />
+                    </Grid>
                     <ItemsControl
                         Margin="0,6,0,0"
                         ItemsSource="{x:Bind SubStatItems}">
@@ -115,25 +131,6 @@
                         </DataTemplate>
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                  </StackPanel>
-
-                  <StackPanel Spacing="0" Visibility="{x:Bind NoInstanceVisibility}">
-                    <Border
-                        Height="1"
-                        Margin="0,8,0,8"
-                        Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <Border
-                        Height="12"
-                        Width="80"
-                        HorizontalAlignment="Left"
-                        Background="{ThemeResource SubtleFillColorSecondaryBrush}"
-                        CornerRadius="4" />
-                    <StackPanel Margin="0,8,0,0" Spacing="6">
-                      <Border Height="10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="4" />
-                      <Border Height="10" Width="160" HorizontalAlignment="Left" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="4" />
-                      <Border Height="10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="4" />
-                      <Border Height="10" Width="140" HorizontalAlignment="Left" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="4" />
-                    </StackPanel>
                   </StackPanel>
 
                 </StackPanel>

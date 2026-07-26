@@ -27,6 +27,7 @@
     <Content Include="Assets\Weapon\weapon_curves.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Weapon\weapon_promotes.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Artifact\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Artifact\artifact_main_props.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Material\materials.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />

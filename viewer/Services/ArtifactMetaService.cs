@@ -9,12 +9,15 @@ namespace Backpack.Viewer.Services;
 public sealed class ArtifactMetaService
 {
     private readonly Dictionary<string, (int SetId, string Icon, int MaxRank)> _map;
+    private readonly Dictionary<int, Dictionary<string, float[]>> _mainProps;
 
     public ArtifactMetaService()
     {
-        var jsonPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Artifact", "artifacts.json");
+        var dir = Path.Combine(AppContext.BaseDirectory, "Assets", "Artifact");
+
         try
         {
+            var jsonPath = Path.Combine(dir, "artifacts.json");
             if (File.Exists(jsonPath))
             {
                 var items = JsonSerializer.Deserialize<ArtifactMeta[]>(
@@ -26,11 +29,40 @@ public sealed class ArtifactMetaService
                         e => e.Name,
                         e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4),
                         StringComparer.OrdinalIgnoreCase);
-                return;
+            }
+            else
+            {
+                _map = [];
             }
         }
-        catch { }
-        _map = [];
+        catch { _map = []; }
+
+        try
+        {
+            var propsPath = Path.Combine(dir, "artifact_main_props.json");
+            if (File.Exists(propsPath))
+            {
+                var raw = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, float[]>>>(
+                    File.ReadAllText(propsPath),
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
+                _mainProps = raw.ToDictionary(
+                    kvp => int.Parse(kvp.Key),
+                    kvp => kvp.Value);
+            }
+            else
+            {
+                _mainProps = [];
+            }
+        }
+        catch { _mainProps = []; }
+    }
+
+    public float GetMainPropValue(int rank, int level, string propTypeRaw)
+    {
+        if (!_mainProps.TryGetValue(rank, out var byProp)) return 0f;
+        if (!byProp.TryGetValue(propTypeRaw, out var values)) return 0f;
+        var idx = Math.Clamp(level, 0, values.Length - 1);
+        return values[idx];
     }
 
     public Uri? GetIcon(string setName, string slot)
