@@ -26,7 +26,6 @@ public sealed partial class MaterialPage : UserControl
             fe.Tag = vm;
     }
 
-    private void OnRepeaterElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args) { }
 
     private async void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e) =>
         await GfxLoader.HandleIconFailedAsync(sender);

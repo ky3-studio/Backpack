@@ -1,14 +1,15 @@
-using System.ComponentModel;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class WeaponViewModel : INotifyPropertyChanged, IIconUpdatable
+public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [ObservableProperty]
+    private BitmapImage? _iconSource;
 
     private static readonly int[] MaxLevelByPromote = [20, 40, 50, 60, 70, 80, 90];
 
@@ -29,18 +30,6 @@ public sealed class WeaponViewModel : INotifyPropertyChanged, IIconUpdatable
     public Visibility   PassiveVisibility     { get; }
     public Visibility   FlavorVisibility      { get; }
     public BitmapImage  QualitySource         { get; }
-
-    private BitmapImage? _iconSource;
-    public  BitmapImage? IconSource
-    {
-        get => _iconSource;
-        set
-        {
-            if (_iconSource == value) return;
-            _iconSource = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IconSource)));
-        }
-    }
 
     public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta)
     {

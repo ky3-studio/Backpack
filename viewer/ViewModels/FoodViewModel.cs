@@ -1,32 +1,21 @@
-using System.ComponentModel;
 using Backpack.Viewer.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class FoodViewModel : INotifyPropertyChanged, IIconUpdatable
+public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public string       Name                { get; }
-    public string       Count               { get; }
-    public string       Character           { get; }
-    public string       IngredientsText     { get; }
-    public BitmapImage  QualitySource       { get; }
-    public Visibility   CharacterVisibility { get; }
-
+    [ObservableProperty]
     private BitmapImage? _iconSource;
-    public  BitmapImage? IconSource
-    {
-        get => _iconSource;
-        set
-        {
-            if (_iconSource == value) return;
-            _iconSource = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IconSource)));
-        }
-    }
+
+    public string      Name                { get; }
+    public string      Count               { get; }
+    public string      Character           { get; }
+    public string      IngredientsText     { get; }
+    public BitmapImage QualitySource       { get; }
+    public Visibility  CharacterVisibility { get; }
 
     public FoodViewModel(FoodMetaService.FoodMeta meta, ulong count)
     {

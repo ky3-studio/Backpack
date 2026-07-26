@@ -12,8 +12,7 @@
         CornerRadius="{ThemeResource ControlCornerRadius}">
       <ScrollViewer Padding="16">
         <ItemsRepeater ItemsSource="{x:Bind Weapons, Mode=OneWay}"
-                       ElementPrepared="OnRepeaterElementPrepared"
-                       ElementClearing="OnRepeaterElementClearing">
+                       ElementPrepared="OnRepeaterElementPrepared">
           <ItemsRepeater.Layout>
             <UniformGridLayout
                 MinItemWidth="200"

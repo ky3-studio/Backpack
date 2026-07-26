@@ -24,8 +24,7 @@
                     Text="{x:Bind Header}"
                     Style="{StaticResource AppBodyStrongTextBlockStyle}" />
                 <ItemsRepeater ItemsSource="{x:Bind Items}"
-                               ElementPrepared="OnRepeaterElementPrepared"
-                               ElementClearing="OnRepeaterElementClearing">
+                               ElementPrepared="OnRepeaterElementPrepared">
                   <ItemsRepeater.Layout>
                     <UniformGridLayout
                         MinItemWidth="260"

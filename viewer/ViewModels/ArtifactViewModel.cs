@@ -1,38 +1,27 @@
-﻿using System.ComponentModel;
-using Backpack.Viewer.Localization;
+﻿using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class ArtifactViewModel : INotifyPropertyChanged, IIconUpdatable
+public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public ArtifactEntry Source             { get; }
-    public string                    RankDisplay          { get; }
-    public string                    Level                { get; }
-    public string                    SlotRankEquipped     { get; }
-    public string                    MainStatValueDisplay { get; }
-    public string                    BonusText            { get; }
-    public IReadOnlyList<SubStatItemViewModel> SubStatItems        { get; }
-    public Visibility                HasInstanceVisibility { get; }
-    public Visibility                HasAnyBonusVisibility { get; }
-    public BitmapImage   QualitySource       { get; }
-
+    [ObservableProperty]
     private BitmapImage? _iconSource;
-    public  BitmapImage? IconSource
-    {
-        get => _iconSource;
-        set
-        {
-            if (_iconSource == value) return;
-            _iconSource = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IconSource)));
-        }
-    }
+
+    public ArtifactEntry                       Source                { get; }
+    public string                              RankDisplay           { get; }
+    public string                              Level                 { get; }
+    public string                              SlotRankEquipped      { get; }
+    public string                              MainStatValueDisplay  { get; }
+    public string                              BonusText             { get; }
+    public IReadOnlyList<SubStatItemViewModel> SubStatItems          { get; }
+    public Visibility                          HasInstanceVisibility { get; }
+    public Visibility                          HasAnyBonusVisibility { get; }
+    public BitmapImage                         QualitySource         { get; }
 
     public ArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
     {
