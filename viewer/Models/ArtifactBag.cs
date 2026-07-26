@@ -8,10 +8,10 @@ public sealed record ArtifactMainStat(
 );
 
 public sealed record ArtifactSubStat(
-    [property: JsonPropertyName("type")]    string Type,
-    [property: JsonPropertyName("typeRaw")] string TypeRaw,
-    [property: JsonPropertyName("value")]   double Value,
-    [property: JsonPropertyName("rolls")]   int    Rolls
+    [property: JsonPropertyName("type")]    string   Type,
+    [property: JsonPropertyName("typeRaw")] string   TypeRaw,
+    [property: JsonPropertyName("value")]   double   Value,
+    [property: JsonPropertyName("rolls")]   double[] Rolls
 );
 
 public sealed record ArtifactEntry(

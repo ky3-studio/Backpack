@@ -10,6 +10,7 @@ public sealed class ArtifactMetaService
 {
     private readonly Dictionary<string, (int SetId, string Icon, int MaxRank)> _map;
     private readonly Dictionary<string, Dictionary<string, string>>           _pieces;
+    private readonly Dictionary<string, Dictionary<string, string>>           _bonuses;
     private readonly Dictionary<int, Dictionary<string, float[]>>             _mainProps;
 
     public ArtifactMetaService()
@@ -36,14 +37,21 @@ public sealed class ArtifactMetaService
                         e => e.Name,
                         e => e.Pieces!,
                         StringComparer.OrdinalIgnoreCase);
+                _bonuses = items
+                    .Where(e => !string.IsNullOrEmpty(e.Name) && e.Bonuses is { Count: > 0 })
+                    .ToDictionary(
+                        e => e.Name,
+                        e => e.Bonuses!,
+                        StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                _map    = [];
-                _pieces = [];
+                _map     = [];
+                _pieces  = [];
+                _bonuses = [];
             }
         }
-        catch { _map = []; _pieces = []; }
+        catch { _map = []; _pieces = []; _bonuses = []; }
 
         try
         {
@@ -63,6 +71,23 @@ public sealed class ArtifactMetaService
             }
         }
         catch { _mainProps = []; }
+    }
+
+    public string GetSetBonus(string setName, int pieceCount)
+    {
+        if (_bonuses.TryGetValue(setName, out var byCount) &&
+            byCount.TryGetValue(pieceCount.ToString(), out var desc))
+            return desc;
+        return string.Empty;
+    }
+
+    public IReadOnlyList<(int Count, string Desc)> GetAllSetBonuses(string setName)
+    {
+        if (!_bonuses.TryGetValue(setName, out var byCount)) return [];
+        return [.. byCount
+            .Select(kvp => (int.TryParse(kvp.Key, out var n) ? n : 0, kvp.Value))
+            .Where(t => t.Item1 > 0 && !string.IsNullOrEmpty(t.Value))
+            .OrderBy(t => t.Item1)];
     }
 
     public string GetPieceName(string setName, string slot)
@@ -136,21 +161,22 @@ public sealed class ArtifactMetaService
         _   => Localized.Get("SlotFlower"),
     };
 
-    private static int SlotToIndex(string slot) => slot switch
+    private static int SlotToIndex(string slot)
     {
-        "生之花" or "Flower of Life"     => 4,
-        "死之羽" or "Plume of Death"     => 2,
-        "时之沙" or "Sands of Eon"       => 5,
-        "空之杯" or "Goblet of Eonothem" => 1,
-        "理之冠" or "Circlet of Logos"   => 3,
-        _                                    => 4,
-    };
+        if (slot == Localized.Get("SlotFlower"))  return 4;
+        if (slot == Localized.Get("SlotPlume"))   return 2;
+        if (slot == Localized.Get("SlotSands"))   return 5;
+        if (slot == Localized.Get("SlotGoblet"))  return 1;
+        if (slot == Localized.Get("SlotCirclet")) return 3;
+        return 4;
+    }
 
     private sealed record ArtifactMeta(
         [property: JsonPropertyName("id")]        int    Id,
         [property: JsonPropertyName("name")]      string Name,
         [property: JsonPropertyName("levelList")] int[]  LevelList,
         [property: JsonPropertyName("icon")]      string Icon,
-        [property: JsonPropertyName("pieces")]    Dictionary<string, string>? Pieces
+        [property: JsonPropertyName("pieces")]    Dictionary<string, string>? Pieces,
+        [property: JsonPropertyName("bonuses")]   Dictionary<string, string>? Bonuses
     );
 }

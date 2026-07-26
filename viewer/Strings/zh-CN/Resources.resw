@@ -90,4 +90,7 @@
   <data name="AddPathDesc.Text" xml:space="preserve">
     <value>请选择国服游戏本体（YuanShen.exe）而非启动器（launcher.exe）</value>
   </data>
+  <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
+    <value>基础攻击力</value>
+  </data>
 </root>

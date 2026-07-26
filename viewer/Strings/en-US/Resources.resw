@@ -90,4 +90,7 @@
   <data name="AddPathDesc.Text" xml:space="preserve">
     <value>Select YuanShen.exe (CN only), not launcher.exe</value>
   </data>
+  <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
+    <value>Base ATK</value>
+  </data>
 </root>

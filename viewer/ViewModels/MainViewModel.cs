@@ -25,13 +25,14 @@ public sealed partial class MainViewModel : ObservableObject
     public ObservableCollection<MaterialGroupViewModel> MaterialGroups { get; } = [];
 
     private readonly Dictionary<uint, ulong>      _activeCounts = [];
+    private const string PropKeyResin = "原粹树脂";
     private static readonly Dictionary<string, uint> PropIdMap = new()
     {
         ["原石"]    = 201,
         ["摩拉"]    = 202,
         ["创世结晶"] = 203,
         ["洞天宝钱"] = 204,
-        ["原粹树脂"] = 106,
+        [PropKeyResin] = 106,
     };
 
     [ObservableProperty]
@@ -173,7 +174,7 @@ public sealed partial class MainViewModel : ObservableObject
                 foreach (var (key, val) in dict)
                 {
                     if (!PropIdMap.TryGetValue(key, out var id)) continue;
-                    _activeCounts[id] = key == "原粹树脂" ? (ulong)(val / 100) : (ulong)val;
+                    _activeCounts[id] = key == PropKeyResin ? (ulong)(val / 100) : (ulong)val;
                 }
                 _db.SaveMaterials(_activeCounts);
                 RebuildMaterialGroups();

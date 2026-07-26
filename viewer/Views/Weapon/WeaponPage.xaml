@@ -64,9 +64,9 @@
                         <ColumnDefinition Width="Auto" />
                       </Grid.ColumnDefinitions>
                       <TextBlock
+                          x:Uid="WeaponBaseAtkLabel"
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                          Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="基础攻击力" />
+                          Style="{StaticResource AppCaptionTextBlockStyle}" />
                       <TextBlock
                           Grid.Column="1"
                           Style="{StaticResource AppBodyStrongTextBlockStyle}"

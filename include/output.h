@@ -36,8 +36,9 @@ static constexpr const char* kArtLevel         = "      \"level\": %d,\n";
 static constexpr const char* kArtRank          = "      \"rank\": %d,\n";
 static constexpr const char* kArtMainStat      =
     "      \"mainStat\": { \"type\": \"%s\", \"typeRaw\": \"%s\" },\n";
-static constexpr const char* kArtSubStat       =
-    "        { \"type\": \"%s\", \"typeRaw\": \"%s\", \"value\": %s, \"rolls\": %d }%s\n";
+static constexpr const char* kArtSubStatHead   =
+    "        { \"type\": \"%s\", \"typeRaw\": \"%s\", \"value\": %s, \"rolls\": [";
+static constexpr const char* kArtSubStatTail   = "]}%s\n";
 static constexpr const char* kArtClose         = "    }%s\n";
 static constexpr const char* kArtItemOpen      = "    {\n";
 static constexpr const char* kArtSubStatsOpen  = "      \"subStats\": [\n";

@@ -112,25 +112,35 @@
                                 Margin="8,0"
                                 Style="{StaticResource AppCaptionTextBlockStyle}"
                                 Text="{x:Bind ValueDisplay}" />
-                            <Border
+                            <Image
                                 Grid.Column="2"
                                 Width="20"
                                 Height="20"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Background="{ThemeResource SubtleFillColorSecondaryBrush}"
-                                CornerRadius="10">
-                              <TextBlock
-                                  FontSize="11"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                  Text="{x:Bind RollsText}" />
-                            </Border>
+                                Source="{x:Bind BadgeSource}">
+                              <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind RollsDetail}" />
+                              </ToolTipService.ToolTip>
+                            </Image>
                           </Grid>
                         </DataTemplate>
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                  </StackPanel>
+
+                  <StackPanel
+                      Spacing="4"
+                      Visibility="{x:Bind HasAnyBonusVisibility}">
+                    <Border
+                        Height="1"
+                        Margin="0,2,0,0"
+                        Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                    <TextBlock
+                        Style="{StaticResource AppCaptionTextBlockStyle}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind BonusText}"
+                        TextWrapping="WrapWholeWords" />
                   </StackPanel>
 
                 </StackPanel>

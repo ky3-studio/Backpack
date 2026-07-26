@@ -1,4 +1,4 @@
-using Backpack.Viewer.Localization;
+﻿using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml;
@@ -13,8 +13,10 @@ public sealed class ArtifactViewModel
     public string                    Level                { get; }
     public string                    SlotRankEquipped     { get; }
     public string                    MainStatValueDisplay { get; }
+    public string                    BonusText            { get; }
     public IReadOnlyList<SubStatItemViewModel> SubStatItems        { get; }
     public Visibility                HasInstanceVisibility { get; }
+    public Visibility                HasAnyBonusVisibility { get; }
     public BitmapImage?  IconSource          { get; }
     public BitmapImage   QualitySource       { get; }
 
@@ -26,11 +28,16 @@ public sealed class ArtifactViewModel
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         Level        = hasInstance ? $"+{entry.Level}" : string.Empty;
         SubStatItems = hasInstance
-            ? entry.SubStats.Select(s => new SubStatItemViewModel(
-                s.Type,
-                s.Value == Math.Floor(s.Value) ? ((long)s.Value).ToString() : s.Value.ToString("F1"),
-                RollsToCircle(s.Rolls)))
-              .ToList()
+            ? entry.SubStats.Select(s =>
+            {
+                static string Fmt(double v) =>
+                    v == Math.Floor(v) ? ((long)v).ToString() : v.ToString("F1");
+                return new SubStatItemViewModel(
+                    s.Type,
+                    Fmt(s.Value),
+                    new BitmapImage(new Uri($"ms-appx:///Assets/badge/badge-{Math.Clamp(s.Rolls.Length, 1, 11)}.ico")),
+                    string.Join(" + ", s.Rolls.Select(Fmt)));
+            }).ToList()
             : System.Array.Empty<SubStatItemViewModel>();
         HasInstanceVisibility = hasInstance ? Visibility.Visible : Visibility.Collapsed;
 
@@ -54,22 +61,16 @@ public sealed class ArtifactViewModel
         if (iconUri is not null)
             IconSource = new BitmapImage(iconUri);
 
+        var allBonuses = meta.GetAllSetBonuses(entry.SetName);
+        BonusText             = string.Join("\n", allBonuses.Select(b => $"{b.Count}件套：{b.Desc}"));
+        HasAnyBonusVisibility = allBonuses.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
         QualitySource = new BitmapImage(
             new Uri($"ms-appx:///Assets/Quality/{RankToQualityName(entry.Rank)}.png"));
     }
 
     private static bool IsMainPropPercent(string propTypeRaw) => propTypeRaw is not
         ("FIGHT_PROP_HP" or "FIGHT_PROP_ATTACK" or "FIGHT_PROP_DEFENSE" or "FIGHT_PROP_ELEMENT_MASTERY");
-
-    private static string RollsToCircle(int rolls) => rolls switch
-    {
-        0 => "\u24ea",  // ⓪
-        1 => "\u2460",  // ①
-        2 => "\u2461",  // ②
-        3 => "\u2462",  // ③
-        4 => "\u2463",  // ④
-        _ => rolls.ToString()
-    };
 
     private static string RankToQualityName(int rank) => rank switch
     {

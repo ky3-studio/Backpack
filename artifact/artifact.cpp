@@ -14,10 +14,9 @@
 namespace Artifact {
 
 struct SubStat {
-    char   type[64];
-    char   propType[64];
-    double total;
-    int    rolls;
+    char                type[64];
+    char                propType[64];
+    std::vector<double> rollValues;
 };
 
 struct Inst {
@@ -90,14 +89,20 @@ static std::string BuildJson(const std::vector<Inst>& arts) {
         out += Output::kArtSubStatsOpen;
         for (size_t si = 0; si < a.subs.size(); ++si) {
             const SubStat& ss = a.subs[si];
+            bool   isPct = ArtifactDb::PropIsPercent(ss.propType);
+            double total = 0.0;
+            for (double v : ss.rollValues) total += v;
             char valBuf[32];
-            if (ArtifactDb::PropIsPercent(ss.propType))
-                sprintf_s(valBuf, Output::kArtSubStatFmtPct, ss.total);
-            else
-                sprintf_s(valBuf, Output::kArtSubStatFmtInt, ss.total);
-            sprintf_s(buf, Output::kArtSubStat,
-                ss.type, ss.propType, valBuf, ss.rolls,
-                (si + 1 < a.subs.size()) ? "," : "");
+            sprintf_s(valBuf, isPct ? Output::kArtSubStatFmtPct : Output::kArtSubStatFmtInt, total);
+            sprintf_s(buf, Output::kArtSubStatHead, ss.type, ss.propType, valBuf);
+            out += buf;
+            for (size_t ri = 0; ri < ss.rollValues.size(); ++ri) {
+                char rv[32];
+                sprintf_s(rv, isPct ? "%.2f" : "%.0f", ss.rollValues[ri]);
+                if (ri > 0) out += ",";
+                out += rv;
+            }
+            sprintf_s(buf, Output::kArtSubStatTail, (si + 1 < a.subs.size()) ? "," : "");
             out += buf;
         }
         out += Output::kArtSubStatsClose;
@@ -166,8 +171,7 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
                             bool found = false;
                             for (SubStat& ss : inst.subs) {
                                 if (strcmp(ss.propType, pt ? pt : "") == 0) {
-                                    ss.total += dv;
-                                    ss.rolls++;
+                                    ss.rollValues.push_back(dv);
                                     found = true;
                                     break;
                                 }
@@ -181,9 +185,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
                                     sprintf_s(ss.propType, ArtifactDb::kFallbackId, aid);
                                     sprintf_s(ss.type,     ArtifactDb::kFallbackId, aid);
                                 }
-                                ss.total = dv;
-                                ss.rolls = 1;
-                                inst.subs.push_back(ss);
+                                ss.rollValues.push_back(dv);
+                                inst.subs.push_back(std::move(ss));
                             }
                         }
                     }
