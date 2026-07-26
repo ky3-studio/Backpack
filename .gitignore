@@ -1,4 +1,16 @@
 *.obj
+*.iobj
+*.ipdb
 *.exp
 *.lib
+*.pdb
+*.tlog
+
+x64/Release/obj/
+x64/Debug/
+
+.vs/
+*.user
+*.suo
+
 build.bat
