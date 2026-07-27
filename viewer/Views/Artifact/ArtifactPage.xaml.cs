@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -41,7 +40,4 @@ public sealed partial class ArtifactPage : UserControl
         if (sender is FrameworkElement fe && fe.Tag is ArtifactViewModel vm)
             UiHelper.ShowDetailFlyout(fe, vm.Source.SetName, vm.BonusText);
     }
-
-    private async void OnItemIconFailed(object sender, ExceptionRoutedEventArgs e) =>
-        await GfxLoader.HandleIconFailedAsync(sender);
 }

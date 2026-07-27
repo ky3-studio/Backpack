@@ -65,7 +65,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
 
         var iconUri = meta.GetIcon(entry.SetName, entry.Slot);
         if (iconUri is not null)
-            _iconSource = new BitmapImage(iconUri);
+            GfxLoader.BeginLoad(iconUri, this);
 
         var allBonuses = meta.GetAllSetBonuses(entry.SetName);
         BonusText             = string.Join("\n", allBonuses.Select(b => $"{b.Count}件套：{b.Desc}"));

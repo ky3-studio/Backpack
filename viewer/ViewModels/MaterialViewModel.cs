@@ -21,7 +21,7 @@ public sealed partial class MaterialViewModel : ObservableObject, IIconUpdatable
 
         var (iconUri, rank) = meta.GetMeta(entry.Id);
         if (iconUri is not null)
-            _iconSource = new BitmapImage(iconUri);
+            GfxLoader.BeginLoad(iconUri, this);
 
         QualitySource = new BitmapImage(StaticResources.QualityIcon(rank));
     }

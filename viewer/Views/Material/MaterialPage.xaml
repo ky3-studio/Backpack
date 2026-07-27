@@ -23,8 +23,7 @@
                 <TextBlock
                     Text="{x:Bind Header}"
                     Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-                <ItemsRepeater ItemsSource="{x:Bind Items}"
-                               ElementPrepared="OnRepeaterElementPrepared">
+                <ItemsRepeater ItemsSource="{x:Bind Items}">
                   <ItemsRepeater.Layout>
                     <UniformGridLayout
                         MinItemWidth="260"
@@ -55,8 +54,7 @@
                               Width="36"
                               Height="36"
                               Source="{x:Bind IconSource, Mode=OneWay}"
-                              Stretch="Uniform"
-                              ImageFailed="OnItemIconFailed" />
+                              Stretch="Uniform" />
                         </Grid>
                         <TextBlock
                             Grid.Column="1"

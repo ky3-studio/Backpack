@@ -11,8 +11,7 @@
         BorderThickness="0"
         CornerRadius="{ThemeResource ControlCornerRadius}">
       <ScrollViewer Padding="16">
-        <ItemsRepeater ItemsSource="{x:Bind Weapons, Mode=OneWay}"
-                       ElementPrepared="OnRepeaterElementPrepared">
+        <ItemsRepeater ItemsSource="{x:Bind Weapons, Mode=OneWay}">
           <ItemsRepeater.Layout>
             <UniformGridLayout
                 MinItemWidth="200"
@@ -36,8 +35,7 @@
                         Width="58"
                         Height="58"
                         Source="{x:Bind IconSource, Mode=OneWay}"
-                        Stretch="Uniform"
-                        ImageFailed="OnItemIconFailed" />
+                        Stretch="Uniform" />
                   </Grid>
 
                   <TextBlock

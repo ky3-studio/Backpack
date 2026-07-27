@@ -57,8 +57,7 @@
                               Width="36"
                               Height="36"
                               Source="{x:Bind IconSource, Mode=OneWay}"
-                              Stretch="Uniform"
-                              ImageFailed="OnItemIconFailed" />
+                              Stretch="Uniform" />
                         </Grid>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
                           <TextBlock

@@ -25,7 +25,7 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
         Character = meta.Character;
         CharacterVisibility = (!string.IsNullOrEmpty(meta.Character)).ToVisibility();
 
-        _iconSource   = new BitmapImage(StaticResources.MaterialIcon(meta.Icon));
+        GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);
         QualitySource = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
 
         IngredientsText = string.Join("  ", meta.Ingredients.Select(i => $"{i.Name} \u00d7{i.Amount}"));

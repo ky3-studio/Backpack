@@ -12,7 +12,7 @@ public sealed partial class App : Application
         InitializeComponent();
     }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
         string[] cmdArgs = Environment.GetCommandLineArgs();
         if (cmdArgs.Length >= 3 && cmdArgs[1] == "--elevated-inject")
@@ -20,6 +20,7 @@ public sealed partial class App : Application
             Environment.Exit(GameLaunchService.RunElevatedInjection(cmdArgs[2]));
             return;
         }
+        await GfxLoader.WarmupAsync();
         _window = new MainWindow();
         _window.Activate();
     }
