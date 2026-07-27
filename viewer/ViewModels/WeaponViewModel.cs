@@ -35,7 +35,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta)
     {
         Source      = entry;
-        RankDisplay = new string('\u2605', Math.Clamp(entry.Rank, 0, 5));
+        RankDisplay = new string('★', Math.Clamp(entry.Rank, 0, 5));
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         HasInstanceVisibility = hasInstance.ToVisibility();

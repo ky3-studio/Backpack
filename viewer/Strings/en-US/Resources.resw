@@ -171,4 +171,16 @@
   <data name="FoodTabSweet" xml:space="preserve">
     <value>Sweet Flowers</value>
   </data>
+  <data name="MatTabCommon" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="MatTabOre" xml:space="preserve">
+    <value>Ores</value>
+  </data>
+  <data name="MatTabFish" xml:space="preserve">
+    <value>Fish</value>
+  </data>
+  <data name="MatTabBait" xml:space="preserve">
+    <value>Fishing Bait</value>
+  </data>
 </root>

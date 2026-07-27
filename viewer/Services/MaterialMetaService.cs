@@ -17,6 +17,10 @@ public sealed class MaterialMetaService
         ("materials_refine.json",           "MatTabRefine"),
         ("materials_local_specialty.json",  "MatTabLocalSpecialty"),
         ("materials_ingredient.json",       "MatTabIngredient"),
+        ("materials_common.json",           "MatTabCommon"),
+        ("materials_ore.json",              "MatTabOre"),
+        ("materials_fish.json",             "MatTabFish"),
+        ("materials_bait.json",             "MatTabBait"),
     ];
 
     private readonly Dictionary<uint, MetaEntry> _map = [];

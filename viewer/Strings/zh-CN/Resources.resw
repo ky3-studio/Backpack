@@ -171,4 +171,16 @@
   <data name="FoodTabSweet" xml:space="preserve">
     <value>糖雕</value>
   </data>
+  <data name="MatTabCommon" xml:space="preserve">
+    <value>素材</value>
+  </data>
+  <data name="MatTabOre" xml:space="preserve">
+    <value>矿石</value>
+  </data>
+  <data name="MatTabFish" xml:space="preserve">
+    <value>鱼</value>
+  </data>
+  <data name="MatTabBait" xml:space="preserve">
+    <value>鱼饵</value>
+  </data>
 </root>

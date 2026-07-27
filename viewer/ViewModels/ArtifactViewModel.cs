@@ -27,7 +27,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public ArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
     {
         Source      = entry;
-        RankDisplay = new string('\u2605', Math.Clamp(entry.Rank, 0, 5));
+        RankDisplay = new string('★', Math.Clamp(entry.Rank, 0, 5));
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         Level        = hasInstance ? $"+{entry.Level}" : string.Empty;
