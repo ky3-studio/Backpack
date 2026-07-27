@@ -17,8 +17,8 @@
 
     <Grid x:Name="TitleBarArea" Grid.Row="0">
       <TextBlock
+          x:Name="AppTitleText"
           Margin="16,0,0,0"
-          x:Uid="AppTitleText"
           Style="{StaticResource AppCaptionTextBlockStyle}"
           VerticalAlignment="Center" />
     </Grid>

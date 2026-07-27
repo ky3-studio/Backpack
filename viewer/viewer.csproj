@@ -17,7 +17,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <SatelliteResourceLanguages>zh-CN;en-US</SatelliteResourceLanguages>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.0</Version>
     <FileVersion>1.0.0.0</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <DebugType>none</DebugType>
@@ -61,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.3.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.2.251219" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
@@ -78,6 +78,18 @@
   <Target Name="IncludePriInPublish" AfterTargets="ComputeFilesToPublish">
     <ItemGroup>
       <ResolvedFileToPublish Include="$(OutDir)$(AssemblyName).pri" RelativePath="$(AssemblyName).pri" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GenerateVersionConstants" BeforeTargets="MarkupCompilePass1;CoreCompile">
+    <ItemGroup>
+      <_VLine Include="// &lt;auto-generated/&gt;" />
+      <_VLine Include="namespace Backpack.Viewer%3B" />
+      <_VLine Include="internal static class AppVersion { public const string Value = &quot;$(Version)&quot;%3B }" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(IntermediateOutputPath)AppVersion.g.cs" Lines="@(_VLine)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)AppVersion.g.cs" />
     </ItemGroup>
   </Target>
 
