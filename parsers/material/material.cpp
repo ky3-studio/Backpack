@@ -1,7 +1,6 @@
-#include "material.h"
-#include "../db/material_ids.h"
-#include "../include/proto.h"
-#include "../include/output.h"
+#include "../../db/material/material_ids.h"
+#include "../../include/proto.h"
+#include "../../include/output.h"
 
 #include <cstdint>
 #include <cstdio>

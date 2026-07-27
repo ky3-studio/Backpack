@@ -1,7 +1,6 @@
-#include "weapon.h"
-#include "../include/proto.h"
-#include "../include/output.h"
-#include "../db/weapon_db.h"
+#include "../../include/proto.h"
+#include "../../include/output.h"
+#include "../../db/weapon/weapon_db.h"
 
 #include <cstdint>
 #include <cstdio>

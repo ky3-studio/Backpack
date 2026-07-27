@@ -5,7 +5,6 @@ namespace Output {
 static constexpr const char* kWeapon   = "weapon_bag.json";
 static constexpr const char* kArtifact = "artifact_bag.json";
 static constexpr const char* kMaterial = "material_bag.json";
-static constexpr const char* kProp     = "player_prop.json";
 
 static constexpr const char* kWeaponHeader   = "{\n  \"weapons\": [\n";
 static constexpr const char* kArtifactHeader = "{\n  \"artifacts\": [\n";
@@ -19,12 +18,6 @@ static constexpr const char* kWeaponItem =
 
 static constexpr const char* kMaterialItem =
     "    { \"id\": %u, \"name\": \"%s\", \"category\": \"%s\", \"count\": %llu }%s\n";
-
-static constexpr const char* kPropInt    = "  \"%s\": %lld";
-static constexpr const char* kPropFloat  = "  \"%s\": %.1f";
-static constexpr const char* kPropHeader = "{\n";
-static constexpr const char* kPropSep    = ",\n";
-static constexpr const char* kPropFooter = "\n}\n";
 
 static constexpr const char* kArtId            = "      \"id\": %u,\n";
 static constexpr const char* kArtGuid          = "      \"guid\": \"%llu\",\n";

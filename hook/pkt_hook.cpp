@@ -1,8 +1,5 @@
 #include "hook.h"
-#include "../weapon/weapon.h"
-#include "../artifact/artifact.h"
-#include "../material/material.h"
-#include "../prop/prop.h"
+#include "../include/parsers.h"
 #include "../include/offsets.h"
 #include "../include/sigscan.h"
 #include "../include/io.h"
@@ -33,23 +30,13 @@ static int __fastcall Detour(uint8_t* val, int startIndex) {
 
     if (cmdId == Pkt::kCmdStore && dataLen > 0 && dataLen < Pkt::kMaxStoreLen) {
         const uint8_t* body = p + Pkt::kBodyPrefix + headLen;
-        std::string wJson = Weapon::OnPacket(body, dataLen);
-        std::string aJson = Artifact::OnPacket(body, dataLen);
-        std::string mJson = Material::OnPacket(body, dataLen);
-        IO::WriteJson(g_outDir, Output::kWeapon,   wJson.c_str(), wJson.size());
-        IO::WriteJson(g_outDir, Output::kArtifact, aJson.c_str(), aJson.size());
-        IO::WriteJson(g_outDir, Output::kMaterial, mJson.c_str(), mJson.size());
-        IPC::Push("weapon",   wJson.c_str(), wJson.size());
-        IPC::Push("artifact", aJson.c_str(), aJson.size());
-        IPC::Push("material", mJson.c_str(), mJson.size());
-    }
-    if (cmdId == Pkt::kCmdProp && dataLen > 0 && dataLen < Pkt::kMaxPropLen) {
-        const uint8_t* body = p + Pkt::kBodyPrefix + headLen;
-        std::string pJson = Prop::OnPacket(body, dataLen);
-        if (!pJson.empty()) {
-            IO::WriteJson(g_outDir, Output::kProp, pJson.c_str(), pJson.size());
-            IPC::Push("prop", pJson.c_str(), pJson.size());
-        }
+        auto emit = [&](const char* ev, const char* file, const std::string& json) {
+            IO::WriteJson(g_outDir, file, json.c_str(), json.size());
+            IPC::Push(ev, json.c_str(), json.size());
+        };
+        emit("weapon",   Output::kWeapon,   Weapon::OnPacket(body, dataLen));
+        emit("artifact", Output::kArtifact, Artifact::OnPacket(body, dataLen));
+        emit("material", Output::kMaterial, Material::OnPacket(body, dataLen));
     }
     return ret;
 }

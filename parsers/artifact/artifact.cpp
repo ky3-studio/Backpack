@@ -1,8 +1,7 @@
-#include "artifact.h"
-#include "../include/proto.h"
-#include "../include/output.h"
-#include "../db/artifact_db.h"
-#include "../db/artifact_set_db.h"
+#include "../../include/proto.h"
+#include "../../include/output.h"
+#include "../../db/artifact/artifact_db.h"
+#include "../../db/artifact/artifact_set_db.h"
 
 #include <cstdint>
 #include <cstdio>

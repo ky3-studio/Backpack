@@ -65,35 +65,19 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <ClInclude Include="artifact\artifact.h" />
-    <ClInclude Include="db\artifact_db.h" />
-    <ClInclude Include="db\artifact_set_db.h" />
-    <ClInclude Include="db\material_ids.h" />
-    <ClInclude Include="db\prop_ids.h" />
-    <ClInclude Include="db\weapon_db.h" />
-    <ClInclude Include="db\rows\adventure.h" />
-    <ClInclude Include="db\rows\ascension.h" />
-    <ClInclude Include="db\rows\char_lvl.h" />
-    <ClInclude Include="db\rows\common.h" />
-    <ClInclude Include="db\rows\consumable.h" />
-    <ClInclude Include="db\rows\cooking.h" />
-    <ClInclude Include="db\rows\enhance.h" />
-    <ClInclude Include="db\rows\exp.h" />
-    <ClInclude Include="db\rows\forging.h" />
-    <ClInclude Include="db\rows\gadget.h" />
-    <ClInclude Include="db\rows\potion.h" />
-    <ClInclude Include="db\rows\quest.h" />
-    <ClInclude Include="db\rows\sigil.h" />
-    <ClInclude Include="db\rows\specialty_fontaine.h" />
-    <ClInclude Include="db\rows\specialty_inazuma.h" />
-    <ClInclude Include="db\rows\specialty_liyue.h" />
-    <ClInclude Include="db\rows\specialty_mondstadt.h" />
-    <ClInclude Include="db\rows\specialty_natlan.h" />
-    <ClInclude Include="db\rows\specialty_nodkrai.h" />
-    <ClInclude Include="db\rows\specialty_sumeru.h" />
-    <ClInclude Include="db\rows\talent.h" />
-    <ClInclude Include="db\rows\weapon_asc.h" />
-    <ClInclude Include="db\rows\weapon_enhance.h" />
+    <ClInclude Include="include\parsers.h" />
+    <ClInclude Include="db\artifact\artifact_db.h" />
+    <ClInclude Include="db\artifact\artifact_set_db.h" />
+    <ClInclude Include="db\material\material_ids.h" />
+    <ClInclude Include="db\weapon\weapon_db.h" />
+    <ClInclude Include="db\material\rows\ascension.h" />
+    <ClInclude Include="db\material\rows\char_exp.h" />
+    <ClInclude Include="db\material\rows\cooking.h" />
+    <ClInclude Include="db\material\rows\food.h" />
+    <ClInclude Include="db\material\rows\specialty.h" />
+    <ClInclude Include="db\material\rows\talent.h" />
+    <ClInclude Include="db\material\rows\weapon_asc.h" />
+    <ClInclude Include="db\material\rows\weapon_enhance.h" />
     <ClInclude Include="hook\hook.h" />
     <ClInclude Include="include\io.h" />
     <ClInclude Include="include\ipc.h" />
@@ -101,9 +85,6 @@
     <ClInclude Include="include\output.h" />
     <ClInclude Include="include\proto.h" />
     <ClInclude Include="include\sigscan.h" />
-    <ClInclude Include="material\material.h" />
-    <ClInclude Include="prop\prop.h" />
-    <ClInclude Include="weapon\weapon.h" />
     <ClInclude Include="third_party\MinHook\buffer.h" />
     <ClInclude Include="third_party\MinHook\hde64.h" />
     <ClInclude Include="third_party\MinHook\MinHook.h" />
@@ -113,12 +94,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ClCompile Include="artifact\artifact.cpp" />
+    <ClCompile Include="parsers\artifact\artifact.cpp" />
     <ClCompile Include="hook\dllmain.cpp" />
     <ClCompile Include="hook\pkt_hook.cpp" />
-    <ClCompile Include="material\material.cpp" />
-    <ClCompile Include="prop\prop.cpp" />
-    <ClCompile Include="weapon\weapon.cpp" />
+    <ClCompile Include="parsers\material\material.cpp" />
+    <ClCompile Include="parsers\weapon\weapon.cpp" />
     <ClCompile Include="third_party\MinHook\buffer.c">
       <CompileAs>CompileAsC</CompileAs>
     </ClCompile>

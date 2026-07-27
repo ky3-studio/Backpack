@@ -32,8 +32,6 @@ namespace Pkt {
     static constexpr uint32_t kBodyPrefix   = 10;
 
     static constexpr uint16_t kCmdStore     = 25494;
-    static constexpr uint16_t kCmdProp      = 2643;
 
     static constexpr uint32_t kMaxStoreLen  = 0x2000000u;
-    static constexpr uint32_t kMaxPropLen   = 0x100000u;
 }
