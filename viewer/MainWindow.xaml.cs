@@ -29,7 +29,8 @@ public sealed partial class MainWindow : Window, IDisposable
         ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, foodMeta, weaponMeta, artifactMeta, _db);
         InitializeComponent();
 
-        Title = "Backpack 0.1.0";
+        var v = typeof(MainWindow).Assembly.GetName().Version!;
+        Title = $"Backpack {v.Major}.{v.Minor}.{v.Build}";
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBarArea);
         AppWindow.SetIcon(System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "logo.ico"));

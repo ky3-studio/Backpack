@@ -19,9 +19,16 @@ jobs:
       - name: Build backpack.dll
         run: msbuild backpack.vcxproj /p:Configuration=Release /p:Platform=x64 /v:minimal
 
+      - name: Upload backpack.dll
+        uses: actions/upload-artifact@v4
+        with:
+          name: native
+          path: x64/Release/backpack.dll
+
   viewer:
-    name: C# Viewer (dotnet)
+    name: C# Viewer + Installer
     runs-on: windows-latest
+    needs: native
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +37,25 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Build viewer
+      - name: Publish viewer
         working-directory: viewer
-        run: dotnet build viewer.csproj -c Release -p:Platform=x64 --nologo
+        run: dotnet publish viewer.csproj -c Release -p:Platform=x64 --nologo -o ../publish
+
+      - name: Download backpack.dll
+        uses: actions/download-artifact@v4
+        with:
+          name: native
+          path: x64/Release
+
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+
+      - name: Build installer
+        working-directory: installer
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" setup.iss /Ooutput'
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: installer/output/*.exe

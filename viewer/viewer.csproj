@@ -17,6 +17,10 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <SatelliteResourceLanguages>zh-CN;en-US</SatelliteResourceLanguages>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <Version>1.0.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <DebugType>none</DebugType>
     <LangVersion>preview</LangVersion>
     <NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
   </PropertyGroup>
@@ -60,11 +64,21 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.2.251219" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
   </ItemGroup>
 
   <Target Name="RemoveUnusedLanguages" AfterTargets="Build">
     <Exec Command="for /d %%d in (&quot;$(OutDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; rd /s /q &quot;%%d&quot;" />
+  </Target>
+
+  <Target Name="RemoveUnusedLanguagesFromPublish" AfterTargets="Publish">
+    <Exec Command="for /d %%d in (&quot;$(PublishDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; if /I not &quot;%%~nxd&quot;==&quot;data&quot; rd /s /q &quot;%%d&quot;" />
+  </Target>
+
+  <Target Name="IncludePriInPublish" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <ResolvedFileToPublish Include="$(OutDir)$(AssemblyName).pri" RelativePath="$(AssemblyName).pri" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
   </Target>
 
 </Project>
