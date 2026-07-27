@@ -29,7 +29,7 @@
                     ElementClearing="OnRepeaterElementClearing">
                   <ItemsRepeater.Layout>
                     <UniformGridLayout
-                        MinItemWidth="260"
+                        MinItemWidth="280"
                         MinColumnSpacing="8"
                         MinRowSpacing="8"
                         ItemsStretch="Fill" />
@@ -70,6 +70,12 @@
                               Text="{x:Bind Character}"
                               Visibility="{x:Bind CharacterVisibility}"
                               TextTrimming="CharacterEllipsis" />
+                          <TextBlock
+                              Style="{StaticResource AppCaptionTextBlockStyle}"
+                              Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                              Text="{x:Bind IngredientsText}"
+                              TextWrapping="Wrap"
+                              MaxLines="2" />
                         </StackPanel>
                         <TextBlock
                             Grid.Column="2"
