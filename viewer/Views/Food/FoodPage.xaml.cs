@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -24,13 +25,24 @@ public sealed partial class FoodPage : UserControl
 
     private static void OnFoodGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is FoodPage page &&
-            e.NewValue is ObservableCollection<FoodGroupViewModel> groups &&
-            groups.Count > 0)
+        if (d is not FoodPage page) return;
+        if (e.OldValue is ObservableCollection<FoodGroupViewModel> old)
+            old.CollectionChanged -= page.OnGroupsCollectionChanged;
+        if (e.NewValue is ObservableCollection<FoodGroupViewModel> groups)
         {
-            page.CurrentItems = groups[0].Items;
-            page.Bindings.Update();
+            groups.CollectionChanged += page.OnGroupsCollectionChanged;
+            if (groups.Count > 0) { page.CurrentItems = groups[0].Items; page.Bindings.Update(); }
         }
+    }
+
+    private void OnGroupsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (FoodGroups is not { Count: > 0 }) return;
+        var header = (TabPivot.SelectedItem as FoodGroupViewModel)?.Header;
+        var target = (header is not null ? FoodGroups.FirstOrDefault(g => g.Header == header) : null)
+                     ?? FoodGroups[0];
+        CurrentItems = target.Items;
+        Bindings.Update();
     }
 
     private void OnTabChanged(object sender, SelectionChangedEventArgs e)

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -23,13 +24,24 @@ public sealed partial class MaterialPage : UserControl
 
     private static void OnMaterialGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is MaterialPage page &&
-            e.NewValue is ObservableCollection<MaterialGroupViewModel> groups &&
-            groups.Count > 0)
+        if (d is not MaterialPage page) return;
+        if (e.OldValue is ObservableCollection<MaterialGroupViewModel> old)
+            old.CollectionChanged -= page.OnGroupsCollectionChanged;
+        if (e.NewValue is ObservableCollection<MaterialGroupViewModel> groups)
         {
-            page.CurrentItems = groups[0].Items;
-            page.Bindings.Update();
+            groups.CollectionChanged += page.OnGroupsCollectionChanged;
+            if (groups.Count > 0) { page.CurrentItems = groups[0].Items; page.Bindings.Update(); }
         }
+    }
+
+    private void OnGroupsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (MaterialGroups is not { Count: > 0 }) return;
+        var header = (TabPivot.SelectedItem as MaterialGroupViewModel)?.Header;
+        var target = (header is not null ? MaterialGroups.FirstOrDefault(g => g.Header == header) : null)
+                     ?? MaterialGroups[0];
+        CurrentItems = target.Items;
+        Bindings.Update();
     }
 
     private void OnTabChanged(object sender, SelectionChangedEventArgs e)
