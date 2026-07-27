@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml;
 
 namespace Backpack.Viewer;
 
-public sealed partial class App : Application
+public sealed partial class App : Application, IDisposable
 {
     private MainWindow? _window;
 
@@ -24,4 +24,6 @@ public sealed partial class App : Application
         _window = new MainWindow();
         _window.Activate();
     }
+
+    public void Dispose() => _window?.Dispose();
 }

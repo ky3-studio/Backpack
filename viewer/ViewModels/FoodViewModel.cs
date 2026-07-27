@@ -35,6 +35,7 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
             "suspicious" => "奇怪",
             "delicious"  => "美味",
             "special"    => "特殊",
+            "sweet"      => "糖雕",
             _            => "普通",
         };
 
@@ -43,6 +44,7 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
             "suspicious" => Color.FromArgb(255, 157, 105, 213),
             "delicious"  => Color.FromArgb(255, 193, 148,  48),
             "special"    => Color.FromArgb(255,  56, 165,  90),
+            "sweet"      => Color.FromArgb(255, 214,  89, 151),
             _            => Color.FromArgb(160, 140, 140, 140),
         });
 

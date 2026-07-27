@@ -9,7 +9,7 @@ using Windows.Storage.Pickers;
 
 namespace Backpack.Viewer;
 
-public sealed partial class MainWindow : Window
+public sealed partial class MainWindow : Window, IDisposable
 {
     private readonly PipeListenerService     _pipe        = new();
     private readonly CancellationTokenSource _cts         = new();
@@ -46,7 +46,7 @@ public sealed partial class MainWindow : Window
 
         SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();
 
-        Closed += (_, _) => { _cts.Cancel(); _db.Dispose(); _gameMonitor.Stop(); };
+        Closed += (_, _) => Dispose();
     }
 
     private async void OnPickGamePath(object sender, RoutedEventArgs e) => await PickGamePathAsync();
@@ -119,5 +119,13 @@ public sealed partial class MainWindow : Window
         foreach (var p in System.Diagnostics.Process.GetProcessesByName("YuanShen"))
             try { p.Kill(); } catch { }
         ViewModel.IsGameRunning = false;
+    }
+
+    public void Dispose()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+        _db.Dispose();
+        _gameMonitor.Stop();
     }
 }

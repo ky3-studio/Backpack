@@ -5,7 +5,7 @@
     xmlns:views="using:Backpack.Viewer.Views">
 
   <Window.SystemBackdrop>
-    <MicaBackdrop />
+    <DesktopAcrylicBackdrop />
   </Window.SystemBackdrop>
 
   <Grid>

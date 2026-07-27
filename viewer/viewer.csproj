@@ -43,6 +43,7 @@
     <Content Include="Assets\Food\foods_special_attack.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Food\foods_special_defense.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Food\foods_special_adventure.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_sweet.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />

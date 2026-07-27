@@ -16,6 +16,7 @@ public sealed class FoodMetaService
         ("foods_special_attack.json",    "特殊攻击"),
         ("foods_special_defense.json",   "特殊防御"),
         ("foods_special_adventure.json", "特殊冒险"),
+        ("foods_sweet.json",             "糖雕"),
     ];
 
     private readonly Dictionary<uint, FoodMeta> _map = [];
