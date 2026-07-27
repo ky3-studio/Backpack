@@ -22,6 +22,8 @@ static const MatEntry kMaterialList[] = {
 #include "rows/ore.h"
 #include "rows/fish.h"
 #include "rows/bait.h"
+#include "rows/gadget.h"
+#include "rows/consumable.h"
 };
 
 static constexpr size_t kMaterialCount = sizeof(kMaterialList) / sizeof(kMaterialList[0]);

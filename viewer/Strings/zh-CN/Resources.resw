@@ -183,4 +183,13 @@
   <data name="MatTabBait" xml:space="preserve">
     <value>鱼饵</value>
   </data>
+  <data name="TabGadget.Header" xml:space="preserve">
+    <value>道具</value>
+  </data>
+  <data name="GadgetTabMisc" xml:space="preserve">
+    <value>小道具</value>
+  </data>
+  <data name="GadgetTabConsumable" xml:space="preserve">
+    <value>消耗品</value>
+  </data>
 </root>

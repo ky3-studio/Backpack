@@ -72,6 +72,10 @@
         <views:FoodPage FoodGroups="{x:Bind ViewModel.FoodGroups}" />
       </PivotItem>
 
+      <PivotItem x:Uid="TabGadget">
+        <views:GadgetPage GadgetGroups="{x:Bind ViewModel.GadgetGroups}" />
+      </PivotItem>
+
     </Pivot>
 
     <ProgressRing

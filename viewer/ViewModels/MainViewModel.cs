@@ -18,25 +18,18 @@ public sealed partial class MainViewModel : ObservableObject
     private readonly FoodMetaService      _foodMeta;
     private readonly WeaponMetaService    _weaponMeta;
     private readonly ArtifactMetaService  _artifactMeta;
+    private readonly GadgetMetaService    _gadgetMeta;
     private readonly BackpackDbService    _db;
 
     public GamePathService GamePathService { get; }
 
-    public ObservableCollection<WeaponViewModel>       Weapons        { get; } = [];
-    public ObservableCollection<ArtifactViewModel>     Artifacts      { get; } = [];
-    public ObservableCollection<MaterialGroupViewModel> MaterialGroups { get; } = [];
-    public ObservableCollection<FoodGroupViewModel>    FoodGroups     { get; } = [];
+    public ObservableCollection<WeaponViewModel>        Weapons        { get; } = [];
+    public ObservableCollection<ArtifactViewModel>      Artifacts      { get; } = [];
+    public ObservableCollection<MaterialGroupViewModel>  MaterialGroups { get; } = [];
+    public ObservableCollection<FoodGroupViewModel>      FoodGroups     { get; } = [];
+    public ObservableCollection<GadgetGroupViewModel>    GadgetGroups   { get; } = [];
 
-    private readonly Dictionary<uint, ulong>      _activeCounts = [];
-    private const string PropKeyResin = "原粹树脂";
-    private static readonly Dictionary<string, uint> PropIdMap = new()
-    {
-        ["原石"]    = 201,
-        ["摩拉"]    = 202,
-        ["创世结晶"] = 203,
-        ["洞天宝钱"] = 204,
-        [PropKeyResin] = 106,
-    };
+    private readonly Dictionary<uint, ulong> _activeCounts = [];
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DataVisibility))]
@@ -71,13 +64,14 @@ public sealed partial class MainViewModel : ObservableObject
 
     public MainViewModel(DispatcherQueue dispatcher, GamePathService gamePathService,
         MaterialMetaService materialMeta, FoodMetaService foodMeta, WeaponMetaService weaponMeta,
-        ArtifactMetaService artifactMeta, BackpackDbService db)
+        ArtifactMetaService artifactMeta, GadgetMetaService gadgetMeta, BackpackDbService db)
     {
         _dispatcher   = dispatcher;
         _materialMeta = materialMeta;
         _foodMeta     = foodMeta;
         _weaponMeta   = weaponMeta;
         _artifactMeta = artifactMeta;
+        _gadgetMeta   = gadgetMeta;
         _db           = db;
         GamePathService = gamePathService;
         HasSelectedPath = gamePathService.HasSelection;
@@ -98,6 +92,7 @@ public sealed partial class MainViewModel : ObservableObject
         _activeCounts = db.LoadMaterialCounts();
         RebuildMaterialGroups();
         RebuildFoodGroups();
+        RebuildGadgetGroups();
     }
 
     private void LoadDefaultArtifacts()
@@ -124,6 +119,22 @@ public sealed partial class MainViewModel : ObservableObject
                     var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
                     var entry = new MaterialEntry(id, _materialMeta.GetName(id), string.Empty, count);
                     return new MaterialViewModel(entry, _materialMeta);
+                })]));
+        }
+    }
+
+    private void RebuildGadgetGroups()
+    {
+        GadgetGroups.Clear();
+        foreach (var (label, ids) in _gadgetMeta.Groups)
+        {
+            GadgetGroups.Add(new GadgetGroupViewModel(
+                label,
+                [.. ids.Select(id =>
+                {
+                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
+                    var entry = new MaterialEntry(id, _gadgetMeta.GetName(id), string.Empty, count);
+                    return new GadgetViewModel(entry, _gadgetMeta);
                 })]));
         }
     }
@@ -193,20 +204,7 @@ public sealed partial class MainViewModel : ObservableObject
                 _db.SaveMaterials(_activeCounts);
                 RebuildMaterialGroups();
                 RebuildFoodGroups();
-                break;
-            }
-            case "prop":
-            {
-                var dict = JsonSerializer.Deserialize<Dictionary<string, double>>(json);
-                if (dict is null) return;
-                foreach (var (key, val) in dict)
-                {
-                    if (!PropIdMap.TryGetValue(key, out var id)) continue;
-                    _activeCounts[id] = key == PropKeyResin ? (ulong)(val / 100) : (ulong)val;
-                }
-                _db.SaveMaterials(_activeCounts);
-                RebuildMaterialGroups();
-                RebuildFoodGroups();
+                RebuildGadgetGroups();
                 break;
             }
         }

@@ -183,4 +183,13 @@
   <data name="MatTabBait" xml:space="preserve">
     <value>Fishing Bait</value>
   </data>
+  <data name="TabGadget.Header" xml:space="preserve">
+    <value>Gadgets</value>
+  </data>
+  <data name="GadgetTabMisc" xml:space="preserve">
+    <value>Gadgets</value>
+  </data>
+  <data name="GadgetTabConsumable" xml:space="preserve">
+    <value>Consumables</value>
+  </data>
 </root>
