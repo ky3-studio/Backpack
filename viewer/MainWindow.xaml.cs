@@ -16,6 +16,7 @@ public sealed partial class MainWindow : Window, IDisposable
     private readonly BackpackDbService       _db          = new();
     private readonly DispatcherTimer         _gameMonitor = new() { Interval = TimeSpan.FromSeconds(2) };
     private ContentDialog?                   _syncDialog;
+    private int                              _launchedPid;   // 我们自己启动的游戏进程 PID，0 表示未由我们启动
 
     public MainViewModel ViewModel { get; }
 
@@ -77,7 +78,7 @@ public sealed partial class MainWindow : Window, IDisposable
 
         try
         {
-            await GameLaunchService.LaunchAsync(gamePath);
+            _launchedPid            = await GameLaunchService.LaunchAsync(gamePath);
             ViewModel.IsGameRunning = true;
         }
         catch (Exception ex)
@@ -113,14 +114,29 @@ public sealed partial class MainWindow : Window, IDisposable
         await _syncDialog.ShowAsync();
         _syncDialog           = null;
         ViewModel.IsLaunching = false;
+
+        // 用户点取消 → 精确终止我们自己启动的进程
+        KillLaunchedGame();
     }
 
-    private void OnKillGame(object sender, RoutedEventArgs e)
+    /// 终止我们自己启动的那个游戏进程（按 PID，不按名字）
+    private void KillLaunchedGame()
     {
-        foreach (var p in System.Diagnostics.Process.GetProcessesByName("YuanShen"))
-            try { p.Kill(); } catch { }
-        ViewModel.IsGameRunning = false;
+        if (_launchedPid <= 0) return;
+        try
+        {
+            var p = System.Diagnostics.Process.GetProcessById(_launchedPid);
+            if (!p.HasExited) p.Kill();
+        }
+        catch { /* 进程已退出或 PID 无效 */ }
+        finally
+        {
+            _launchedPid            = 0;
+            ViewModel.IsGameRunning = false;
+        }
     }
+
+    private void OnKillGame(object sender, RoutedEventArgs e) => KillLaunchedGame();
 
     public void Dispose()
     {

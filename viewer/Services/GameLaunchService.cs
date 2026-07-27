@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
@@ -17,13 +18,13 @@ internal static class GameLaunchService
         return File.Exists(path) ? path : null;
     }
 
-    public static async Task LaunchAsync(string gameExePath)
+    public static async Task<int> LaunchAsync(string gameExePath)
     {
         var dllPath    = GetDllPath();
         var gameDir    = Path.GetDirectoryName(gameExePath) ?? AppContext.BaseDirectory;
         var cfgFile    = Path.Combine(Path.GetTempPath(), $"BackpackViewer_{Guid.NewGuid():N}.tmp");
         var currentExe = Environment.ProcessPath
-            ?? throw new InvalidOperationException("无法获取当前进程路径");
+            ?? throw new InvalidOperationException(Localized.Get("ErrNoProcessPath"));
 
         File.WriteAllLines(cfgFile, [
             gameExePath,
@@ -42,7 +43,7 @@ internal static class GameLaunchService
             WorkingDirectory = Path.GetDirectoryName(currentExe),
         };
 
-        await Task.Run(() =>
+        return await Task.Run(() =>
         {
             Process? helper;
             try
@@ -52,28 +53,35 @@ internal static class GameLaunchService
             catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
                 TryDelete(cfgFile);
-                throw new InvalidOperationException("用户取消了权限提升");
+                throw new InvalidOperationException(Localized.Get("ErrElevationCancelled"));
             }
 
             if (helper is null)
             {
                 TryDelete(cfgFile);
-                throw new InvalidOperationException("无法启动注入进程");
+                throw new InvalidOperationException(Localized.Get("ErrHelperStartFailed"));
             }
 
             using (helper)
             {
                 helper.WaitForExit();
                 int code = helper.ExitCode;
-                TryDelete(cfgFile);
                 if (code != 0)
+                {
+                    TryDelete(cfgFile);
                     throw new InvalidOperationException(code switch
                     {
-                        1 => "配置文件无效",
-                        2 => "无法创建游戏进程",
-                        3 => "DLL 注入失败",
-                        _ => $"注入进程异常退出 ({code})",
+                        1 => Localized.Get("ErrInvalidConfig"),
+                        2 => Localized.Get("ErrGameCreateFailed"),
+                        3 => Localized.Get("ErrDllInjFailed"),
+                        _ => string.Format(Localized.Get("ErrHelperExitCode"), code),
                     });
+                }
+
+                int gamePid = 0;
+                try { int.TryParse(File.ReadAllText(cfgFile).Trim(), out gamePid); } catch { }
+                TryDelete(cfgFile);
+                return gamePid;
             }
         });
     }

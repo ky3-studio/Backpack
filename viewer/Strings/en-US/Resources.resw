@@ -96,4 +96,25 @@
   <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
     <value>Base ATK</value>
   </data>
+  <data name="ErrNoProcessPath" xml:space="preserve">
+    <value>Failed to resolve current process path</value>
+  </data>
+  <data name="ErrElevationCancelled" xml:space="preserve">
+    <value>Elevation was cancelled by the user</value>
+  </data>
+  <data name="ErrHelperStartFailed" xml:space="preserve">
+    <value>Failed to start the injection helper</value>
+  </data>
+  <data name="ErrInvalidConfig" xml:space="preserve">
+    <value>Invalid configuration file</value>
+  </data>
+  <data name="ErrGameCreateFailed" xml:space="preserve">
+    <value>Failed to create game process</value>
+  </data>
+  <data name="ErrDllInjFailed" xml:space="preserve">
+    <value>DLL injection failed</value>
+  </data>
+  <data name="ErrHelperExitCode" xml:space="preserve">
+    <value>Injection helper exited with code {0}</value>
+  </data>
 </root>

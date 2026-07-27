@@ -96,4 +96,25 @@
   <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
     <value>基础攻击力</value>
   </data>
+  <data name="ErrNoProcessPath" xml:space="preserve">
+    <value>无法获取当前进程路径</value>
+  </data>
+  <data name="ErrElevationCancelled" xml:space="preserve">
+    <value>用户取消了权限提升</value>
+  </data>
+  <data name="ErrHelperStartFailed" xml:space="preserve">
+    <value>无法启动注入进程</value>
+  </data>
+  <data name="ErrInvalidConfig" xml:space="preserve">
+    <value>配置文件无效</value>
+  </data>
+  <data name="ErrGameCreateFailed" xml:space="preserve">
+    <value>无法创建游戏进程</value>
+  </data>
+  <data name="ErrDllInjFailed" xml:space="preserve">
+    <value>DLL 注入失败</value>
+  </data>
+  <data name="ErrHelperExitCode" xml:space="preserve">
+    <value>注入进程异常退出 ({0})</value>
+  </data>
 </root>
