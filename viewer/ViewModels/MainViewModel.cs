@@ -115,34 +115,42 @@ public sealed partial class MainViewModel : ObservableObject
     private void RebuildMaterialGroups()
     {
         MaterialGroups.Clear();
-        var entries = _materialMeta.GetDefaultEntries()
-            .Select(e => _activeCounts.TryGetValue(e.Id, out var c) ? e with { Count = c } : e);
-        foreach (var grp in entries
-            .GroupBy(e => MaterialMetaService.TypeLabel(e.Category))
-            .OrderBy(g => MaterialMetaService.LabelOrder(g.Key)))
+        foreach (var (label, ids) in _materialMeta.Groups)
         {
             MaterialGroups.Add(new MaterialGroupViewModel(
-                grp.Key,
-                [.. grp.Select(e => new MaterialViewModel(e, _materialMeta))]));
+                label,
+                [.. ids.Select(id =>
+                {
+                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
+                    var entry = new MaterialEntry(id, _materialMeta.GetName(id), string.Empty, count);
+                    return new MaterialViewModel(entry, _materialMeta);
+                })]));
         }
     }
 
     private void RebuildFoodGroups()
     {
         FoodGroups.Clear();
-        foreach (var grp in _foodMeta.AllIds
-            .Select(id => (id, meta: _foodMeta.GetMeta(id)))
-            .Where(x => x.meta is not null)
-            .GroupBy(x => x.meta!.DishType)
-            .OrderBy(g => FoodMetaService.DishTypeOrder(g.Key)))
+        foreach (var (label, ids) in _foodMeta.Groups)
         {
             FoodGroups.Add(new FoodGroupViewModel(
-                grp.Key,
-                [.. grp.Select(x =>
-                {
-                    var count = _activeCounts.TryGetValue(x.id, out var c) ? c : 0UL;
-                    return new FoodViewModel(x.meta!, count);
-                })]));
+                label,
+                [.. ids
+                    .Select(id => (id, meta: _foodMeta.GetMeta(id)))
+                    .Where(x => x.meta is not null)
+                    .Select(x =>
+                    {
+                        var count = _activeCounts.TryGetValue(x.id, out var c) ? c : 0UL;
+                        var ingredients = x.meta!.Ingredients
+                            .Select(ing =>
+                            {
+                                var held    = _activeCounts.TryGetValue(ing.Id, out var h) ? h : 0UL;
+                                var iconUri = _materialMeta.GetMeta(ing.Id).IconUri;
+                                return new IngredientViewModel(ing, held, iconUri);
+                            })
+                            .ToList();
+                        return new FoodViewModel(x.meta!, count, ingredients);
+                    })]));
         }
     }
 

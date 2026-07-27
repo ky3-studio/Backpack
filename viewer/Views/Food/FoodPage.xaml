@@ -10,89 +10,141 @@
         Background="{ThemeResource SystemControlAcrylicElementBrush}"
         BorderThickness="0"
         CornerRadius="{ThemeResource ControlCornerRadius}">
-      <ScrollViewer Padding="16">
-        <ItemsControl ItemsSource="{x:Bind FoodGroups, Mode=OneWay}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <StackPanel Spacing="16" />
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Tab 标签：Pivot 只负责 Header，内容区高度压为 0 -->
+        <Pivot
+            x:Name="TabPivot"
+            Grid.Row="0"
+            Margin="8,0,0,0"
+            ItemsSource="{x:Bind FoodGroups, Mode=OneWay}"
+            SelectionChanged="OnTabChanged">
+          <Pivot.HeaderTemplate>
             <DataTemplate x:DataType="vm:FoodGroupViewModel">
-              <StackPanel Spacing="8">
-                <TextBlock
-                    Text="{x:Bind Header}"
-                    Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-                <ItemsRepeater
-                    ItemsSource="{x:Bind Items}"
-                    ElementPrepared="OnRepeaterElementPrepared"
-                    ElementClearing="OnRepeaterElementClearing">
-                  <ItemsRepeater.Layout>
-                    <UniformGridLayout
-                        MinItemWidth="280"
-                        MinColumnSpacing="8"
-                        MinRowSpacing="8"
-                        ItemsStretch="Fill" />
-                  </ItemsRepeater.Layout>
-                  <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="vm:FoodViewModel">
-                      <Grid
-                          Padding="10,8"
-                          Style="{ThemeResource GridShimmerStyle}"
-                          ColumnSpacing="10">
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="Auto" />
-                          <ColumnDefinition Width="*" />
-                          <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid
-                            Grid.Column="0"
-                            Width="40"
-                            Height="40"
-                            VerticalAlignment="Center"
-                            CornerRadius="6">
-                          <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
-                          <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-                          <Image
-                              Width="36"
-                              Height="36"
-                              Source="{x:Bind IconSource, Mode=OneWay}"
-                              Stretch="Uniform" />
-                        </Grid>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
-                          <TextBlock
-                              Style="{StaticResource AppBodyTextBlockStyle}"
-                              Text="{x:Bind Name}"
-                              TextTrimming="CharacterEllipsis" />
-                          <TextBlock
-                              Style="{StaticResource AppCaptionTextBlockStyle}"
-                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                              Text="{x:Bind Character}"
-                              Visibility="{x:Bind CharacterVisibility}"
-                              TextTrimming="CharacterEllipsis" />
-                          <TextBlock
-                              Style="{StaticResource AppCaptionTextBlockStyle}"
-                              Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                              Text="{x:Bind IngredientsText}"
-                              TextWrapping="Wrap"
-                              MaxLines="2" />
-                        </StackPanel>
-                        <TextBlock
-                            Grid.Column="2"
-                            MinWidth="40"
-                            Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                            Text="{x:Bind Count}"
-                            TextAlignment="Right"
-                            VerticalAlignment="Center" />
-                      </Grid>
-                    </DataTemplate>
-                  </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-              </StackPanel>
+              <TextBlock Text="{x:Bind Header}" />
             </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
+          </Pivot.HeaderTemplate>
+          <Pivot.ItemTemplate>
+            <DataTemplate x:DataType="vm:FoodGroupViewModel">
+              <Grid Visibility="Collapsed" />
+            </DataTemplate>
+          </Pivot.ItemTemplate>
+        </Pivot>
+
+        <!-- 内容区：在 Grid * 行，ScrollViewer 有约束高度，ItemsRepeater 虚拟化 -->
+        <ScrollViewer Grid.Row="1" Padding="8,4,8,8">
+          <ItemsRepeater ItemsSource="{x:Bind CurrentItems, Mode=OneWay}">
+            <ItemsRepeater.Layout>
+              <UniformGridLayout
+                  MinItemWidth="360"
+                  MinColumnSpacing="8"
+                  MinRowSpacing="8"
+                  ItemsStretch="Fill" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+              <DataTemplate x:DataType="vm:FoodViewModel">
+                <Grid
+                    Tag="{x:Bind}"
+                    Padding="10,8"
+                    Style="{ThemeResource GridShimmerStyle}"
+                    RowSpacing="8"
+                    DoubleTapped="OnCardDoubleTapped">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+                  <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        Width="44"
+                        Height="44"
+                        VerticalAlignment="Center"
+                        CornerRadius="8">
+                      <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
+                      <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+                      <Image
+                          Width="40"
+                          Height="40"
+                          Source="{x:Bind IconSource, Mode=OneWay}"
+                          Stretch="Uniform" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                      <TextBlock
+                          Style="{StaticResource AppBodyTextBlockStyle}"
+                          Text="{x:Bind Name}"
+                          TextTrimming="CharacterEllipsis" />
+                      <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock
+                            Style="{StaticResource AppCaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind Character}"
+                            Visibility="{x:Bind CharacterVisibility}" />
+                        <TextBlock
+                            Style="{StaticResource AppCaptionTextBlockStyle}"
+                            Foreground="{x:Bind VariantForeground}"
+                            Text="{x:Bind VariantLabel}" />
+                      </StackPanel>
+                    </StackPanel>
+                    <TextBlock
+                        Grid.Column="2"
+                        MinWidth="36"
+                        Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                        Text="{x:Bind Count}"
+                        TextAlignment="Right"
+                        VerticalAlignment="Center" />
+                  </Grid>
+                  <ItemsRepeater
+                      Grid.Row="1"
+                      ItemsSource="{x:Bind Ingredients}"
+                      HorizontalAlignment="Center">
+                    <ItemsRepeater.Layout>
+                      <StackLayout Orientation="Horizontal" Spacing="4" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                      <DataTemplate x:DataType="vm:IngredientViewModel">
+                        <Border
+                            Padding="5,3"
+                            CornerRadius="5"
+                            Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            ToolTipService.ToolTip="{x:Bind Name}">
+                          <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                            <Image
+                                Width="18"
+                                Height="18"
+                                VerticalAlignment="Center"
+                                Source="{x:Bind IconSource, Mode=OneWay}"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Style="{StaticResource AppCaptionTextBlockStyle}"
+                                Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                                Text="{x:Bind HeldText}"
+                                Visibility="{x:Bind EnoughVisibility}"
+                                VerticalAlignment="Center" />
+                            <TextBlock
+                                Style="{StaticResource AppCaptionTextBlockStyle}"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Text="{x:Bind HeldText}"
+                                Visibility="{x:Bind ShortVisibility}"
+                                VerticalAlignment="Center" />
+                          </StackPanel>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                  </ItemsRepeater>
+                </Grid>
+              </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+          </ItemsRepeater>
+        </ScrollViewer>
+      </Grid>
     </Border>
   </Border>
 </UserControl>

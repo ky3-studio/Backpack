@@ -10,74 +10,83 @@
         Background="{ThemeResource SystemControlAcrylicElementBrush}"
         BorderThickness="0"
         CornerRadius="{ThemeResource ControlCornerRadius}">
-      <ScrollViewer Padding="16">
-        <ItemsControl ItemsSource="{x:Bind MaterialGroups, Mode=OneWay}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <StackPanel Spacing="16" />
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Pivot
+            x:Name="TabPivot"
+            Grid.Row="0"
+            Margin="8,0,0,0"
+            ItemsSource="{x:Bind MaterialGroups, Mode=OneWay}"
+            SelectionChanged="OnTabChanged">
+          <Pivot.HeaderTemplate>
             <DataTemplate x:DataType="vm:MaterialGroupViewModel">
-              <StackPanel Spacing="8">
-                <TextBlock
-                    Text="{x:Bind Header}"
-                    Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-                <ItemsRepeater ItemsSource="{x:Bind Items}">
-                  <ItemsRepeater.Layout>
-                    <UniformGridLayout
-                        MinItemWidth="260"
-                        MinColumnSpacing="8"
-                        MinRowSpacing="8"
-                        ItemsStretch="Fill" />
-                  </ItemsRepeater.Layout>
-                  <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="vm:MaterialViewModel">
-                      <Grid
-                          Padding="10,8"
-                          Style="{ThemeResource GridShimmerStyle}"
-                          ColumnSpacing="10">
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="Auto" />
-                          <ColumnDefinition Width="*" />
-                          <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid
-                            Grid.Column="0"
-                            Width="40"
-                            Height="40"
-                            VerticalAlignment="Center"
-                            CornerRadius="6">
-                          <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
-                          <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-                          <Image
-                              Width="36"
-                              Height="36"
-                              Source="{x:Bind IconSource, Mode=OneWay}"
-                              Stretch="Uniform" />
-                        </Grid>
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{StaticResource AppBodyTextBlockStyle}"
-                            Text="{x:Bind Name}"
-                            TextTrimming="CharacterEllipsis"
-                            VerticalAlignment="Center" />
-                        <TextBlock
-                            Grid.Column="2"
-                            MinWidth="40"
-                            Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                            Text="{x:Bind Count}"
-                            TextAlignment="Right"
-                            VerticalAlignment="Center" />
-                      </Grid>
-                    </DataTemplate>
-                  </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-              </StackPanel>
+              <TextBlock Text="{x:Bind Header}" />
             </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
+          </Pivot.HeaderTemplate>
+          <Pivot.ItemTemplate>
+            <DataTemplate x:DataType="vm:MaterialGroupViewModel">
+              <Grid Visibility="Collapsed" />
+            </DataTemplate>
+          </Pivot.ItemTemplate>
+        </Pivot>
+
+        <ScrollViewer Grid.Row="1" Padding="8,4,8,8">
+          <ItemsRepeater ItemsSource="{x:Bind CurrentItems, Mode=OneWay}">
+            <ItemsRepeater.Layout>
+              <UniformGridLayout
+                  MinItemWidth="260"
+                  MinColumnSpacing="8"
+                  MinRowSpacing="8"
+                  ItemsStretch="Fill" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+              <DataTemplate x:DataType="vm:MaterialViewModel">
+                <Grid
+                    Padding="10,8"
+                    Style="{ThemeResource GridShimmerStyle}"
+                    ColumnSpacing="10">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <Grid
+                      Grid.Column="0"
+                      Width="40"
+                      Height="40"
+                      VerticalAlignment="Center"
+                      CornerRadius="6">
+                    <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
+                    <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+                    <Image
+                        Width="36"
+                        Height="36"
+                        Source="{x:Bind IconSource, Mode=OneWay}"
+                        Stretch="Uniform" />
+                  </Grid>
+                  <TextBlock
+                      Grid.Column="1"
+                      Style="{StaticResource AppBodyTextBlockStyle}"
+                      Text="{x:Bind Name}"
+                      TextTrimming="CharacterEllipsis"
+                      VerticalAlignment="Center" />
+                  <TextBlock
+                      Grid.Column="2"
+                      MinWidth="40"
+                      Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                      Text="{x:Bind Count}"
+                      TextAlignment="Right"
+                      VerticalAlignment="Center" />
+                </Grid>
+              </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+          </ItemsRepeater>
+        </ScrollViewer>
+      </Grid>
     </Border>
   </Border>
 </UserControl>

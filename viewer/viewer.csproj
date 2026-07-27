@@ -28,8 +28,21 @@
     <Content Include="Assets\Weapon\weapon_promotes.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Artifact\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Artifact\artifact_main_props.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Material\materials.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Food\foods.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_char_ascension.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_weapon_ascension.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_talent.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_char_exp.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_weapon_enhance.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_local_specialty.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Material\materials_ingredient.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_recovery.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_attack.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_defense.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_adventure.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_special_recovery.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_special_attack.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_special_defense.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Food\foods_special_adventure.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />

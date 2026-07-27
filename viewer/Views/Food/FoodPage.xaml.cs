@@ -9,35 +9,45 @@ namespace Backpack.Viewer.Views;
 public sealed partial class FoodPage : UserControl
 {
     public static readonly DependencyProperty FoodGroupsProperty =
-        DependencyProperty.Register(nameof(FoodGroups), typeof(ObservableCollection<FoodGroupViewModel>), typeof(FoodPage), new PropertyMetadata(null));
+        DependencyProperty.Register(nameof(FoodGroups), typeof(ObservableCollection<FoodGroupViewModel>), typeof(FoodPage),
+            new PropertyMetadata(null, OnFoodGroupsChanged));
 
-    public ObservableCollection<FoodGroupViewModel> FoodGroups
+    public ObservableCollection<FoodGroupViewModel>? FoodGroups
     {
-        get => (ObservableCollection<FoodGroupViewModel>)GetValue(FoodGroupsProperty);
+        get => (ObservableCollection<FoodGroupViewModel>?)GetValue(FoodGroupsProperty);
         set => SetValue(FoodGroupsProperty, value);
     }
 
+    public IReadOnlyList<FoodViewModel>? CurrentItems { get; private set; }
+
     public FoodPage() => InitializeComponent();
 
-    private void OnRepeaterElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+    private static void OnFoodGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (args.Element is FrameworkElement fe &&
-            sender.ItemsSourceView?.GetAt(args.Index) is FoodViewModel vm)
+        if (d is FoodPage page &&
+            e.NewValue is ObservableCollection<FoodGroupViewModel> groups &&
+            groups.Count > 0)
         {
-            fe.Tag          = vm;
-            fe.DoubleTapped += OnCardDoubleTapped;
+            page.CurrentItems = groups[0].Items;
+            page.Bindings.Update();
         }
     }
 
-    private void OnRepeaterElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args)
+    private void OnTabChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (args.Element is FrameworkElement fe)
-            fe.DoubleTapped -= OnCardDoubleTapped;
+        if (TabPivot.SelectedItem is FoodGroupViewModel grp)
+        {
+            CurrentItems = grp.Items;
+            Bindings.Update();
+        }
     }
 
     private void OnCardDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
         if (sender is FrameworkElement fe && fe.Tag is FoodViewModel vm)
+        {
             UiHelper.ShowDetailFlyout(fe, vm.Name, vm.IngredientsText, maxWidth: 360);
+            e.Handled = true;
+        }
     }
 }

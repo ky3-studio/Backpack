@@ -6,29 +6,51 @@ namespace Backpack.Viewer.Services;
 
 public sealed class FoodMetaService
 {
-    private readonly Dictionary<uint, FoodMeta> _map;
+    private static readonly (string File, string Label)[] _tabDefs =
+    [
+        ("foods_recovery.json",         "恢复类料理"),
+        ("foods_attack.json",            "攻击类料理"),
+        ("foods_defense.json",           "防御类料理"),
+        ("foods_adventure.json",         "冒险类料理"),
+        ("foods_special_recovery.json",  "特殊恢复"),
+        ("foods_special_attack.json",    "特殊攻击"),
+        ("foods_special_defense.json",   "特殊防御"),
+        ("foods_special_adventure.json", "特殊冒险"),
+    ];
+
+    private readonly Dictionary<uint, FoodMeta> _map = [];
+    private readonly IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> _groups;
 
     public FoodMetaService()
     {
-        var path = Path.Combine(AppContext.BaseDirectory, "Assets", "Food", "foods.json");
-        try
+        var foodDir = Path.Combine(AppContext.BaseDirectory, "Assets", "Food");
+        var groups  = new List<(string Label, IReadOnlyList<uint> Ids)>(_tabDefs.Length);
+
+        foreach (var (file, label) in _tabDefs)
         {
-            if (File.Exists(path))
+            var path = Path.Combine(foodDir, file);
+            if (!File.Exists(path)) continue;
+            try
             {
                 var items = JsonSerializer.Deserialize<RawEntry[]>(
                     File.ReadAllText(path),
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
-                _map = items.DistinctBy(e => e.Id).ToDictionary(
-                    e => (uint)e.Id,
-                    e => new FoodMeta(
+                var ids = new List<uint>(items.Length);
+                foreach (var e in items.DistinctBy(x => x.Id))
+                {
+                    var uid = (uint)e.Id;
+                    _map[uid] = new FoodMeta(
                         e.Name, e.Type, e.Variant, e.Rank, e.Icon,
                         e.Character ?? string.Empty,
-                        ParseIngredients(e.IngredientsRaw)));
-                return;
+                        ParseIngredients(e.IngredientsRaw));
+                    ids.Add(uid);
+                }
+                if (ids.Count > 0)
+                    groups.Add((label, ids));
             }
+            catch { }
         }
-        catch { }
-        _map = [];
+        _groups = groups;
     }
 
     private static IReadOnlyList<IngredientMeta> ParseIngredients(JsonElement raw)
@@ -44,16 +66,7 @@ public sealed class FoodMetaService
     }
 
     public FoodMeta? GetMeta(uint id) => _map.GetValueOrDefault(id);
-
-    public IReadOnlyCollection<uint> AllIds => _map.Keys;
-
-    private static readonly string[] _groupOrder = ["攻击类料理", "防御类料理", "恢复类料理", "冒险类料理"];
-
-    public static int DishTypeOrder(string dishType)
-    {
-        var idx = Array.IndexOf(_groupOrder, dishType);
-        return idx >= 0 ? idx : 99;
-    }
+    public IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> Groups => _groups;
 
     public sealed record FoodMeta(
         string                        Name,

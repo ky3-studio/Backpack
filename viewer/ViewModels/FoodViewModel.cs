@@ -2,7 +2,9 @@ using Backpack.Viewer;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.UI;
 
 namespace Backpack.Viewer.ViewModels;
 
@@ -11,23 +13,42 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
     [ObservableProperty]
     private BitmapImage? _iconSource;
 
-    public string      Name                { get; }
-    public string      Count               { get; }
-    public string      Character           { get; }
-    public string      IngredientsText     { get; }
-    public BitmapImage QualitySource       { get; }
-    public Visibility  CharacterVisibility { get; }
+    public string         Name                { get; }
+    public string         Count               { get; }
+    public string         Character           { get; }
+    public string         IngredientsText     { get; }
+    public string         VariantLabel        { get; }
+    public SolidColorBrush VariantForeground  { get; }
+    public BitmapImage    QualitySource       { get; }
+    public Visibility     CharacterVisibility { get; }
+    public IReadOnlyList<IngredientViewModel> Ingredients { get; }
 
-    public FoodViewModel(FoodMetaService.FoodMeta meta, ulong count)
+    public FoodViewModel(FoodMetaService.FoodMeta meta, ulong count, IReadOnlyList<IngredientViewModel> ingredients)
     {
-        Name      = meta.Name;
-        Count     = count.ToString("N0");
-        Character = meta.Character;
+        Name                = meta.Name;
+        Count               = count.ToString("N0");
+        Character           = meta.Character;
         CharacterVisibility = (!string.IsNullOrEmpty(meta.Character)).ToVisibility();
 
-        GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);
-        QualitySource = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
+        VariantLabel = meta.Variant switch
+        {
+            "suspicious" => "奇怪",
+            "delicious"  => "美味",
+            "special"    => "特殊",
+            _            => "普通",
+        };
 
-        IngredientsText = string.Join("  ", meta.Ingredients.Select(i => $"{i.Name} \u00d7{i.Amount}"));
+        VariantForeground = new SolidColorBrush(meta.Variant switch
+        {
+            "suspicious" => Color.FromArgb(255, 157, 105, 213),
+            "delicious"  => Color.FromArgb(255, 193, 148,  48),
+            "special"    => Color.FromArgb(255,  56, 165,  90),
+            _            => Color.FromArgb(160, 140, 140, 140),
+        });
+
+        GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);
+        QualitySource   = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
+        Ingredients     = ingredients;
+        IngredientsText = string.Join("  ", meta.Ingredients.Select(i => $"{i.Name} ×{i.Amount}"));
     }
 }
