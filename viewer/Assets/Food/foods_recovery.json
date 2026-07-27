@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": 108152,
     "name": "奇怪的腌笃鲜",
@@ -9382,5 +9382,131 @@
         "amount": 1
       }
     ]
+  },
+  {
+    "id": 108147,
+    "name": "圣水",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108147",
+    "ingredients": []
+  },
+  {
+    "id": 108148,
+    "name": "大碗茶",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 1,
+    "icon": "UI_ItemIcon_108148",
+    "ingredients": []
+  },
+  {
+    "id": 108151,
+    "name": "苹果酿",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108151",
+    "ingredients": []
+  },
+  {
+    "id": 108215,
+    "name": "海灯节特色烤吃虎鱼",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 1,
+    "icon": "UI_ItemIcon_108108",
+    "ingredients": []
+  },
+  {
+    "id": 108304,
+    "name": "特制风味烤蘑菇披萨",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108304",
+    "ingredients": []
+  },
+  {
+    "id": 108305,
+    "name": "团子牛奶",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_101514",
+    "ingredients": []
+  },
+  {
+    "id": 108469,
+    "name": "气泡酸莓汁",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108469",
+    "ingredients": []
+  },
+  {
+    "id": 108669,
+    "name": "摇滚团子牛奶",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_101514",
+    "ingredients": []
+  },
+  {
+    "id": 108690,
+    "name": "魔术特调",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108690",
+    "ingredients": []
+  },
+  {
+    "id": 108915,
+    "name": "「皮拉米达的夜莺」",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108847",
+    "ingredients": []
+  },
+  {
+    "id": 108917,
+    "name": "野浆果之路",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108849",
+    "ingredients": []
+  },
+  {
+    "id": 108954,
+    "name": "如同焦炭的蘑幻之菇",
+    "type": "恢复类料理",
+    "variant": "suspicious",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108867",
+    "ingredients": []
+  },
+  {
+    "id": 108983,
+    "name": "茶会序曲・花草香茶",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108883",
+    "ingredients": []
+  },
+  {
+    "id": 108984,
+    "name": "茶会序曲・拉花咖啡",
+    "type": "恢复类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108884",
+    "ingredients": []
   }
 ]

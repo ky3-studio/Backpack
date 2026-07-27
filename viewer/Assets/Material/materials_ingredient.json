@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": 100001,
     "name": "苹果",
@@ -386,6 +386,18 @@
     "icon": "UI_ItemIcon_101221"
   },
   {
+    "id": 101226,
+    "name": "活化的星蕈",
+    "icon": "UI_ItemIcon_101226",
+    "rank": 0
+  },
+  {
+    "id": 101227,
+    "name": "枯焦的星蕈",
+    "icon": "UI_ItemIcon_101227",
+    "rank": 0
+  },
+  {
     "id": 101228,
     "name": "毗波耶",
     "type": "cookingIngredient",
@@ -431,6 +443,12 @@
     "type": "cookingIngredient",
     "rank": 0,
     "icon": "UI_ItemIcon_101243"
+  },
+  {
+    "id": 101244,
+    "name": "烛伞蘑菇",
+    "icon": "UI_ItemIcon_101244",
+    "rank": 0
   },
   {
     "id": 101245,

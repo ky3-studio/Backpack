@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": 108122,
     "name": "奇怪的仙跳墙",
@@ -5605,5 +5605,50 @@
         "amount": 2
       }
     ]
+  },
+  {
+    "id": 108149,
+    "name": "冰钩钩果汁",
+    "type": "攻击类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108149",
+    "ingredients": []
+  },
+  {
+    "id": 108150,
+    "name": "树莓薄荷饮",
+    "type": "攻击类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108150",
+    "ingredients": []
+  },
+  {
+    "id": 108216,
+    "name": "海灯节特色炸萝卜丸子",
+    "type": "攻击类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_Recipe_4002",
+    "ingredients": []
+  },
+  {
+    "id": 108220,
+    "name": "海灯节特色来来菜",
+    "type": "攻击类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108132",
+    "ingredients": []
+  },
+  {
+    "id": 108488,
+    "name": "鳄鱼肉干",
+    "type": "攻击类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_120085",
+    "ingredients": []
   }
 ]

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": 108937,
     "name": "奇怪的花果草糖",
@@ -4237,5 +4237,23 @@
         "amount": 1
       }
     ]
+  },
+  {
+    "id": 108218,
+    "name": "海灯节特色白玉汤",
+    "type": "防御类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108087",
+    "ingredients": []
+  },
+  {
+    "id": 108221,
+    "name": "海灯节特色扣三丝",
+    "type": "防御类料理",
+    "variant": "normal",
+    "rank": 3,
+    "icon": "UI_ItemIcon_108156",
+    "ingredients": []
   }
 ]

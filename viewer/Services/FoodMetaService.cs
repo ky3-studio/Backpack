@@ -16,6 +16,7 @@ public sealed class FoodMetaService
         ("foods_special_attack.json",    "特殊攻击"),
         ("foods_special_defense.json",   "特殊防御"),
         ("foods_special_adventure.json", "特殊冒险"),
+        ("foods_special_arlecchino.json", "灵感之作"),
         ("foods_sweet.json",             "糖雕"),
     ];
 

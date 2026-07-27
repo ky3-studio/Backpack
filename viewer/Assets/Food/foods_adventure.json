@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": 108460,
     "name": "奇怪的阿如拌饭",
@@ -3448,5 +3448,32 @@
         "amount": 2
       }
     ]
+  },
+  {
+    "id": 108217,
+    "name": "海灯节特色禽蛋羹",
+    "type": "冒险类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108120",
+    "ingredients": []
+  },
+  {
+    "id": 108219,
+    "name": "海灯节特色热卤面",
+    "type": "冒险类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108142",
+    "ingredients": []
+  },
+  {
+    "id": 108916,
+    "name": "边陲之地",
+    "type": "冒险类料理",
+    "variant": "normal",
+    "rank": 2,
+    "icon": "UI_ItemIcon_108848",
+    "ingredients": []
   }
 ]
