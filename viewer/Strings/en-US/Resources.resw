@@ -192,4 +192,7 @@
   <data name="GadgetTabConsumable" xml:space="preserve">
     <value>Consumables</value>
   </data>
+  <data name="GadgetTabQuest" xml:space="preserve">
+    <value>Quest Items</value>
+  </data>
 </root>

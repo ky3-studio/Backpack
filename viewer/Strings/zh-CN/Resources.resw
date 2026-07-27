@@ -192,4 +192,7 @@
   <data name="GadgetTabConsumable" xml:space="preserve">
     <value>消耗品</value>
   </data>
+  <data name="GadgetTabQuest" xml:space="preserve">
+    <value>任务道具</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ public sealed class GadgetMetaService
     [
         ("gadgets_misc.json",        "GadgetTabMisc"),
         ("gadgets_consumable.json",  "GadgetTabConsumable"),
+        ("gadgets_quest.json",       "GadgetTabQuest"),
     ];
 
     private readonly Dictionary<uint, MetaEntry> _map = [];
