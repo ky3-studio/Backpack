@@ -14,6 +14,7 @@ static const MatEntry kMaterialList[] = {
 #include "rows/talent.h"
 #include "rows/char_exp.h"
 #include "rows/weapon_enhance.h"
+#include "rows/refine.h"
 #include "rows/specialty.h"
 #include "rows/cooking.h"
 #include "rows/food.h"

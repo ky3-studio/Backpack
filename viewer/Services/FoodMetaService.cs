@@ -1,23 +1,24 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
 public sealed class FoodMetaService
 {
-    private static readonly (string File, string Label)[] _tabDefs =
+    private static readonly (string File, string Key)[] _tabDefs =
     [
-        ("foods_recovery.json",         "恢复类料理"),
-        ("foods_attack.json",            "攻击类料理"),
-        ("foods_defense.json",           "防御类料理"),
-        ("foods_adventure.json",         "冒险类料理"),
-        ("foods_special_recovery.json",  "特殊恢复"),
-        ("foods_special_attack.json",    "特殊攻击"),
-        ("foods_special_defense.json",   "特殊防御"),
-        ("foods_special_adventure.json", "特殊冒险"),
-        ("foods_special_arlecchino.json", "灵感之作"),
-        ("foods_sweet.json",             "糖雕"),
+        ("foods_recovery.json",          "FoodTabRecovery"),
+        ("foods_attack.json",             "FoodTabAttack"),
+        ("foods_defense.json",            "FoodTabDefense"),
+        ("foods_adventure.json",          "FoodTabAdventure"),
+        ("foods_special_recovery.json",   "FoodTabSpecialRecovery"),
+        ("foods_special_attack.json",     "FoodTabSpecialAttack"),
+        ("foods_special_defense.json",    "FoodTabSpecialDefense"),
+        ("foods_special_adventure.json",  "FoodTabSpecialAdventure"),
+        ("foods_special_arlecchino.json", "FoodTabArlecchino"),
+        ("foods_sweet.json",              "FoodTabSweet"),
     ];
 
     private readonly Dictionary<uint, FoodMeta> _map = [];
@@ -28,7 +29,7 @@ public sealed class FoodMetaService
         var foodDir = Path.Combine(AppContext.BaseDirectory, "Assets", "Food");
         var groups  = new List<(string Label, IReadOnlyList<uint> Ids)>(_tabDefs.Length);
 
-        foreach (var (file, label) in _tabDefs)
+        foreach (var (file, key) in _tabDefs)
         {
             var path = Path.Combine(foodDir, file);
             if (!File.Exists(path)) continue;
@@ -48,7 +49,7 @@ public sealed class FoodMetaService
                     ids.Add(uid);
                 }
                 if (ids.Count > 0)
-                    groups.Add((label, ids));
+                    groups.Add((Localized.Get(key), ids));
             }
             catch { }
         }

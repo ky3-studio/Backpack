@@ -117,4 +117,58 @@
   <data name="ErrHelperExitCode" xml:space="preserve">
     <value>注入进程异常退出 ({0})</value>
   </data>
+  <data name="MatTabCharAscension" xml:space="preserve">
+    <value>角色突破</value>
+  </data>
+  <data name="MatTabWeaponAscension" xml:space="preserve">
+    <value>武器突破</value>
+  </data>
+  <data name="MatTabTalent" xml:space="preserve">
+    <value>天赋材料</value>
+  </data>
+  <data name="MatTabCharExp" xml:space="preserve">
+    <value>角色培养</value>
+  </data>
+  <data name="MatTabWeaponEnhance" xml:space="preserve">
+    <value>武器强化</value>
+  </data>
+  <data name="MatTabRefine" xml:space="preserve">
+    <value>精炼材料</value>
+  </data>
+  <data name="MatTabLocalSpecialty" xml:space="preserve">
+    <value>地区特产</value>
+  </data>
+  <data name="MatTabIngredient" xml:space="preserve">
+    <value>食材</value>
+  </data>
+  <data name="FoodTabRecovery" xml:space="preserve">
+    <value>恢复类料理</value>
+  </data>
+  <data name="FoodTabAttack" xml:space="preserve">
+    <value>攻击类料理</value>
+  </data>
+  <data name="FoodTabDefense" xml:space="preserve">
+    <value>防御类料理</value>
+  </data>
+  <data name="FoodTabAdventure" xml:space="preserve">
+    <value>冒险类料理</value>
+  </data>
+  <data name="FoodTabSpecialRecovery" xml:space="preserve">
+    <value>特殊恢复</value>
+  </data>
+  <data name="FoodTabSpecialAttack" xml:space="preserve">
+    <value>特殊攻击</value>
+  </data>
+  <data name="FoodTabSpecialDefense" xml:space="preserve">
+    <value>特殊防御</value>
+  </data>
+  <data name="FoodTabSpecialAdventure" xml:space="preserve">
+    <value>特殊冒险</value>
+  </data>
+  <data name="FoodTabArlecchino" xml:space="preserve">
+    <value>灵感之作</value>
+  </data>
+  <data name="FoodTabSweet" xml:space="preserve">
+    <value>糖雕</value>
+  </data>
 </root>

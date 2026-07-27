@@ -117,4 +117,58 @@
   <data name="ErrHelperExitCode" xml:space="preserve">
     <value>Injection helper exited with code {0}</value>
   </data>
+  <data name="MatTabCharAscension" xml:space="preserve">
+    <value>Char Ascension</value>
+  </data>
+  <data name="MatTabWeaponAscension" xml:space="preserve">
+    <value>Weapon Ascension</value>
+  </data>
+  <data name="MatTabTalent" xml:space="preserve">
+    <value>Talent Materials</value>
+  </data>
+  <data name="MatTabCharExp" xml:space="preserve">
+    <value>Char EXP</value>
+  </data>
+  <data name="MatTabWeaponEnhance" xml:space="preserve">
+    <value>Weapon Enhancement</value>
+  </data>
+  <data name="MatTabRefine" xml:space="preserve">
+    <value>Refinement</value>
+  </data>
+  <data name="MatTabLocalSpecialty" xml:space="preserve">
+    <value>Local Specialty</value>
+  </data>
+  <data name="MatTabIngredient" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="FoodTabRecovery" xml:space="preserve">
+    <value>Recovery</value>
+  </data>
+  <data name="FoodTabAttack" xml:space="preserve">
+    <value>Attack</value>
+  </data>
+  <data name="FoodTabDefense" xml:space="preserve">
+    <value>Defense</value>
+  </data>
+  <data name="FoodTabAdventure" xml:space="preserve">
+    <value>Adventure</value>
+  </data>
+  <data name="FoodTabSpecialRecovery" xml:space="preserve">
+    <value>Special Recovery</value>
+  </data>
+  <data name="FoodTabSpecialAttack" xml:space="preserve">
+    <value>Special Attack</value>
+  </data>
+  <data name="FoodTabSpecialDefense" xml:space="preserve">
+    <value>Special Defense</value>
+  </data>
+  <data name="FoodTabSpecialAdventure" xml:space="preserve">
+    <value>Special Adventure</value>
+  </data>
+  <data name="FoodTabArlecchino" xml:space="preserve">
+    <value>Arlecchino Specials</value>
+  </data>
+  <data name="FoodTabSweet" xml:space="preserve">
+    <value>Sweet Flowers</value>
+  </data>
 </root>

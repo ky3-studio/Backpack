@@ -1,20 +1,22 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
 public sealed class MaterialMetaService
 {
-    private static readonly (string File, string Label)[] _tabDefs =
+    private static readonly (string File, string Key)[] _tabDefs =
     [
-        ("materials_char_ascension.json",   "\u89d2\u8272\u7a81\u7834"),
-        ("materials_weapon_ascension.json", "\u6b66\u5668\u7a81\u7834"),
-        ("materials_talent.json",           "\u5929\u8d4b\u6750\u6599"),
-        ("materials_char_exp.json",         "\u89d2\u8272\u57f9\u517b"),
-        ("materials_weapon_enhance.json",   "\u6b66\u5668\u5f3a\u5316"),
-        ("materials_local_specialty.json",  "\u5730\u533a\u7279\u4ea7"),
-        ("materials_ingredient.json",       "\u98df\u6750"),
+        ("materials_char_ascension.json",   "MatTabCharAscension"),
+        ("materials_weapon_ascension.json", "MatTabWeaponAscension"),
+        ("materials_talent.json",           "MatTabTalent"),
+        ("materials_char_exp.json",         "MatTabCharExp"),
+        ("materials_weapon_enhance.json",   "MatTabWeaponEnhance"),
+        ("materials_refine.json",           "MatTabRefine"),
+        ("materials_local_specialty.json",  "MatTabLocalSpecialty"),
+        ("materials_ingredient.json",       "MatTabIngredient"),
     ];
 
     private readonly Dictionary<uint, MetaEntry> _map = [];
@@ -25,7 +27,7 @@ public sealed class MaterialMetaService
         var matDir = Path.Combine(AppContext.BaseDirectory, "Assets", "Material");
         var groups = new List<(string Label, IReadOnlyList<uint> Ids)>(_tabDefs.Length);
 
-        foreach (var (file, label) in _tabDefs)
+        foreach (var (file, key) in _tabDefs)
         {
             var path = Path.Combine(matDir, file);
             if (!File.Exists(path)) continue;
@@ -41,7 +43,7 @@ public sealed class MaterialMetaService
                     ids.Add((uint)e.Id);
                 }
                 if (ids.Count > 0)
-                    groups.Add((label, ids));
+                    groups.Add((Localized.Get(key), ids));
             }
             catch { }
         }
