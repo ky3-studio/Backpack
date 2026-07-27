@@ -5,27 +5,20 @@ using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class GadgetMetaService
+public sealed class AssetMetaService
 {
     private static readonly (string File, string Key)[] _tabDefs =
     [
-        ("gadgets_precious.json",    "GadgetTabPrecious"),
-        ("gadgets_adventure.json",   "GadgetTabAdventure"),
-        ("gadgets_emblem.json",      "GadgetTabEmblem"),
-        ("gadgets_wish.json",        "GadgetTabWish"),
-        ("gadgets_voucher_hi.json",  "GadgetTabVoucherHi"),
-        ("gadgets_voucher_lo.json",  "GadgetTabVoucherLo"),
-        ("gadgets_misc.json",        "GadgetTabMisc"),
-        ("gadgets_consumable.json",  "GadgetTabConsumable"),
-        ("gadgets_quest.json",       "GadgetTabQuest"),
+        ("currency.json", "AssetTabCurrency"),
+        ("qiyu.json",     "AssetTabQiyu"),
     ];
 
     private readonly Dictionary<uint, MetaEntry> _map = [];
     private readonly IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> _groups;
 
-    public GadgetMetaService()
+    public AssetMetaService()
     {
-        var dir    = Path.Combine(AppContext.BaseDirectory, "Assets", "Gadget");
+        var dir    = Path.Combine(AppContext.BaseDirectory, "Assets", "Asset");
         var groups = new List<(string Label, IReadOnlyList<uint> Ids)>(_tabDefs.Length);
 
         foreach (var (file, key) in _tabDefs)
@@ -61,13 +54,17 @@ public sealed class GadgetMetaService
     public string GetName(uint id) =>
         _map.TryGetValue(id, out var e) ? e.Name : string.Empty;
 
+    public uint GetPropId(uint id) =>
+        _map.TryGetValue(id, out var e) ? e.PropId : 0u;
+
     public IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> Groups => _groups;
 
     private sealed record MetaEntry(
-        [property: JsonPropertyName("id")]   int    Id,
-        [property: JsonPropertyName("name")] string Name,
-        [property: JsonPropertyName("type")] string Type,
-        [property: JsonPropertyName("rank")] int    Rank,
-        [property: JsonPropertyName("icon")] string Icon
+        [property: JsonPropertyName("id")]     int    Id,
+        [property: JsonPropertyName("name")]   string Name,
+        [property: JsonPropertyName("type")]   string Type,
+        [property: JsonPropertyName("rank")]   int    Rank,
+        [property: JsonPropertyName("icon")]   string Icon,
+        [property: JsonPropertyName("propId")] uint   PropId = 0u
     );
 }

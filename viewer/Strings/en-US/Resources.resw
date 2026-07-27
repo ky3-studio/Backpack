@@ -186,6 +186,15 @@
   <data name="TabGadget.Header" xml:space="preserve">
     <value>Gadgets</value>
   </data>
+  <data name="TabAsset.Header" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="AssetTabCurrency" xml:space="preserve">
+    <value>Rare Currency</value>
+  </data>
+  <data name="AssetTabQiyu" xml:space="preserve">
+    <value>Imaginarium Theater</value>
+  </data>
   <data name="GadgetTabMisc" xml:space="preserve">
     <value>Gadgets</value>
   </data>

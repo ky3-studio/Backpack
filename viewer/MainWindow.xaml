@@ -76,6 +76,10 @@
         <views:GadgetPage GadgetGroups="{x:Bind ViewModel.GadgetGroups}" />
       </PivotItem>
 
+      <PivotItem x:Uid="TabAsset">
+        <views:AssetPage AssetGroups="{x:Bind ViewModel.AssetGroups}" />
+      </PivotItem>
+
     </Pivot>
 
     <ProgressRing

@@ -18,7 +18,8 @@
     "name": "重现晶簇",
     "type": "qiyuItem",
     "rank": 4,
-    "icon": "UI_ItemIcon_233"
+    "icon": "UI_ItemIcon_233",
+    "propId": 10069
   },
   {
     "id": 234,
@@ -50,20 +51,6 @@
   },
   {
     "id": 241,
-    "name": "奇丽凝晶",
-    "type": "qiyuItem",
-    "rank": 5,
-    "icon": "UI_ItemIcon_241"
-  },
-  {
-    "id": 242,
-    "name": "奇丽凝晶",
-    "type": "qiyuItem",
-    "rank": 5,
-    "icon": "UI_ItemIcon_241"
-  },
-  {
-    "id": 243,
     "name": "奇丽凝晶",
     "type": "qiyuItem",
     "rank": 5,

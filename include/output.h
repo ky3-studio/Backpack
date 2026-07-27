@@ -5,6 +5,7 @@ namespace Output {
 static constexpr const char* kWeapon   = "weapon_bag.json";
 static constexpr const char* kArtifact = "artifact_bag.json";
 static constexpr const char* kMaterial = "material_bag.json";
+static constexpr const char* kProp     = "prop_bag.json";
 
 static constexpr const char* kWeaponHeader   = "{\n  \"weapons\": [\n";
 static constexpr const char* kArtifactHeader = "{\n  \"artifacts\": [\n";

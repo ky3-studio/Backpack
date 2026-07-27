@@ -19,6 +19,7 @@ public sealed partial class MainViewModel : ObservableObject
     private readonly WeaponMetaService    _weaponMeta;
     private readonly ArtifactMetaService  _artifactMeta;
     private readonly GadgetMetaService    _gadgetMeta;
+    private readonly AssetMetaService     _assetMeta;
     private readonly BackpackDbService    _db;
 
     public GamePathService GamePathService { get; }
@@ -28,8 +29,10 @@ public sealed partial class MainViewModel : ObservableObject
     public ObservableCollection<MaterialGroupViewModel>  MaterialGroups { get; } = [];
     public ObservableCollection<FoodGroupViewModel>      FoodGroups     { get; } = [];
     public ObservableCollection<GadgetGroupViewModel>    GadgetGroups   { get; } = [];
+    public ObservableCollection<AssetGroupViewModel>     AssetGroups    { get; } = [];
 
     private readonly Dictionary<uint, ulong> _activeCounts = [];
+    private readonly Dictionary<uint, long>  _activeProps  = [];
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DataVisibility))]
@@ -64,7 +67,7 @@ public sealed partial class MainViewModel : ObservableObject
 
     public MainViewModel(DispatcherQueue dispatcher, GamePathService gamePathService,
         MaterialMetaService materialMeta, FoodMetaService foodMeta, WeaponMetaService weaponMeta,
-        ArtifactMetaService artifactMeta, GadgetMetaService gadgetMeta, BackpackDbService db)
+        ArtifactMetaService artifactMeta, GadgetMetaService gadgetMeta, AssetMetaService assetMeta, BackpackDbService db)
     {
         _dispatcher   = dispatcher;
         _materialMeta = materialMeta;
@@ -72,6 +75,7 @@ public sealed partial class MainViewModel : ObservableObject
         _weaponMeta   = weaponMeta;
         _artifactMeta = artifactMeta;
         _gadgetMeta   = gadgetMeta;
+        _assetMeta    = assetMeta;
         _db           = db;
         GamePathService = gamePathService;
         HasSelectedPath = gamePathService.HasSelection;
@@ -90,9 +94,11 @@ public sealed partial class MainViewModel : ObservableObject
             LoadDefaultArtifacts();
 
         _activeCounts = db.LoadMaterialCounts();
+        _activeProps  = db.LoadProps();
         RebuildMaterialGroups();
         RebuildFoodGroups();
         RebuildGadgetGroups();
+        RebuildAssetGroups();
     }
 
     private void LoadDefaultArtifacts()
@@ -135,6 +141,25 @@ public sealed partial class MainViewModel : ObservableObject
                     var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
                     var entry = new MaterialEntry(id, _gadgetMeta.GetName(id), string.Empty, count);
                     return new GadgetViewModel(entry, _gadgetMeta);
+                })]));
+        }
+    }
+
+    private void RebuildAssetGroups()
+    {
+        AssetGroups.Clear();
+        foreach (var (label, ids) in _assetMeta.Groups)
+        {
+            AssetGroups.Add(new AssetGroupViewModel(
+                label,
+                [.. ids.Select(id =>
+                {
+                    var propId = _assetMeta.GetPropId(id);
+                    ulong count = propId != 0
+                        ? (_activeProps.TryGetValue(propId, out var pv) ? (ulong)Math.Max(0L, pv) : 0UL)
+                        : (_activeCounts.TryGetValue(id, out var c) ? c : 0UL);
+                    var entry = new MaterialEntry(id, _assetMeta.GetName(id), string.Empty, count);
+                    return new AssetViewModel(entry, _assetMeta);
                 })]));
         }
     }
@@ -205,7 +230,18 @@ public sealed partial class MainViewModel : ObservableObject
                 RebuildMaterialGroups();
                 RebuildFoodGroups();
                 RebuildGadgetGroups();
+                RebuildAssetGroups();
                 break;
+            }
+            case "prop":
+            {
+                var bag = JsonSerializer.Deserialize<PropBag>(json);
+                if (bag is null) return;
+                foreach (var (k, v) in bag.Props)
+                    _activeProps[k] = v;
+                _db.SaveProps(_activeProps);
+                RebuildAssetGroups();
+                return;
             }
         }
         IsLaunching = false;

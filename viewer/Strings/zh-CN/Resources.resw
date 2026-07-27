@@ -186,6 +186,15 @@
   <data name="TabGadget.Header" xml:space="preserve">
     <value>道具</value>
   </data>
+  <data name="TabAsset.Header" xml:space="preserve">
+    <value>个人资产</value>
+  </data>
+  <data name="AssetTabCurrency" xml:space="preserve">
+    <value>稀有货币</value>
+  </data>
+  <data name="AssetTabQiyu" xml:space="preserve">
+    <value>千星奇域</value>
+  </data>
   <data name="GadgetTabMisc" xml:space="preserve">
     <value>小道具</value>
   </data>

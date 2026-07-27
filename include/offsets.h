@@ -32,6 +32,22 @@ namespace Pkt {
     static constexpr uint32_t kBodyPrefix   = 10;
 
     static constexpr uint16_t kCmdStore     = 25494;
+    static constexpr uint16_t kCmdProp      = 2643;
 
     static constexpr uint32_t kMaxStoreLen  = 0x2000000u;
+    static constexpr uint32_t kMaxPropLen   = 0x10000u;
+}
+
+namespace PropId {
+    static constexpr uint32_t kPlayerLevel    = 10013;
+    static constexpr uint32_t kPrimogem       = 10015;
+    static constexpr uint32_t kMora           = 10016;
+    static constexpr uint32_t kWorldLevel     = 10019;
+    static constexpr uint32_t kResin          = 10020;
+    static constexpr uint32_t kGenesisCrystal = 10025;
+    static constexpr uint32_t kLegendaryKey   = 10027;
+    static constexpr uint32_t kHomeCoin       = 10042;
+    static constexpr uint32_t kToyToken       = 10053;
+    static constexpr uint32_t kQiyuCoin       = 10058;
+    static constexpr uint32_t kReshowCrystal  = 10069;
 }
