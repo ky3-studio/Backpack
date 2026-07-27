@@ -195,4 +195,28 @@
   <data name="GadgetTabQuest" xml:space="preserve">
     <value>Quest Items</value>
   </data>
+  <data name="GadgetTabPrecious" xml:space="preserve">
+    <value>Precious</value>
+  </data>
+  <data name="GadgetTabQiyu" xml:space="preserve">
+    <value>Imaginarium Theater</value>
+  </data>
+  <data name="GadgetTabAdventure" xml:space="preserve">
+    <value>Adventure</value>
+  </data>
+  <data name="GadgetTabEmblem" xml:space="preserve">
+    <value>Nation Emblems</value>
+  </data>
+  <data name="GadgetTabWish" xml:space="preserve">
+    <value>Wish Items</value>
+  </data>
+  <data name="GadgetTabVoucherHi" xml:space="preserve">
+    <value>Starglitter</value>
+  </data>
+  <data name="GadgetTabVoucherLo" xml:space="preserve">
+    <value>Stardust</value>
+  </data>
+  <data name="GadgetTabCurrency" xml:space="preserve">
+    <value>Rare Currency</value>
+  </data>
 </root>

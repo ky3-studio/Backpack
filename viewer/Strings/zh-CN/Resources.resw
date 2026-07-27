@@ -195,4 +195,28 @@
   <data name="GadgetTabQuest" xml:space="preserve">
     <value>任务道具</value>
   </data>
+  <data name="GadgetTabPrecious" xml:space="preserve">
+    <value>贵重物品</value>
+  </data>
+  <data name="GadgetTabQiyu" xml:space="preserve">
+    <value>千星奇域</value>
+  </data>
+  <data name="GadgetTabAdventure" xml:space="preserve">
+    <value>冒险道具</value>
+  </data>
+  <data name="GadgetTabEmblem" xml:space="preserve">
+    <value>七国徽印</value>
+  </data>
+  <data name="GadgetTabWish" xml:space="preserve">
+    <value>祈愿道具</value>
+  </data>
+  <data name="GadgetTabVoucherHi" xml:space="preserve">
+    <value>高级兑换券</value>
+  </data>
+  <data name="GadgetTabVoucherLo" xml:space="preserve">
+    <value>普通兑换券</value>
+  </data>
+  <data name="GadgetTabCurrency" xml:space="preserve">
+    <value>稀有货币</value>
+  </data>
 </root>
