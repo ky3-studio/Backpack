@@ -48,7 +48,7 @@ RestartApplications=no
 AllowNoIcons=yes
 
 [Languages]
-Name: "chs"; MessagesFile: "compiler:ChineseSimplified.isl"
+Name: "chs"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: "附加快捷方式:"
