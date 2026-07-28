@@ -57,7 +57,7 @@
                           Margin="12,0,0,0"
                           Opacity="0.7"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="{x:Bind LevelFull}"
+                          Text="{x:Bind LevelFull, Mode=OneWay}"
                           TextWrapping="NoWrap" />
                     </StackPanel>
                   </Grid>
@@ -122,7 +122,7 @@
                                     Text="{x:Bind Name}" />
                                 <ItemsRepeater
                                     Margin="0,2,0,0"
-                                    ItemsSource="{x:Bind PromoteItems}">
+                                    ItemsSource="{x:Bind PromoteItems, Mode=OneWay}">
                                   <ItemsRepeater.Layout>
                                     <StackLayout Orientation="Horizontal" Spacing="2" />
                                   </ItemsRepeater.Layout>
@@ -141,7 +141,7 @@
                                     FontSize="14"
                                     Foreground="White"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="{x:Bind LevelFull}" />
+                                    Text="{x:Bind LevelFull, Mode=OneWay}" />
                                 <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                   <Image
                                       Width="16"
@@ -152,12 +152,12 @@
                                       VerticalAlignment="Center"
                                       Foreground="White"
                                       Style="{StaticResource CaptionTextBlockStyle}"
-                                      Text="{x:Bind FetterText}" />
+                                      Text="{x:Bind FetterText, Mode=OneWay}" />
                                 </StackPanel>
                               </StackPanel>
                             </Grid>
 
-                            <Grid Margin="0,16,0,0" HorizontalAlignment="Left" Visibility="{x:Bind HasWeaponVisibility}">
+                            <Grid Margin="0,16,0,0" HorizontalAlignment="Left" Visibility="{x:Bind HasWeaponVisibility, Mode=OneWay}">
                               <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -176,10 +176,10 @@
                                     FontWeight="SemiBold"
                                     Foreground="White"
                                     Style="{StaticResource SubtitleTextBlockStyle}"
-                                    Text="{x:Bind WeaponName}" />
+                                    Text="{x:Bind WeaponName, Mode=OneWay}" />
                                 <ItemsRepeater
                                     Margin="0,2,0,0"
-                                    ItemsSource="{x:Bind WeaponPromoteItems}">
+                                    ItemsSource="{x:Bind WeaponPromoteItems, Mode=OneWay}">
                                   <ItemsRepeater.Layout>
                                     <StackLayout Orientation="Horizontal" Spacing="2" />
                                   </ItemsRepeater.Layout>
@@ -198,13 +198,13 @@
                                     FontSize="14"
                                     Foreground="White"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="{x:Bind WeaponLevelText}" />
+                                    Text="{x:Bind WeaponLevelText, Mode=OneWay}" />
                                 <TextBlock
                                     Margin="0,2,0,0"
                                     FontSize="13"
                                     Foreground="#CCFFFFFF"
                                     Style="{StaticResource AppCaptionTextBlockStyle}"
-                                    Text="{x:Bind WeaponRefineText}" />
+                                    Text="{x:Bind WeaponRefineText, Mode=OneWay}" />
                               </StackPanel>
                             </Grid>
 
@@ -213,7 +213,7 @@
                           <ItemsRepeater
                               HorizontalAlignment="Right"
                               VerticalAlignment="Bottom"
-                              ItemsSource="{x:Bind Skills}">
+                              ItemsSource="{x:Bind Skills, Mode=OneWay}">
                             <ItemsRepeater.Layout>
                               <StackLayout Orientation="Vertical" Spacing="0" />
                             </ItemsRepeater.Layout>
@@ -300,7 +300,7 @@
                           <ItemsRepeater
                               HorizontalAlignment="Left"
                               VerticalAlignment="Bottom"
-                              ItemsSource="{x:Bind Talents}">
+                              ItemsSource="{x:Bind Talents, Mode=OneWay}">
                             <ItemsRepeater.Layout>
                               <StackLayout Orientation="Horizontal" Spacing="0" />
                             </ItemsRepeater.Layout>
