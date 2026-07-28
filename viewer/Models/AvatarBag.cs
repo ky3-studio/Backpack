@@ -2,18 +2,26 @@ using System.Text.Json.Serialization;
 
 namespace Backpack.Viewer.Models;
 
-public sealed record AvatarEntry(
-    [property: JsonPropertyName("id")]      uint     Id,
-    [property: JsonPropertyName("guid")]    string   Guid,
-    [property: JsonPropertyName("level")]   int      Level,
-    [property: JsonPropertyName("promote")] int      Promote,
-    [property: JsonPropertyName("fetter")]  int      Fetter,
-    [property: JsonPropertyName("talents")] uint[]   Talents,
-    [property: JsonPropertyName("skills")]  int[][]  Skills,
-    [property: JsonPropertyName("extras")]  int[][]  Extras,
-    [property: JsonPropertyName("equips")]  string[] Equips
+public sealed record SkillEntry(
+    [property: JsonPropertyName("id")]    uint Id,
+    [property: JsonPropertyName("level")] int  Level
 );
 
-public sealed record AvatarBag(
-    [property: JsonPropertyName("avatars")] AvatarEntry[] Avatars
+public sealed record PassiveEntry(
+    [property: JsonPropertyName("id")]    uint Id,
+    [property: JsonPropertyName("extra")] int  Extra
+);
+
+public sealed record AvatarEntry(
+    [property: JsonPropertyName("id")]            uint          Id,
+    [property: JsonPropertyName("name")]          string?       Name,
+    [property: JsonPropertyName("element")]       string?       Element,
+    [property: JsonPropertyName("rarity")]        int           Rarity,
+    [property: JsonPropertyName("level")]         int           Level,
+    [property: JsonPropertyName("ascension")]     int           Ascension,
+    [property: JsonPropertyName("friendship")]    int           Friendship,
+    [property: JsonPropertyName("constellation")] int           Constellation,
+    [property: JsonPropertyName("skills")]        SkillEntry[]  Skills,
+    [property: JsonPropertyName("passives")]      PassiveEntry[] Passives,
+    [property: JsonPropertyName("equips")]        string[]      Equips
 );

@@ -38,6 +38,6 @@ public sealed partial class ArtifactPage : UserControl
     private void OnCardDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
         if (sender is FrameworkElement fe && fe.Tag is ArtifactViewModel vm)
-            UiHelper.ShowDetailFlyout(fe, vm.Source.SetName, vm.BonusText);
+            UiHelper.ShowDetailFlyout(fe, vm.Source.Set, vm.BonusText);
     }
 }

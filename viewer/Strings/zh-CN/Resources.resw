@@ -66,6 +66,9 @@
   <data name="Locked" xml:space="preserve">
     <value>已锁定</value>
   </data>
+  <data name="SetBonusFmt" xml:space="preserve">
+    <value>{0}件套：{1}</value>
+  </data>
   <data name="SlotFlower" xml:space="preserve">
     <value>生之花</value>
   </data>

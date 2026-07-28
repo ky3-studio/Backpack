@@ -10,12 +10,12 @@ public sealed partial class BackpackDbService
     {
         using var cmd = _db.CreateCommand();
         cmd.CommandText =
-            "SELECT guid,id,set_name,name,slot,locked,level,rank,init_sub_stats,main_stat_type,main_stat_raw,sub_stats FROM artifacts ORDER BY locked DESC,rank DESC,level DESC";
+            "SELECT guid,id,[set],name,slot,locked,level,rank,init_sub_stats,main_stat,sub_stats FROM artifacts ORDER BY locked DESC,rank DESC,level DESC";
         using var r = cmd.ExecuteReader();
         var list = new List<ArtifactEntry>();
         while (r.Read())
         {
-            var subStats = JsonSerializer.Deserialize<ArtifactSubStat[]>(r.GetString(11)) ?? [];
+            var subStats = JsonSerializer.Deserialize<ArtifactSubStat[]>(r.GetString(10)) ?? [];
             list.Add(new ArtifactEntry(
                 (uint)r.GetInt64(1),
                 r.GetString(0),
@@ -26,7 +26,7 @@ public sealed partial class BackpackDbService
                 r.GetInt32(6),
                 r.GetInt32(7),
                 r.GetInt32(8),
-                new ArtifactMainStat(r.GetString(9), r.GetString(10)),
+                r.GetString(9),
                 subStats));
         }
         return list;
@@ -42,34 +42,32 @@ public sealed partial class BackpackDbService
         using var ins = _db.CreateCommand();
         ins.CommandText =
             "INSERT INTO artifacts " +
-            "(guid,id,set_name,name,slot,locked,level,rank,init_sub_stats,main_stat_type,main_stat_raw,sub_stats) " +
-            "VALUES ($g,$i,$sn,$n,$sl,$lk,$l,$r,$is,$mt,$mr,$ss)";
+            "(guid,id,[set],name,slot,locked,level,rank,init_sub_stats,main_stat,sub_stats) " +
+            "VALUES ($g,$i,$s,$n,$sl,$lk,$l,$r,$is,$ms,$ss)";
         var pg  = ins.Parameters.Add("$g",  SqliteType.Text);
         var pi  = ins.Parameters.Add("$i",  SqliteType.Integer);
-        var psn = ins.Parameters.Add("$sn", SqliteType.Text);
+        var ps  = ins.Parameters.Add("$s",  SqliteType.Text);
         var pn  = ins.Parameters.Add("$n",  SqliteType.Text);
         var psl = ins.Parameters.Add("$sl", SqliteType.Text);
         var plk = ins.Parameters.Add("$lk", SqliteType.Integer);
         var pl  = ins.Parameters.Add("$l",  SqliteType.Integer);
         var pr  = ins.Parameters.Add("$r",  SqliteType.Integer);
         var pis = ins.Parameters.Add("$is", SqliteType.Integer);
-        var pmt = ins.Parameters.Add("$mt", SqliteType.Text);
-        var pmr = ins.Parameters.Add("$mr", SqliteType.Text);
+        var pms = ins.Parameters.Add("$ms", SqliteType.Text);
         var pss = ins.Parameters.Add("$ss", SqliteType.Text);
 
         foreach (var a in artifacts)
         {
             pg.Value  = a.Guid;
             pi.Value  = (long)a.Id;
-            psn.Value = a.SetName;
+            ps.Value  = a.Set;
             pn.Value  = a.Name;
             psl.Value = a.Slot;
             plk.Value = a.Locked ? 1 : 0;
             pl.Value  = a.Level;
             pr.Value  = a.Rank;
             pis.Value = a.InitSubStats;
-            pmt.Value = a.MainStat.Type;
-            pmr.Value = a.MainStat.TypeRaw;
+            pms.Value = a.MainStat;
             pss.Value = JsonSerializer.Serialize(a.SubStats);
             ins.ExecuteNonQuery();
         }

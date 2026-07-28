@@ -1,7 +1,7 @@
-#include "../../include/proto.h"
-#include "../../include/output.h"
-#include "../../db/artifact/artifact_db.h"
-#include "../../db/artifact/artifact_set_db.h"
+#include "../include/proto.h"
+#include "../include/output.h"
+#include "../db/artifact/artifact_db.h"
+#include "../db/artifact/artifact_set_db.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -58,6 +58,8 @@ static std::vector<uint32_t> ReadPackedU32(const uint8_t* buf, size_t len) {
     return out;
 }
 
+static std::vector<Inst> g_cache;
+
 static std::string BuildJson(const std::vector<Inst>& arts) {
     std::vector<size_t> idx(arts.size());
     for (size_t i = 0; i < idx.size(); ++i) idx[i] = i;
@@ -68,33 +70,30 @@ static std::string BuildJson(const std::vector<Inst>& arts) {
     });
 
     std::string out;
-    out.reserve(arts.size() * 1024 + 32);
-    out += Output::kArtifactHeader;
+    out.reserve(arts.size() * 512 + 32);
+    out += "[\n";
     for (size_t ii = 0; ii < idx.size(); ++ii) {
         const Inst& a = arts[idx[ii]];
         char buf[512];
-
-        out += Output::kArtItemOpen;
-        sprintf_s(buf, Output::kArtId,       a.id);                                         out += buf;
-        sprintf_s(buf, Output::kArtGuid,     static_cast<unsigned long long>(a.guid));      out += buf;
-        sprintf_s(buf, Output::kArtSetName,  a.setName);                                    out += buf;
-        sprintf_s(buf, Output::kArtName,     a.pieceName);                                  out += buf;
-        sprintf_s(buf, Output::kArtSlot,     a.slot);                                       out += buf;
-        sprintf_s(buf, Output::kArtEquipped, a.equipped ? "true" : "false");               out += buf;
-        sprintf_s(buf, Output::kArtLevel,    a.level);                                      out += buf;
-        sprintf_s(buf, Output::kArtRank,         a.rank);                                      out += buf;
-        sprintf_s(buf, Output::kArtInitSubStats,  a.initSubStats);                              out += buf;
-        sprintf_s(buf, Output::kArtMainStat, a.mainShort, a.mainType);                      out += buf;
-
-        out += Output::kArtSubStatsOpen;
+        out += "    {\n";
+        sprintf_s(buf, "      \"id\": %u,\n",           a.id);                                          out += buf;
+        sprintf_s(buf, "      \"guid\": \"%llu\",\n",  static_cast<unsigned long long>(a.guid));        out += buf;
+        sprintf_s(buf, "      \"set\": \"%s\",\n",     a.setName);                                      out += buf;
+        sprintf_s(buf, "      \"name\": \"%s\",\n",    a.pieceName);                                    out += buf;
+        sprintf_s(buf, "      \"slot\": \"%s\",\n",    a.slot);                                         out += buf;
+        sprintf_s(buf, "      \"rank\": %d,\n",         a.rank);                                         out += buf;
+        sprintf_s(buf, "      \"level\": %d,\n",        a.level);                                        out += buf;
+        sprintf_s(buf, "      \"initSubStats\": %d,\n", a.initSubStats);                                 out += buf;
+        sprintf_s(buf, "      \"mainStat\": \"%s\",\n",a.mainShort);                                    out += buf;
+        out += "      \"subStats\": [\n";
         for (size_t si = 0; si < a.subs.size(); ++si) {
-            const SubStat& ss = a.subs[si];
-            bool   isPct = ArtifactDb::PropIsPercent(ss.propType);
-            double total = 0.0;
+            const SubStat& ss    = a.subs[si];
+            bool           isPct = ArtifactDb::PropIsPercent(ss.propType);
+            double         total = 0.0;
             for (double v : ss.rollValues) total += v;
             char valBuf[32];
-            sprintf_s(valBuf, isPct ? Output::kArtSubStatFmtPct : Output::kArtSubStatFmtInt, total);
-            sprintf_s(buf, Output::kArtSubStatHead, ss.type, ss.propType, valBuf);
+            sprintf_s(valBuf, isPct ? "%.1f" : "%.0f", total);
+            sprintf_s(buf, "        { \"type\": \"%s\", \"value\": %s, \"rolls\": [", ss.type, valBuf);
             out += buf;
             for (size_t ri = 0; ri < ss.rollValues.size(); ++ri) {
                 char rv[32];
@@ -102,16 +101,17 @@ static std::string BuildJson(const std::vector<Inst>& arts) {
                 if (ri > 0) out += ",";
                 out += rv;
             }
-            sprintf_s(buf, Output::kArtSubStatTail, (si + 1 < a.subs.size()) ? "," : "");
-            out += buf;
+            out += si + 1 < a.subs.size() ? "]},\n" : "]}\n";
         }
-        out += Output::kArtSubStatsClose;
-        sprintf_s(buf, Output::kArtClose, (ii + 1 < idx.size()) ? "," : "");
-        out += buf;
+        out += "      ],\n";
+        sprintf_s(buf, "      \"locked\": %s\n",              a.equipped ? "true" : "false"); out += buf;
+        sprintf_s(buf, "    }%s\n", (ii + 1 < idx.size()) ? "," : "");                        out += buf;
     }
-    out += Output::kArrayFooter;
+    out += "]";
     return out;
 }
+
+std::string ExportJson() { return BuildJson(g_cache); }
 
 std::string OnPacket(const uint8_t* body, uint32_t len) {
     std::vector<Inst> arts;
@@ -218,7 +218,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
         return true;
     });
 
-    return BuildJson(arts);
+    g_cache = std::move(arts);
+    return BuildJson(g_cache);
 }
 
 }

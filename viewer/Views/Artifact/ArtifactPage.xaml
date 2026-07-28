@@ -52,7 +52,7 @@
                         VerticalAlignment="Center">
                       <TextBlock
                           Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                          Text="{x:Bind Source.SetName}"
+                          Text="{x:Bind Source.Set}"
                           TextWrapping="WrapWholeWords" />
                       <TextBlock
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -62,7 +62,14 @@
                       <TextBlock
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="{x:Bind SlotRankEquipped}" />
+                          Text="{x:Bind SlotText}" />
+                      <ItemsRepeater
+                          ItemsSource="{x:Bind RankItems}"
+                          ItemTemplate="{StaticResource KiraStarItemTemplate}">
+                        <ItemsRepeater.Layout>
+                          <StackLayout Orientation="Horizontal" Spacing="1" />
+                        </ItemsRepeater.Layout>
+                      </ItemsRepeater>
                     </StackPanel>
                     <TextBlock
                         Grid.Column="2"
@@ -87,7 +94,7 @@
                       <TextBlock
                           Grid.Column="0"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="{x:Bind Source.MainStat.Type}" />
+                          Text="{x:Bind Source.MainStat}" />
                       <TextBlock
                           Grid.Column="1"
                           Style="{StaticResource AppCaptionTextBlockStyle}"

@@ -1,6 +1,6 @@
-#include "../../include/proto.h"
-#include "../../include/output.h"
-#include "../../include/offsets.h"
+#include "../include/proto.h"
+#include "../include/output.h"
+#include "../include/offsets.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -33,21 +33,42 @@ static bool IsRelevant(uint32_t id) {
     }
 }
 
-static std::string BuildJson(const std::vector<Entry>& entries) {
-    std::string out;
-    out.reserve(entries.size() * 32 + 32);
-    out += "{\n  \"props\": {\n";
-    for (size_t i = 0; i < entries.size(); ++i) {
-        char buf[64];
-        sprintf_s(buf, "    \"%u\": %lld%s\n",
-            entries[i].id,
-            static_cast<long long>(entries[i].value),
-            (i + 1 < entries.size()) ? "," : "");
-        out += buf;
+static std::vector<Entry> g_cache;
+
+static const char* PropKey(uint32_t id) {
+    switch (id) {
+        case PropId::kPlayerLevel:    return "playerLevel";
+        case PropId::kPrimogem:       return "primogem";
+        case PropId::kMora:           return "mora";
+        case PropId::kWorldLevel:     return "worldLevel";
+        case PropId::kResin:          return "resin";
+        case PropId::kGenesisCrystal: return "genesisCrystal";
+        case PropId::kLegendaryKey:   return "legendaryKey";
+        case PropId::kHomeCoin:       return "homeCoin";
+        case PropId::kToyToken:       return "toyToken";
+        case PropId::kQiyuCoin:       return "qiyuCoin";
+        case PropId::kReshowCrystal:  return "reshowCrystal";
+        default:                      return nullptr;
     }
-    out += "  }\n}\n";
+}
+
+static std::string BuildJson(const std::vector<Entry>& entries) {
+    std::string out = "{ ";
+    bool first = true;
+    for (const auto& e : entries) {
+        const char* key = PropKey(e.id);
+        if (!key) continue;
+        if (!first) out += ", ";
+        char buf[64];
+        sprintf_s(buf, "\"%s\": %lld", key, static_cast<long long>(e.value));
+        out += buf;
+        first = false;
+    }
+    out += " }";
     return out;
 }
+
+std::string ExportJson() { return BuildJson(g_cache); }
 
 std::string OnPacket(const uint8_t* body, uint32_t len) {
     std::vector<Entry> entries;
@@ -77,7 +98,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
         return true;
     });
 
-    return BuildJson(entries);
+    g_cache = entries;
+    return BuildJson(g_cache);
 }
 
 }

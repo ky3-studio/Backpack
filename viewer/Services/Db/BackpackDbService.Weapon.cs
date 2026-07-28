@@ -9,7 +9,7 @@ public sealed partial class BackpackDbService
     {
         using var cmd = _db.CreateCommand();
         cmd.CommandText =
-            "SELECT guid,id,name,type,rank,special_prop,level,promote,refine FROM weapons ORDER BY rank DESC,id";
+            "SELECT guid,id,name,type,rank,main_stat,level,ascension,refine FROM weapons ORDER BY rank DESC,id";
         using var r = cmd.ExecuteReader();
         var list = new List<WeaponEntry>();
         while (r.Read())
@@ -35,16 +35,16 @@ public sealed partial class BackpackDbService
 
         using var ins = _db.CreateCommand();
         ins.CommandText =
-            "INSERT INTO weapons (guid,id,name,type,rank,special_prop,level,promote,refine) " +
-            "VALUES ($g,$i,$n,$t,$r,$sp,$l,$p,$rf)";
+            "INSERT INTO weapons (guid,id,name,type,rank,main_stat,level,ascension,refine) " +
+            "VALUES ($g,$i,$n,$t,$r,$ms,$l,$a,$rf)";
         var pg  = ins.Parameters.Add("$g",  SqliteType.Text);
         var pi  = ins.Parameters.Add("$i",  SqliteType.Integer);
         var pn  = ins.Parameters.Add("$n",  SqliteType.Text);
         var pt  = ins.Parameters.Add("$t",  SqliteType.Text);
         var pr  = ins.Parameters.Add("$r",  SqliteType.Integer);
-        var psp = ins.Parameters.Add("$sp", SqliteType.Text);
+        var pms = ins.Parameters.Add("$ms", SqliteType.Text);
         var pl  = ins.Parameters.Add("$l",  SqliteType.Integer);
-        var pp  = ins.Parameters.Add("$p",  SqliteType.Integer);
+        var pa  = ins.Parameters.Add("$a",  SqliteType.Integer);
         var prf = ins.Parameters.Add("$rf", SqliteType.Integer);
 
         foreach (var w in weapons)
@@ -54,9 +54,9 @@ public sealed partial class BackpackDbService
             pn.Value  = w.Name;
             pt.Value  = w.Type;
             pr.Value  = w.Rank;
-            psp.Value = w.SpecialProp;
+            pms.Value = w.MainStat;
             pl.Value  = w.Level;
-            pp.Value  = w.Promote;
+            pa.Value  = w.Ascension;
             prf.Value = w.Refine;
             ins.ExecuteNonQuery();
         }

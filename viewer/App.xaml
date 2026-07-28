@@ -29,6 +29,13 @@
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
       </Style>
       <SolidColorBrush x:Key="WeaponGoldBrush" Color="#FFD780" />
+      <DataTemplate x:Key="KiraStarItemTemplate">
+        <BitmapIcon
+            Width="14"
+            Height="14"
+            Foreground="{ThemeResource WeaponGoldBrush}"
+            UriSource="ms-appx:///Assets/UI_IconKira.png" />
+      </DataTemplate>
       <FontFamily x:Key="AppFontFamily">ms-appx:///Assets/Fonts/MiSans-Regular.ttf#MiSans</FontFamily>
       <FontFamily x:Key="ContentControlThemeFontFamily">ms-appx:///Assets/Fonts/MiSans-Regular.ttf#MiSans</FontFamily>
       <StaticResource x:Key="PivotHeaderItemFontFamily" ResourceKey="AppFontFamily" />

@@ -123,19 +123,11 @@
                                     Text="{x:Bind Name}" />
                                 <ItemsRepeater
                                     Margin="0,2,0,0"
-                                    ItemsSource="{x:Bind PromoteItems, Mode=OneWay}">
+                                    ItemsSource="{x:Bind PromoteItems, Mode=OneWay}"
+                                    ItemTemplate="{StaticResource KiraStarItemTemplate}">
                                   <ItemsRepeater.Layout>
                                     <StackLayout Orientation="Horizontal" Spacing="2" />
                                   </ItemsRepeater.Layout>
-                                  <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate x:DataType="x:Int32">
-                                      <BitmapIcon
-                                          Width="14"
-                                          Height="14"
-                                          Foreground="{ThemeResource WeaponGoldBrush}"
-                                          UriSource="ms-appx:///Assets/UI_IconKira.png" />
-                                    </DataTemplate>
-                                  </ItemsRepeater.ItemTemplate>
                                 </ItemsRepeater>
                                 <TextBlock
                                     Margin="0,2,0,0"
@@ -180,19 +172,11 @@
                                     Text="{x:Bind WeaponName, Mode=OneWay}" />
                                 <ItemsRepeater
                                     Margin="0,2,0,0"
-                                    ItemsSource="{x:Bind WeaponPromoteItems, Mode=OneWay}">
+                                    ItemsSource="{x:Bind WeaponPromoteItems, Mode=OneWay}"
+                                    ItemTemplate="{StaticResource KiraStarItemTemplate}">
                                   <ItemsRepeater.Layout>
                                     <StackLayout Orientation="Horizontal" Spacing="2" />
                                   </ItemsRepeater.Layout>
-                                  <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate x:DataType="x:Int32">
-                                      <BitmapIcon
-                                          Width="14"
-                                          Height="14"
-                                          Foreground="{ThemeResource WeaponGoldBrush}"
-                                          UriSource="ms-appx:///Assets/UI_IconKira.png" />
-                                    </DataTemplate>
-                                  </ItemsRepeater.ItemTemplate>
                                 </ItemsRepeater>
                                 <TextBlock
                                     Margin="0,2,0,0"

@@ -1,6 +1,7 @@
-#include "../../include/proto.h"
-#include "../../include/output.h"
-#include "../../include/offsets.h"
+#include "../include/proto.h"
+#include "../include/output.h"
+#include "../include/offsets.h"
+#include "../db/avatar/avatar_db.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -15,16 +16,22 @@ struct SkillLv  { uint32_t id;  uint32_t level; };
 struct ExtraLv  { uint32_t gid; uint32_t extra; };
 
 struct Inst {
-    uint32_t            id      = 0;
-    uint64_t            guid    = 0;
-    uint32_t            level   = 0;
-    uint32_t            promote = 0;
-    uint32_t            fetter  = 0;
+    uint32_t            id          = 0;
+    uint64_t            guid        = 0;
+    uint32_t            level       = 0;
+    uint32_t            ascension   = 0;
+    uint32_t            friendship  = 0;
     std::vector<uint32_t>  talents;
     std::vector<SkillLv>   skills;
     std::vector<ExtraLv>   extras;
     std::vector<uint64_t>  equips;
 };
+
+static const AvatarDbEntry* Lookup(uint32_t id) {
+    for (size_t i = 0; i < kAvatarDbSize; ++i)
+        if (kAvatarDb[i].id == id) return &kAvatarDb[i];
+    return nullptr;
+}
 
 static void ParsePackedVarints(const uint8_t* p, size_t len, std::vector<uint64_t>& out) {
     size_t pos = 0;
@@ -44,59 +51,63 @@ static uint32_t ParsePropIval(const uint8_t* p, size_t len) {
     return ival;
 }
 
+static std::vector<Inst> g_cache;
+
 static std::string BuildJson(const std::vector<Inst>& avatars) {
     std::string out;
     out.reserve(avatars.size() * 512 + 32);
-    out += Output::kAvatarHeader;
-
+    out += "[\n";
     for (size_t i = 0; i < avatars.size(); ++i) {
         const Inst& a = avatars[i];
 
-        std::string talents_str = "[";
-        for (size_t j = 0; j < a.talents.size(); ++j) {
-            char buf[16]; sprintf_s(buf, "%u", a.talents[j]);
-            talents_str += buf;
-            if (j + 1 < a.talents.size()) talents_str += ",";
-        }
-        talents_str += "]";
-
         std::string skills_str = "[";
         for (size_t j = 0; j < a.skills.size(); ++j) {
-            char buf[32]; sprintf_s(buf, "[%u,%u]", a.skills[j].id, a.skills[j].level);
+            char buf[48];
+            sprintf_s(buf, "{\"id\":%u,\"level\":%u}", a.skills[j].id, a.skills[j].level);
             skills_str += buf;
             if (j + 1 < a.skills.size()) skills_str += ",";
         }
         skills_str += "]";
 
-        std::string extras_str = "[";
+        std::string passives_str = "[";
         for (size_t j = 0; j < a.extras.size(); ++j) {
-            char buf[32]; sprintf_s(buf, "[%u,%u]", a.extras[j].gid, a.extras[j].extra);
-            extras_str += buf;
-            if (j + 1 < a.extras.size()) extras_str += ",";
+            char buf[48];
+            sprintf_s(buf, "{\"id\":%u,\"extra\":%u}", a.extras[j].gid, a.extras[j].extra);
+            passives_str += buf;
+            if (j + 1 < a.extras.size()) passives_str += ",";
         }
-        extras_str += "]";
+        passives_str += "]";
 
         std::string equips_str = "[";
         for (size_t j = 0; j < a.equips.size(); ++j) {
-            char buf[32]; sprintf_s(buf, "\"%llu\"", static_cast<unsigned long long>(a.equips[j]));
+            char buf[32];
+            sprintf_s(buf, "\"%llu\"", static_cast<unsigned long long>(a.equips[j]));
             equips_str += buf;
             if (j + 1 < a.equips.size()) equips_str += ",";
         }
         equips_str += "]";
 
+        const AvatarDbEntry* info = Lookup(a.id);
         char line[4096];
-        sprintf_s(line, Output::kAvatarItem,
-            a.id, static_cast<unsigned long long>(a.guid),
-            a.level, a.promote, a.fetter,
-            talents_str.c_str(), skills_str.c_str(),
-            extras_str.c_str(), equips_str.c_str(),
+        sprintf_s(line,
+            "    {\"id\":%u,\"name\":\"%s\",\"element\":\"%s\",\"rarity\":%u,"
+            "\"level\":%u,\"ascension\":%u,\"friendship\":%u,\"constellation\":%u,"
+            "\"skills\":%s,\"passives\":%s,\"equips\":%s}%s\n",
+            a.id,
+            info ? info->name    : "",
+            info ? info->element : "",
+            info ? static_cast<unsigned>(info->rarity) : 0u,
+            a.level, a.ascension, a.friendship,
+            static_cast<unsigned>(a.talents.size()),
+            skills_str.c_str(), passives_str.c_str(), equips_str.c_str(),
             (i + 1 < avatars.size()) ? "," : "");
         out += line;
     }
-
-    out += Output::kArrayFooter;
+    out += "]";
     return out;
 }
+
+std::string ExportJson() { return BuildJson(g_cache); }
 
 std::string OnPacket(const uint8_t* body, uint32_t len) {
     std::vector<Inst> avatars;
@@ -125,8 +136,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
                 });
                 if (pvPtr) {
                     uint32_t ival = ParsePropIval(pvPtr, pvLen);
-                    if (propType == 4001) inst.level   = ival;
-                    if (propType == 1002) inst.promote = ival;
+                    if (propType == 4001) inst.level     = ival;
+                    if (propType == 1002) inst.ascension = ival;
                 }
 
             } else if (f.num == 5 && f.wt == 2) {
@@ -139,7 +150,7 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
 
             } else if (f.num == 12 && f.wt == 2) {
                 Proto::Walk(f.ptr, f.len, [&](const Proto::Field& fi) -> bool {
-                    if (fi.num == 2 && fi.wt == 0) inst.fetter = static_cast<uint32_t>(fi.u64);
+                    if (fi.num == 2 && fi.wt == 0) inst.friendship = static_cast<uint32_t>(fi.u64);
                     return true;
                 });
 
@@ -178,7 +189,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
         return a.level != b.level ? a.level > b.level : a.id < b.id;
     });
 
-    return BuildJson(avatars);
+    g_cache = std::move(avatars);
+    return BuildJson(g_cache);
 }
 
 }

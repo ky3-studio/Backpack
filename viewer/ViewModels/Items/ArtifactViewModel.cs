@@ -14,9 +14,9 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     private BitmapImage? _iconSource;
 
     public ArtifactEntry                       Source                { get; }
-    public string                              RankDisplay           { get; }
+    public IReadOnlyList<int>                  RankItems             { get; }
     public string                              Level                 { get; }
-    public string                              SlotRankEquipped      { get; }
+    public string                              SlotText              { get; }
     public string                              MainStatValueDisplay  { get; }
     public string                              BonusText             { get; }
     public IReadOnlyList<SubStatItemViewModel> SubStatItems          { get; }
@@ -27,7 +27,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public ArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
     {
         Source      = entry;
-        RankDisplay = new string('★', Math.Clamp(entry.Rank, 0, 5));
+        RankItems   = [.. Enumerable.Range(0, Math.Clamp(entry.Rank, 0, 5))];
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         Level        = hasInstance ? $"+{entry.Level}" : string.Empty;
@@ -47,10 +47,10 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
             : System.Array.Empty<SubStatItemViewModel>();
         HasInstanceVisibility = hasInstance.ToVisibility();
 
-        if (hasInstance && !string.IsNullOrEmpty(entry.MainStat.TypeRaw))
+        if (hasInstance && !string.IsNullOrEmpty(entry.MainStat))
         {
-            var v = meta.GetMainPropValue(entry.Rank, entry.Level, entry.MainStat.TypeRaw);
-            MainStatValueDisplay = IsMainPropPercent(entry.MainStat.TypeRaw)
+            var v = meta.GetMainPropValue(entry.Rank, entry.Level, entry.MainStat);
+            MainStatValueDisplay = IsMainPropPercent(entry.MainStat)
                 ? $"{v * 100f:F1}%"
                 : ((int)Math.Round(v)).ToString();
         }
@@ -59,21 +59,21 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
             MainStatValueDisplay = string.Empty;
         }
 
-        var slotParts = new System.Collections.Generic.List<string> { entry.Slot, RankDisplay };
+        var slotParts = new System.Collections.Generic.List<string> { entry.Slot };
         if (hasInstance && entry.Locked) slotParts.Add(Localized.Get("Locked"));
-        SlotRankEquipped = string.Join("  ", slotParts);
+        SlotText = string.Join("  ", slotParts);
 
-        var iconUri = meta.GetIcon(entry.SetName, entry.Slot);
+        var iconUri = meta.GetIcon(entry.Set, entry.Slot);
         if (iconUri is not null)
             GfxLoader.BeginLoad(iconUri, this);
 
-        var allBonuses = meta.GetAllSetBonuses(entry.SetName);
-        BonusText             = string.Join("\n", allBonuses.Select(b => $"{b.Count}件套：{b.Desc}"));
+        var allBonuses = meta.GetAllSetBonuses(entry.Set);
+        BonusText             = string.Join("\n", allBonuses.Select(b => string.Format(Localized.Get("SetBonusFmt"), b.Count, b.Desc)));
         HasAnyBonusVisibility = (allBonuses.Count > 0).ToVisibility();
 
         QualitySource = new BitmapImage(StaticResources.QualityIcon(entry.Rank));
     }
 
-    private static bool IsMainPropPercent(string propTypeRaw) => propTypeRaw is not
-        ("FIGHT_PROP_HP" or "FIGHT_PROP_ATTACK" or "FIGHT_PROP_DEFENSE" or "FIGHT_PROP_ELEMENT_MASTERY");
+    private static bool IsMainPropPercent(string mainStat) => mainStat is not
+        (PropShortNames.Hp or PropShortNames.Attack or PropShortNames.Defense or PropShortNames.ElementMastery);
 }

@@ -18,7 +18,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     public string      Name           { get; }
     public string      Element        { get; }
     public int         Rarity         { get; }
-    public string      RankDisplay    { get; }
+    public IReadOnlyList<int> RankItems { get; }
     public BitmapImage QualitySource  { get; }
 
     [ObservableProperty] private string _levelFull      = string.Empty;
@@ -27,7 +27,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
 
     [ObservableProperty] private Visibility _hasWeaponVisibility = Visibility.Collapsed;
     [ObservableProperty] private string _weaponName         = string.Empty;
-    [ObservableProperty] private string _weaponRankDisplay  = string.Empty;
+    [ObservableProperty] private IReadOnlyList<int> _weaponRankItems  = [];
     [ObservableProperty] private string _weaponLevelText    = string.Empty;
     [ObservableProperty] private string _weaponRefineText   = string.Empty;
     [ObservableProperty] private IReadOnlyList<int> _weaponPromoteItems = [];
@@ -47,10 +47,10 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         Source = entry;
         _meta  = avatarMeta.GetMeta(entry.Id);
 
-        Name          = _meta?.Name      ?? entry.Id.ToString();
-        Element       = _meta?.ElementCn ?? string.Empty;
-        Rarity        = _meta?.Rarity    ?? 1;
-        RankDisplay   = new string('★', Math.Clamp(Rarity, 0, 5));
+        Name          = _meta?.Name      ?? entry.Name    ?? entry.Id.ToString();
+        Element       = _meta?.ElementCn  ?? entry.Element ?? string.Empty;
+        Rarity        = _meta?.Rarity     ?? Math.Max(1, entry.Rarity);
+        RankItems     = [.. Enumerable.Range(0, Math.Clamp(Rarity, 0, 5))];
         QualitySource = new BitmapImage(StaticResources.QualityIcon(Rarity));
 
         ApplyEntry(entry, weapon, avatarDetail);
@@ -74,12 +74,12 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
 
     private void ApplyEntry(AvatarEntry entry, WeaponViewModel? weapon, AvatarDetailService? avatarDetail)
     {
-        int level  = Math.Max(1, entry.Level);
-        int fetter = Math.Max(1, entry.Fetter);
+        int level      = Math.Max(1, entry.Level);
+        int friendship = Math.Max(1, entry.Friendship);
 
         LevelFull    = $"{Localized.Get("LevelPrefix")}{level}";
-        FetterText   = fetter.ToString();
-        PromoteItems = [.. Enumerable.Range(0, Math.Clamp(entry.Promote, 0, 6))];
+        FetterText   = friendship.ToString();
+        PromoteItems = [.. Enumerable.Range(0, Math.Clamp(entry.Ascension, 0, 6))];
 
         if (!ReferenceEquals(_weapon, weapon))
         {
@@ -92,10 +92,10 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
 
         HasWeaponVisibility = (weapon is not null).ToVisibility();
         WeaponName          = weapon?.Source.Name ?? string.Empty;
-        WeaponRankDisplay   = weapon is not null ? new string('★', Math.Clamp(weapon.Source.Rank, 0, 5)) : string.Empty;
+        WeaponRankItems    = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Rank, 0, 5))] : [];
         WeaponLevelText     = weapon?.Source.Level > 0 ? $"{Localized.Get("LevelPrefix")}{weapon.Source.Level}" : string.Empty;
         WeaponRefineText    = weapon is not null ? string.Format(Localized.Get("WeaponRefineFmt"), weapon.Source.Refine) : string.Empty;
-        WeaponPromoteItems  = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Promote, 0, 6))] : [];
+        WeaponPromoteItems  = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Ascension, 0, 6))] : [];
         OnPropertyChanged(nameof(WeaponQualitySource));
         OnPropertyChanged(nameof(WeaponIconSource));
 
@@ -107,9 +107,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         }
 
         var extraMap = new Dictionary<uint, int>();
-        foreach (var e in entry.Extras) if (e.Length >= 2) extraMap[(uint)e[0]] = e[1];
+        foreach (var e in entry.Passives) extraMap[e.Id] = e.Extra;
         var skillMap = new Dictionary<uint, int>();
-        foreach (var s in entry.Skills) if (s.Length >= 2) skillMap[(uint)s[0]] = s[1];
+        foreach (var s in entry.Skills) skillMap[s.Id] = s.Level;
 
         Skills = [.. _meta.Skills.Select(s =>
         {
@@ -123,13 +123,13 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         })];
 
         var skillNames = _meta.Skills.Select(s => s.Name).ToArray();
-        var activeSet  = new HashSet<uint>(entry.Talents);
-        Talents = [.. _meta.Talents.Select(t =>
+        Talents = [.. _meta.Talents.Select((t, idx) =>
         {
+            bool isActive = idx < entry.Constellation;
             string? extraText = t.ExtraLevel is { } el
                 ? $"{(el.Index < skillNames.Length ? skillNames[el.Index] : Localized.Get("SkillFallback"))} +{el.Value} {Localized.Get("ExtraLevelSuffix")}"
                 : null;
-            return new TalentSlotViewModel(t.Name, t.Icon, activeSet.Contains(t.Id), t.Description, extraText);
+            return new TalentSlotViewModel(t.Name, t.Icon, isActive, t.Description, extraText);
         })];
     }
 

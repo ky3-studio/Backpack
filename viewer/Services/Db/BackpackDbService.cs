@@ -19,31 +19,42 @@ public sealed partial class BackpackDbService : IDisposable
 
     private void InitSchema()
     {
+        using var vCmd = _db.CreateCommand();
+        vCmd.CommandText = "PRAGMA user_version";
+        var version = (long)(vCmd.ExecuteScalar() ?? 0L);
+        if (version < 2)
+        {
+            Exec("DROP TABLE IF EXISTS weapons");
+            Exec("DROP TABLE IF EXISTS artifacts");
+            Exec("DROP TABLE IF EXISTS avatars");
+            Exec("DROP TABLE IF EXISTS materials");
+            Exec("DROP TABLE IF EXISTS props");
+        }
+
         Exec("""
             CREATE TABLE IF NOT EXISTS weapons (
-                guid        TEXT    PRIMARY KEY,
-                id          INTEGER NOT NULL,
-                name        TEXT    NOT NULL,
-                type        TEXT    NOT NULL,
-                rank        INTEGER NOT NULL,
-                special_prop TEXT   NOT NULL,
-                level       INTEGER NOT NULL,
-                promote     INTEGER NOT NULL,
-                refine      INTEGER NOT NULL
+                guid       TEXT    PRIMARY KEY,
+                id         INTEGER NOT NULL,
+                name       TEXT    NOT NULL,
+                type       TEXT    NOT NULL,
+                rank       INTEGER NOT NULL,
+                main_stat  TEXT    NOT NULL,
+                level      INTEGER NOT NULL,
+                ascension  INTEGER NOT NULL,
+                refine     INTEGER NOT NULL
             );
             CREATE TABLE IF NOT EXISTS artifacts (
-                guid             TEXT    PRIMARY KEY,
-                id               INTEGER NOT NULL,
-                set_name         TEXT    NOT NULL,
-                name             TEXT    NOT NULL,
-                slot             TEXT    NOT NULL,
-                locked           INTEGER NOT NULL,
-                level            INTEGER NOT NULL,
-                rank             INTEGER NOT NULL,
-                init_sub_stats   INTEGER NOT NULL DEFAULT 0,
-                main_stat_type   TEXT    NOT NULL,
-                main_stat_raw    TEXT    NOT NULL,
-                sub_stats        TEXT    NOT NULL
+                guid           TEXT    PRIMARY KEY,
+                id             INTEGER NOT NULL,
+                [set]          TEXT    NOT NULL,
+                name           TEXT    NOT NULL,
+                slot           TEXT    NOT NULL,
+                locked         INTEGER NOT NULL,
+                level          INTEGER NOT NULL,
+                rank           INTEGER NOT NULL,
+                init_sub_stats INTEGER NOT NULL DEFAULT 0,
+                main_stat      TEXT    NOT NULL,
+                sub_stats      TEXT    NOT NULL
             );
             CREATE TABLE IF NOT EXISTS materials (
                 id    INTEGER PRIMARY KEY,
@@ -54,18 +65,19 @@ public sealed partial class BackpackDbService : IDisposable
                 value INTEGER NOT NULL
             );
             CREATE TABLE IF NOT EXISTS avatars (
-                id      INTEGER PRIMARY KEY,
-                guid    TEXT    NOT NULL,
-                level   INTEGER NOT NULL,
-                promote INTEGER NOT NULL,
-                fetter  INTEGER NOT NULL,
-                talents TEXT    NOT NULL,
-                skills  TEXT    NOT NULL,
-                extras  TEXT    NOT NULL,
-                equips  TEXT    NOT NULL
+                id            INTEGER PRIMARY KEY,
+                level         INTEGER NOT NULL,
+                ascension     INTEGER NOT NULL,
+                friendship    INTEGER NOT NULL,
+                constellation INTEGER NOT NULL,
+                skills        TEXT    NOT NULL,
+                passives      TEXT    NOT NULL,
+                equips        TEXT    NOT NULL
             );
             """);
-        try { Exec("ALTER TABLE artifacts RENAME COLUMN equipped TO locked"); } catch { }
+
+        if (version < 2)
+            Exec("PRAGMA user_version = 2");
     }
 
     private void Exec(string sql)

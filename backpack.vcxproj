@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <ClInclude Include="include\parsers.h" />
+    <ClInclude Include="include\exporter.h" />
     <ClInclude Include="db\artifact\artifact_db.h" />
     <ClInclude Include="db\artifact\artifact_set_db.h" />
     <ClInclude Include="db\material\material_ids.h" />
@@ -94,13 +95,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ClCompile Include="parsers\artifact\artifact.cpp" />
-        <ClCompile Include="parsers\avatar\avatar.cpp" />
+    <ClCompile Include="exporter.cpp" />
+    <ClCompile Include="parsers\artifact.cpp" />
+    <ClCompile Include="parsers\avatar.cpp" />
     <ClCompile Include="hook\dllmain.cpp" />
     <ClCompile Include="hook\pkt_hook.cpp" />
-    <ClCompile Include="parsers\material\material.cpp" />
-    <ClCompile Include="parsers\prop\prop.cpp" />
-    <ClCompile Include="parsers\weapon\weapon.cpp" />
+    <ClCompile Include="parsers\material.cpp" />
+    <ClCompile Include="parsers\prop.cpp" />
+    <ClCompile Include="parsers\weapon.cpp" />
     <ClCompile Include="third_party\MinHook\buffer.c">
       <CompileAs>CompileAsC</CompileAs>
     </ClCompile>

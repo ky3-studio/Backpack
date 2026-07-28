@@ -1,6 +1,6 @@
-#include "../../include/proto.h"
-#include "../../include/output.h"
-#include "../../db/weapon/weapon_db.h"
+#include "../include/proto.h"
+#include "../include/output.h"
+#include "../db/weapon/weapon_db.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -25,6 +25,8 @@ static const WeaponDbEntry* Lookup(uint32_t id) {
     return nullptr;
 }
 
+static std::vector<Inst> g_cache;
+
 static std::string BuildJson(const std::vector<Inst>& weapons) {
     std::vector<size_t> idx(weapons.size());
     for (size_t i = 0; i < idx.size(); ++i) idx[i] = i;
@@ -39,12 +41,16 @@ static std::string BuildJson(const std::vector<Inst>& weapons) {
 
     std::string out;
     out.reserve(weapons.size() * 256 + 32);
-    out += Output::kWeaponHeader;
+    out += "[\n";
     for (size_t i = 0; i < idx.size(); ++i) {
         const Inst&          w    = weapons[idx[i]];
         const WeaponDbEntry* info = Lookup(w.id);
         char line[1024];
-        sprintf_s(line, Output::kWeaponItem,
+        sprintf_s(line,
+            "    { \"id\": %u, \"guid\": \"%llu\","
+            " \"name\": \"%s\", \"type\": \"%s\","
+            " \"rank\": %u, \"mainStat\": \"%s\","
+            " \"level\": %u, \"ascension\": %u, \"refine\": %u }%s\n",
             w.id,
             static_cast<unsigned long long>(w.guid),
             info ? info->name        : "",
@@ -55,9 +61,11 @@ static std::string BuildJson(const std::vector<Inst>& weapons) {
             (i + 1 < idx.size()) ? "," : "");
         out += line;
     }
-    out += Output::kArrayFooter;
+    out += "]";
     return out;
 }
+
+std::string ExportJson() { return BuildJson(g_cache); }
 
 std::string OnPacket(const uint8_t* body, uint32_t len) {
     std::vector<Inst> weapons;
@@ -104,7 +112,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
         return true;
     });
 
-    return BuildJson(weapons);
+    g_cache = std::move(weapons);
+    return BuildJson(g_cache);
 }
 
 }

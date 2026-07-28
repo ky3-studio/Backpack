@@ -48,10 +48,14 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource AppCaptionTextBlockStyle}"
                         Text="{x:Bind Source.Type}" />
-                    <TextBlock
-                        Foreground="{ThemeResource WeaponGoldBrush}"
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind RankDisplay}" />
+                    <ItemsRepeater
+                        VerticalAlignment="Center"
+                        ItemsSource="{x:Bind RankItems}"
+                        ItemTemplate="{StaticResource KiraStarItemTemplate}">
+                      <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" Spacing="2" />
+                      </ItemsRepeater.Layout>
+                    </ItemsRepeater>
                   </StackPanel>
 
                   <StackPanel Spacing="3" Visibility="{x:Bind HasInstanceVisibility}">
@@ -77,7 +81,7 @@
                       <TextBlock
                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                           Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="{x:Bind Source.SpecialProp}" />
+                          Text="{x:Bind Source.MainStat}" />
                       <TextBlock
                           Grid.Column="1"
                           Style="{StaticResource AppBodyStrongTextBlockStyle}"

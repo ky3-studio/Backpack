@@ -16,14 +16,13 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     private static readonly int[] MaxLevelByPromote = [20, 40, 50, 60, 70, 80, 90];
 
     public WeaponEntry  Source                { get; }
-    public string       RankDisplay           { get; }
+    public IReadOnlyList<int> RankItems        { get; }
     public string       Level                 { get; }
     public string       LevelFull             { get; }
     public string       RefineLabel           { get; }
     public string       Refine                { get; }
     public string       AtkDisplay            { get; }
     public string       SubDisplay            { get; }
-    public string       TypeRankDisplay       { get; }
     public string       PassiveName           { get; }
     public string       SkillDesc             { get; }
     public string       FlavorText            { get; }
@@ -36,19 +35,18 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta)
     {
         Source      = entry;
-        RankDisplay = new string('★', Math.Clamp(entry.Rank, 0, 5));
+        RankItems   = [.. Enumerable.Range(0, Math.Clamp(entry.Rank, 0, 5))];
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         HasInstanceVisibility = hasInstance.ToVisibility();
-        TypeRankDisplay       = $"{entry.Type}  {RankDisplay}";
 
         if (hasInstance)
         {
             Level       = $"{Localized.Get("LevelPrefix")}{entry.Level}";
-            LevelFull   = $"{Localized.Get("LevelPrefix")}{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Promote, 0, 6)]}";
+            LevelFull   = $"{Localized.Get("LevelPrefix")}{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Ascension, 0, 6)]}";
             RefineLabel = string.Format(Localized.Get("WeaponRefineFmt"), entry.Refine);
             Refine      = $"R{entry.Refine}";
-            var (atk, sub)     = meta.CalcStats(entry.Id, entry.Level, entry.Promote);
+            var (atk, sub)     = meta.CalcStats(entry.Id, entry.Level, entry.Ascension);
             var (pName, pDesc) = meta.GetSkill(entry.Id, entry.Refine);
             AtkDisplay         = atk > 0 ? atk.ToString() : string.Empty;
             SubDisplay         = sub;

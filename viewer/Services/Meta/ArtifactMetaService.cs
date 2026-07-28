@@ -62,12 +62,35 @@ public sealed class ArtifactMetaService
         return slot;
     }
 
-    public float GetMainPropValue(int rank, int level, string propTypeRaw)
+    private static readonly Dictionary<string, string> _shortToRaw = new()
     {
+        [PropShortNames.Hp]             = "FIGHT_PROP_HP",
+        [PropShortNames.Attack]         = "FIGHT_PROP_ATTACK",
+        [PropShortNames.Defense]        = "FIGHT_PROP_DEFENSE",
+        [PropShortNames.ElementMastery] = "FIGHT_PROP_ELEMENT_MASTERY",
+        [PropShortNames.HpPercent]        = "FIGHT_PROP_HP_PERCENT",
+        [PropShortNames.AttackPercent]    = "FIGHT_PROP_ATTACK_PERCENT",
+        [PropShortNames.DefensePercent]   = "FIGHT_PROP_DEFENSE_PERCENT",
+        [PropShortNames.ChargeEfficiency] = "FIGHT_PROP_CHARGE_EFFICIENCY",
+        [PropShortNames.CritRate]         = "FIGHT_PROP_CRITICAL",
+        [PropShortNames.CritDmg]          = "FIGHT_PROP_CRITICAL_HURT",
+        [PropShortNames.HealBonus]        = "FIGHT_PROP_HEAL_ADD",
+        [PropShortNames.FireDmg]     = "FIGHT_PROP_FIRE_ADD_HURT",
+        [PropShortNames.ElecDmg]     = "FIGHT_PROP_ELEC_ADD_HURT",
+        [PropShortNames.IceDmg]      = "FIGHT_PROP_ICE_ADD_HURT",
+        [PropShortNames.WaterDmg]    = "FIGHT_PROP_WATER_ADD_HURT",
+        [PropShortNames.WindDmg]     = "FIGHT_PROP_WIND_ADD_HURT",
+        [PropShortNames.RockDmg]     = "FIGHT_PROP_ROCK_ADD_HURT",
+        [PropShortNames.GrassDmg]    = "FIGHT_PROP_GRASS_ADD_HURT",
+        [PropShortNames.PhysicalDmg] = "FIGHT_PROP_PHYSICAL_ADD_HURT",
+    };
+
+    public float GetMainPropValue(int rank, int level, string mainStat)
+    {
+        if (!_shortToRaw.TryGetValue(mainStat, out var raw)) return 0f;
         if (!_mainProps.TryGetValue(rank, out var byProp)) return 0f;
-        if (!byProp.TryGetValue(propTypeRaw, out var values)) return 0f;
-        var idx = Math.Clamp(level, 0, values.Length - 1);
-        return values[idx];
+        if (!byProp.TryGetValue(raw, out var values)) return 0f;
+        return values[Math.Clamp(level, 0, values.Length - 1)];
     }
 
     public Uri? GetIcon(string setName, string slot)
@@ -103,7 +126,7 @@ public sealed class ArtifactMetaService
                     0,
                     kvp.Value.MaxRank,
                     0,
-                    new ArtifactMainStat(string.Empty, string.Empty),
+                    string.Empty,
                     [])))];
     }
 

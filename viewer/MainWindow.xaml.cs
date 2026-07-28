@@ -55,13 +55,23 @@ public sealed partial class MainWindow : Window, IDisposable
         _pipe.PacketReceived += ViewModel.OnPacketReceived;
         _ = _pipe.RunAsync(_cts.Token);
 
-        ViewModel.DataReceived += () =>
+        ViewModel.SyncCompleted += () =>
         {
             _syncDialog?.Hide();
             KillLaunchedGame();
         };
 
-        _gameMonitor.Tick += (_, _) => ViewModel.IsGameRunning = GameLaunchService.IsGameRunning();
+        _gameMonitor.Tick += (_, _) =>
+        {
+            ViewModel.IsGameRunning = GameLaunchService.IsGameRunning();
+            if (_launchedPid > 0)
+            {
+                bool gone;
+                try   { gone = System.Diagnostics.Process.GetProcessById(_launchedPid).HasExited; }
+                catch { gone = true; }
+                if (gone) { _syncDialog?.Hide(); KillLaunchedGame(); }
+            }
+        };
         _gameMonitor.Start();
 
         SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();

@@ -1,6 +1,6 @@
-#include "../../db/material/material_ids.h"
-#include "../../include/proto.h"
-#include "../../include/output.h"
+#include "../db/material/material_ids.h"
+#include "../include/proto.h"
+#include "../include/output.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -21,19 +21,16 @@ static const MatEntry* Lookup(uint32_t id) {
     return nullptr;
 }
 
-static std::string BuildJson(const std::vector<Item>& items) {
-    std::vector<std::pair<const MatEntry*, uint64_t>> valid;
-    for (const auto& item : items) {
-        const MatEntry* e = Lookup(item.id);
-        if (e) valid.push_back({ e, item.count });
-    }
+static std::vector<std::pair<const MatEntry*, uint64_t>> g_cache;
 
+static std::string BuildJson(const std::vector<std::pair<const MatEntry*, uint64_t>>& valid) {
     std::string out;
     out.reserve(valid.size() * 128 + 32);
-    out += Output::kMaterialHeader;
+    out += "[\n";
     for (size_t i = 0; i < valid.size(); ++i) {
         char buf[512];
-        sprintf_s(buf, Output::kMaterialItem,
+        sprintf_s(buf,
+            "    { \"id\": %u, \"name\": \"%s\", \"category\": \"%s\", \"count\": %llu }%s\n",
             valid[i].first->id,
             valid[i].first->name,
             valid[i].first->category,
@@ -41,9 +38,11 @@ static std::string BuildJson(const std::vector<Item>& items) {
             (i + 1 < valid.size()) ? "," : "");
         out += buf;
     }
-    out += Output::kArrayFooter;
+    out += "]";
     return out;
 }
+
+std::string ExportJson() { return BuildJson(g_cache); }
 
 std::string OnPacket(const uint8_t* body, uint32_t len) {
     std::vector<Item> items;
@@ -74,7 +73,13 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
         return true;
     });
 
-    return BuildJson(items);
+    std::vector<std::pair<const MatEntry*, uint64_t>> valid;
+    for (const auto& item : items) {
+        const MatEntry* e = Lookup(item.id);
+        if (e) valid.push_back({ e, item.count });
+    }
+    g_cache = valid;
+    return BuildJson(g_cache);
 }
 
 }

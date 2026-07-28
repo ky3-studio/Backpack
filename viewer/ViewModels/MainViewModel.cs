@@ -133,7 +133,7 @@ public sealed partial class MainViewModel : ObservableObject
             if (hasData && !map.ContainsKey(m.Id)) continue;
             var entry = map.TryGetValue(m.Id, out var real)
                 ? real
-                : new AvatarEntry(m.Id, string.Empty, 0, 0, 0, [], [], [], []);
+                : new AvatarEntry(m.Id, null, null, 0, 0, 0, 0, 0, [], [], []);
             Avatars.Add(ToAvatarViewModel(entry));
         }
     }
