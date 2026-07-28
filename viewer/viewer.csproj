@@ -37,6 +37,7 @@
     <Content Include="Assets\Gadget\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Asset\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Avatar\avatar_meta.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\HyperLinkName.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\AvatarDetail\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />

@@ -1,3 +1,4 @@
+using Backpack.Viewer.Controls;
 using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml;
 
@@ -21,6 +22,9 @@ public sealed partial class App : Application, IDisposable
             return;
         }
         await GfxLoader.WarmupAsync();
+        var hyperLinkSvc = new HyperLinkService();
+        hyperLinkSvc.Load();
+        MiHoYo.RegisterService(hyperLinkSvc);
         _window = new MainWindow();
         _window.Activate();
     }

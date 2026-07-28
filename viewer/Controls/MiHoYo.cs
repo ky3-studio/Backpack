@@ -1,5 +1,7 @@
+using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
@@ -9,6 +11,15 @@ namespace Backpack.Viewer.Controls;
 
 public static class MiHoYo
 {
+    private static HyperLinkService? _hyperLinkSvc;
+    private static FontFamily?      _appFont;
+
+    private static FontFamily AppFont
+        => _appFont ??= Application.Current.Resources.TryGetValue("AppFontFamily", out var r) && r is FontFamily f
+            ? f : FontFamily.XamlAutoFontFamily;
+
+    public static void RegisterService(HyperLinkService svc) => _hyperLinkSvc = svc;
+
     public static readonly DependencyProperty DescriptionProperty =
         DependencyProperty.RegisterAttached("Description", typeof(string), typeof(MiHoYo),
             new PropertyMetadata(null, OnDescriptionChanged));
@@ -23,128 +34,63 @@ public static class MiHoYo
     {
         if (d is not RichTextBlock rtb) return;
         rtb.Blocks.Clear();
-        var text = e.NewValue as string ?? string.Empty;
-        if (string.IsNullOrEmpty(text)) return;
-        var para = new Paragraph();
-        var tokens = Tokenize(text);
-        int pos = 0;
-        ParseChildren(para.Inlines, tokens, text, ref pos, TokenKind.Eof);
-        rtb.Blocks.Add(para);
+        if (e.NewValue is not string text || string.IsNullOrEmpty(text)) return;
+        RenderInto(rtb, text, rtb);
     }
 
-    private enum TokenKind
-    {
-        Text, ColorOpen, ColorClose, ItalicOpen, ItalicClose,
-        LinkOpen, LinkClose, SpritePreset, Eof,
-    }
-
-    private readonly record struct Token(TokenKind Kind, int Start, int End);
-
-    private static List<Token> Tokenize(string s)
-    {
-        var list = new List<Token>();
-        int i = 0;
-        while (i < s.Length)
-        {
-            int start = i;
-            if (s[i] == '<')
-            {
-                if (TryMatch(s, i, "<color=", out int after) && s.IndexOf('>', after) is > 0 and int closeAngle)
-                {
-                    list.Add(new(TokenKind.ColorOpen, start, closeAngle + 1));
-                    i = closeAngle + 1;
-                    continue;
-                }
-                if (TryMatch(s, i, "</color>", out int e1)) { list.Add(new(TokenKind.ColorClose, start, e1)); i = e1; continue; }
-                if (TryMatch(s, i, "<i>",      out int e2)) { list.Add(new(TokenKind.ItalicOpen,  start, e2)); i = e2; continue; }
-                if (TryMatch(s, i, "</i>",     out int e3)) { list.Add(new(TokenKind.ItalicClose, start, e3)); i = e3; continue; }
-            }
-            else if (s[i] == '{')
-            {
-                if (TryMatch(s, i, "{LINK#", out _) && s.IndexOf('}', i + 6) is > 0 and int lEnd)
-                {
-                    list.Add(new(TokenKind.LinkOpen, start, lEnd + 1));
-                    i = lEnd + 1;
-                    continue;
-                }
-                if (TryMatch(s, i, "{/LINK}", out int e4)) { list.Add(new(TokenKind.LinkClose, start, e4)); i = e4; continue; }
-                if (TryMatch(s, i, "{SPRITE_PRESET#", out _) && s.IndexOf('}', i + 15) is > 0 and int spEnd)
-                {
-                    list.Add(new(TokenKind.SpritePreset, start, spEnd + 1));
-                    i = spEnd + 1;
-                    continue;
-                }
-            }
-
-            int textEnd = i + 1;
-            while (textEnd < s.Length && s[textEnd] is not '<' and not '{')
-                textEnd++;
-            list.Add(new(TokenKind.Text, start, textEnd));
-            i = textEnd;
-        }
-        list.Add(new(TokenKind.Eof, s.Length, s.Length));
-        return list;
-    }
-
-    private static bool TryMatch(string s, int pos, string keyword, out int after)
-    {
-        if (pos + keyword.Length <= s.Length &&
-            s.AsSpan(pos, keyword.Length).Equals(keyword.AsSpan(), StringComparison.Ordinal))
-        {
-            after = pos + keyword.Length;
-            return true;
-        }
-        after = pos;
-        return false;
-    }
-
-    private static void ParseChildren(InlineCollection inlines, List<Token> tokens, string src,
-        ref int pos, TokenKind closeKind)
+    private static void ParseChildren(InlineCollection inlines, List<MiHoYoToken> tokens, string src,
+        ref int pos, MiHoYoTokenKind closeKind, FrameworkElement? anchor)
     {
         while (pos < tokens.Count)
         {
             var tok = tokens[pos];
-            if (tok.Kind == TokenKind.Eof || tok.Kind == closeKind) return;
+            if (tok.Kind == MiHoYoTokenKind.Eof || tok.Kind == closeKind) return;
 
             switch (tok.Kind)
             {
-                case TokenKind.Text:
+                case MiHoYoTokenKind.Text:
                     pos++;
                     AppendText(inlines, src.AsSpan(tok.Start, tok.End - tok.Start));
                     break;
 
-                case TokenKind.ColorOpen:
+                case MiHoYoTokenKind.ColorOpen:
                 {
                     pos++;
                     var colorStr = src.AsSpan(tok.Start + 8, tok.End - 1 - (tok.Start + 8)).ToString();
                     var span = new Span { Foreground = new SolidColorBrush(ParseHex(colorStr)) };
-                    ParseChildren(span.Inlines, tokens, src, ref pos, TokenKind.ColorClose);
-                    if (pos < tokens.Count && tokens[pos].Kind == TokenKind.ColorClose) pos++;
+                    ParseChildren(span.Inlines, tokens, src, ref pos, MiHoYoTokenKind.ColorClose, anchor);
+                    if (pos < tokens.Count && tokens[pos].Kind == MiHoYoTokenKind.ColorClose) pos++;
                     inlines.Add(span);
                     break;
                 }
 
-                case TokenKind.ItalicOpen:
+                case MiHoYoTokenKind.ItalicOpen:
                 {
                     pos++;
                     var span = new Span { FontStyle = FontStyle.Italic };
-                    ParseChildren(span.Inlines, tokens, src, ref pos, TokenKind.ItalicClose);
-                    if (pos < tokens.Count && tokens[pos].Kind == TokenKind.ItalicClose) pos++;
+                    ParseChildren(span.Inlines, tokens, src, ref pos, MiHoYoTokenKind.ItalicClose, anchor);
+                    if (pos < tokens.Count && tokens[pos].Kind == MiHoYoTokenKind.ItalicClose) pos++;
                     inlines.Add(span);
                     break;
                 }
 
-                case TokenKind.LinkOpen:
+                case MiHoYoTokenKind.LinkOpen:
                 {
                     pos++;
+                    var idSpan = src.AsSpan(tok.Start + 6, tok.End - 1 - (tok.Start + 6));
                     var link = new Hyperlink();
-                    ParseChildren(link.Inlines, tokens, src, ref pos, TokenKind.LinkClose);
-                    if (pos < tokens.Count && tokens[pos].Kind == TokenKind.LinkClose) pos++;
+                    if (anchor is not null && idSpan.Length > 1 && idSpan[0] == 'N' &&
+                        uint.TryParse(idSpan[1..], out uint nId))
+                    {
+                        link.Click += (_, _) => ShowHyperLinkFlyout(anchor, nId);
+                    }
+                    ParseChildren(link.Inlines, tokens, src, ref pos, MiHoYoTokenKind.LinkClose, anchor);
+                    if (pos < tokens.Count && tokens[pos].Kind == MiHoYoTokenKind.LinkClose) pos++;
                     inlines.Add(link);
                     break;
                 }
 
-                case TokenKind.SpritePreset:
+                case MiHoYoTokenKind.SpritePreset:
                     pos++;
                     break;
 
@@ -176,6 +122,38 @@ public static class MiHoYo
         }
         if (span.Length > 0)
             inlines.Add(new Run { Text = span.ToString() });
+    }
+
+    private static void ShowHyperLinkFlyout(FrameworkElement anchor, uint id)
+    {
+        if (_hyperLinkSvc is null || !_hyperLinkSvc.TryGet(id, out var name, out var desc)) return;
+
+        var panel = new StackPanel { MaxWidth = 300, Spacing = 6 };
+
+        var nameRtb = new RichTextBlock { TextWrapping = TextWrapping.Wrap, FontFamily = AppFont };
+        RenderInto(nameRtb, name, null);
+        panel.Children.Add(nameRtb);
+
+        if (!string.IsNullOrEmpty(desc))
+        {
+            var descRtb = new RichTextBlock { TextWrapping = TextWrapping.Wrap, Opacity = 0.85, FontFamily = AppFont };
+            RenderInto(descRtb, desc, null);
+            panel.Children.Add(descRtb);
+        }
+
+        new Flyout { Content = panel, ShouldConstrainToRootBounds = false }
+            .ShowAt(anchor, new FlyoutShowOptions { Placement = FlyoutPlacementMode.Auto });
+    }
+
+    private static void RenderInto(RichTextBlock rtb, string text, FrameworkElement? anchor)
+    {
+        rtb.Blocks.Clear();
+        if (string.IsNullOrEmpty(text)) return;
+        var para = new Paragraph();
+        var tokens = MiHoYoLexer.Tokenize(text);
+        int pos = 0;
+        ParseChildren(para.Inlines, tokens, text, ref pos, MiHoYoTokenKind.Eof, anchor);
+        rtb.Blocks.Add(para);
     }
 
     private static Color ParseHex(string hex8)
