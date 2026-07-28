@@ -1,11 +1,10 @@
-using Backpack.Viewer.Localization;
 using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Dispatching;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Graphics;
-using Windows.Storage.Pickers;
 
 namespace Backpack.Viewer;
 
@@ -37,7 +36,10 @@ public sealed partial class MainWindow : Window, IDisposable
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBarArea);
         AppWindow.SetIcon(System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "logo.ico"));
-        AppWindow.Resize(new SizeInt32(1280, 800));
+        const int W = 1280, H = 800;
+        AppWindow.Resize(new SizeInt32(W, H));
+        var workArea = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Nearest).WorkArea;
+        AppWindow.Move(new PointInt32(workArea.X + (workArea.Width - W) / 2, workArea.Y + (workArea.Height - H) / 2));
 
         _pipe.PacketReceived += ViewModel.OnPacketReceived;
         _ = _pipe.RunAsync(_cts.Token);
@@ -56,91 +58,6 @@ public sealed partial class MainWindow : Window, IDisposable
 
         Closed += (_, _) => Dispose();
     }
-
-    private async void OnPickGamePath(object sender, RoutedEventArgs e) => await PickGamePathAsync();
-
-    private async Task PickGamePathAsync()
-    {
-        ViewModel.SetupError = string.Empty;
-        var picker = new FileOpenPicker();
-        WinRT.Interop.InitializeWithWindow.Initialize(
-            picker,
-            WinRT.Interop.WindowNative.GetWindowHandle(this));
-        picker.FileTypeFilter.Add(".exe");
-        picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-        var file = await picker.PickSingleFileAsync();
-        if (file is null) return;
-        if (!ViewModel.GamePathService.TryAdd(file.Path))
-            ViewModel.SetupError = Localized.Get("PathInvalidMsg");
-    }
-
-    private async void OnSyncBag(object sender, RoutedEventArgs e)
-    {
-        var gamePath = ViewModel.GamePathService.SelectedPath;
-        if (gamePath is null) return;
-
-        ViewModel.IsLaunching = true;
-        ViewModel.StatusText  = Localized.Get("StatusLaunching");
-
-        try
-        {
-            _launchedPid            = await GameLaunchService.LaunchAsync(gamePath);
-            ViewModel.IsGameRunning = true;
-        }
-        catch (Exception ex)
-        {
-            ViewModel.StatusText  = ex.Message;
-            ViewModel.IsLaunching = false;
-            return;
-        }
-
-        _syncDialog = new ContentDialog
-        {
-            XamlRoot        = Content.XamlRoot,
-            Title           = Localized.Get("SyncBagDialogTitle"),
-            CloseButtonText = Localized.Get("SyncBagDialogCancel"),
-            DefaultButton   = ContentDialogButton.None,
-            Content         = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Spacing     = 12,
-                Children    =
-                {
-                    new ProgressRing { IsActive = true, Width = 24, Height = 24 },
-                    new TextBlock
-                    {
-                        Text              = Localized.Get("SyncBagDialogWaiting"),
-                        VerticalAlignment = VerticalAlignment.Center,
-                        FontFamily        = (Microsoft.UI.Xaml.Media.FontFamily)Application.Current.Resources["AppFontFamily"]
-                    }
-                }
-            }
-        };
-
-        await _syncDialog.ShowAsync();
-        _syncDialog           = null;
-        ViewModel.IsLaunching = false;
-
-        KillLaunchedGame();
-    }
-
-    private void KillLaunchedGame()
-    {
-        if (_launchedPid <= 0) return;
-        try
-        {
-            var p = System.Diagnostics.Process.GetProcessById(_launchedPid);
-            if (!p.HasExited) p.Kill();
-        }
-        catch { }
-        finally
-        {
-            _launchedPid            = 0;
-            ViewModel.IsGameRunning = false;
-        }
-    }
-
-    private void OnKillGame(object sender, RoutedEventArgs e) => KillLaunchedGame();
 
     public void Dispose()
     {

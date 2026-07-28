@@ -1,11 +1,9 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
 using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
-internal static class GameLaunchService
+internal static partial class GameLaunchService
 {
     private const string DllFileName = "backpack.dll";
 
@@ -111,7 +109,7 @@ internal static class GameLaunchService
                 : $"\"{gameExePath}\" {cmdArgs}";
 
             STARTUPINFOW si = new();
-            si.cb = (uint)Marshal.SizeOf<STARTUPINFOW>();
+            si.cb = (uint)System.Runtime.InteropServices.Marshal.SizeOf<STARTUPINFOW>();
 
             if (!NativeMethods.CreateProcessW(
                 gameExePath, fullCmd, 0, 0, false, 0x4, 0, workDir, ref si, out PROCESS_INFORMATION pi))
@@ -140,116 +138,8 @@ internal static class GameLaunchService
         }
     }
 
-    private static bool InjectDll(nint hProcess, string dllPath)
-    {
-        byte[] bytes = Encoding.Unicode.GetBytes(dllPath + "\0");
-
-        nint mem = NativeMethods.VirtualAllocEx(hProcess, 0, (nuint)bytes.Length, 0x3000, 0x04);
-        if (mem == 0) return false;
-
-        if (!NativeMethods.WriteProcessMemory(hProcess, mem, bytes, (nuint)bytes.Length, out _))
-        {
-            NativeMethods.VirtualFreeEx(hProcess, mem, 0, 0x8000);
-            return false;
-        }
-
-        nint k32   = NativeMethods.GetModuleHandleW("kernel32.dll");
-        nint loadW = NativeMethods.GetProcAddress(k32, "LoadLibraryW");
-        if (loadW == 0)
-        {
-            NativeMethods.VirtualFreeEx(hProcess, mem, 0, 0x8000);
-            return false;
-        }
-
-        nint thread = NativeMethods.CreateRemoteThread(hProcess, 0, 0, loadW, mem, 0, out _);
-        if (thread == 0)
-        {
-            NativeMethods.VirtualFreeEx(hProcess, mem, 0, 0x8000);
-            return false;
-        }
-
-        NativeMethods.WaitForSingleObject(thread, 10000);
-        NativeMethods.GetExitCodeThread(thread, out uint result);
-        NativeMethods.CloseHandle(thread);
-        NativeMethods.VirtualFreeEx(hProcess, mem, 0, 0x8000);
-        return result != 0;
-    }
-
     private static void TryDelete(string path)
     {
         try { File.Delete(path); } catch { }
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct STARTUPINFOW
-    {
-        public uint   cb;
-        public nint   lpReserved, lpDesktop, lpTitle;
-        public uint   dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute, dwFlags;
-        public ushort wShowWindow, cbReserved2;
-        public nint   lpReserved2, hStdInput, hStdOutput, hStdError;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct PROCESS_INFORMATION
-    {
-        public nint hProcess, hThread;
-        public uint dwProcessId, dwThreadId;
-    }
-
-    private static class NativeMethods
-    {
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CreateProcessW(
-            string? lpApplicationName, string lpCommandLine,
-            nint lpProcessAttributes, nint lpThreadAttributes,
-            [MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
-            uint dwCreationFlags, nint lpEnvironment, string? lpCurrentDirectory,
-            ref STARTUPINFOW lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
-
-        [DllImport("kernel32.dll")]
-        public static extern uint ResumeThread(nint hThread);
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool TerminateProcess(nint hProcess, uint uExitCode);
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool CloseHandle(nint hObject);
-
-        [DllImport("kernel32.dll")]
-        public static extern nint VirtualAllocEx(
-            nint hProcess, nint lpAddress, nuint dwSize, uint flAllocationType, uint flProtect);
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool VirtualFreeEx(
-            nint hProcess, nint lpAddress, nuint dwSize, uint dwFreeType);
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WriteProcessMemory(
-            nint hProcess, nint lpBaseAddress, byte[] lpBuffer, nuint nSize,
-            out nuint lpNumberOfBytesWritten);
-
-        [DllImport("kernel32.dll")]
-        public static extern nint CreateRemoteThread(
-            nint hProcess, nint lpThreadAttributes, nuint dwStackSize,
-            nint lpStartAddress, nint lpParameter, uint dwCreationFlags, out uint lpThreadId);
-
-        [DllImport("kernel32.dll")]
-        public static extern uint WaitForSingleObject(nint hHandle, uint dwMilliseconds);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
-        public static extern nint GetModuleHandleW(string lpModuleName);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi)]
-        public static extern nint GetProcAddress(nint hModule, string lpProcName);
-
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetExitCodeThread(nint hThread, out uint lpExitCode);
     }
 }
