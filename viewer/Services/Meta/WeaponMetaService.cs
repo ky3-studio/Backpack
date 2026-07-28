@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Backpack.Viewer.Models;
 
@@ -25,23 +24,10 @@ public sealed class WeaponMetaService
     public WeaponMetaService()
     {
         var dir   = Path.Combine(AppContext.BaseDirectory, "Assets", "Weapon");
-        _meta     = Load<WeaponMeta[]>(Path.Combine(dir, "weapons.json"))
+        _meta     = JsonLoader.Load<WeaponMeta[]>(Path.Combine(dir, "weapons.json"))
                         ?.ToDictionary(e => (uint)e.Id) ?? [];
-        _curves   = Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_curves.json"))   ?? [];
-        _promotes = Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_promotes.json")) ?? [];
-    }
-
-    private static T? Load<T>(string path)
-    {
-        try
-        {
-            if (File.Exists(path))
-                return JsonSerializer.Deserialize<T>(
-                    File.ReadAllText(path),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        }
-        catch { }
-        return default;
+        _curves   = JsonLoader.Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_curves.json"))   ?? [];
+        _promotes = JsonLoader.Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_promotes.json")) ?? [];
     }
 
     public Uri? GetIcon(uint id)

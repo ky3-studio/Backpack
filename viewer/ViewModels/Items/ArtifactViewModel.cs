@@ -1,4 +1,4 @@
-﻿using Backpack.Viewer;
+using Backpack.Viewer;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;

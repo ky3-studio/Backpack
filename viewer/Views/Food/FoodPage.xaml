@@ -24,12 +24,12 @@
             ItemsSource="{x:Bind FoodGroups, Mode=OneWay}"
             SelectionChanged="OnTabChanged">
           <Pivot.HeaderTemplate>
-            <DataTemplate x:DataType="vm:FoodGroupViewModel">
+            <DataTemplate x:DataType="vm:GroupViewModel">
               <TextBlock Text="{x:Bind Header}" />
             </DataTemplate>
           </Pivot.HeaderTemplate>
           <Pivot.ItemTemplate>
-            <DataTemplate x:DataType="vm:FoodGroupViewModel">
+            <DataTemplate x:DataType="vm:GroupViewModel">
               <Grid Visibility="Collapsed" />
             </DataTemplate>
           </Pivot.ItemTemplate>

@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Backpack.Viewer.Localization;
 
@@ -20,25 +19,19 @@ public abstract class TabMetaService
         foreach (var (file, key) in tabDefs)
         {
             var path = Path.Combine(dir, file);
-            if (!File.Exists(path)) continue;
-            try
+            var items = JsonLoader.Load<RawEntry[]>(path) ?? [];
+            if (items.Length == 0) continue;
+            IEnumerable<RawEntry> seq = items.DistinctBy(x => x.Id);
+            if (sortByRank)
+                seq = seq.OrderByDescending(x => x.Rank).ThenBy(x => x.Id);
+            var ids = new List<uint>();
+            foreach (var e in seq)
             {
-                var items = JsonSerializer.Deserialize<RawEntry[]>(
-                    File.ReadAllText(path),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
-                IEnumerable<RawEntry> seq = items.DistinctBy(x => x.Id);
-                if (sortByRank)
-                    seq = seq.OrderByDescending(x => x.Rank).ThenBy(x => x.Id);
-                var ids = new List<uint>();
-                foreach (var e in seq)
-                {
-                    _map[(uint)e.Id] = new MetaEntry(e.Id, e.Name, e.Type, e.Rank, e.Icon, e.PropId);
-                    ids.Add((uint)e.Id);
-                }
-                if (ids.Count > 0)
-                    groups.Add((Localized.Get(key), ids));
+                _map[(uint)e.Id] = new MetaEntry(e.Id, e.Name, e.Type, e.Rank, e.Icon, e.PropId);
+                ids.Add((uint)e.Id);
             }
-            catch { }
+            if (ids.Count > 0)
+                groups.Add((Localized.Get(key), ids));
         }
         _groups = groups;
     }

@@ -23,12 +23,12 @@
             ItemsSource="{x:Bind GadgetGroups, Mode=OneWay}"
             SelectionChanged="OnTabChanged">
           <Pivot.HeaderTemplate>
-            <DataTemplate x:DataType="vm:GadgetGroupViewModel">
+            <DataTemplate x:DataType="vm:GroupViewModel">
               <TextBlock Text="{x:Bind Header}" />
             </DataTemplate>
           </Pivot.HeaderTemplate>
           <Pivot.ItemTemplate>
-            <DataTemplate x:DataType="vm:GadgetGroupViewModel">
+            <DataTemplate x:DataType="vm:GroupViewModel">
               <Grid Visibility="Collapsed" />
             </DataTemplate>
           </Pivot.ItemTemplate>
@@ -44,7 +44,7 @@
                   ItemsStretch="Fill" />
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
-              <DataTemplate x:DataType="vm:GadgetViewModel">
+              <DataTemplate x:DataType="vm:SimpleItemViewModel">
                 <Grid
                     Padding="10,8"
                     Style="{ThemeResource GridShimmerStyle}"

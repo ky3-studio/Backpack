@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
@@ -15,62 +14,28 @@ public sealed class ArtifactMetaService
 
     public ArtifactMetaService()
     {
-        var dir = Path.Combine(AppContext.BaseDirectory, "Assets", "Artifact");
+        var dir   = Path.Combine(AppContext.BaseDirectory, "Assets", "Artifact");
+        var items = JsonLoader.Load<ArtifactMeta[]>(Path.Combine(dir, "artifacts.json")) ?? [];
 
-        try
-        {
-            var jsonPath = Path.Combine(dir, "artifacts.json");
-            if (File.Exists(jsonPath))
-            {
-                var items = JsonSerializer.Deserialize<ArtifactMeta[]>(
-                    File.ReadAllText(jsonPath),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
-                _map = items
-                    .Where(e => !string.IsNullOrEmpty(e.Name))
-                    .ToDictionary(
-                        e => e.Name,
-                        e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4),
-                        StringComparer.OrdinalIgnoreCase);
-                _pieces = items
-                    .Where(e => !string.IsNullOrEmpty(e.Name) && e.Pieces is { Count: > 0 })
-                    .ToDictionary(
-                        e => e.Name,
-                        e => e.Pieces!,
-                        StringComparer.OrdinalIgnoreCase);
-                _bonuses = items
-                    .Where(e => !string.IsNullOrEmpty(e.Name) && e.Bonuses is { Count: > 0 })
-                    .ToDictionary(
-                        e => e.Name,
-                        e => e.Bonuses!,
-                        StringComparer.OrdinalIgnoreCase);
-            }
-            else
-            {
-                _map     = [];
-                _pieces  = [];
-                _bonuses = [];
-            }
-        }
-        catch { _map = []; _pieces = []; _bonuses = []; }
+        _map = items
+            .Where(e => !string.IsNullOrEmpty(e.Name))
+            .ToDictionary(
+                e => e.Name,
+                e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4),
+                StringComparer.OrdinalIgnoreCase);
+        _pieces = items
+            .Where(e => !string.IsNullOrEmpty(e.Name) && e.Pieces is { Count: > 0 })
+            .ToDictionary(e => e.Name, e => e.Pieces!, StringComparer.OrdinalIgnoreCase);
+        _bonuses = items
+            .Where(e => !string.IsNullOrEmpty(e.Name) && e.Bonuses is { Count: > 0 })
+            .ToDictionary(e => e.Name, e => e.Bonuses!, StringComparer.OrdinalIgnoreCase);
 
-        try
-        {
-            var propsPath = Path.Combine(dir, "artifact_main_props.json");
-            if (File.Exists(propsPath))
-            {
-                var raw = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, float[]>>>(
-                    File.ReadAllText(propsPath),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
-                _mainProps = raw.ToDictionary(
-                    kvp => int.Parse(kvp.Key),
-                    kvp => kvp.Value);
-            }
-            else
-            {
-                _mainProps = [];
-            }
-        }
-        catch { _mainProps = []; }
+        var raw = JsonLoader.Load<Dictionary<string, Dictionary<string, float[]>>>(
+            Path.Combine(dir, "artifact_main_props.json")) ?? [];
+        _mainProps = [];
+        foreach (var (key, value) in raw)
+            if (int.TryParse(key, out int rank))
+                _mainProps[rank] = value;
     }
 
     public string GetSetBonus(string setName, int pieceCount)

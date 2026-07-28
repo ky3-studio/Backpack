@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Text.Json;
 using Backpack.Viewer;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
@@ -26,10 +24,10 @@ public sealed partial class MainViewModel : ObservableObject
 
     public ObservableCollection<WeaponViewModel>        Weapons        { get; } = [];
     public ObservableCollection<ArtifactViewModel>      Artifacts      { get; } = [];
-    public ObservableCollection<MaterialGroupViewModel>  MaterialGroups { get; } = [];
-    public ObservableCollection<FoodGroupViewModel>      FoodGroups     { get; } = [];
-    public ObservableCollection<GadgetGroupViewModel>    GadgetGroups   { get; } = [];
-    public ObservableCollection<AssetGroupViewModel>     AssetGroups    { get; } = [];
+    public ObservableCollection<GroupViewModel<MaterialViewModel>>  MaterialGroups { get; } = [];
+    public ObservableCollection<GroupViewModel<FoodViewModel>>      FoodGroups     { get; } = [];
+    public ObservableCollection<GroupViewModel<GadgetViewModel>>    GadgetGroups   { get; } = [];
+    public ObservableCollection<GroupViewModel<AssetViewModel>>     AssetGroups    { get; } = [];
 
     private readonly Dictionary<uint, ulong> _activeCounts = [];
     private readonly Dictionary<uint, long>  _activeProps  = [];
@@ -111,141 +109,5 @@ public sealed partial class MainViewModel : ObservableObject
     {
         foreach (var e in _weaponMeta.GetDefaultEntries())
             Weapons.Add(new WeaponViewModel(e, _weaponMeta));
-    }
-
-    private void RebuildMaterialGroups()
-    {
-        MaterialGroups.Clear();
-        foreach (var (label, ids) in _materialMeta.Groups)
-        {
-            MaterialGroups.Add(new MaterialGroupViewModel(
-                label,
-                [.. ids.Select(id =>
-                {
-                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
-                    var entry = new MaterialEntry(id, _materialMeta.GetName(id), string.Empty, count);
-                    return new MaterialViewModel(entry, _materialMeta);
-                })]));
-        }
-    }
-
-    private void RebuildGadgetGroups()
-    {
-        GadgetGroups.Clear();
-        foreach (var (label, ids) in _gadgetMeta.Groups)
-        {
-            GadgetGroups.Add(new GadgetGroupViewModel(
-                label,
-                [.. ids.Select(id =>
-                {
-                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
-                    var entry = new MaterialEntry(id, _gadgetMeta.GetName(id), string.Empty, count);
-                    return new GadgetViewModel(entry, _gadgetMeta);
-                })]));
-        }
-    }
-
-    private void RebuildAssetGroups()
-    {
-        AssetGroups.Clear();
-        foreach (var (label, ids) in _assetMeta.Groups)
-        {
-            AssetGroups.Add(new AssetGroupViewModel(
-                label,
-                [.. ids.Select(id =>
-                {
-                    var propId = _assetMeta.GetPropId(id);
-                    ulong count = propId != 0
-                        ? (_activeProps.TryGetValue(propId, out var pv) ? (ulong)Math.Max(0L, pv) : 0UL)
-                        : (_activeCounts.TryGetValue(id, out var c) ? c : 0UL);
-                    var entry = new MaterialEntry(id, _assetMeta.GetName(id), string.Empty, count);
-                    return new AssetViewModel(entry, _assetMeta);
-                })]));
-        }
-    }
-
-    private void RebuildFoodGroups()
-    {
-        FoodGroups.Clear();
-        foreach (var (label, ids) in _foodMeta.Groups)
-        {
-            FoodGroups.Add(new FoodGroupViewModel(
-                label,
-                [.. ids
-                    .Select(id => (id, meta: _foodMeta.GetMeta(id)))
-                    .Where(x => x.meta is not null)
-                    .Select(x =>
-                    {
-                        var count = _activeCounts.TryGetValue(x.id, out var c) ? c : 0UL;
-                        var ingredients = x.meta!.Ingredients
-                            .Select(ing =>
-                            {
-                                var held    = _activeCounts.TryGetValue(ing.Id, out var h) ? h : 0UL;
-                                var iconUri = _materialMeta.GetMeta(ing.Id).IconUri;
-                                return new IngredientViewModel(ing, held, iconUri);
-                            })
-                            .ToList();
-                        return new FoodViewModel(x.meta!, count, ingredients);
-                    })]));
-        }
-    }
-
-    public event Action? DataReceived;
-
-    public void OnPacketReceived(object? _, (string Event, string Json) args)
-    {
-        var (evt, json) = args;
-        _dispatcher.TryEnqueue(() => Apply(evt, json));
-    }
-
-    private void Apply(string evt, string json)
-    {
-        switch (evt)
-        {
-            case "weapon":
-            {
-                var bag = JsonSerializer.Deserialize<WeaponBag>(json);
-                if (bag is null) return;
-                Weapons.Clear();
-                foreach (var e in bag.Weapons) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
-                _db.SaveWeapons(bag.Weapons);
-                break;
-            }
-            case "artifact":
-            {
-                var bag = JsonSerializer.Deserialize<ArtifactBag>(json);
-                if (bag is null) return;
-                Artifacts.Clear();
-                foreach (var e in bag.Artifacts) Artifacts.Add(new ArtifactViewModel(e, _artifactMeta));
-                _db.SaveArtifacts(bag.Artifacts);
-                break;
-            }
-            case "material":
-            {
-                var bag = JsonSerializer.Deserialize<MaterialBag>(json);
-                if (bag is null) return;
-                foreach (var e in bag.Materials)
-                    _activeCounts[e.Id] = e.Count;
-                _db.SaveMaterials(_activeCounts);
-                RebuildMaterialGroups();
-                RebuildFoodGroups();
-                RebuildGadgetGroups();
-                RebuildAssetGroups();
-                break;
-            }
-            case "prop":
-            {
-                var bag = JsonSerializer.Deserialize<PropBag>(json);
-                if (bag is null) return;
-                foreach (var (k, v) in bag.Props)
-                    _activeProps[k] = v;
-                _db.SaveProps(_activeProps);
-                RebuildAssetGroups();
-                return;
-            }
-        }
-        IsLaunching = false;
-        StatusText = $"{Localized.Get("StatusReceived")} · {DateTime.Now:HH:mm:ss}";
-        DataReceived?.Invoke();
     }
 }

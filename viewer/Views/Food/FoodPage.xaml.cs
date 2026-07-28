@@ -1,58 +1,43 @@
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using Backpack.Viewer.ViewModels;
+using Backpack.Viewer.Views.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
-public sealed partial class FoodPage : UserControl
+public sealed partial class FoodPage : UserControl, IDisposable
 {
     public static readonly DependencyProperty FoodGroupsProperty =
-        DependencyProperty.Register(nameof(FoodGroups), typeof(ObservableCollection<FoodGroupViewModel>), typeof(FoodPage),
+        DependencyProperty.Register(nameof(FoodGroups), typeof(ObservableCollection<GroupViewModel<FoodViewModel>>), typeof(FoodPage),
             new PropertyMetadata(null, OnFoodGroupsChanged));
 
-    public ObservableCollection<FoodGroupViewModel>? FoodGroups
+    public ObservableCollection<GroupViewModel<FoodViewModel>>? FoodGroups
     {
-        get => (ObservableCollection<FoodGroupViewModel>?)GetValue(FoodGroupsProperty);
+        get => (ObservableCollection<GroupViewModel<FoodViewModel>>?)GetValue(FoodGroupsProperty);
         set => SetValue(FoodGroupsProperty, value);
     }
 
-    public IReadOnlyList<FoodViewModel>? CurrentItems { get; private set; }
+    public IReadOnlyList<FoodViewModel>? CurrentItems =>
+        (_controller.SelectedGroup as GroupViewModel<FoodViewModel>)?.Items;
 
-    public FoodPage() => InitializeComponent();
+    private readonly TabbedGroupController<GroupViewModel<FoodViewModel>> _controller;
+
+    public FoodPage()
+    {
+        InitializeComponent();
+        _controller = new TabbedGroupController<GroupViewModel<FoodViewModel>>(TabPivot, () => Bindings.Update());
+    }
 
     private static void OnFoodGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is not FoodPage page) return;
-        if (e.OldValue is ObservableCollection<FoodGroupViewModel> old)
-            old.CollectionChanged -= page.OnGroupsCollectionChanged;
-        if (e.NewValue is ObservableCollection<FoodGroupViewModel> groups)
-        {
-            groups.CollectionChanged += page.OnGroupsCollectionChanged;
-            if (groups.Count > 0) { page.CurrentItems = groups[0].Items; page.Bindings.Update(); }
-        }
+        if (d is FoodPage page)
+            page._controller.Bind((ObservableCollection<GroupViewModel<FoodViewModel>>?)e.NewValue);
     }
 
-    private void OnGroupsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (FoodGroups is not { Count: > 0 }) return;
-        var header = (TabPivot.SelectedItem as FoodGroupViewModel)?.Header;
-        var target = (header is not null ? FoodGroups.FirstOrDefault(g => g.Header == header) : null)
-                     ?? FoodGroups[0];
-        CurrentItems = target.Items;
-        Bindings.Update();
-    }
-
-    private void OnTabChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (TabPivot.SelectedItem is FoodGroupViewModel grp)
-        {
-            CurrentItems = grp.Items;
-            Bindings.Update();
-        }
-    }
+    private void OnTabChanged(object sender, SelectionChangedEventArgs e) =>
+        _controller.OnTabSelectionChanged(e);
 
     private void OnCardDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
@@ -62,4 +47,6 @@ public sealed partial class FoodPage : UserControl
             e.Handled = true;
         }
     }
+
+    public void Dispose() => _controller.Dispose();
 }

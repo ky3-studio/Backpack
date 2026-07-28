@@ -1,13 +1,13 @@
 namespace Backpack.Viewer.ViewModels;
 
-public abstract class GroupViewModel<TItem>
+public abstract class GroupViewModel
 {
-    public string                Header { get; }
-    public IReadOnlyList<TItem>  Items  { get; }
+    public string Header { get; }
+    protected GroupViewModel(string header) => Header = header;
+}
 
-    protected GroupViewModel(string header, IReadOnlyList<TItem> items)
-    {
-        Header = header;
-        Items  = items;
-    }
+public sealed class GroupViewModel<TItem> : GroupViewModel
+{
+    public IReadOnlyList<TItem> Items { get; }
+    public GroupViewModel(string header, IReadOnlyList<TItem> items) : base(header) => Items = items;
 }

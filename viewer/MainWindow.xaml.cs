@@ -50,8 +50,7 @@ public sealed partial class MainWindow : Window, IDisposable
             KillLaunchedGame();
         };
 
-        _gameMonitor.Tick += (_, _) =>
-            ViewModel.IsGameRunning = System.Diagnostics.Process.GetProcessesByName("YuanShen").Length > 0;
+        _gameMonitor.Tick += (_, _) => ViewModel.IsGameRunning = GameLaunchService.IsGameRunning();
         _gameMonitor.Start();
 
         SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();

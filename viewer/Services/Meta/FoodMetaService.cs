@@ -32,12 +32,9 @@ public sealed class FoodMetaService
         foreach (var (file, key) in _tabDefs)
         {
             var path = Path.Combine(foodDir, file);
-            if (!File.Exists(path)) continue;
             try
             {
-                var items = JsonSerializer.Deserialize<RawEntry[]>(
-                    File.ReadAllText(path),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
+                var items = JsonLoader.Load<RawEntry[]>(path) ?? [];
                 var ids = new List<uint>(items.Length);
                 foreach (var e in items.DistinctBy(x => x.Id))
                 {
