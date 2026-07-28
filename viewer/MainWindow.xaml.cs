@@ -4,12 +4,15 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Runtime.InteropServices;
 using Windows.Graphics;
 
 namespace Backpack.Viewer;
 
 public sealed partial class MainWindow : Window, IDisposable
 {
+    [DllImport("user32.dll")]
+    private static extern uint GetDpiForWindow(IntPtr hWnd);
     private readonly PipeListenerService     _pipe        = new();
     private readonly CancellationTokenSource _cts         = new();
     private readonly BackpackDbService       _db          = new();
@@ -38,10 +41,16 @@ public sealed partial class MainWindow : Window, IDisposable
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBarArea);
         AppWindow.SetIcon(System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "logo.ico"));
-        const int W = 1280, H = 800;
-        AppWindow.Resize(new SizeInt32(W, H));
+        const int logW = 1280, logH = 800;
+        var    hwnd  = WinRT.Interop.WindowNative.GetWindowHandle(this);
+        double scale = GetDpiForWindow(hwnd) / 96.0;
+        int    physW = (int)(logW * scale);
+        int    physH = (int)(logH * scale);
+        AppWindow.Resize(new SizeInt32(physW, physH));
         var workArea = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Nearest).WorkArea;
-        AppWindow.Move(new PointInt32(workArea.X + (workArea.Width - W) / 2, workArea.Y + (workArea.Height - H) / 2));
+        AppWindow.Move(new PointInt32(
+            workArea.X + (workArea.Width  - physW) / 2,
+            workArea.Y + (workArea.Height - physH) / 2));
 
         _pipe.PacketReceived += ViewModel.OnPacketReceived;
         _ = _pipe.RunAsync(_cts.Token);

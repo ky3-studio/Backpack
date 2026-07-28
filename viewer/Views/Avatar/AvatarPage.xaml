@@ -87,16 +87,18 @@
               <ContentPresenter.ContentTemplate>
                 <DataTemplate x:DataType="vm:AvatarViewModel">
 
-                  <Border cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
-                    <Grid Style="{ThemeResource GridShimmerStyle}">
+                  <Border
+                      cw:Effects.Shadow="{ThemeResource CompatCardShadow}"
+                      Background="Black"
+                      CornerRadius="{ThemeResource ControlCornerRadius}">
 
-                      <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" MinWidth="560">
-                        <Grid Width="840" Height="400">
+                      <Grid MinHeight="200">
+                        <Image Source="{x:Bind CardSource, Mode=OneWay}" Stretch="UniformToFill" />
+                        <Border Background="#80000000" IsHitTestVisible="False" />
 
-                          <Image Source="{x:Bind CardSource, Mode=OneWay}" Stretch="UniformToFill" />
-                          <Border Background="#80000000" IsHitTestVisible="False" />
+                        <Grid Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                          <StackPanel Margin="16" HorizontalAlignment="Left" VerticalAlignment="Top">
+                          <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
 
                             <Grid HorizontalAlignment="Left">
                               <Grid.ColumnDefinitions>
@@ -107,7 +109,7 @@
                                 <Grid>
                                   <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
                                   <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-                                  <Image Source="{x:Bind IconSource, Mode=OneWay}" Stretch="Uniform" />
+                                  <Image Source="{x:Bind CardIconSource, Mode=OneWay}" Stretch="Uniform" />
                                 </Grid>
                               </Border>
                               <StackPanel Grid.Column="1" Margin="16,0,0,0">
@@ -209,7 +211,6 @@
                           </StackPanel>
 
                           <ItemsRepeater
-                              Margin="16"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Bottom"
                               ItemsSource="{x:Bind Skills}">
@@ -297,7 +298,6 @@
                           </ItemsRepeater>
 
                           <ItemsRepeater
-                              Margin="16"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Bottom"
                               ItemsSource="{x:Bind Talents}">
@@ -352,8 +352,9 @@
                           </ItemsRepeater>
 
                         </Grid>
-                      </Viewbox>
-                    </Grid>
+
+                      </Grid>
+
                   </Border>
 
                 </DataTemplate>

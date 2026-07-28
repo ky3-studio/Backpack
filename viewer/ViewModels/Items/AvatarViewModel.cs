@@ -10,6 +10,7 @@ namespace Backpack.Viewer.ViewModels;
 public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
 {
     [ObservableProperty] private BitmapImage? _iconSource;
+    [ObservableProperty] private BitmapImage? _cardIconSource;
     [ObservableProperty] private BitmapImage? _sideIconSource;
     [ObservableProperty] private BitmapImage? _cardSource;
 
@@ -96,6 +97,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
             })];
 
             GfxLoader.BeginLoad(StaticResources.AvatarIcon(m.Icon), this);
+            GfxLoader.BeginLoad(StaticResources.AvatarIcon(m.Icon), new CardIconProxy(v => CardIconSource = v));
             GfxLoader.BeginLoad(StaticResources.AvatarIcon(m.SideIcon), new SideProxy(v => SideIconSource = v));
 
             if (!string.IsNullOrEmpty(m.Namecard))
@@ -106,6 +108,11 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
             Skills  = [];
             Talents = [];
         }
+    }
+
+    private sealed class CardIconProxy(Action<BitmapImage?> setter) : IIconUpdatable
+    {
+        public BitmapImage? IconSource { get => null; set => setter(value); }
     }
 
     private sealed class CardProxy(Action<BitmapImage?> setter) : IIconUpdatable
