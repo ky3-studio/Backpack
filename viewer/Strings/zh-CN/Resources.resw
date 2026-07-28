@@ -21,6 +21,9 @@
   <data name="TabWeapon.Header" xml:space="preserve">
     <value>武器</value>
   </data>
+  <data name="TabAvatar.Header" xml:space="preserve">
+    <value>角色</value>
+  </data>
   <data name="TabArtifact.Header" xml:space="preserve">
     <value>圣遗物</value>
   </data>
@@ -227,5 +230,32 @@
   </data>
   <data name="GadgetTabCurrency" xml:space="preserve">
     <value>稀有货币</value>
+  </data>
+  <data name="WeaponRefine" xml:space="preserve">
+    <value>精炼</value>
+  </data>
+  <data name="WeaponRefineFmt" xml:space="preserve">
+    <value>精炼{0}阶</value>
+  </data>
+  <data name="LevelPrefix" xml:space="preserve">
+    <value>Lv. </value>
+  </data>
+  <data name="SkillTypeNormal" xml:space="preserve">
+    <value>普通攻击</value>
+  </data>
+  <data name="SkillTypeSkill" xml:space="preserve">
+    <value>元素战技</value>
+  </data>
+  <data name="SkillTypeBurst" xml:space="preserve">
+    <value>元素爆发</value>
+  </data>
+  <data name="SkillTypeDash" xml:space="preserve">
+    <value>替代冲刺</value>
+  </data>
+  <data name="SkillFallback" xml:space="preserve">
+    <value>技能</value>
+  </data>
+  <data name="ExtraLevelSuffix" xml:space="preserve">
+    <value>等级</value>
   </data>
 </root>

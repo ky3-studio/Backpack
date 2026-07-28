@@ -38,6 +38,12 @@ static int __fastcall Detour(uint8_t* val, int startIndex) {
         emit("artifact", Output::kArtifact, Artifact::OnPacket(body, dataLen));
         emit("material", Output::kMaterial, Material::OnPacket(body, dataLen));
     }
+    if (cmdId == Pkt::kCmdAvatar && dataLen > 0 && dataLen < Pkt::kMaxAvatarLen) {
+        const uint8_t* body = p + Pkt::kBodyPrefix + headLen;
+        const std::string json = Avatar::OnPacket(body, dataLen);
+        IO::WriteJson(g_outDir, Output::kAvatar, json.c_str(), json.size());
+        IPC::Push("avatar", json.c_str(), json.size());
+    }
     if (cmdId == Pkt::kCmdProp && dataLen > 0 && dataLen < Pkt::kMaxPropLen) {
         const uint8_t* body = p + Pkt::kBodyPrefix + headLen;
         const std::string json = Prop::OnPacket(body, dataLen);

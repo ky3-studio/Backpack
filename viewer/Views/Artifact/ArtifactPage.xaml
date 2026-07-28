@@ -43,8 +43,6 @@
                       <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
                       <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
                       <Image
-                          Width="36"
-                          Height="36"
                           Source="{x:Bind IconSource, Mode=OneWay}"
                           Stretch="Uniform" />
                     </Grid>

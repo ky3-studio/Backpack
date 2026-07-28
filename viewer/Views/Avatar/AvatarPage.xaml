@@ -1,0 +1,368 @@
+<UserControl
+    x:Class="Backpack.Viewer.Views.AvatarPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="using:Backpack.Viewer.Controls"
+    xmlns:cw="using:CommunityToolkit.WinUI"
+    xmlns:models="using:Backpack.Viewer.Models"
+    xmlns:vm="using:Backpack.Viewer.ViewModels">
+
+  <Border Margin="16,8,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+    <Border
+        Background="{ThemeResource SystemControlAcrylicElementBrush}"
+        BorderThickness="0"
+        CornerRadius="{ThemeResource ControlCornerRadius}">
+
+      <SplitView
+          DisplayMode="Inline"
+          IsPaneOpen="True"
+          OpenPaneLength="270"
+          PaneBackground="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+
+        <SplitView.Pane>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ListView
+                Grid.Row="0"
+                SelectionMode="Single"
+                ItemsSource="{x:Bind Avatars, Mode=OneWay}"
+                SelectedItem="{x:Bind SelectedAvatar, Mode=TwoWay}">
+              <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:AvatarViewModel">
+                  <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Width="60"
+                        Height="60"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind IconSource, Mode=OneWay}"
+                        Stretch="Uniform" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock
+                          Margin="12,0,0,0"
+                          Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                          Text="{x:Bind Name}"
+                          TextTrimming="CharacterEllipsis"
+                          TextWrapping="NoWrap" />
+                      <TextBlock
+                          Margin="12,0,0,0"
+                          Opacity="0.7"
+                          Style="{StaticResource AppCaptionTextBlockStyle}"
+                          Text="{x:Bind LevelFull}"
+                          TextWrapping="NoWrap" />
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+
+            <Border
+                Grid.Row="1"
+                Background="{ThemeResource ControlFillColorSecondaryBrush}"
+                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                BorderThickness="0,1,0,0">
+              <TextBlock
+                  Margin="0,6"
+                  HorizontalAlignment="Center"
+                  Style="{StaticResource CaptionTextBlockStyle}"
+                  Text="{x:Bind TotalCountText, Mode=OneWay}" />
+            </Border>
+          </Grid>
+        </SplitView.Pane>
+
+        <SplitView.Content>
+          <ScrollViewer Padding="16">
+            <ContentPresenter
+                VerticalAlignment="Top"
+                Content="{x:Bind SelectedAvatar, Mode=OneWay}">
+              <ContentPresenter.ContentTemplate>
+                <DataTemplate x:DataType="vm:AvatarViewModel">
+
+                  <Border cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+                    <Grid Style="{ThemeResource GridShimmerStyle}">
+
+                      <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" MinWidth="560">
+                        <Grid Width="840" Height="400">
+
+                          <Image Source="{x:Bind CardSource, Mode=OneWay}" Stretch="UniformToFill" />
+                          <Border Background="#80000000" IsHitTestVisible="False" />
+
+                          <StackPanel Margin="16" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                            <Grid HorizontalAlignment="Left">
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                              </Grid.ColumnDefinitions>
+                              <Border Grid.Column="0" Width="80" Height="80" CornerRadius="{StaticResource ControlCornerRadius}">
+                                <Grid>
+                                  <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
+                                  <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+                                  <Image Source="{x:Bind IconSource, Mode=OneWay}" Stretch="Uniform" />
+                                </Grid>
+                              </Border>
+                              <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                <TextBlock
+                                    FontFamily="{StaticResource AppFontFamily}"
+                                    FontSize="22"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="{x:Bind Name}" />
+                                <ItemsRepeater
+                                    Margin="0,2,0,0"
+                                    ItemsSource="{x:Bind PromoteItems}">
+                                  <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Horizontal" Spacing="2" />
+                                  </ItemsRepeater.Layout>
+                                  <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="x:Int32">
+                                      <BitmapIcon
+                                          Width="14"
+                                          Height="14"
+                                          Foreground="{ThemeResource WeaponGoldBrush}"
+                                          UriSource="ms-appx:///Assets/UI_IconKira.png" />
+                                    </DataTemplate>
+                                  </ItemsRepeater.ItemTemplate>
+                                </ItemsRepeater>
+                                <TextBlock
+                                    Margin="0,2,0,0"
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="{x:Bind LevelFull}" />
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
+                                  <Image
+                                      Width="16"
+                                      Height="16"
+                                      Source="ms-appx:///Assets/UI_Icon_Fetter.png" />
+                                  <TextBlock
+                                      Margin="4,0,0,2"
+                                      VerticalAlignment="Center"
+                                      Foreground="White"
+                                      Style="{StaticResource CaptionTextBlockStyle}"
+                                      Text="{x:Bind FetterText}" />
+                                </StackPanel>
+                              </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,16,0,0" HorizontalAlignment="Left" Visibility="{x:Bind HasWeaponVisibility}">
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                              </Grid.ColumnDefinitions>
+                              <Border Grid.Column="0" Width="80" Height="80" CornerRadius="{StaticResource ControlCornerRadius}">
+                                <Grid>
+                                  <Image Source="{x:Bind WeaponQualitySource}" Stretch="Fill" />
+                                  <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+                                  <Image Source="{x:Bind WeaponIconSource, Mode=OneWay}" Stretch="Uniform" />
+                                </Grid>
+                              </Border>
+                              <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                <TextBlock
+                                    FontFamily="{StaticResource AppFontFamily}"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="{x:Bind WeaponName}" />
+                                <ItemsRepeater
+                                    Margin="0,2,0,0"
+                                    ItemsSource="{x:Bind WeaponPromoteItems}">
+                                  <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Horizontal" Spacing="2" />
+                                  </ItemsRepeater.Layout>
+                                  <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="x:Int32">
+                                      <BitmapIcon
+                                          Width="14"
+                                          Height="14"
+                                          Foreground="{ThemeResource WeaponGoldBrush}"
+                                          UriSource="ms-appx:///Assets/UI_IconKira.png" />
+                                    </DataTemplate>
+                                  </ItemsRepeater.ItemTemplate>
+                                </ItemsRepeater>
+                                <TextBlock
+                                    Margin="0,2,0,0"
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="{x:Bind WeaponLevelText}" />
+                                <TextBlock
+                                    Margin="0,2,0,0"
+                                    FontSize="13"
+                                    Foreground="#CCFFFFFF"
+                                    Style="{StaticResource AppCaptionTextBlockStyle}"
+                                    Text="{x:Bind WeaponRefineText}" />
+                              </StackPanel>
+                            </Grid>
+
+                          </StackPanel>
+
+                          <ItemsRepeater
+                              Margin="16"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Bottom"
+                              ItemsSource="{x:Bind Skills}">
+                            <ItemsRepeater.Layout>
+                              <StackLayout Orientation="Vertical" Spacing="0" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                              <DataTemplate x:DataType="vm:SkillSlotViewModel">
+                                <Button
+                                    Margin="0,2,0,0"
+                                    Padding="4"
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}">
+                                  <Button.Content>
+                                    <Grid>
+                                      <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="100" />
+                                      </Grid.ColumnDefinitions>
+                                      <Image
+                                          Grid.Column="0"
+                                          Width="36"
+                                          Height="36"
+                                          Source="{x:Bind IconSource, Mode=OneWay}" />
+                                      <TextBlock
+                                          Grid.Column="1"
+                                          Margin="6,0,0,2"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Foreground="White"
+                                          Style="{StaticResource BaseTextBlockStyle}"
+                                          Text="{x:Bind LevelText}" />
+                                    </Grid>
+                                  </Button.Content>
+                                  <Button.Flyout>
+                                    <Flyout Placement="Left">
+                                      <StackPanel MaxWidth="280" Spacing="6">
+                                        <TextBlock
+                                            Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                                            Text="{x:Bind Name}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource AppCaptionTextBlockStyle}"
+                                            Text="{x:Bind TypeDisplay}" />
+                                        <RichTextBlock
+                                            FontFamily="{StaticResource AppFontFamily}"
+                                            Opacity="0.85"
+                                            TextWrapping="Wrap"
+                                            Visibility="{x:Bind DescriptionVisibility}"
+                                            ctrl:MiHoYo.Description="{x:Bind Description}" />
+                                        <Border
+                                            Height="1"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                            Visibility="{x:Bind ParamsVisibility}" />
+                                        <ItemsRepeater
+                                            ItemsSource="{x:Bind Params}"
+                                            Visibility="{x:Bind ParamsVisibility}">
+                                          <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="models:SkillParamRow">
+                                              <Grid Margin="0,1">
+                                                <Grid.ColumnDefinitions>
+                                                  <ColumnDefinition Width="*" />
+                                                  <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Style="{StaticResource AppCaptionTextBlockStyle}"
+                                                    Text="{x:Bind Label}" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="16,0,0,0"
+                                                    Foreground="{ThemeResource WeaponGoldBrush}"
+                                                    Style="{StaticResource AppCaptionTextBlockStyle}"
+                                                    Text="{x:Bind Value}" />
+                                              </Grid>
+                                            </DataTemplate>
+                                          </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                      </StackPanel>
+                                    </Flyout>
+                                  </Button.Flyout>
+                                </Button>
+                              </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                          </ItemsRepeater>
+
+                          <ItemsRepeater
+                              Margin="16"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Bottom"
+                              ItemsSource="{x:Bind Talents}">
+                            <ItemsRepeater.Layout>
+                              <StackLayout Orientation="Horizontal" Spacing="0" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                              <DataTemplate x:DataType="vm:TalentSlotViewModel">
+                                <Button
+                                    Margin="0,0,2,0"
+                                    Padding="2"
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}">
+                                  <Button.Content>
+                                    <Grid>
+                                      <Image
+                                          Width="36"
+                                          Height="36"
+                                          Opacity="{x:Bind ActiveOpacity}"
+                                          Source="{x:Bind IconSource, Mode=OneWay}"
+                                          Stretch="Uniform" />
+                                      <Image
+                                          Width="16"
+                                          Height="16"
+                                          Source="ms-appx:///Assets/UI_Icon_Locked.png"
+                                          Visibility="{x:Bind LockedVisibility}" />
+                                    </Grid>
+                                  </Button.Content>
+                                  <Button.Flyout>
+                                    <Flyout Placement="Bottom">
+                                      <StackPanel MaxWidth="320" Spacing="6">
+                                        <TextBlock
+                                            Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                                            Text="{x:Bind Name}"
+                                            TextWrapping="Wrap" />
+                                        <RichTextBlock
+                                            FontFamily="{StaticResource AppFontFamily}"
+                                            Opacity="0.85"
+                                            TextWrapping="Wrap"
+                                            ctrl:MiHoYo.Description="{x:Bind Description}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource WeaponGoldBrush}"
+                                            Style="{StaticResource AppCaptionTextBlockStyle}"
+                                            Text="{x:Bind ExtraLevelText}"
+                                            Visibility="{x:Bind ExtraLevelVisibility}" />
+                                      </StackPanel>
+                                    </Flyout>
+                                  </Button.Flyout>
+                                </Button>
+                              </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                          </ItemsRepeater>
+
+                        </Grid>
+                      </Viewbox>
+                    </Grid>
+                  </Border>
+
+                </DataTemplate>
+              </ContentPresenter.ContentTemplate>
+            </ContentPresenter>
+          </ScrollViewer>
+        </SplitView.Content>
+
+      </SplitView>
+    </Border>
+  </Border>
+</UserControl>

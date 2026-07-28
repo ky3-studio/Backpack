@@ -102,6 +102,7 @@ public sealed class ArtifactMetaService
                     false,
                     0,
                     kvp.Value.MaxRank,
+                    0,
                     new ArtifactMainStat(string.Empty, string.Empty),
                     [])))];
     }

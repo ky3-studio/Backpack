@@ -36,9 +36,14 @@
     <Content Include="Assets\Food\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Gadget\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Asset\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Avatar\avatar_meta.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\AvatarDetail\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI_Icon_Locked.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI_Icon_Fetter.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI_IconKira.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\badge\*.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\PivotStyle.xaml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\x64\Release\backpack.dll" CopyToOutputDirectory="PreserveNewest" Link="modules\backpack.dll" Condition="Exists('..\x64\Release\backpack.dll')" />

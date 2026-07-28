@@ -24,6 +24,7 @@ struct Inst {
     bool              equipped;
     int               level;
     int               rank;
+    int               initSubStats;
     int               slotDigit;
     char              slot[32];
     char              setName[64];
@@ -81,7 +82,8 @@ static std::string BuildJson(const std::vector<Inst>& arts) {
         sprintf_s(buf, Output::kArtSlot,     a.slot);                                       out += buf;
         sprintf_s(buf, Output::kArtEquipped, a.equipped ? "true" : "false");               out += buf;
         sprintf_s(buf, Output::kArtLevel,    a.level);                                      out += buf;
-        sprintf_s(buf, Output::kArtRank,     a.rank);                                       out += buf;
+        sprintf_s(buf, Output::kArtRank,         a.rank);                                      out += buf;
+        sprintf_s(buf, Output::kArtInitSubStats,  a.initSubStats);                              out += buf;
         sprintf_s(buf, Output::kArtMainStat, a.mainShort, a.mainType);                      out += buf;
 
         out += Output::kArtSubStatsOpen;
@@ -204,7 +206,8 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
             if (si) {
                 strncpy_s(inst.setName,   si->setName,   _TRUNCATE);
                 strncpy_s(inst.pieceName, si->pieceName, _TRUNCATE);
-                inst.rank = si->rank;
+                inst.rank         = si->rank;
+                inst.initSubStats = si->initSubStats;
             } else {
                 strncpy_s(inst.setName,   ArtifactDb::kDefaultSetName,   _TRUNCATE);
                 strncpy_s(inst.pieceName, ArtifactDb::kDefaultPieceName, _TRUNCATE);

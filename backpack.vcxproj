@@ -95,6 +95,7 @@
 
   <ItemGroup>
     <ClCompile Include="parsers\artifact\artifact.cpp" />
+        <ClCompile Include="parsers\avatar\avatar.cpp" />
     <ClCompile Include="hook\dllmain.cpp" />
     <ClCompile Include="hook\pkt_hook.cpp" />
     <ClCompile Include="parsers\material\material.cpp" />

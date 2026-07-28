@@ -21,6 +21,9 @@
   <data name="TabWeapon.Header" xml:space="preserve">
     <value>Weapons</value>
   </data>
+  <data name="TabAvatar.Header" xml:space="preserve">
+    <value>Characters</value>
+  </data>
   <data name="TabArtifact.Header" xml:space="preserve">
     <value>Artifacts</value>
   </data>
@@ -227,5 +230,32 @@
   </data>
   <data name="GadgetTabCurrency" xml:space="preserve">
     <value>Rare Currency</value>
+  </data>
+  <data name="WeaponRefine" xml:space="preserve">
+    <value>Refinement</value>
+  </data>
+  <data name="WeaponRefineFmt" xml:space="preserve">
+    <value>R{0}</value>
+  </data>
+  <data name="LevelPrefix" xml:space="preserve">
+    <value>Lv. </value>
+  </data>
+  <data name="SkillTypeNormal" xml:space="preserve">
+    <value>Normal Attack</value>
+  </data>
+  <data name="SkillTypeSkill" xml:space="preserve">
+    <value>Elemental Skill</value>
+  </data>
+  <data name="SkillTypeBurst" xml:space="preserve">
+    <value>Elemental Burst</value>
+  </data>
+  <data name="SkillTypeDash" xml:space="preserve">
+    <value>Alternative Sprint</value>
+  </data>
+  <data name="SkillFallback" xml:space="preserve">
+    <value>Skill</value>
+  </data>
+  <data name="ExtraLevelSuffix" xml:space="preserve">
+    <value>Level</value>
   </data>
 </root>

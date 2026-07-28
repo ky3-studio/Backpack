@@ -1,4 +1,5 @@
 using Backpack.Viewer;
+using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -43,9 +44,9 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
 
         if (hasInstance)
         {
-            Level       = $"Lv.{entry.Level}";
-            LevelFull   = $"Lv.{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Promote, 0, 6)]}";
-            RefineLabel = $"精炼{entry.Refine}阶";
+            Level       = $"{Localized.Get("LevelPrefix")}{entry.Level}";
+            LevelFull   = $"{Localized.Get("LevelPrefix")}{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Promote, 0, 6)]}";
+            RefineLabel = string.Format(Localized.Get("WeaponRefineFmt"), entry.Refine);
             Refine      = $"R{entry.Refine}";
             var (atk, sub)     = meta.CalcStats(entry.Id, entry.Level, entry.Promote);
             var (pName, pDesc) = meta.GetSkill(entry.Id, entry.Refine);

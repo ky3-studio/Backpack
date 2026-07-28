@@ -40,6 +40,7 @@ public sealed partial class BackpackDbService : IDisposable
                 locked           INTEGER NOT NULL,
                 level            INTEGER NOT NULL,
                 rank             INTEGER NOT NULL,
+                init_sub_stats   INTEGER NOT NULL DEFAULT 0,
                 main_stat_type   TEXT    NOT NULL,
                 main_stat_raw    TEXT    NOT NULL,
                 sub_stats        TEXT    NOT NULL
@@ -51,6 +52,17 @@ public sealed partial class BackpackDbService : IDisposable
             CREATE TABLE IF NOT EXISTS props (
                 id    INTEGER PRIMARY KEY,
                 value INTEGER NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS avatars (
+                id      INTEGER PRIMARY KEY,
+                guid    TEXT    NOT NULL,
+                level   INTEGER NOT NULL,
+                promote INTEGER NOT NULL,
+                fetter  INTEGER NOT NULL,
+                talents TEXT    NOT NULL,
+                skills  TEXT    NOT NULL,
+                extras  TEXT    NOT NULL,
+                equips  TEXT    NOT NULL
             );
             """);
         try { Exec("ALTER TABLE artifacts RENAME COLUMN equipped TO locked"); } catch { }

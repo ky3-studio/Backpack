@@ -28,7 +28,9 @@ public sealed partial class MainWindow : Window, IDisposable
         var artifactMeta = new ArtifactMetaService();
         var gadgetMeta   = new GadgetMetaService();
         var assetMeta    = new AssetMetaService();
-        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, foodMeta, weaponMeta, artifactMeta, gadgetMeta, assetMeta, _db);
+        var avatarMeta   = new AvatarMetaService();
+        var avatarDetail = new AvatarDetailService();
+        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, foodMeta, weaponMeta, artifactMeta, gadgetMeta, assetMeta, avatarMeta, avatarDetail, _db);
         InitializeComponent();
 
         Title = $"Backpack {AppVersion.Value}";

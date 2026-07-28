@@ -36,6 +36,14 @@ public sealed partial class MainViewModel
                 _db.SaveArtifacts(bag.Artifacts);
                 break;
             }
+            case "avatar":
+            {
+                var bag = JsonSerializer.Deserialize<AvatarBag>(json);
+                if (bag is null) return;
+                RebuildAvatars(bag.Avatars);
+                _db.SaveAvatars(bag.Avatars);
+                break;
+            }
             case "material":
             {
                 var bag = JsonSerializer.Deserialize<MaterialBag>(json);

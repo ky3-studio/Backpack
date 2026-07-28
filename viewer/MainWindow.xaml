@@ -60,6 +60,10 @@
         <views:WeaponPage Weapons="{x:Bind ViewModel.Weapons}" />
       </PivotItem>
 
+      <PivotItem x:Uid="TabAvatar">
+        <views:AvatarPage Avatars="{x:Bind ViewModel.Avatars}" />
+      </PivotItem>
+
       <PivotItem x:Uid="TabArtifact">
         <views:ArtifactPage Artifacts="{x:Bind ViewModel.Artifacts}" />
       </PivotItem>

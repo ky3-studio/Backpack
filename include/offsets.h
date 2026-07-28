@@ -33,9 +33,18 @@ namespace Pkt {
 
     static constexpr uint16_t kCmdStore     = 25494;
     static constexpr uint16_t kCmdProp      = 2643;
+    static constexpr uint16_t kCmdAvatar    = 22826;
 
     static constexpr uint32_t kMaxStoreLen  = 0x2000000u;
     static constexpr uint32_t kMaxPropLen   = 0x10000u;
+    static constexpr uint32_t kMaxAvatarLen = 0x100000u;
+}
+
+namespace AvatarId {
+    static constexpr uint32_t kMin = 10000002;
+    static constexpr uint32_t kMax = 10000199;
+    // 过滤掉的非玩家角色 ID
+    static constexpr uint32_t kSkip[] = { 10000117u, 10000118u };
 }
 
 namespace PropId {

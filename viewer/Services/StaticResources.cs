@@ -4,9 +4,13 @@ internal static class StaticResources
 {
     private const string Base = "http://8.134.75.17/static/raw/";
 
-    public static Uri WeaponIcon(string icon)   => new($"{Base}EquipIcon/{icon}.png");
-    public static Uri ArtifactIcon(string icon) => new($"{Base}RelicIcon/{icon}.png");
-    public static Uri MaterialIcon(string icon) => new($"{Base}ItemIcon/{icon}.png");
+    public static Uri WeaponIcon(string icon)     => new($"{Base}EquipIcon/{icon}.png");
+    public static Uri ArtifactIcon(string icon)   => new($"{Base}RelicIcon/{icon}.png");
+    public static Uri MaterialIcon(string icon)   => new($"{Base}ItemIcon/{icon}.png");
+    public static Uri AvatarIcon(string icon)     => new($"{Base}AvatarIcon/{icon}.png");
+    public static Uri AvatarCard(string namecard) => new($"{Base}NameCardPic/{namecard}_P.png");
+    public static Uri SkillIcon(string icon)      => new($"{Base}Skill/{icon}.png");
+    public static Uri TalentIcon(string icon)     => new($"{Base}Talent/{icon}.png");
 
     public static Uri QualityIcon(int rank)
     {
