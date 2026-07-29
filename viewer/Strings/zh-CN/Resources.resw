@@ -294,4 +294,13 @@
   <data name="FoodVariantNormal" xml:space="preserve">
     <value>普通</value>
   </data>
+  <data name="WeaponSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索武器…</value>
+  </data>
+  <data name="WeaponFilterTitle.Text" xml:space="preserve">
+    <value>筛选武器</value>
+  </data>
+  <data name="WeaponFilterClear.Content" xml:space="preserve">
+    <value>清除</value>
+  </data>
 </root>

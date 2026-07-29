@@ -294,4 +294,13 @@
   <data name="FoodVariantNormal" xml:space="preserve">
     <value>Normal</value>
   </data>
+  <data name="WeaponSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search weapons…</value>
+  </data>
+  <data name="WeaponFilterTitle.Text" xml:space="preserve">
+    <value>Filter Weapons</value>
+  </data>
+  <data name="WeaponFilterClear.Content" xml:space="preserve">
+    <value>Clear</value>
+  </data>
 </root>
