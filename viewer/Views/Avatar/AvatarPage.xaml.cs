@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Backpack.Viewer.Localization;
 using Backpack.Viewer.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -60,5 +61,5 @@ public sealed partial class AvatarPage : UserControl
     }
 
     private void UpdateCount()
-        => TotalCountText = Avatars is { Count: > 0 } col ? $"共 {col.Count} 位角色" : string.Empty;
+        => TotalCountText = Avatars is { Count: > 0 } col ? string.Format(Localized.Get("AvatarCountFmt"), col.Count) : string.Empty;
 }

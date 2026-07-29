@@ -29,11 +29,11 @@ public sealed partial class SkillSlotViewModel : ObservableObject, IIconUpdatabl
         LevelText   = level > 0 ? $"{Localized.Get("LevelPrefix")}{level}" : string.Empty;
         TypeDisplay = type switch
         {
-            "normal" => Localized.Get("SkillTypeNormal"),
-            "skill"  => Localized.Get("SkillTypeSkill"),
-            "burst"  => Localized.Get("SkillTypeBurst"),
-            "dash"   => Localized.Get("SkillTypeDash"),
-            _        => type
+            SkillTypes.Normal => Localized.Get("SkillTypeNormal"),
+            SkillTypes.Skill  => Localized.Get("SkillTypeSkill"),
+            SkillTypes.Burst  => Localized.Get("SkillTypeBurst"),
+            SkillTypes.Dash   => Localized.Get("SkillTypeDash"),
+            _                 => type
         };
         Description           = description;
         Params                = skillParams ?? [];

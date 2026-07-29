@@ -1,4 +1,6 @@
 using Backpack.Viewer;
+using Backpack.Viewer.Localization;
+using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
@@ -32,20 +34,20 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
 
         VariantLabel = meta.Variant switch
         {
-            "suspicious" => "奇怪",
-            "delicious"  => "美味",
-            "special"    => "特殊",
-            "sweet"      => "糖雕",
-            _            => "普通",
+            FoodVariants.Suspicious => Localized.Get("FoodVariantSuspicious"),
+            FoodVariants.Delicious  => Localized.Get("FoodVariantDelicious"),
+            FoodVariants.Special    => Localized.Get("FoodVariantSpecial"),
+            FoodVariants.Sweet      => Localized.Get("FoodVariantSweet"),
+            _                       => Localized.Get("FoodVariantNormal"),
         };
 
         VariantForeground = new SolidColorBrush(meta.Variant switch
         {
-            "suspicious" => Color.FromArgb(255, 157, 105, 213),
-            "delicious"  => Color.FromArgb(255, 193, 148,  48),
-            "special"    => Color.FromArgb(255,  56, 165,  90),
-            "sweet"      => Color.FromArgb(255, 214,  89, 151),
-            _            => Color.FromArgb(160, 140, 140, 140),
+            FoodVariants.Suspicious => Color.FromArgb(255, 157, 105, 213),
+            FoodVariants.Delicious  => Color.FromArgb(255, 193, 148,  48),
+            FoodVariants.Special    => Color.FromArgb(255,  56, 165,  90),
+            FoodVariants.Sweet      => Color.FromArgb(255, 214,  89, 151),
+            _                       => Color.FromArgb(160, 140, 140, 140),
         });
 
         GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);

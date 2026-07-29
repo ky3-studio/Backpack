@@ -1,7 +1,11 @@
+using System.IO;
+
 namespace Backpack.Viewer.Services;
 
 internal static class StaticResources
 {
+    public static string AssetsDir { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");
+
     private const string Base = "http://8.134.75.17/static/raw/";
 
     public static Uri WeaponIcon(string icon)     => new($"{Base}EquipIcon/{icon}.png");

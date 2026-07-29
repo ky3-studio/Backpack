@@ -8,13 +8,13 @@ public sealed class WeaponMetaService
 {
     private static readonly HashSet<string> PercentProps =
     [
-        "FIGHT_PROP_ATTACK_PERCENT",
-        "FIGHT_PROP_CHARGE_EFFICIENCY",
-        "FIGHT_PROP_CRITICAL",
-        "FIGHT_PROP_CRITICAL_HURT",
-        "FIGHT_PROP_DEFENSE_PERCENT",
-        "FIGHT_PROP_HP_PERCENT",
-        "FIGHT_PROP_PHYSICAL_ADD_HURT",
+        FightProps.HpPercent,
+        FightProps.AttackPercent,
+        FightProps.DefensePercent,
+        FightProps.ChargeEfficiency,
+        FightProps.CritRate,
+        FightProps.CritDmg,
+        FightProps.PhysicalDmg,
     ];
 
     private readonly Dictionary<uint, WeaponMeta>  _meta;
@@ -23,7 +23,7 @@ public sealed class WeaponMetaService
 
     public WeaponMetaService()
     {
-        var dir   = Path.Combine(AppContext.BaseDirectory, "Assets", "Weapon");
+        var dir   = Path.Combine(StaticResources.AssetsDir, "Weapon");
         _meta     = JsonLoader.Load<WeaponMeta[]>(Path.Combine(dir, "weapons.json"))
                         ?.ToDictionary(e => (uint)e.Id) ?? [];
         _curves   = JsonLoader.Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_curves.json"))   ?? [];

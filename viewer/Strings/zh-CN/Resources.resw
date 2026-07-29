@@ -84,6 +84,21 @@
   <data name="SlotCirclet" xml:space="preserve">
     <value>理之冠</value>
   </data>
+  <data name="WeaponTypeSword" xml:space="preserve">
+    <value>单手剑</value>
+  </data>
+  <data name="WeaponTypeClaymore" xml:space="preserve">
+    <value>双手剑</value>
+  </data>
+  <data name="WeaponTypePolearm" xml:space="preserve">
+    <value>长柄武器</value>
+  </data>
+  <data name="WeaponTypeCatalyst" xml:space="preserve">
+    <value>法器</value>
+  </data>
+  <data name="WeaponTypeBow" xml:space="preserve">
+    <value>弓</value>
+  </data>
   <data name="PathInvalidMsg" xml:space="preserve">
     <value>路径无效，请选择国服游戏本体（YuanShen.exe）。</value>
   </data>
@@ -260,5 +275,23 @@
   </data>
   <data name="ExtraLevelSuffix" xml:space="preserve">
     <value>等级</value>
+  </data>
+  <data name="AvatarCountFmt" xml:space="preserve">
+    <value>共 {0} 位角色</value>
+  </data>
+  <data name="FoodVariantSuspicious" xml:space="preserve">
+    <value>奇怪</value>
+  </data>
+  <data name="FoodVariantDelicious" xml:space="preserve">
+    <value>美味</value>
+  </data>
+  <data name="FoodVariantSpecial" xml:space="preserve">
+    <value>特殊</value>
+  </data>
+  <data name="FoodVariantSweet" xml:space="preserve">
+    <value>糖雕</value>
+  </data>
+  <data name="FoodVariantNormal" xml:space="preserve">
+    <value>普通</value>
   </data>
 </root>

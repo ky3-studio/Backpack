@@ -1,20 +1,42 @@
 using System.Collections.ObjectModel;
 using Backpack.Viewer.ViewModels;
+using Backpack.Viewer.Views.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Backpack.Viewer.Views;
 
-public sealed partial class WeaponPage : UserControl
+public sealed partial class WeaponPage : UserControl, IDisposable
 {
-    public static readonly DependencyProperty WeaponsProperty =
-        DependencyProperty.Register(nameof(Weapons), typeof(ObservableCollection<WeaponViewModel>), typeof(WeaponPage), new PropertyMetadata(null));
+    public static readonly DependencyProperty WeaponGroupsProperty =
+        DependencyProperty.Register(nameof(WeaponGroups), typeof(ObservableCollection<GroupViewModel<WeaponViewModel>>), typeof(WeaponPage),
+            new PropertyMetadata(null, OnWeaponGroupsChanged));
 
-    public ObservableCollection<WeaponViewModel> Weapons
+    public ObservableCollection<GroupViewModel<WeaponViewModel>>? WeaponGroups
     {
-        get => (ObservableCollection<WeaponViewModel>)GetValue(WeaponsProperty);
-        set => SetValue(WeaponsProperty, value);
+        get => (ObservableCollection<GroupViewModel<WeaponViewModel>>?)GetValue(WeaponGroupsProperty);
+        set => SetValue(WeaponGroupsProperty, value);
     }
 
-    public WeaponPage() => InitializeComponent();
+    public IReadOnlyList<WeaponViewModel>? CurrentItems =>
+        (_controller.SelectedGroup as GroupViewModel<WeaponViewModel>)?.Items;
+
+    private readonly TabbedGroupController<GroupViewModel<WeaponViewModel>> _controller;
+
+    public WeaponPage()
+    {
+        InitializeComponent();
+        _controller = new TabbedGroupController<GroupViewModel<WeaponViewModel>>(TabPivot, () => Bindings.Update());
+    }
+
+    private static void OnWeaponGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is WeaponPage page)
+            page._controller.Bind((ObservableCollection<GroupViewModel<WeaponViewModel>>?)e.NewValue);
+    }
+
+    private void OnTabChanged(object sender, SelectionChangedEventArgs e) =>
+        _controller.OnTabSelectionChanged(e);
+
+    public void Dispose() => _controller.Dispose();
 }

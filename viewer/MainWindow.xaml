@@ -57,7 +57,7 @@
       </Pivot.RightHeader>
 
       <PivotItem x:Uid="TabWeapon">
-        <views:WeaponPage Weapons="{x:Bind ViewModel.Weapons}" />
+        <views:WeaponPage WeaponGroups="{x:Bind ViewModel.WeaponGroups}" />
       </PivotItem>
 
       <PivotItem x:Uid="TabAvatar">

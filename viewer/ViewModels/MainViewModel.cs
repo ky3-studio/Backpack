@@ -24,7 +24,8 @@ public sealed partial class MainViewModel : ObservableObject
 
     public GamePathService GamePathService { get; }
 
-    public ObservableCollection<WeaponViewModel>        Weapons        { get; } = [];
+    public ObservableCollection<WeaponViewModel>                       Weapons       { get; } = [];
+    public ObservableCollection<GroupViewModel<WeaponViewModel>>        WeaponGroups  { get; } = [];
     public ObservableCollection<ArtifactViewModel>      Artifacts      { get; } = [];
     public ObservableCollection<AvatarViewModel>        Avatars        { get; } = [];
     public ObservableCollection<GroupViewModel<MaterialViewModel>>  MaterialGroups { get; } = [];
@@ -90,6 +91,7 @@ public sealed partial class MainViewModel : ObservableObject
             foreach (var e in dbWeapons) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
         else
             LoadDefaultWeapons();
+        RebuildWeaponGroups();
 
         var dbArtifacts = db.LoadArtifacts();
         if (dbArtifacts.Count > 0)
@@ -105,47 +107,5 @@ public sealed partial class MainViewModel : ObservableObject
         RebuildFoodGroups();
         RebuildGadgetGroups();
         RebuildAssetGroups();
-    }
-
-    private void LoadDefaultArtifacts()
-    {
-        foreach (var e in _artifactMeta.GetDefaultEntries())
-            Artifacts.Add(new ArtifactViewModel(e, _artifactMeta));
-    }
-
-    private void LoadDefaultWeapons()
-    {
-        foreach (var e in _weaponMeta.GetDefaultEntries())
-            Weapons.Add(new WeaponViewModel(e, _weaponMeta));
-    }
-
-    internal void RebuildAvatars(IReadOnlyList<AvatarEntry> realData)
-    {
-        var map = new Dictionary<uint, AvatarEntry>();
-        foreach (var e in realData) map[e.Id] = e;
-
-        bool hasData = map.Count > 0;
-
-        Avatars.Clear();
-        foreach (var m in _avatarMeta.GetDefaultEntries())
-        {
-         
-            if (hasData && !map.ContainsKey(m.Id)) continue;
-            var entry = map.TryGetValue(m.Id, out var real)
-                ? real
-                : new AvatarEntry(m.Id, null, null, 0, 0, 0, 0, 0, [], [], []);
-            Avatars.Add(ToAvatarViewModel(entry));
-        }
-    }
-
-    private AvatarViewModel ToAvatarViewModel(AvatarEntry e)
-    {
-       
-        var weaponSet = new HashSet<string>(Weapons.Select(w => w.Source.Guid));
-        var wGuid     = e.Equips.FirstOrDefault(g => weaponSet.Contains(g)) ?? string.Empty;
-        var weapon = !string.IsNullOrEmpty(wGuid)
-            ? Weapons.FirstOrDefault(w => w.Source.Guid == wGuid)
-            : null;
-        return new AvatarViewModel(e, _avatarMeta, _avatarDetail, weapon);
     }
 }

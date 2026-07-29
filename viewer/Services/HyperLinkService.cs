@@ -10,7 +10,7 @@ public sealed class HyperLinkService
 
     public void Load()
     {
-        var path = Path.Combine(AppContext.BaseDirectory, "Assets", "HyperLinkName.json");
+        var path = Path.Combine(StaticResources.AssetsDir, "HyperLinkName.json");
         if (!File.Exists(path)) return;
         try
         {

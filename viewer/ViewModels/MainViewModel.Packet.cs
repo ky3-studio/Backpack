@@ -40,6 +40,7 @@ public sealed partial class MainViewModel
                 if (entries is null) return;
                 Weapons.Clear();
                 foreach (var e in entries) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
+                RebuildWeaponGroups();
                 _db.SaveWeapons(entries);
                 break;
             }
@@ -101,6 +102,7 @@ public sealed partial class MainViewModel
             foreach (var e in dbWeapons) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
         else
             LoadDefaultWeapons();
+        RebuildWeaponGroups();
 
         var dbArtifacts = _db.LoadArtifacts();
         Artifacts.Clear();

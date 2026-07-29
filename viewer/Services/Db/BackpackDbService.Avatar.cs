@@ -16,7 +16,7 @@ public sealed partial class BackpackDbService
         while (r.Read())
             list.Add(new AvatarEntry(
                 (uint)r.GetInt64(0),
-                null, null, 0,            // name/element/rarity: not stored in DB, resolved from avatar_meta
+                null, null, 0,
                 r.GetInt32(1),
                 r.GetInt32(2),
                 r.GetInt32(3),

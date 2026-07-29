@@ -84,6 +84,21 @@
   <data name="SlotCirclet" xml:space="preserve">
     <value>Circlet of Logos</value>
   </data>
+  <data name="WeaponTypeSword" xml:space="preserve">
+    <value>Sword</value>
+  </data>
+  <data name="WeaponTypeClaymore" xml:space="preserve">
+    <value>Claymore</value>
+  </data>
+  <data name="WeaponTypePolearm" xml:space="preserve">
+    <value>Polearm</value>
+  </data>
+  <data name="WeaponTypeCatalyst" xml:space="preserve">
+    <value>Catalyst</value>
+  </data>
+  <data name="WeaponTypeBow" xml:space="preserve">
+    <value>Bow</value>
+  </data>
   <data name="PathInvalidMsg" xml:space="preserve">
     <value>Invalid path. Please select YuanShen.exe (CN server only).</value>
   </data>
@@ -260,5 +275,23 @@
   </data>
   <data name="ExtraLevelSuffix" xml:space="preserve">
     <value>Level</value>
+  </data>
+  <data name="AvatarCountFmt" xml:space="preserve">
+    <value>{0} Characters</value>
+  </data>
+  <data name="FoodVariantSuspicious" xml:space="preserve">
+    <value>Suspicious</value>
+  </data>
+  <data name="FoodVariantDelicious" xml:space="preserve">
+    <value>Delicious</value>
+  </data>
+  <data name="FoodVariantSpecial" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="FoodVariantSweet" xml:space="preserve">
+    <value>Sweet Flower</value>
+  </data>
+  <data name="FoodVariantNormal" xml:space="preserve">
+    <value>Normal</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 using Backpack.Viewer.Models;
 
@@ -6,12 +6,11 @@ namespace Backpack.Viewer.Services;
 
 public sealed class AvatarDetailService
 {
-    private readonly string                    _dir   = Path.Combine(AppContext.BaseDirectory, "Assets", "AvatarDetail");
+    private readonly string                    _dir   = Path.Combine(StaticResources.AssetsDir, "AvatarDetail");
     private readonly Dictionary<uint, SnapAvatar?> _cache = new();
     private static readonly JsonSerializerOptions  _jsonOpts   = new() { PropertyNameCaseInsensitive = true };
     private static readonly Regex                  _paramRegex = new(@"\{param(\d+):([^}]+)\}", RegexOptions.Compiled);
 
-    /// <summary>获取指定角色指定 GroupId 技能的描述文字和当前等级倍率行。</summary>
     public (string Description, IReadOnlyList<SkillParamRow> Params) GetSkillInfo(uint avatarId, uint groupId, int level)
     {
         var avatar = Load(avatarId);
@@ -36,7 +35,7 @@ public sealed class AvatarDetailService
             var label = template[..pipe];
             var value = _paramRegex.Replace(template[(pipe + 1)..], m =>
             {
-                int   idx = int.Parse(m.Groups[1].Value) - 1; // 1-indexed
+                int   idx = int.Parse(m.Groups[1].Value) - 1;
                 string fmt = m.Groups[2].Value;
                 if (idx < 0 || idx >= entry.Parameters.Length) return m.Value;
                 float v = entry.Parameters[idx];
@@ -56,7 +55,6 @@ public sealed class AvatarDetailService
         return (desc, rows);
     }
 
-    // ── 私有加载 ─────────────────────────────────────────────────────────────
 
     private SnapAvatar? Load(uint avatarId)
     {
@@ -72,7 +70,6 @@ public sealed class AvatarDetailService
         catch { _cache[avatarId] = null; return null; }
     }
 
-    // ── 原始 JSON 模型（仅反序列化所需字段）─────────────────────────────────
 
     private sealed class SnapAvatar     { public SnapSkillDepot?     SkillDepot   { get; init; } }
     private sealed class SnapSkillDepot

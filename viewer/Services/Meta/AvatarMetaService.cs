@@ -9,7 +9,7 @@ public sealed class AvatarMetaService
 
     public AvatarMetaService()
     {
-        var path = Path.Combine(AppContext.BaseDirectory, "Assets", "Avatar", "avatar_meta.json");
+        var path = Path.Combine(StaticResources.AssetsDir, "Avatar", "avatar_meta.json");
         var raw  = JsonLoader.Load<Dictionary<string, RawEntry>>(path) ?? [];
         _map = new Dictionary<uint, AvatarMeta>(raw.Count);
         foreach (var (_, e) in raw)
