@@ -4,7 +4,7 @@ using Backpack.Viewer.Models;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class WeaponMetaService
+public sealed partial class WeaponMetaService
 {
     private static readonly HashSet<string> PercentProps =
     [
@@ -24,10 +24,9 @@ public sealed class WeaponMetaService
     public WeaponMetaService()
     {
         var dir   = Path.Combine(StaticResources.AssetsDir, "Weapon");
-        _meta     = JsonLoader.Load<WeaponMeta[]>(Path.Combine(dir, "weapons.json"))
-                        ?.ToDictionary(e => (uint)e.Id) ?? [];
-        _curves   = JsonLoader.Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_curves.json"))   ?? [];
-        _promotes = JsonLoader.Load<Dictionary<string, float[]>>(Path.Combine(dir, "weapon_promotes.json")) ?? [];
+        _meta     = JsonLoader.Load(Path.Combine(dir, "weapons.json"),        WeaponCtx.Default.WeaponMetaArray)          ?.ToDictionary(e => (uint)e.Id) ?? [];
+        _curves   = JsonLoader.Load(Path.Combine(dir, "weapon_curves.json"),   WeaponCtx.Default.DictionaryStringSingleArray) ?? [];
+        _promotes = JsonLoader.Load(Path.Combine(dir, "weapon_promotes.json"), WeaponCtx.Default.DictionaryStringSingleArray) ?? [];
     }
 
     public Uri? GetIcon(uint id)
@@ -76,6 +75,10 @@ public sealed class WeaponMetaService
 
     public string GetFlavorText(uint id) =>
         _meta.TryGetValue(id, out var m) ? m.FlavorText ?? string.Empty : string.Empty;
+
+    [JsonSerializable(typeof(WeaponMeta[]))]
+    [JsonSerializable(typeof(Dictionary<string, float[]>))]
+    private partial class WeaponCtx : JsonSerializerContext { }
 
     private sealed record WeaponMeta(
         [property: JsonPropertyName("id")]          int      Id,

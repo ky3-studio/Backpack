@@ -51,7 +51,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         Element       = _meta?.ElementCn  ?? entry.Element ?? string.Empty;
         Rarity        = _meta?.Rarity     ?? Math.Max(1, entry.Rarity);
         RankItems     = [.. Enumerable.Range(0, Math.Clamp(Rarity, 0, 5))];
-        QualitySource = new BitmapImage(StaticResources.QualityIcon(Rarity));
+        QualitySource = StaticResources.GetQualityBitmap(Rarity);
 
         ApplyEntry(entry, weapon, avatarDetail);
 

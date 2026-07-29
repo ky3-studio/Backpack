@@ -13,6 +13,11 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     [ObservableProperty]
     private BitmapImage? _iconSource;
 
+    private static readonly BitmapImage[] _badges =
+    [
+        .. Enumerable.Range(1, 11).Select(i => new BitmapImage(new Uri($"ms-appx:///Assets/badge/badge-{i}.ico")))
+    ];
+
     public ArtifactEntry                       Source                { get; }
     public IReadOnlyList<int>                  RankItems             { get; }
     public string                              Level                 { get; }
@@ -23,6 +28,32 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public Visibility                          HasInstanceVisibility { get; }
     public Visibility                          HasAnyBonusVisibility { get; }
     public BitmapImage                         QualitySource         { get; }
+
+    public SubStatItemViewModel? SubStat0 => SubStatItems.Count > 0 ? SubStatItems[0] : null;
+    public SubStatItemViewModel? SubStat1 => SubStatItems.Count > 1 ? SubStatItems[1] : null;
+    public SubStatItemViewModel? SubStat2 => SubStatItems.Count > 2 ? SubStatItems[2] : null;
+    public SubStatItemViewModel? SubStat3 => SubStatItems.Count > 3 ? SubStatItems[3] : null;
+    public Visibility SubStat0Vis => (SubStatItems.Count > 0).ToVisibility();
+    public Visibility SubStat1Vis => (SubStatItems.Count > 1).ToVisibility();
+    public Visibility SubStat2Vis => (SubStatItems.Count > 2).ToVisibility();
+    public Visibility SubStat3Vis => (SubStatItems.Count > 3).ToVisibility();
+
+    // flat 属性：避免链式 Binding 的两次反射开销
+    public string        SubStat0Name  => SubStatItems.Count > 0 ? SubStatItems[0].Name : string.Empty;
+    public string        SubStat0Value => SubStatItems.Count > 0 ? SubStatItems[0].ValueDisplay : string.Empty;
+    public BitmapImage?  SubStat0Badge => SubStatItems.Count > 0 ? SubStatItems[0].BadgeSource : null;
+    public string        SubStat1Name  => SubStatItems.Count > 1 ? SubStatItems[1].Name : string.Empty;
+    public string        SubStat1Value => SubStatItems.Count > 1 ? SubStatItems[1].ValueDisplay : string.Empty;
+    public BitmapImage?  SubStat1Badge => SubStatItems.Count > 1 ? SubStatItems[1].BadgeSource : null;
+    public string        SubStat2Name  => SubStatItems.Count > 2 ? SubStatItems[2].Name : string.Empty;
+    public string        SubStat2Value => SubStatItems.Count > 2 ? SubStatItems[2].ValueDisplay : string.Empty;
+    public BitmapImage?  SubStat2Badge => SubStatItems.Count > 2 ? SubStatItems[2].BadgeSource : null;
+    public string        SubStat3Name  => SubStatItems.Count > 3 ? SubStatItems[3].Name : string.Empty;
+    public string        SubStat3Value => SubStatItems.Count > 3 ? SubStatItems[3].ValueDisplay : string.Empty;
+    public BitmapImage?  SubStat3Badge => SubStatItems.Count > 3 ? SubStatItems[3].BadgeSource : null;
+
+    // 套装加成简要版：每条效果截取前 32 字，避免长文字 TextWrapping 换行计算拖慢滚动
+    public string BonusSummary { get; }
 
     public ArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
     {
@@ -42,7 +73,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
                 return new SubStatItemViewModel(
                     s.Type,
                     valueDisplay,
-                    new BitmapImage(new Uri($"ms-appx:///Assets/badge/badge-{Math.Clamp(s.Rolls.Length, 1, 11)}.ico")));
+                    _badges[Math.Clamp(s.Rolls.Length, 1, 11) - 1]);
             }).ToList()
             : System.Array.Empty<SubStatItemViewModel>();
         HasInstanceVisibility = hasInstance.ToVisibility();
@@ -68,10 +99,15 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
             GfxLoader.BeginLoad(iconUri, this);
 
         var allBonuses = meta.GetAllSetBonuses(entry.Set);
-        BonusText             = string.Join("\n", allBonuses.Select(b => string.Format(Localized.Get("SetBonusFmt"), b.Count, b.Desc)));
+        BonusText      = string.Join("\n", allBonuses.Select(b => string.Format(Localized.Get("SetBonusFmt"), b.Count, b.Desc)));
+        BonusSummary   = string.Join("\n", allBonuses.Select(b =>
+        {
+            var desc = b.Desc.Length > 32 ? b.Desc[..32] + "…" : b.Desc;
+            return string.Format(Localized.Get("SetBonusFmt"), b.Count, desc);
+        }));
         HasAnyBonusVisibility = (allBonuses.Count > 0).ToVisibility();
 
-        QualitySource = new BitmapImage(StaticResources.QualityIcon(entry.Rank));
+        QualitySource = StaticResources.GetQualityBitmap(entry.Rank);
     }
 
     private static bool IsMainPropPercent(string mainStat) => mainStat is not

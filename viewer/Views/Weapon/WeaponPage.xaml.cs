@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Backpack.Viewer.Views.Helpers;
 using Microsoft.UI.Xaml;
@@ -27,6 +28,12 @@ public sealed partial class WeaponPage : UserControl, IDisposable
     {
         InitializeComponent();
         _controller = new TabbedGroupController<GroupViewModel<WeaponViewModel>>(TabPivot, () => Bindings.Update());
+        SetupTemplate();
+    }
+
+    private void SetupTemplate()
+    {
+        CardRepeater.ItemTemplate = new PooledElementFactory((DataTemplate)Resources["WeaponCardTemplate"]);
     }
 
     private static void OnWeaponGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -37,6 +44,18 @@ public sealed partial class WeaponPage : UserControl, IDisposable
 
     private void OnTabChanged(object sender, SelectionChangedEventArgs e) =>
         _controller.OnTabSelectionChanged(e);
+
+    private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+    {
+        if (args.Element is FrameworkElement fe)
+            fe.DataContext = sender.ItemsSourceView?.GetAt(args.Index);
+    }
+
+    private void OnElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args)
+    {
+        if (args.Element is FrameworkElement fe)
+            fe.DataContext = null;
+    }
 
     public void Dispose() => _controller.Dispose();
 }

@@ -3,14 +3,14 @@ using System.Text.Json.Serialization;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class AvatarMetaService
+public sealed partial class AvatarMetaService
 {
     private readonly Dictionary<uint, AvatarMeta> _map;
 
     public AvatarMetaService()
     {
         var path = Path.Combine(StaticResources.AssetsDir, "Avatar", "avatar_meta.json");
-        var raw  = JsonLoader.Load<Dictionary<string, RawEntry>>(path) ?? [];
+        var raw  = JsonLoader.Load(path, AvatarCtx.Default.DictionaryStringRawEntry) ?? [];
         _map = new Dictionary<uint, AvatarMeta>(raw.Count);
         foreach (var (_, e) in raw)
             _map[(uint)e.Id] = ToMeta(e);
@@ -69,6 +69,9 @@ public sealed class AvatarMetaService
         IReadOnlyList<InherentMeta> Inherents,
         IReadOnlyList<TalentMeta>   Talents
     );
+
+    [JsonSerializable(typeof(Dictionary<string, RawEntry>))]
+    private partial class AvatarCtx : JsonSerializerContext { }
 
     private sealed class RawEntry
     {

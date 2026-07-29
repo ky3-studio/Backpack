@@ -1,7 +1,5 @@
-using System.Collections.ObjectModel;
 using Backpack.Viewer;
 using Backpack.Viewer.Localization;
-using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Dispatching;
@@ -23,18 +21,6 @@ public sealed partial class MainViewModel : ObservableObject
     private readonly BackpackDbService    _db;
 
     public GamePathService GamePathService { get; }
-
-    public ObservableCollection<WeaponViewModel>                       Weapons       { get; } = [];
-    public ObservableCollection<GroupViewModel<WeaponViewModel>>        WeaponGroups  { get; } = [];
-    public ObservableCollection<ArtifactViewModel>      Artifacts      { get; } = [];
-    public ObservableCollection<AvatarViewModel>        Avatars        { get; } = [];
-    public ObservableCollection<GroupViewModel<MaterialViewModel>>  MaterialGroups { get; } = [];
-    public ObservableCollection<GroupViewModel<FoodViewModel>>      FoodGroups     { get; } = [];
-    public ObservableCollection<GroupViewModel<GadgetViewModel>>    GadgetGroups   { get; } = [];
-    public ObservableCollection<GroupViewModel<AssetViewModel>>     AssetGroups    { get; } = [];
-
-    private readonly Dictionary<uint, ulong> _activeCounts = [];
-    private readonly Dictionary<uint, long>  _activeProps  = [];
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DataVisibility))]
@@ -67,12 +53,12 @@ public sealed partial class MainViewModel : ObservableObject
     public Visibility LaunchButtonVisibility => HasSelectedPath.ToVisibility();
     public bool       CanLaunch              => HasSelectedPath && !IsLaunching;
 
-    public MainViewModel(DispatcherQueue dispatcher, GamePathService gamePathService,
+    public MainViewModel(GamePathService gamePathService,
         MaterialMetaService materialMeta, FoodMetaService foodMeta, WeaponMetaService weaponMeta,
         ArtifactMetaService artifactMeta, GadgetMetaService gadgetMeta, AssetMetaService assetMeta,
         AvatarMetaService avatarMeta, AvatarDetailService avatarDetail, BackpackDbService db)
     {
-        _dispatcher   = dispatcher;
+        _dispatcher   = DispatcherQueue.GetForCurrentThread();
         _materialMeta = materialMeta;
         _foodMeta     = foodMeta;
         _weaponMeta   = weaponMeta;
@@ -95,7 +81,7 @@ public sealed partial class MainViewModel : ObservableObject
 
         var dbArtifacts = db.LoadArtifacts();
         if (dbArtifacts.Count > 0)
-            foreach (var e in dbArtifacts) Artifacts.Add(new ArtifactViewModel(e, _artifactMeta));
+            BuildArtifactGroups(dbArtifacts.Select(e => new ArtifactViewModel(e, _artifactMeta)));
         else
             LoadDefaultArtifacts();
 

@@ -1,37 +1,35 @@
-using Backpack.Viewer.Localization;
+using System.Collections.ObjectModel;
+using System.Text.Json;
 using Backpack.Viewer.Models;
-using Backpack.Viewer.Services;
+using static Backpack.Viewer.Models.BagJsonContext;
 
 namespace Backpack.Viewer.ViewModels;
 
 public sealed partial class MainViewModel
 {
-    private static readonly (string DataType, string LocaleKey)[] WeaponTypeOrder =
-    [
-        (WeaponTypes.Sword,    "WeaponTypeSword"),
-        (WeaponTypes.Claymore, "WeaponTypeClaymore"),
-        (WeaponTypes.Polearm,  "WeaponTypePolearm"),
-        (WeaponTypes.Catalyst, "WeaponTypeCatalyst"),
-        (WeaponTypes.Bow,      "WeaponTypeBow"),
-    ];
+    public ObservableCollection<GroupViewModel<MaterialViewModel>>  MaterialGroups { get; } = [];
+    public ObservableCollection<GroupViewModel<FoodViewModel>>      FoodGroups     { get; } = [];
+    public ObservableCollection<GroupViewModel<GadgetViewModel>>    GadgetGroups   { get; } = [];
+    public ObservableCollection<GroupViewModel<AssetViewModel>>     AssetGroups    { get; } = [];
 
-    private void RebuildWeaponGroups()
+    private readonly Dictionary<uint, ulong> _activeCounts;
+    private readonly Dictionary<uint, long>  _activeProps;
+
+    private static uint PropKeyToId(string key) => key switch
     {
-        var byType = Weapons
-            .GroupBy(w => w.Source.Type)
-            .ToDictionary(g => g.Key, g => (IReadOnlyList<WeaponViewModel>)g.ToList());
-
-        WeaponGroups.Clear();
-        foreach (var (dataType, localeKey) in WeaponTypeOrder)
-        {
-            if (byType.TryGetValue(dataType, out var items))
-                WeaponGroups.Add(new GroupViewModel<WeaponViewModel>(Localized.Get(localeKey), items));
-        }
-        var knownTypes = WeaponTypeOrder.Select(t => t.DataType).ToHashSet();
-        foreach (var (dataType, items) in byType)
-            if (!knownTypes.Contains(dataType))
-                WeaponGroups.Add(new GroupViewModel<WeaponViewModel>(dataType, items));
-    }
+        "playerLevel"    => 10013,
+        "primogem"       => 10015,
+        "mora"           => 10016,
+        "worldLevel"     => 10019,
+        "resin"          => 10020,
+        "genesisCrystal" => 10025,
+        "legendaryKey"   => 10027,
+        "homeCoin"       => 10042,
+        "toyToken"       => 10053,
+        "qiyuCoin"       => 10058,
+        "reshowCrystal"  => 10069,
+        _                => 0
+    };
 
     private void RebuildMaterialGroups()
     {
@@ -106,47 +104,32 @@ public sealed partial class MainViewModel
                             })
                             .ToList();
                         return new FoodViewModel(x.meta!, count, ingredients);
-                    })]));  
+                    })]));
         }
     }
 
-    private void LoadDefaultWeapons()
+    internal void ApplyMaterial(string json)
     {
-        foreach (var e in _weaponMeta.GetDefaultEntries())
-            Weapons.Add(new WeaponViewModel(e, _weaponMeta));
+        var entries = JsonSerializer.Deserialize(json, Default.MaterialEntryArray);
+        if (entries is null) return;
+        foreach (var e in entries)
+            _activeCounts[e.Id] = e.Count;
+        _db.SaveMaterials(_activeCounts);
+        RebuildMaterialGroups();
+        RebuildFoodGroups();
+        RebuildGadgetGroups();
+        RebuildAssetGroups();
     }
 
-    private void LoadDefaultArtifacts()
+    internal void ApplyProp(string json)
     {
-        foreach (var e in _artifactMeta.GetDefaultEntries())
-            Artifacts.Add(new ArtifactViewModel(e, _artifactMeta));
-    }
-
-    internal void RebuildAvatars(IReadOnlyList<AvatarEntry> realData)
-    {
-        var map = new Dictionary<uint, AvatarEntry>();
-        foreach (var e in realData) map[e.Id] = e;
-
-        bool hasData = map.Count > 0;
-
-        Avatars.Clear();
-        foreach (var m in _avatarMeta.GetDefaultEntries())
+        using var doc = JsonDocument.Parse(json);
+        foreach (var prop in doc.RootElement.EnumerateObject())
         {
-            if (hasData && !map.ContainsKey(m.Id)) continue;
-            var entry = map.TryGetValue(m.Id, out var real)
-                ? real
-                : new AvatarEntry(m.Id, null, null, 0, 0, 0, 0, 0, [], [], []);
-            Avatars.Add(ToAvatarViewModel(entry));
+            uint id = PropKeyToId(prop.Name);
+            if (id != 0) _activeProps[id] = prop.Value.GetInt64();
         }
-    }
-
-    private AvatarViewModel ToAvatarViewModel(AvatarEntry e)
-    {
-        var weaponSet = new HashSet<string>(Weapons.Select(w => w.Source.Guid));
-        var wGuid     = e.Equips.FirstOrDefault(g => weaponSet.Contains(g)) ?? string.Empty;
-        var weapon    = !string.IsNullOrEmpty(wGuid)
-            ? Weapons.FirstOrDefault(w => w.Source.Guid == wGuid)
-            : null;
-        return new AvatarViewModel(e, _avatarMeta, _avatarDetail, weapon);
+        _db.SaveProps(_activeProps);
+        RebuildAssetGroups();
     }
 }

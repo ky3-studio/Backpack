@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Backpack.Viewer.Models;
 using Microsoft.Data.Sqlite;
+using static Backpack.Viewer.Models.BagJsonContext;
 
 namespace Backpack.Viewer.Services;
 
@@ -15,7 +16,7 @@ public sealed partial class BackpackDbService
         var list = new List<ArtifactEntry>();
         while (r.Read())
         {
-            var subStats = JsonSerializer.Deserialize<ArtifactSubStat[]>(r.GetString(10)) ?? [];
+            var subStats = JsonSerializer.Deserialize(r.GetString(10), Default.ArtifactSubStatArray) ?? [];
             list.Add(new ArtifactEntry(
                 (uint)r.GetInt64(1),
                 r.GetString(0),
@@ -68,7 +69,7 @@ public sealed partial class BackpackDbService
             pr.Value  = a.Rank;
             pis.Value = a.InitSubStats;
             pms.Value = a.MainStat;
-            pss.Value = JsonSerializer.Serialize(a.SubStats);
+            pss.Value = JsonSerializer.Serialize(a.SubStats, Default.ArtifactSubStatArray);
             ins.ExecuteNonQuery();
         }
         tx.Commit();

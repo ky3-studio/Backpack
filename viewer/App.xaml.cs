@@ -1,12 +1,15 @@
 using Backpack.Viewer.Controls;
 using Backpack.Viewer.Services;
+using Backpack.Viewer.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
 namespace Backpack.Viewer;
 
 public sealed partial class App : Application, IDisposable
 {
-    private MainWindow? _window;
+    private MainWindow?      _window;
+    private ServiceProvider? _services;
 
     public App()
     {
@@ -21,13 +24,35 @@ public sealed partial class App : Application, IDisposable
             Environment.Exit(GameLaunchService.RunElevatedInjection(cmdArgs[2]));
             return;
         }
+        GfxLoader.Initialize();
         await GfxLoader.WarmupAsync();
-        var hyperLinkSvc = new HyperLinkService();
+        _services = BuildServices();
+        var hyperLinkSvc = _services.GetRequiredService<HyperLinkService>();
         hyperLinkSvc.Load();
         MiHoYo.RegisterService(hyperLinkSvc);
-        _window = new MainWindow();
+        _window = new MainWindow(_services);
         _window.Activate();
     }
 
-    public void Dispose() => _window?.Dispose();
+    private static ServiceProvider BuildServices() =>
+        new ServiceCollection()
+            .AddSingleton<HyperLinkService>()
+            .AddSingleton<GamePathService>()
+            .AddSingleton<BackpackDbService>()
+            .AddSingleton<MaterialMetaService>()
+            .AddSingleton<FoodMetaService>()
+            .AddSingleton<WeaponMetaService>()
+            .AddSingleton<ArtifactMetaService>()
+            .AddSingleton<GadgetMetaService>()
+            .AddSingleton<AssetMetaService>()
+            .AddSingleton<AvatarMetaService>()
+            .AddSingleton<AvatarDetailService>()
+            .AddSingleton<MainViewModel>()
+            .BuildServiceProvider();
+
+    public void Dispose()
+    {
+        _window?.Dispose();
+        _services?.Dispose();
+    }
 }

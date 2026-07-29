@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml.Media.Imaging;
 using System.IO;
 
 namespace Backpack.Viewer.Services;
@@ -28,4 +29,17 @@ internal static class StaticResources
         };
         return new($"ms-appx:///Assets/Quality/{name}.png");
     }
+
+    private static readonly BitmapImage[] _qualityBitmaps =
+    [
+        new(QualityIcon(0)),
+        new(QualityIcon(1)),
+        new(QualityIcon(2)),
+        new(QualityIcon(3)),
+        new(QualityIcon(4)),
+        new(QualityIcon(5)),
+    ];
+
+    public static BitmapImage GetQualityBitmap(int rank) =>
+        _qualityBitmaps[Math.Clamp(rank, 0, 5)];
 }

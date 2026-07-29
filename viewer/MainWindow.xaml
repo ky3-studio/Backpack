@@ -65,7 +65,7 @@
       </PivotItem>
 
       <PivotItem x:Uid="TabArtifact">
-        <views:ArtifactPage Artifacts="{x:Bind ViewModel.Artifacts}" />
+        <views:ArtifactPage ArtifactGroups="{x:Bind ViewModel.ArtifactGroups}" />
       </PivotItem>
 
       <PivotItem x:Uid="TabMaterial">

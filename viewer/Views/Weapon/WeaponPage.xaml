@@ -5,6 +5,101 @@
     xmlns:cw="using:CommunityToolkit.WinUI"
     xmlns:vm="using:Backpack.Viewer.ViewModels">
 
+  <UserControl.Resources>
+    <DataTemplate x:Key="WeaponCardTemplate">
+      <Grid Padding="10" Style="{ThemeResource GridShimmerStyle}">
+        <StackPanel Spacing="6">
+
+          <Grid Width="64" Height="64" HorizontalAlignment="Center" CornerRadius="8">
+            <Image Source="{Binding QualitySource}" Stretch="Fill" />
+            <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+            <Image Source="{Binding IconSource}" Stretch="Uniform" />
+          </Grid>
+
+          <TextBlock
+              FontSize="14"
+              HorizontalTextAlignment="Center"
+              Style="{StaticResource AppBodyStrongTextBlockStyle}"
+              Text="{Binding Source.Name}"
+              TextWrapping="Wrap" />
+
+          <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{Binding Source.Type}" />
+            <ItemsRepeater
+                VerticalAlignment="Center"
+                ItemsSource="{Binding RankItems}"
+                ItemTemplate="{StaticResource KiraStarItemTemplate}">
+              <ItemsRepeater.Layout>
+                <StackLayout Orientation="Horizontal" Spacing="2" />
+              </ItemsRepeater.Layout>
+            </ItemsRepeater>
+          </StackPanel>
+
+          <StackPanel Spacing="3" Visibility="{Binding HasInstanceVisibility}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock
+                  x:Uid="WeaponBaseAtkLabel"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}" />
+              <TextBlock
+                  Grid.Column="1"
+                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                  Text="{Binding AtkDisplay}" />
+            </Grid>
+            <Grid Visibility="{Binding SubVisibility}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{Binding Source.MainStat}" />
+              <TextBlock
+                  Grid.Column="1"
+                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                  Text="{Binding SubDisplay}" />
+            </Grid>
+          </StackPanel>
+
+          <StackPanel
+              HorizontalAlignment="Center"
+              Orientation="Horizontal"
+              Spacing="10"
+              Visibility="{Binding HasInstanceVisibility}">
+            <TextBlock
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{Binding LevelFull}" />
+            <TextBlock
+                Foreground="{ThemeResource WeaponGoldBrush}"
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{Binding RefineLabel}" />
+          </StackPanel>
+
+          <StackPanel Spacing="2" Visibility="{Binding HasInstanceVisibility}">
+            <TextBlock
+                Foreground="{ThemeResource WeaponGoldBrush}"
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{Binding PassiveName}"
+                Visibility="{Binding PassiveVisibility}" />
+            <TextBlock
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{Binding SkillDesc}"
+                TextWrapping="Wrap" />
+          </StackPanel>
+
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+
   <Border Margin="16,8,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
     <Border
         Background="{ThemeResource SystemControlAcrylicElementBrush}"
@@ -35,7 +130,10 @@
         </Pivot>
 
         <ScrollViewer Grid.Row="1" Padding="8,4,8,8">
-          <ItemsRepeater ItemsSource="{x:Bind CurrentItems, Mode=OneWay}">
+          <ItemsRepeater x:Name="CardRepeater"
+                         ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                         ElementPrepared="OnElementPrepared"
+                         ElementClearing="OnElementClearing">
           <ItemsRepeater.Layout>
             <UniformGridLayout
                 MinItemWidth="200"
@@ -43,108 +141,6 @@
                 MinRowSpacing="8"
                 ItemsStretch="Fill" />
           </ItemsRepeater.Layout>
-          <ItemsRepeater.ItemTemplate>
-            <DataTemplate x:DataType="vm:WeaponViewModel">
-              <Grid Padding="10" Style="{ThemeResource GridShimmerStyle}">
-                <StackPanel Spacing="6">
-
-                  <Grid
-                      Width="64"
-                      Height="64"
-                      HorizontalAlignment="Center"
-                      CornerRadius="8">
-                    <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
-                    <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-                    <Image
-                        Source="{x:Bind IconSource, Mode=OneWay}"
-                        Stretch="Uniform" />
-                  </Grid>
-
-                  <TextBlock
-                      FontSize="14"
-                      HorizontalTextAlignment="Center"
-                      Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                      Text="{x:Bind Source.Name}"
-                      TextWrapping="Wrap" />
-
-                  <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
-                    <TextBlock
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind Source.Type}" />
-                    <ItemsRepeater
-                        VerticalAlignment="Center"
-                        ItemsSource="{x:Bind RankItems}"
-                        ItemTemplate="{StaticResource KiraStarItemTemplate}">
-                      <ItemsRepeater.Layout>
-                        <StackLayout Orientation="Horizontal" Spacing="2" />
-                      </ItemsRepeater.Layout>
-                    </ItemsRepeater>
-                  </StackPanel>
-
-                  <StackPanel Spacing="3" Visibility="{x:Bind HasInstanceVisibility}">
-                    <Grid>
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                      </Grid.ColumnDefinitions>
-                      <TextBlock
-                          x:Uid="WeaponBaseAtkLabel"
-                          Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                          Style="{StaticResource AppCaptionTextBlockStyle}" />
-                      <TextBlock
-                          Grid.Column="1"
-                          Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                          Text="{x:Bind AtkDisplay}" />
-                    </Grid>
-                    <Grid Visibility="{x:Bind SubVisibility}">
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                      </Grid.ColumnDefinitions>
-                      <TextBlock
-                          Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                          Style="{StaticResource AppCaptionTextBlockStyle}"
-                          Text="{x:Bind Source.MainStat}" />
-                      <TextBlock
-                          Grid.Column="1"
-                          Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                          Text="{x:Bind SubDisplay}" />
-                    </Grid>
-                  </StackPanel>
-
-                  <StackPanel
-                      HorizontalAlignment="Center"
-                      Orientation="Horizontal"
-                      Spacing="10"
-                      Visibility="{x:Bind HasInstanceVisibility}">
-                    <TextBlock
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind LevelFull}" />
-                    <TextBlock
-                        Foreground="{ThemeResource WeaponGoldBrush}"
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind RefineLabel}" />
-                  </StackPanel>
-
-                  <StackPanel
-                      Spacing="2"
-                      Visibility="{x:Bind HasInstanceVisibility}">
-                    <TextBlock
-                        Foreground="{ThemeResource WeaponGoldBrush}"
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind PassiveName}"
-                        Visibility="{x:Bind PassiveVisibility}" />
-                    <TextBlock
-                        Style="{StaticResource AppCaptionTextBlockStyle}"
-                        Text="{x:Bind SkillDesc}"
-                        TextWrapping="Wrap" />
-                  </StackPanel>
-
-                </StackPanel>
-              </Grid>
-            </DataTemplate>
-          </ItemsRepeater.ItemTemplate>
           </ItemsRepeater>
         </ScrollViewer>
       </Grid>

@@ -4,7 +4,7 @@ using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
-public abstract class TabMetaService
+public abstract partial class TabMetaService
 {
     private readonly Dictionary<uint, MetaEntry> _map = [];
     private readonly IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> _groups;
@@ -19,7 +19,7 @@ public abstract class TabMetaService
         foreach (var (file, key) in tabDefs)
         {
             var path = Path.Combine(dir, file);
-            var items = JsonLoader.Load<RawEntry[]>(path) ?? [];
+            var items = JsonLoader.Load(path, TabCtx.Default.RawEntryArray) ?? [];
             if (items.Length == 0) continue;
             IEnumerable<RawEntry> seq = items.DistinctBy(x => x.Id);
             if (sortByRank)
@@ -50,6 +50,9 @@ public abstract class TabMetaService
         _map.TryGetValue(id, out var e) ? e.PropId : 0u;
 
     public IReadOnlyList<(string Label, IReadOnlyList<uint> Ids)> Groups => _groups;
+
+    [JsonSerializable(typeof(RawEntry[]))]
+    private partial class TabCtx : JsonSerializerContext { }
 
     private sealed class RawEntry
     {

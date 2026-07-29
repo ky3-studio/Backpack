@@ -5,7 +5,7 @@ using Backpack.Viewer.Localization;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class FoodMetaService
+public sealed partial class FoodMetaService
 {
     private static readonly (string File, string Key)[] _tabDefs =
     [
@@ -34,7 +34,7 @@ public sealed class FoodMetaService
             var path = Path.Combine(foodDir, file);
             try
             {
-                var items = JsonLoader.Load<RawEntry[]>(path) ?? [];
+                var items = JsonLoader.Load(path, FoodCtx.Default.RawEntryArray) ?? [];
                 var ids = new List<uint>(items.Length);
                 foreach (var e in items.DistinctBy(x => x.Id))
                 {
@@ -79,6 +79,9 @@ public sealed class FoodMetaService
     );
 
     public sealed record IngredientMeta(uint Id, string Name, int Amount);
+
+    [JsonSerializable(typeof(RawEntry[]))]
+    private partial class FoodCtx : JsonSerializerContext { }
 
     private sealed class RawEntry
     {

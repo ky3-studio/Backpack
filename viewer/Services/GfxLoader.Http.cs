@@ -15,30 +15,38 @@ internal static partial class GfxLoader
 
     private static async Task<string?> DownloadWithRetryAsync(Uri uri, string disk, string key)
     {
-        const int maxRetries = 2;
-
-        for (int attempt = 0; attempt <= maxRetries; attempt++)
+        await _downloadSlot.WaitAsync().ConfigureAwait(false);
+        try
         {
-            try
-            {
-                await DownloadFileAsync(uri, disk).ConfigureAwait(false);
-                InjectSrgbChunk(disk);
-                return disk;
-            }
-            catch when (attempt < maxRetries)
-            {
-                RemoveIfExists(disk);
-                await Task.Delay(2000).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                RemoveIfExists(disk);
-                Log($"NET {ex.GetType().Name}: {ex.Message} | {key}");
-                return null;
-            }
-        }
+            const int maxRetries = 2;
 
-        return null;
+            for (int attempt = 0; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    await DownloadFileAsync(uri, disk).ConfigureAwait(false);
+                    InjectSrgbChunk(disk);
+                    return disk;
+                }
+                catch when (attempt < maxRetries)
+                {
+                    RemoveIfExists(disk);
+                    await Task.Delay(2000).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    RemoveIfExists(disk);
+                    Log($"NET {ex.GetType().Name}: {ex.Message} | {key}");
+                    return null;
+                }
+            }
+
+            return null;
+        }
+        finally
+        {
+            _downloadSlot.Release();
+        }
     }
 
     private static async Task DownloadFileAsync(Uri uri, string disk)

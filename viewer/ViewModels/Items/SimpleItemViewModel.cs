@@ -19,6 +19,6 @@ public abstract partial class SimpleItemViewModel : ObservableObject, IIconUpdat
         Count = count.ToString("N0");
         if (meta.IconUri is not null)
             GfxLoader.BeginLoad(meta.IconUri, this);
-        QualitySource = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
+        QualitySource = StaticResources.GetQualityBitmap(meta.Rank);
     }
 }

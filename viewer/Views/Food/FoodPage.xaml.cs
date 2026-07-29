@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Backpack.Viewer.Views.Helpers;
 using Microsoft.UI.Xaml;
@@ -28,6 +29,12 @@ public sealed partial class FoodPage : UserControl, IDisposable
     {
         InitializeComponent();
         _controller = new TabbedGroupController<GroupViewModel<FoodViewModel>>(TabPivot, () => Bindings.Update());
+        SetupTemplate();
+    }
+
+    private void SetupTemplate()
+    {
+        CardRepeater.ItemTemplate = new PooledElementFactory((DataTemplate)Resources["FoodCardTemplate"]);
     }
 
     private static void OnFoodGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -39,9 +46,21 @@ public sealed partial class FoodPage : UserControl, IDisposable
     private void OnTabChanged(object sender, SelectionChangedEventArgs e) =>
         _controller.OnTabSelectionChanged(e);
 
+    private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+    {
+        if (args.Element is FrameworkElement fe)
+            fe.DataContext = sender.ItemsSourceView?.GetAt(args.Index);
+    }
+
+    private void OnElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args)
+    {
+        if (args.Element is FrameworkElement fe)
+            fe.DataContext = null;
+    }
+
     private void OnCardDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
-        if (sender is FrameworkElement fe && fe.Tag is FoodViewModel vm)
+        if (sender is FrameworkElement fe && fe.DataContext is FoodViewModel vm)
         {
             UiHelper.ShowDetailFlyout(fe, vm.Name, vm.IngredientsText, maxWidth: 360);
             e.Handled = true;

@@ -1,15 +1,15 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Backpack.Viewer.Models;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class AvatarDetailService
+public sealed partial class AvatarDetailService
 {
     private readonly string                    _dir   = Path.Combine(StaticResources.AssetsDir, "AvatarDetail");
     private readonly Dictionary<uint, SnapAvatar?> _cache = new();
-    private static readonly JsonSerializerOptions  _jsonOpts   = new() { PropertyNameCaseInsensitive = true };
-    private static readonly Regex                  _paramRegex = new(@"\{param(\d+):([^}]+)\}", RegexOptions.Compiled);
+    private static readonly Regex              _paramRegex = new(@"\{param(\d+):([^}]+)\}", RegexOptions.Compiled);
 
     public (string Description, IReadOnlyList<SkillParamRow> Params) GetSkillInfo(uint avatarId, uint groupId, int level)
     {
@@ -63,13 +63,17 @@ public sealed class AvatarDetailService
         if (!File.Exists(path)) { _cache[avatarId] = null; return null; }
         try
         {
-            var result = JsonSerializer.Deserialize<SnapAvatar>(File.ReadAllText(path), _jsonOpts);
+            var result = JsonSerializer.Deserialize(File.ReadAllText(path), SnapCtx.Default.SnapAvatar);
             _cache[avatarId] = result;
             return result;
         }
         catch { _cache[avatarId] = null; return null; }
     }
 
+
+    [JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
+    [JsonSerializable(typeof(SnapAvatar))]
+    private partial class SnapCtx : JsonSerializerContext { }
 
     private sealed class SnapAvatar     { public SnapSkillDepot?     SkillDepot   { get; init; } }
     private sealed class SnapSkillDepot

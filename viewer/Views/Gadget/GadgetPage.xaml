@@ -5,6 +5,36 @@
     xmlns:cw="using:CommunityToolkit.WinUI"
     xmlns:vm="using:Backpack.Viewer.ViewModels">
 
+  <UserControl.Resources>
+    <DataTemplate x:Key="SimpleCardTemplate">
+      <Grid Padding="10,8" Style="{ThemeResource GridShimmerStyle}" ColumnSpacing="10">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Width="40" Height="40" VerticalAlignment="Center" CornerRadius="6">
+          <Image Source="{Binding QualitySource}" Stretch="Fill" />
+          <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+          <Image Source="{Binding IconSource}" Stretch="Uniform" />
+        </Grid>
+        <TextBlock
+            Grid.Column="1"
+            Style="{StaticResource AppBodyTextBlockStyle}"
+            Text="{Binding Name}"
+            TextTrimming="CharacterEllipsis"
+            VerticalAlignment="Center" />
+        <TextBlock
+            Grid.Column="2"
+            MinWidth="40"
+            Style="{StaticResource AppBodyStrongTextBlockStyle}"
+            Text="{Binding Count}"
+            TextAlignment="Right"
+            VerticalAlignment="Center" />
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+
   <Border Margin="16,8,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
     <Border
         Background="{ThemeResource SystemControlAcrylicElementBrush}"
@@ -35,7 +65,10 @@
         </Pivot>
 
         <ScrollViewer Grid.Row="1" Padding="8,4,8,8">
-          <ItemsRepeater ItemsSource="{x:Bind CurrentItems, Mode=OneWay}">
+          <ItemsRepeater x:Name="CardRepeater"
+                         ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                         ElementPrepared="OnElementPrepared"
+                         ElementClearing="OnElementClearing">
             <ItemsRepeater.Layout>
               <UniformGridLayout
                   MinItemWidth="260"
@@ -43,45 +76,6 @@
                   MinRowSpacing="8"
                   ItemsStretch="Fill" />
             </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-              <DataTemplate x:DataType="vm:SimpleItemViewModel">
-                <Grid
-                    Padding="10,8"
-                    Style="{ThemeResource GridShimmerStyle}"
-                    ColumnSpacing="10">
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                  </Grid.ColumnDefinitions>
-                  <Grid
-                      Grid.Column="0"
-                      Width="40"
-                      Height="40"
-                      VerticalAlignment="Center"
-                      CornerRadius="6">
-                    <Image Source="{x:Bind QualitySource}" Stretch="Fill" />
-                    <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-                    <Image
-                        Source="{x:Bind IconSource, Mode=OneWay}"
-                        Stretch="Uniform" />
-                  </Grid>
-                  <TextBlock
-                      Grid.Column="1"
-                      Style="{StaticResource AppBodyTextBlockStyle}"
-                      Text="{x:Bind Name}"
-                      TextTrimming="CharacterEllipsis"
-                      VerticalAlignment="Center" />
-                  <TextBlock
-                      Grid.Column="2"
-                      MinWidth="40"
-                      Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                      Text="{x:Bind Count}"
-                      TextAlignment="Right"
-                      VerticalAlignment="Center" />
-                </Grid>
-              </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
           </ItemsRepeater>
         </ScrollViewer>
       </Grid>

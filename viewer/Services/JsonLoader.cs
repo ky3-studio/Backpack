@@ -1,19 +1,17 @@
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Backpack.Viewer.Services;
 
 internal static class JsonLoader
 {
-    private static readonly JsonSerializerOptions _opts =
-        new() { PropertyNameCaseInsensitive = true };
-
-    internal static T? Load<T>(string path)
+    internal static T? Load<T>(string path, JsonTypeInfo<T> typeInfo)
     {
         try
         {
             if (File.Exists(path))
-                return JsonSerializer.Deserialize<T>(File.ReadAllText(path), _opts);
+                return JsonSerializer.Deserialize(File.ReadAllText(path), typeInfo);
         }
         catch { }
         return default;

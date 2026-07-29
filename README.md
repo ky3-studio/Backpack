@@ -114,7 +114,7 @@
 | `playerLevel` | int | 冒险等级 |
 | `primogem` | int | 原石 |
 | `mora` | int | 摩拉 |
-| `worldLevel` | int | 世界等级（0-8）|
+| `worldLevel` | int | 世界等级（0-9）|
 | `resin` | int | 原粹树脂当前值 |
 | `genesisCrystal` | int | 创世结晶 |
 | `legendaryKey` | int | 传说密钥 |

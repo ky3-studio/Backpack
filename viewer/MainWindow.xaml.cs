@@ -1,5 +1,6 @@
 using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -15,25 +16,15 @@ public sealed partial class MainWindow : Window, IDisposable
     private static extern uint GetDpiForWindow(IntPtr hWnd);
     private readonly PipeListenerService     _pipe        = new();
     private readonly CancellationTokenSource _cts         = new();
-    private readonly BackpackDbService       _db          = new();
     private readonly DispatcherTimer         _gameMonitor = new() { Interval = TimeSpan.FromSeconds(2) };
     private ContentDialog?                   _syncDialog;
     private int                              _launchedPid;
 
     public MainViewModel ViewModel { get; }
 
-    public MainWindow()
+    public MainWindow(IServiceProvider services)
     {
-        var gps          = new GamePathService();
-        var meta         = new MaterialMetaService();
-        var foodMeta     = new FoodMetaService();
-        var weaponMeta   = new WeaponMetaService();
-        var artifactMeta = new ArtifactMetaService();
-        var gadgetMeta   = new GadgetMetaService();
-        var assetMeta    = new AssetMetaService();
-        var avatarMeta   = new AvatarMetaService();
-        var avatarDetail = new AvatarDetailService();
-        ViewModel = new MainViewModel(DispatcherQueue.GetForCurrentThread(), gps, meta, foodMeta, weaponMeta, artifactMeta, gadgetMeta, assetMeta, avatarMeta, avatarDetail, _db);
+        ViewModel = services.GetRequiredService<MainViewModel>();
         InitializeComponent();
 
         Title = $"Backpack {AppVersion.Value}";
@@ -83,7 +74,6 @@ public sealed partial class MainWindow : Window, IDisposable
     {
         _cts.Cancel();
         _cts.Dispose();
-        _db.Dispose();
         _gameMonitor.Stop();
     }
 }

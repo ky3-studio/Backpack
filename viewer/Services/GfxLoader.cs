@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.IO;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.Services;
@@ -9,8 +10,15 @@ internal static partial class GfxLoader
     private static readonly BitmapImage _placeholder = new(
         new Uri("ms-appx:///Assets/Quality/UI_ItemIcon_None.png"));
 
-    private static readonly ConcurrentDictionary<string, string>        _cache    = new();
-    private static readonly ConcurrentDictionary<string, Task<string?>> _inflight = new();
+    private static readonly ConcurrentDictionary<string, string>        _cache       = new();
+    private static readonly ConcurrentDictionary<string, Task<string?>> _inflight    = new();
+    private static readonly ConcurrentDictionary<string, BitmapImage>   _bitmapCache = new();
+    private static readonly SemaphoreSlim _downloadSlot = new(6, 6); // 最多 6 个并发下载
+
+    private static DispatcherQueue? _dispatcher;
+
+    internal static void Initialize() =>
+        _dispatcher = DispatcherQueue.GetForCurrentThread();
 
     private static readonly string _cacheDir =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -30,6 +38,13 @@ internal static partial class GfxLoader
             if (!IsValid(path))      { RemoveIfExists(path); continue; }
             if (!HasSrgbChunk(path)) { RemoveIfExists(path); continue; }
             _cache.TryAdd(Path.GetFileName(path), path);
+            _bitmapCache.GetOrAdd(path, static p =>
+            {
+                var b = new BitmapImage();
+                b.DecodePixelType = DecodePixelType.Logical;
+                b.UriSource = new Uri(p);
+                return b;
+            });
         }
 
         return Task.CompletedTask;
@@ -60,9 +75,13 @@ internal static partial class GfxLoader
 
     private static void Attach(IIconUpdatable target, string diskPath)
     {
-        var bmp = new BitmapImage();
-        bmp.UriSource     = new Uri(diskPath);
-        target.IconSource = bmp;
+        target.IconSource = _bitmapCache.GetOrAdd(diskPath, static p =>
+        {
+            var b = new BitmapImage();
+            b.DecodePixelType = DecodePixelType.Logical;
+            b.UriSource = new Uri(p);
+            return b;
+        });
     }
 
     private static async Task LoadAndSetAsync(Uri uri, string key, string disk, IIconUpdatable target)
@@ -73,7 +92,10 @@ internal static partial class GfxLoader
         if (result is null) return;
 
         _cache[key] = disk;
-        Attach(target, disk);
+        if (_dispatcher is not null)
+            _dispatcher.TryEnqueue(() => Attach(target, disk));
+        else
+            Attach(target, disk);
     }
 
     private static void RemoveIfExists(string path)

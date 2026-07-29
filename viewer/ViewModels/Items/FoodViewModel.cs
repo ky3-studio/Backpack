@@ -51,7 +51,7 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
         });
 
         GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);
-        QualitySource   = new BitmapImage(StaticResources.QualityIcon(meta.Rank));
+        QualitySource   = StaticResources.GetQualityBitmap(meta.Rank);
         Ingredients     = ingredients;
         IngredientsText = string.Join("  ", meta.Ingredients.Select(i => $"{i.Name} ×{i.Amount}"));
     }

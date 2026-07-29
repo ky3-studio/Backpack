@@ -5,7 +5,7 @@ using Backpack.Viewer.Models;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class ArtifactMetaService
+public sealed partial class ArtifactMetaService
 {
     private readonly Dictionary<string, (int SetId, string Icon, int MaxRank)> _map;
     private readonly Dictionary<string, Dictionary<string, string>>           _pieces;
@@ -15,7 +15,7 @@ public sealed class ArtifactMetaService
     public ArtifactMetaService()
     {
         var dir   = Path.Combine(StaticResources.AssetsDir, "Artifact");
-        var items = JsonLoader.Load<ArtifactMeta[]>(Path.Combine(dir, "artifacts.json")) ?? [];
+        var items = JsonLoader.Load(Path.Combine(dir, "artifacts.json"), ArtifactCtx.Default.ArtifactMetaArray) ?? [];
 
         _map = items
             .Where(e => !string.IsNullOrEmpty(e.Name))
@@ -30,8 +30,8 @@ public sealed class ArtifactMetaService
             .Where(e => !string.IsNullOrEmpty(e.Name) && e.Bonuses is { Count: > 0 })
             .ToDictionary(e => e.Name, e => e.Bonuses!, StringComparer.OrdinalIgnoreCase);
 
-        var raw = JsonLoader.Load<Dictionary<string, Dictionary<string, float[]>>>(
-            Path.Combine(dir, "artifact_main_props.json")) ?? [];
+        var raw = JsonLoader.Load(Path.Combine(dir, "artifact_main_props.json"),
+            ArtifactCtx.Default.DictionaryStringDictionaryStringSingleArray) ?? [];
         _mainProps = [];
         foreach (var (key, value) in raw)
             if (int.TryParse(key, out int rank))
@@ -159,6 +159,10 @@ public sealed class ArtifactMetaService
         if (slot == Localized.Get("SlotCirclet")) return 3;
         return 4;
     }
+
+    [JsonSerializable(typeof(ArtifactMeta[]))]
+    [JsonSerializable(typeof(Dictionary<string, Dictionary<string, float[]>>))]
+    private partial class ArtifactCtx : JsonSerializerContext { }
 
     private sealed record ArtifactMeta(
         [property: JsonPropertyName("id")]        int    Id,

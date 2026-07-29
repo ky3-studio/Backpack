@@ -114,7 +114,7 @@ Written to `<game_dir>/output/backpack.json` after each sync. Top-level structur
 | `playerLevel` | int | Adventure rank |
 | `primogem` | int | Primogems |
 | `mora` | int | Mora |
-| `worldLevel` | int | World level (0–8) |
+| `worldLevel` | int | World level (0–9) |
 | `resin` | int | Current Original Resin |
 | `genesisCrystal` | int | Genesis Crystals |
 | `legendaryKey` | int | Legendary Keys |

@@ -70,6 +70,6 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
         if (iconUri is not null)
             GfxLoader.BeginLoad(iconUri, this);
 
-        QualitySource = new BitmapImage(StaticResources.QualityIcon(entry.Rank));
+        QualitySource = StaticResources.GetQualityBitmap(entry.Rank);
     }
 }

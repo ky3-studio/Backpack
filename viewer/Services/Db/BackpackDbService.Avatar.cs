@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Backpack.Viewer.Models;
 using Microsoft.Data.Sqlite;
+using static Backpack.Viewer.Models.BagJsonContext;
 
 namespace Backpack.Viewer.Services;
 
@@ -21,9 +22,9 @@ public sealed partial class BackpackDbService
                 r.GetInt32(2),
                 r.GetInt32(3),
                 r.GetInt32(4),
-                JsonSerializer.Deserialize<SkillEntry[]>  (r.GetString(5)) ?? [],
-                JsonSerializer.Deserialize<PassiveEntry[]>(r.GetString(6)) ?? [],
-                JsonSerializer.Deserialize<string[]>      (r.GetString(7)) ?? []
+                JsonSerializer.Deserialize(r.GetString(5), Default.SkillEntryArray)   ?? [],
+                JsonSerializer.Deserialize(r.GetString(6), Default.PassiveEntryArray) ?? [],
+                JsonSerializer.Deserialize(r.GetString(7), Default.StringArray)        ?? []
             ));
         return list;
     }
@@ -55,9 +56,9 @@ public sealed partial class BackpackDbService
             pa.Value  = a.Ascension;
             pf.Value  = a.Friendship;
             pc.Value  = a.Constellation;
-            ps.Value  = JsonSerializer.Serialize(a.Skills);
-            pp.Value  = JsonSerializer.Serialize(a.Passives);
-            peq.Value = JsonSerializer.Serialize(a.Equips);
+            ps.Value  = JsonSerializer.Serialize(a.Skills,    Default.SkillEntryArray);
+            pp.Value  = JsonSerializer.Serialize(a.Passives,  Default.PassiveEntryArray);
+            peq.Value = JsonSerializer.Serialize(a.Equips,    Default.StringArray);
             ins.ExecuteNonQuery();
         }
         tx.Commit();

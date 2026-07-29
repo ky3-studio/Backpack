@@ -3,9 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace Backpack.Viewer.Services;
 
-public sealed class HyperLinkService
+public sealed partial class HyperLinkService
 {
-    private static readonly JsonSerializerOptions _opts = new() { PropertyNameCaseInsensitive = true };
     private readonly Dictionary<uint, HyperLinkEntry> _map = new();
 
     public void Load()
@@ -14,7 +13,7 @@ public sealed class HyperLinkService
         if (!File.Exists(path)) return;
         try
         {
-            var entries = JsonSerializer.Deserialize<HyperLinkEntry[]>(File.ReadAllText(path), _opts);
+            var entries = JsonSerializer.Deserialize(File.ReadAllText(path), HyperLinkCtx.Default.HyperLinkEntryArray);
             if (entries is null) return;
             _map.Clear();
             foreach (var e in entries) _map[e.Id] = e;
@@ -33,6 +32,9 @@ public sealed class HyperLinkService
         name = description = string.Empty;
         return false;
     }
+
+    [JsonSerializable(typeof(HyperLinkEntry[]))]
+    private partial class HyperLinkCtx : JsonSerializerContext { }
 
     private sealed class HyperLinkEntry
     {
