@@ -174,7 +174,7 @@ public sealed partial class WeaponPage : UserControl, IDisposable
         if (SearchBox.FocusState == FocusState.Unfocused) return;
         if (e.OriginalSource is DependencyObject src && IsChildOf(src, SearchBox)) return;
         DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Low,
-            () => FocusSink.Focus(FocusState.Pointer));
+            () => _ = FocusManager.TryFocusAsync(ContentScroller, FocusState.Pointer));
     }
 
     private static bool IsChildOf(DependencyObject element, DependencyObject parent)

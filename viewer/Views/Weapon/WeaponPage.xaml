@@ -250,7 +250,7 @@
           </Pivot.RightHeader>
         </Pivot>
 
-        <ScrollViewer x:Name="ContentScroller" Grid.Row="1" Padding="8,4,8,8">
+        <ScrollViewer x:Name="ContentScroller" Grid.Row="1" Padding="8,4,8,8" IsTabStop="True" UseSystemFocusVisuals="False">
           <ItemsRepeater x:Name="CardRepeater"
                          ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
                          ElementPrepared="OnElementPrepared"
