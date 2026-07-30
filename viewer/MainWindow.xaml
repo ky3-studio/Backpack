@@ -76,7 +76,7 @@
               Visibility="Collapsed" />
           <views:ArtifactPage
               x:Name="PageArtifact"
-              ArtifactGroups="{x:Bind ViewModel.ArtifactGroups}"
+              Artifacts="{x:Bind ViewModel.Artifacts}"
               Visibility="Collapsed" />
           <views:MonsterPage
               x:Name="PageMonster"

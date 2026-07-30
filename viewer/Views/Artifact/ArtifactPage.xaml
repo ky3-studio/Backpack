@@ -10,7 +10,7 @@
 
   <UserControl.Resources>
 
-    <DataTemplate x:Key="ArtifactListTemplate" x:DataType="vm:ArtifactViewModel">
+    <DataTemplate x:Key="ArtifactListTemplate" x:DataType="vm:ArtifactSetViewModel">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
@@ -27,137 +27,178 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
           <TextBlock
               Style="{StaticResource AppBodyStrongTextBlockStyle}"
-              Text="{x:Bind Source.Set, Mode=OneWay}"
+              Text="{x:Bind SetName}"
               TextTrimming="CharacterEllipsis"
               TextWrapping="NoWrap" />
-          <TextBlock
-              Opacity="0.7"
-              Style="{StaticResource AppCaptionTextBlockStyle}"
-              Text="{x:Bind Source.Name, Mode=OneWay}"
-              TextTrimming="CharacterEllipsis"
-              TextWrapping="NoWrap" />
+          <Image
+              Height="12"
+              Margin="0,3,0,0"
+              HorizontalAlignment="Left"
+              Source="{x:Bind RankStarsSource}"
+              Stretch="Uniform" />
         </StackPanel>
       </Grid>
     </DataTemplate>
 
-    <DataTemplate x:Key="ArtifactGridTemplate" x:DataType="vm:ArtifactViewModel">
+    <DataTemplate x:Key="ArtifactGridTemplate" x:DataType="vm:ArtifactSetViewModel">
       <ctrl:VerticalCard Width="82">
         <ctrl:VerticalCard.Top>
-          <ctrl:ItemIcon
-              Icon="{x:Bind IconSource, Mode=OneWay}"
-              Quality="{x:Bind QualitySource, Mode=OneWay}" />
+          <Image
+              Width="56"
+              Height="56"
+              Source="{x:Bind IconSource, Mode=OneWay}"
+              Stretch="Uniform" />
         </ctrl:VerticalCard.Top>
         <ctrl:VerticalCard.Bottom>
           <TextBlock
               Margin="2,0"
-              Text="{x:Bind Source.Name, Mode=OneWay}"
+              Text="{x:Bind SetName}"
+              TextAlignment="Center"
               TextTrimming="CharacterEllipsis" />
         </ctrl:VerticalCard.Bottom>
       </ctrl:VerticalCard>
     </DataTemplate>
 
-    <DataTemplate x:Key="ArtifactDetailTemplate" x:DataType="vm:ArtifactViewModel">
-      <StackPanel Spacing="12">
+    <DataTemplate x:Key="ArtifactPieceTabTemplate" x:DataType="vm:ArtifactPieceViewModel">
+      <TextBlock Text="{x:Bind SlotName}" />
+    </DataTemplate>
 
-        <Grid ColumnSpacing="16">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-          </Grid.ColumnDefinitions>
-          <Grid Grid.Column="0" Width="80" Height="80" CornerRadius="8">
-            <Image Source="{x:Bind QualitySource, Mode=OneWay}" Stretch="Fill" />
-            <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-            <Image Source="{x:Bind IconSource, Mode=OneWay}" Stretch="Uniform" />
+    <DataTemplate x:Key="ArtifactRankTabTemplate" x:DataType="vm:ArtifactRankOption">
+      <Image Height="14" Source="{x:Bind Stars}" Stretch="Uniform" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArtifactMainStatTemplate" x:DataType="vm:ArtifactStatRow">
+      <Grid Margin="0,3,0,3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Column="0"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            Style="{StaticResource AppBodyTextBlockStyle}"
+            Text="{x:Bind Name}" />
+        <TextBlock
+            Grid.Column="1"
+            Style="{StaticResource AppBodyStrongTextBlockStyle}"
+            Text="{x:Bind Value}" />
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArtifactDetailTemplate" x:DataType="vm:ArtifactSetViewModel">
+      <StackPanel Spacing="16">
+
+        <Border Padding="16" Style="{StaticResource BorderCardStyle}">
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Width="80"
+                Height="80"
+                VerticalAlignment="Top"
+                Source="{x:Bind IconSource, Mode=OneWay}"
+                Stretch="Uniform" />
+            <StackPanel Grid.Column="1" Spacing="6" VerticalAlignment="Center">
+              <TextBlock
+                  FontFamily="{StaticResource AppFontFamily}"
+                  Style="{StaticResource SubtitleTextBlockStyle}"
+                  Text="{x:Bind SetName}"
+                  TextTrimming="CharacterEllipsis" />
+              <Image
+                  Height="16"
+                  HorizontalAlignment="Left"
+                  Source="{x:Bind RankStarsSource, Mode=OneWay}"
+                  Stretch="Uniform" />
+            </StackPanel>
           </Grid>
-          <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
-            <TextBlock
-                FontFamily="{StaticResource AppFontFamily}"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="{x:Bind Source.Set, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
-            <TextBlock
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Style="{StaticResource AppBodyTextBlockStyle}"
-                Text="{x:Bind Source.Name, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis" />
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind BonusVisibility}">
+          <StackPanel Spacing="8">
+            <TextBlock x:Uid="ArtifactBonusHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
             <TextBlock
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                 Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{x:Bind SlotText, Mode=OneWay}" />
-            <Image
-                Height="16"
-                Margin="0,2,0,0"
-                HorizontalAlignment="Left"
-                Source="{x:Bind RankStarsSource, Mode=OneWay}"
-                Stretch="Uniform" />
+                Text="{x:Bind BonusText}"
+                TextWrapping="Wrap" />
           </StackPanel>
-          <TextBlock
-              Grid.Column="2"
-              MinWidth="40"
-              FontFamily="{StaticResource AppFontFamily}"
-              Style="{StaticResource SubtitleTextBlockStyle}"
-              Text="{x:Bind Level, Mode=OneWay}"
-              TextAlignment="Right"
-              VerticalAlignment="Top"
-              Visibility="{x:Bind HasInstanceVisibility, Mode=OneWay}" />
-        </Grid>
+        </Border>
 
-        <StackPanel Spacing="0" Visibility="{x:Bind HasInstanceVisibility, Mode=OneWay}">
-          <Border Height="1" Margin="0,2,0,8" Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Column="0"
-                Style="{StaticResource AppBodyTextBlockStyle}"
-                Text="{x:Bind Source.MainStat, Mode=OneWay}" />
-            <TextBlock
-                Grid.Column="1"
-                Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                Text="{x:Bind MainStatValueDisplay, Mode=OneWay}" />
-          </Grid>
-          <StackPanel Margin="0,8,0,0" Spacing="6">
-            <Grid Visibility="{x:Bind SubStat0Vis, Mode=OneWay}">
-              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="24" /></Grid.ColumnDefinitions>
-              <TextBlock Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat0Name, Mode=OneWay}" />
-              <TextBlock Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat0Value, Mode=OneWay}" />
-              <Image Grid.Column="2" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{x:Bind SubStat0Badge, Mode=OneWay}" />
+        <Border Padding="16" Style="{StaticResource BorderShimmerStyle}">
+          <StackPanel Spacing="12">
+            <cwc:Segmented
+                ItemTemplate="{StaticResource ArtifactPieceTabTemplate}"
+                ItemsSource="{x:Bind Pieces}"
+                SelectedIndex="{x:Bind SelectedPieceIndex, Mode=TwoWay}" />
+
+            <Grid ColumnSpacing="12">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Image
+                  Grid.Column="0"
+                  Width="48"
+                  Height="48"
+                  VerticalAlignment="Center"
+                  Source="{x:Bind SelectedPiece.IconSource, Mode=OneWay}"
+                  Stretch="Uniform" />
+              <TextBlock
+                  Grid.Column="1"
+                  VerticalAlignment="Center"
+                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                  Text="{x:Bind SelectedPiece.PieceName, Mode=OneWay}"
+                  TextWrapping="Wrap" />
             </Grid>
-            <Grid Visibility="{x:Bind SubStat1Vis, Mode=OneWay}">
-              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="24" /></Grid.ColumnDefinitions>
-              <TextBlock Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat1Name, Mode=OneWay}" />
-              <TextBlock Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat1Value, Mode=OneWay}" />
-              <Image Grid.Column="2" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{x:Bind SubStat1Badge, Mode=OneWay}" />
+
+            <cwc:Segmented
+                ItemTemplate="{StaticResource ArtifactRankTabTemplate}"
+                ItemsSource="{x:Bind RankOptions}"
+                SelectedIndex="{x:Bind SelectedRankIndex, Mode=TwoWay}"
+                Visibility="{x:Bind RankSwitchVisibility}" />
+
+            <Grid>
+              <TextBlock
+                  x:Uid="ArtifactMainStatHeader"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}" />
+              <TextBlock
+                  HorizontalAlignment="Right"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{x:Bind LevelText, Mode=OneWay}" />
             </Grid>
-            <Grid Visibility="{x:Bind SubStat2Vis, Mode=OneWay}">
-              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="24" /></Grid.ColumnDefinitions>
-              <TextBlock Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat2Name, Mode=OneWay}" />
-              <TextBlock Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat2Value, Mode=OneWay}" />
-              <Image Grid.Column="2" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{x:Bind SubStat2Badge, Mode=OneWay}" />
-            </Grid>
-            <Grid Visibility="{x:Bind SubStat3Vis, Mode=OneWay}">
-              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="24" /></Grid.ColumnDefinitions>
-              <TextBlock Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat3Name, Mode=OneWay}" />
-              <TextBlock Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind SubStat3Value, Mode=OneWay}" />
-              <Image Grid.Column="2" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{x:Bind SubStat3Badge, Mode=OneWay}" />
-            </Grid>
+            <Slider
+                Maximum="{x:Bind MaxLevel, Mode=OneWay}"
+                Minimum="0"
+                StepFrequency="1"
+                Value="{x:Bind Level, Mode=TwoWay}" />
+
+            <ItemsControl
+                ItemTemplate="{StaticResource ArtifactMainStatTemplate}"
+                ItemsSource="{x:Bind MainStatRows, Mode=OneWay}" />
           </StackPanel>
-        </StackPanel>
+        </Border>
 
-        <StackPanel Spacing="4" Visibility="{x:Bind HasAnyBonusVisibility, Mode=OneWay}">
-          <Border Height="1" Margin="0,2,0,0" Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-          <TextBlock
-              Style="{StaticResource AppBodyStrongTextBlockStyle}"
-              Text="{x:Bind Source.Set, Mode=OneWay}" />
-          <TextBlock
-              Style="{StaticResource AppCaptionTextBlockStyle}"
-              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-              Text="{x:Bind BonusText, Mode=OneWay}"
-              TextWrapping="Wrap" />
-        </StackPanel>
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind SelectedPiece.StoryVisibility, Mode=OneWay}">
+          <StackPanel Spacing="8">
+            <TextBlock x:Uid="ArtifactFlavorHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Opacity="0.8"
+                Text="{x:Bind SelectedPiece.Story, Mode=OneWay}"
+                TextWrapping="Wrap" />
+          </StackPanel>
+        </Border>
 
       </StackPanel>
     </DataTemplate>
@@ -247,7 +288,7 @@
                   </StackPanel>
                   <ScrollViewer
                       x:Name="ContentScroller"
-                      Padding="20"
+                      Padding="16"
                       Visibility="{x:Bind ViewModel.SelectedArtifactVisible, Mode=OneWay}">
                     <ContentPresenter
                         VerticalAlignment="Top"

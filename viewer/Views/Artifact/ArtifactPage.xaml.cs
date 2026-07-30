@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
-[DependencyProperty<ObservableCollection<GroupViewModel<ArtifactViewModel>>>("ArtifactGroups", PropertyChangedCallbackName = "OnArtifactGroupsChanged")]
+[DependencyProperty<ObservableCollection<ArtifactSetViewModel>>("Artifacts", PropertyChangedCallbackName = "OnArtifactsChanged")]
 public sealed partial class ArtifactPage : UserControl
 {
 
@@ -20,15 +20,15 @@ public sealed partial class ArtifactPage : UserControl
             new PointerEventHandler(OnPagePointerPressed), handledEventsToo: true);
     }
 
-    private static void OnArtifactGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnArtifactsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is ArtifactPage page)
-            page.ViewModel.Initialize((ObservableCollection<GroupViewModel<ArtifactViewModel>>?)e.NewValue);
+            page.ViewModel.Initialize((ObservableCollection<ArtifactSetViewModel>?)e.NewValue);
     }
 
     private void OnArtifactSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ViewModel.SelectArtifact(e.AddedItems.OfType<ArtifactViewModel>().FirstOrDefault());
+        ViewModel.SelectArtifact(e.AddedItems.OfType<ArtifactSetViewModel>().FirstOrDefault());
     }
 
     private void OnPagePointerPressed(object sender, PointerRoutedEventArgs e)

@@ -312,6 +312,15 @@
   <data name="ArtifactEmptyHint.Text" xml:space="preserve">
     <value>Select an artifact</value>
   </data>
+  <data name="ArtifactFlavorHeader.Text" xml:space="preserve">
+    <value>Artifact Story</value>
+  </data>
+  <data name="ArtifactBonusHeader.Text" xml:space="preserve">
+    <value>Set Bonus</value>
+  </data>
+  <data name="ArtifactMainStatHeader.Text" xml:space="preserve">
+    <value>Main Stat</value>
+  </data>
   <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search monsters…</value>
   </data>

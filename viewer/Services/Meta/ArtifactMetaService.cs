@@ -7,10 +7,11 @@ namespace Backpack.Viewer.Services;
 
 public sealed partial class ArtifactMetaService
 {
-    private readonly Dictionary<string, (int SetId, string Icon, int MaxRank)> _map;
+    private readonly Dictionary<string, (int SetId, string Icon, int MaxRank, int[] Ranks)> _map;
     private readonly Dictionary<string, Dictionary<string, string>>           _pieces;
     private readonly Dictionary<string, Dictionary<string, string>>           _bonuses;
     private readonly Dictionary<int, Dictionary<string, float[]>>             _mainProps;
+    private readonly Dictionary<string, string>                              _stories;
 
     public ArtifactMetaService()
     {
@@ -21,7 +22,7 @@ public sealed partial class ArtifactMetaService
             .Where(e => !string.IsNullOrEmpty(e.Name))
             .ToDictionary(
                 e => e.Name,
-                e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4),
+                e => (e.Id, e.Icon, e.LevelList.Length > 0 ? e.LevelList.Max() : 4, e.LevelList.Length > 0 ? e.LevelList.Distinct().OrderBy(r => r).ToArray() : [4]),
                 StringComparer.OrdinalIgnoreCase);
         _pieces = items
             .Where(e => !string.IsNullOrEmpty(e.Name) && e.Pieces is { Count: > 0 })
@@ -36,6 +37,8 @@ public sealed partial class ArtifactMetaService
         foreach (var (key, value) in raw)
             if (int.TryParse(key, out int rank))
                 _mainProps[rank] = value;
+
+        _stories = JsonLoader.Load(Path.Combine(dir, "artifact_stories.json"), ArtifactCtx.Default.DictionaryStringString) ?? [];
     }
 
     public string GetSetBonus(string setName, int pieceCount)
@@ -103,6 +106,44 @@ public sealed partial class ArtifactMetaService
         return StaticResources.ArtifactIcon($"{baseName}_{SlotToIndex(slot)}");
     }
 
+    public string GetStory(string setName, string slot)
+    {
+        if (!_map.TryGetValue(setName, out var meta) || string.IsNullOrEmpty(meta.Icon))
+            return string.Empty;
+
+        const string prefix = "UI_RelicIcon_";
+        var lastUnderscore = meta.Icon.LastIndexOf('_');
+        var baseName = lastUnderscore >= 0 ? meta.Icon[..lastUnderscore] : meta.Icon;
+        var group = baseName.StartsWith(prefix, StringComparison.Ordinal) ? baseName[prefix.Length..] : baseName;
+        return _stories.TryGetValue($"{group}_{SlotToIndex(slot)}", out var s) ? s : string.Empty;
+    }
+
+    public IReadOnlyList<string> GetSetNames() =>
+        [.. _map
+            .OrderByDescending(kvp => kvp.Value.MaxRank).ThenBy(kvp => kvp.Value.SetId)
+            .Select(kvp => kvp.Key)];
+
+    public int GetSetRank(string setName) =>
+        _map.TryGetValue(setName, out var m) ? m.MaxRank : 5;
+
+    public IReadOnlyList<int> GetSetRanks(string setName) =>
+        _map.TryGetValue(setName, out var m) ? m.Ranks : [];
+
+    public Uri? GetSetIcon(string setName) =>
+        _map.TryGetValue(setName, out var m) && !string.IsNullOrEmpty(m.Icon)
+            ? StaticResources.ArtifactIcon(m.Icon)
+            : null;
+
+    public IReadOnlyList<string> GetSetSlots(string setName)
+    {
+        if (!_map.TryGetValue(setName, out var m)) return [];
+        string[] all = [SR.SlotFlower, SR.SlotPlume, SR.SlotSands, SR.SlotGoblet, SR.SlotCirclet];
+        return [.. GetSlotsForIcon(m.Icon, all)];
+    }
+
+    public static bool IsMainPropPercent(string mainStat) => mainStat is not
+        (PropShortNames.Hp or PropShortNames.Attack or PropShortNames.Defense or PropShortNames.ElementMastery);
+
     public IReadOnlyList<ArtifactEntry> GetDefaultEntries()
     {
         string[] allSlots =
@@ -162,6 +203,7 @@ public sealed partial class ArtifactMetaService
 
     [JsonSerializable(typeof(ArtifactMeta[]))]
     [JsonSerializable(typeof(Dictionary<string, Dictionary<string, float[]>>))]
+    [JsonSerializable(typeof(Dictionary<string, string>))]
     private partial class ArtifactCtx : JsonSerializerContext { }
 
     private sealed record ArtifactMeta(

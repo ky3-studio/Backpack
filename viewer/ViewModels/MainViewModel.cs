@@ -81,11 +81,7 @@ public sealed partial class MainViewModel : ObservableObject
             LoadDefaultWeapons();
         RebuildWeaponGroups();
 
-        var dbArtifacts = db.LoadArtifacts();
-        if (dbArtifacts.Count > 0)
-            BuildArtifactGroups(dbArtifacts.Select(e => new ArtifactViewModel(e, _artifactMeta)));
-        else
-            LoadDefaultArtifacts();
+        LoadDefaultArtifacts();
 
         RebuildAvatars(db.LoadAvatars());
 

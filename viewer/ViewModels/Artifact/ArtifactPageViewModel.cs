@@ -1,50 +1,60 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Backpack.Viewer.ViewModels.Search;
 using Backpack.Viewer.Views.Controls.AutoSuggestBox;
 using Microsoft.UI.Xaml;
 
 namespace Backpack.Viewer.ViewModels.Artifact;
 
-internal sealed class ArtifactPageViewModel : FilterablePageViewModel<ArtifactViewModel>
+internal sealed class ArtifactPageViewModel : FilterablePageViewModel<ArtifactSetViewModel>
 {
-    private ObservableCollection<GroupViewModel<ArtifactViewModel>>? _groups;
-    private ArtifactViewModel? _selectedArtifact;
+    private ObservableCollection<ArtifactSetViewModel>? _source;
+    private ArtifactSetViewModel? _selectedArtifact;
 
-    public ArtifactViewModel? SelectedArtifact => _selectedArtifact;
+    public ArtifactSetViewModel? SelectedArtifact => _selectedArtifact;
     public Visibility EmptyStateVisible => _selectedArtifact is null ? Visibility.Visible : Visibility.Collapsed;
     public Visibility SelectedArtifactVisible => _selectedArtifact is null ? Visibility.Collapsed : Visibility.Visible;
 
-    public void Initialize(ObservableCollection<GroupViewModel<ArtifactViewModel>>? groups)
+    public void Initialize(ObservableCollection<ArtifactSetViewModel>? source)
     {
-        _groups = groups;
-        IEnumerable<ArtifactViewModel> items = groups?.SelectMany(g => g.Items) ?? [];
-        AvailableTokens = ArtifactSearchTokens.Build(items);
-        FilterTokens.Clear();
-        RefreshItems();
-        EnsureSelection();
-        NotifyListChanged();
-        OnPropertyChanged(nameof(AvailableTokens));
+        if (_source is not null)
+            _source.CollectionChanged -= OnSourceChanged;
+        _source = source;
+        if (_source is not null)
+            _source.CollectionChanged += OnSourceChanged;
+
+        Rebuild();
     }
 
-    public void SelectArtifact(ArtifactViewModel? vm)
+    public void SelectArtifact(ArtifactSetViewModel? vm)
     {
         if (vm is null && _selectedArtifact is not null) return;
         _selectedArtifact = vm;
         NotifySelectionChanged();
     }
 
-    protected override IReadOnlyList<ArtifactViewModel>? GetSourceItems() =>
-        _groups?.SelectMany(g => g.Items).ToList();
+    protected override IReadOnlyList<ArtifactSetViewModel>? GetSourceItems() => _source?.ToList();
 
-    protected override string MatchValue(ArtifactViewModel vm, SearchTokenKind kind) => kind switch
+    protected override string MatchValue(ArtifactSetViewModel vm, SearchTokenKind kind) => kind switch
     {
-        SearchTokenKind.ArtifactSet  => vm.Source.Set,
-        SearchTokenKind.ArtifactSlot => vm.Source.Slot,
-        SearchTokenKind.ItemQuality  => CommonSearchTokens.RankLabel(vm.Source.Rank),
-        _                            => string.Empty,
+        SearchTokenKind.ArtifactSet => vm.SetName,
+        SearchTokenKind.ItemQuality => CommonSearchTokens.RankLabel(vm.Rank),
+        _                           => string.Empty,
     };
 
     protected override void OnItemsRefreshed() => EnsureSelection();
+
+    private void OnSourceChanged(object? sender, NotifyCollectionChangedEventArgs e) => Rebuild();
+
+    private void Rebuild()
+    {
+        IEnumerable<ArtifactSetViewModel> items = _source ?? [];
+        AvailableTokens = ArtifactSearchTokens.Build(items);
+        RefreshItems();
+        NotifyListChanged();
+        EnsureSelection();
+        OnPropertyChanged(nameof(AvailableTokens));
+    }
 
     private void EnsureSelection()
     {

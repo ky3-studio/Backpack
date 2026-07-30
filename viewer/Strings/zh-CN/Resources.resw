@@ -312,6 +312,15 @@
   <data name="ArtifactEmptyHint.Text" xml:space="preserve">
     <value>选择一件圣遗物</value>
   </data>
+  <data name="ArtifactFlavorHeader.Text" xml:space="preserve">
+    <value>圣遗物故事</value>
+  </data>
+  <data name="ArtifactBonusHeader.Text" xml:space="preserve">
+    <value>套装效果</value>
+  </data>
+  <data name="ArtifactMainStatHeader.Text" xml:space="preserve">
+    <value>主属性</value>
+  </data>
   <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索怪物…</value>
   </data>
