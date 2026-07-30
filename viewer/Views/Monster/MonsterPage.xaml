@@ -1,0 +1,364 @@
+<UserControl
+    x:Class="Backpack.Viewer.Views.MonsterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cw="using:CommunityToolkit.WinUI"
+    xmlns:cwc="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ctrl="using:Backpack.Viewer.Views.Controls"
+    xmlns:ast="using:Backpack.Viewer.Views.Controls.AutoSuggestBox"
+    xmlns:vm="using:Backpack.Viewer.ViewModels">
+
+  <UserControl.Resources>
+
+    <DataTemplate x:Key="MonsterListTemplate" x:DataType="vm:MonsterViewModel">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image
+            Grid.Column="0"
+            Width="48"
+            Height="48"
+            Margin="0,0,12,0"
+            VerticalAlignment="Center"
+            Source="{x:Bind IconSource, Mode=OneWay}"
+            Stretch="Uniform" />
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+          <TextBlock
+              Style="{StaticResource AppBodyStrongTextBlockStyle}"
+              Text="{x:Bind Name, Mode=OneWay}"
+              TextTrimming="CharacterEllipsis"
+              TextWrapping="NoWrap" />
+          <TextBlock
+              Opacity="0.7"
+              Style="{StaticResource AppCaptionTextBlockStyle}"
+              Text="{x:Bind TypeName, Mode=OneWay}"
+              TextTrimming="CharacterEllipsis"
+              TextWrapping="NoWrap" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MonsterGridTemplate" x:DataType="vm:MonsterViewModel">
+      <ctrl:VerticalCard Width="82">
+        <ctrl:VerticalCard.Top>
+          <Image
+              Width="56"
+              Height="56"
+              Source="{x:Bind IconSource, Mode=OneWay}"
+              Stretch="Uniform" />
+        </ctrl:VerticalCard.Top>
+        <ctrl:VerticalCard.Bottom>
+          <TextBlock
+              Margin="2,0"
+              Text="{x:Bind Name, Mode=OneWay}"
+              TextAlignment="Center"
+              TextTrimming="CharacterEllipsis" />
+        </ctrl:VerticalCard.Bottom>
+      </ctrl:VerticalCard>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MonsterResistTemplate" x:DataType="vm:MonsterResistViewModel">
+      <StackPanel Orientation="Horizontal" Spacing="4">
+        <Image Width="22" Height="22" VerticalAlignment="Center" Source="{x:Bind Icon}" />
+        <TextBlock VerticalAlignment="Center" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind Value}" />
+      </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MonsterDropTemplate" x:DataType="vm:MaterialItemViewModel">
+      <StackPanel Width="64">
+        <ctrl:ItemIcon
+            Width="56"
+            Height="56"
+            Icon="{x:Bind IconSource, Mode=OneWay}"
+            Quality="{x:Bind Quality}" />
+        <TextBlock
+            Margin="2,2,2,0"
+            HorizontalAlignment="Center"
+            Style="{StaticResource AppCaptionTextBlockStyle}"
+            Text="{x:Bind Name}"
+            TextAlignment="Center"
+            TextTrimming="CharacterEllipsis"
+            TextWrapping="NoWrap"
+            ToolTipService.ToolTip="{x:Bind Name}" />
+      </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MonsterAffixTemplate" x:DataType="x:String">
+      <TextBlock
+          Margin="0,0,0,4"
+          Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+          Style="{StaticResource AppCaptionTextBlockStyle}"
+          Text="{x:Bind}"
+          TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="MonsterDetailTemplate" x:DataType="vm:MonsterViewModel">
+      <StackPanel Spacing="16">
+
+        <Border Padding="16" Style="{StaticResource BorderCardStyle}">
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Width="96"
+                Height="96"
+                VerticalAlignment="Top"
+                Source="{x:Bind IconSource, Mode=OneWay}"
+                Stretch="Uniform" />
+            <StackPanel Grid.Column="1" Spacing="6" VerticalAlignment="Center">
+              <TextBlock
+                  FontFamily="{StaticResource AppFontFamily}"
+                  Style="{StaticResource SubtitleTextBlockStyle}"
+                  Text="{x:Bind Name, Mode=OneWay}"
+                  TextTrimming="CharacterEllipsis"
+                  TextWrapping="NoWrap" />
+              <Border
+                  Padding="8,2"
+                  HorizontalAlignment="Left"
+                  Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                  CornerRadius="4">
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource AppCaptionTextBlockStyle}"
+                    Text="{x:Bind TypeName, Mode=OneWay}" />
+              </Border>
+              <TextBlock
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{x:Bind Title, Mode=OneWay}"
+                  TextWrapping="Wrap"
+                  Visibility="{x:Bind TitleVisibility, Mode=OneWay}" />
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind StatsVisibility, Mode=OneWay}">
+          <StackPanel Spacing="8">
+            <Grid>
+              <TextBlock x:Uid="MonsterStatHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+              <TextBlock
+                  HorizontalAlignment="Right"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{x:Bind LevelText, Mode=OneWay}" />
+            </Grid>
+            <Slider
+                Maximum="{x:Bind MaxLevel}"
+                Minimum="1"
+                StepFrequency="1"
+                Value="{x:Bind Level, Mode=TwoWay}" />
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+              <TextBlock x:Uid="MonsterHpLabel" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppBodyTextBlockStyle}" />
+              <TextBlock Grid.Column="1" Style="{StaticResource AppBodyStrongTextBlockStyle}" Text="{x:Bind HpText, Mode=OneWay}" />
+            </Grid>
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+              <TextBlock x:Uid="MonsterAtkLabel" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppBodyTextBlockStyle}" />
+              <TextBlock Grid.Column="1" Style="{StaticResource AppBodyStrongTextBlockStyle}" Text="{x:Bind AtkText, Mode=OneWay}" />
+            </Grid>
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+              <TextBlock x:Uid="MonsterDefLabel" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource AppBodyTextBlockStyle}" />
+              <TextBlock Grid.Column="1" Style="{StaticResource AppBodyStrongTextBlockStyle}" Text="{x:Bind DefText, Mode=OneWay}" />
+            </Grid>
+          </StackPanel>
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind ResistsVisibility, Mode=OneWay}">
+          <StackPanel Spacing="12">
+            <TextBlock x:Uid="MonsterResistHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+            <ItemsControl ItemTemplate="{StaticResource MonsterResistTemplate}" ItemsSource="{x:Bind Resists, Mode=OneWay}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <cwc:WrapPanel HorizontalSpacing="14" VerticalSpacing="8" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind DescriptionVisibility, Mode=OneWay}">
+          <TextBlock
+              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+              Style="{StaticResource AppBodyTextBlockStyle}"
+              Text="{x:Bind Description, Mode=OneWay}"
+              TextWrapping="Wrap" />
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind AffixesVisibility, Mode=OneWay}">
+          <StackPanel Spacing="12">
+            <TextBlock x:Uid="MonsterAffixHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+            <ItemsControl ItemTemplate="{StaticResource MonsterAffixTemplate}" ItemsSource="{x:Bind Affixes, Mode=OneWay}" />
+          </StackPanel>
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind DropsVisibility, Mode=OneWay}">
+          <StackPanel Spacing="12">
+            <TextBlock x:Uid="MonsterDropHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+            <ItemsControl ItemTemplate="{StaticResource MonsterDropTemplate}" ItemsSource="{x:Bind Drops, Mode=OneWay}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </DataTemplate>
+
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Border Margin="16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+      <Border Style="{StaticResource AcrylicSecondaryBorderCardStyle}">
+        <CommandBar
+            BorderBrush="{x:Null}"
+            BorderThickness="0"
+            DefaultLabelPosition="Right">
+          <CommandBar.Content>
+            <ctrl:LayoutSwitch
+                x:Name="ItemsPanelSelector"
+                Margin="6,8,0,0" />
+          </CommandBar.Content>
+          <AppBarElementContainer>
+            <ast:AutoSuggestTokenBox
+                x:Name="SearchBox"
+                x:Uid="MonsterSearchBox"
+                Width="600"
+                Height="44"
+                Margin="6,-2,6,6"
+                HorizontalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                AvailableTokens="{x:Bind ViewModel.AvailableTokens, Mode=OneWay}"
+                FilterCommand="{x:Bind ViewModel.ApplyFilterCommand}"
+                ItemsSource="{x:Bind ViewModel.FilterTokens}"
+                MaximumTokens="5"
+                Style="{StaticResource DefaultAutoSuggestTokenBoxStyle}"
+                SuggestedItemTemplate="{StaticResource SearchTokenTemplate}"
+                SuggestedItemsSource="{x:Bind ViewModel.AvailableTokens.Values, Mode=OneWay}"
+                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay}"
+                TokenItemTemplate="{StaticResource SearchTokenTemplate}">
+              <ast:AutoSuggestTokenBox.QueryIcon>
+                <FontIconSource Glyph="&#xE721;" />
+              </ast:AutoSuggestTokenBox.QueryIcon>
+            </ast:AutoSuggestTokenBox>
+          </AppBarElementContainer>
+        </CommandBar>
+      </Border>
+    </Border>
+
+    <cwc:SwitchPresenter
+        Grid.Row="1"
+        ContentTransitions="{ThemeResource EntranceThemeTransitions}"
+        Value="{x:Bind ItemsPanelSelector.Current, Mode=OneWay}">
+
+      <cwc:Case Value="List">
+        <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+          <Border Style="{StaticResource AcrylicBorderCardStyle}">
+            <SplitView
+                DisplayMode="Inline"
+                IsPaneOpen="True"
+                OpenPaneLength="{StaticResource CompatSplitViewOpenPaneLength}"
+                PaneBackground="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+              <SplitView.Pane>
+                <ListView
+                    x:Name="MonsterListView"
+                    Padding="{StaticResource ListViewInSplitPanePadding}"
+                    ItemTemplate="{StaticResource MonsterListTemplate}"
+                    ItemsSource="{x:Bind ViewModel.CurrentItems, Mode=OneWay}"
+                    SelectedItem="{x:Bind ViewModel.SelectedMonster, Mode=OneWay}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnMonsterSelectionChanged" />
+              </SplitView.Pane>
+              <SplitView.Content>
+                <Grid>
+                  <StackPanel
+                      VerticalAlignment="Center"
+                      Visibility="{x:Bind ViewModel.EmptyStateVisible, Mode=OneWay}">
+                    <Image
+                        Height="120"
+                        Source="{StaticResource UI_EmotionIcon89}" />
+                    <TextBlock
+                        x:Uid="MonsterEmptyHint"
+                        Margin="0,5,0,21"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
+                  </StackPanel>
+                  <ScrollViewer
+                      x:Name="ContentScroller"
+                      Padding="16"
+                      Visibility="{x:Bind ViewModel.SelectedMonsterVisible, Mode=OneWay}">
+                    <ContentPresenter
+                        VerticalAlignment="Top"
+                        Content="{x:Bind ViewModel.SelectedMonster, Mode=OneWay}"
+                        ContentTemplate="{StaticResource MonsterDetailTemplate}" />
+                  </ScrollViewer>
+                </Grid>
+              </SplitView.Content>
+            </SplitView>
+          </Border>
+        </Border>
+      </cwc:Case>
+
+      <cwc:Case Value="Grid">
+        <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+          <Border Style="{StaticResource AcrylicBorderCardStyle}">
+            <Grid Padding="16,16,4,-6">
+              <StackPanel
+                  VerticalAlignment="Center"
+                  Visibility="{x:Bind ViewModel.EmptyStateVisible, Mode=OneWay}">
+                <Image
+                    Height="120"
+                    Source="{StaticResource UI_EmotionIcon89}" />
+                <TextBlock
+                    x:Uid="MonsterEmptyHint"
+                    Margin="0,5,0,21"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}" />
+              </StackPanel>
+              <GridView
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  ItemContainerStyle="{StaticResource LargeGridViewItemStyle}"
+                  ItemTemplate="{StaticResource MonsterGridTemplate}"
+                  ItemsSource="{x:Bind ViewModel.CurrentItems, Mode=OneWay}"
+                  SelectionMode="Single"
+                  SelectionChanged="OnMonsterSelectionChanged"
+                  Visibility="{x:Bind ViewModel.HasItems, Mode=OneWay}" />
+            </Grid>
+          </Border>
+        </Border>
+      </cwc:Case>
+
+    </cwc:SwitchPresenter>
+
+  </Grid>
+</UserControl>

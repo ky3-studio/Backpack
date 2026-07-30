@@ -309,6 +309,42 @@
   <data name="ArtifactEmptyHint.Text" xml:space="preserve">
     <value>选择一件圣遗物</value>
   </data>
+  <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索怪物…</value>
+  </data>
+  <data name="MonsterEmptyHint.Text" xml:space="preserve">
+    <value>选择一个怪物</value>
+  </data>
+  <data name="MonsterStatHeader.Text" xml:space="preserve">
+    <value>基础属性</value>
+  </data>
+  <data name="MonsterHpLabel.Text" xml:space="preserve">
+    <value>基础生命</value>
+  </data>
+  <data name="MonsterAtkLabel.Text" xml:space="preserve">
+    <value>基础攻击</value>
+  </data>
+  <data name="MonsterDefLabel.Text" xml:space="preserve">
+    <value>基础防御</value>
+  </data>
+  <data name="MonsterResistHeader.Text" xml:space="preserve">
+    <value>元素抗性</value>
+  </data>
+  <data name="MonsterAffixHeader.Text" xml:space="preserve">
+    <value>技能与词条</value>
+  </data>
+  <data name="MonsterDropHeader.Text" xml:space="preserve">
+    <value>掉落物</value>
+  </data>
+  <data name="MonsterTypeOrdinary" xml:space="preserve">
+    <value>普通魔物</value>
+  </data>
+  <data name="MonsterTypeBoss" xml:space="preserve">
+    <value>首领</value>
+  </data>
+  <data name="MonsterTypeOther" xml:space="preserve">
+    <value>其他</value>
+  </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索材料…</value>
   </data>
@@ -353,6 +389,9 @@
   </data>
   <data name="NavArtifact.Content" xml:space="preserve">
     <value>圣遗物</value>
+  </data>
+  <data name="NavMonster.Content" xml:space="preserve">
+    <value>怪物</value>
   </data>
   <data name="NavHeaderData.Content" xml:space="preserve">
     <value>数据</value>

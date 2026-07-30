@@ -55,6 +55,11 @@
             <FontIcon Glyph="&#xE77B;" />
           </NavigationViewItem.Icon>
         </NavigationViewItem>
+        <NavigationViewItem x:Name="NavMonster" x:Uid="NavMonster">
+          <NavigationViewItem.Icon>
+            <FontIcon Glyph="&#xE99A;" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
         <NavigationViewItemHeader x:Uid="NavHeaderData" />
         <NavigationViewItem x:Name="NavMaterial" x:Uid="NavMaterial">
           <NavigationViewItem.Icon>
@@ -104,6 +109,10 @@
           <views:ArtifactPage
               x:Name="PageArtifact"
               ArtifactGroups="{x:Bind ViewModel.ArtifactGroups}"
+              Visibility="Collapsed" />
+          <views:MonsterPage
+              x:Name="PageMonster"
+              Monsters="{x:Bind ViewModel.Monsters}"
               Visibility="Collapsed" />
           <views:MaterialPage
               x:Name="PageMaterial"

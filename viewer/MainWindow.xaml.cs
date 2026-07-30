@@ -77,6 +77,7 @@ public sealed partial class MainWindow : Window, IDisposable
         PageWeapon.Visibility   = Visibility.Collapsed;
         PageAvatar.Visibility   = Visibility.Collapsed;
         PageArtifact.Visibility = Visibility.Collapsed;
+        PageMonster.Visibility  = Visibility.Collapsed;
         PageMaterial.Visibility = Visibility.Collapsed;
         PageFood.Visibility     = Visibility.Collapsed;
         PageGadget.Visibility   = Visibility.Collapsed;
@@ -92,6 +93,7 @@ public sealed partial class MainWindow : Window, IDisposable
                 nameof(NavWeapon)   => PageWeapon.Visibility   = Visibility.Visible,
                 nameof(NavAvatar)   => PageAvatar.Visibility   = Visibility.Visible,
                 nameof(NavArtifact) => PageArtifact.Visibility = Visibility.Visible,
+                nameof(NavMonster)  => PageMonster.Visibility  = Visibility.Visible,
                 nameof(NavMaterial) => PageMaterial.Visibility = Visibility.Visible,
                 nameof(NavFood)     => PageFood.Visibility     = Visibility.Visible,
                 nameof(NavGadget)   => PageGadget.Visibility   = Visibility.Visible,

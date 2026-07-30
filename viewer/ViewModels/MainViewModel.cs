@@ -18,6 +18,7 @@ public sealed partial class MainViewModel : ObservableObject
     private readonly AssetMetaService     _assetMeta;
     private readonly AvatarMetaService    _avatarMeta;
     private readonly AvatarDetailService  _avatarDetail;
+    private readonly MonsterMetaService   _monsterMeta;
     private readonly BackpackDbService    _db;
 
     public GamePathService GamePathService { get; }
@@ -56,7 +57,7 @@ public sealed partial class MainViewModel : ObservableObject
     public MainViewModel(GamePathService gamePathService,
         MaterialMetaService materialMeta, FoodMetaService foodMeta, WeaponMetaService weaponMeta,
         ArtifactMetaService artifactMeta, GadgetMetaService gadgetMeta, AssetMetaService assetMeta,
-        AvatarMetaService avatarMeta, AvatarDetailService avatarDetail, BackpackDbService db)
+        AvatarMetaService avatarMeta, AvatarDetailService avatarDetail, MonsterMetaService monsterMeta, BackpackDbService db)
     {
         _dispatcher   = DispatcherQueue.GetForCurrentThread();
         _materialMeta = materialMeta;
@@ -67,6 +68,7 @@ public sealed partial class MainViewModel : ObservableObject
         _assetMeta    = assetMeta;
         _avatarMeta   = avatarMeta;
         _avatarDetail = avatarDetail;
+        _monsterMeta  = monsterMeta;
         _db           = db;
         GamePathService = gamePathService;
         HasSelectedPath = gamePathService.HasSelection;
@@ -93,5 +95,6 @@ public sealed partial class MainViewModel : ObservableObject
         RebuildFoodGroups();
         RebuildGadgetGroups();
         RebuildAssetGroups();
+        RebuildMonsters();
     }
 }

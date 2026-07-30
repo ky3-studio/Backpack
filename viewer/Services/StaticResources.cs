@@ -16,6 +16,7 @@ internal static class StaticResources
     public static Uri AvatarCard(string namecard) => new($"{Base}NameCardPic/{namecard}_P.png");
     public static Uri SkillIcon(string icon)      => new($"{Base}Skill/{icon}.png");
     public static Uri TalentIcon(string icon)     => new($"{Base}Talent/{icon}.png");
+    public static Uri MonsterIcon(string icon)    => new($"{Base}MonsterIcon/{icon}.png");
 
     public static Uri QualityIcon(int rank)
     {
@@ -56,6 +57,18 @@ internal static class StaticResources
     public static BitmapImage GetQualityBitmap(int rank) =>
         _qualityBitmaps[Math.Clamp(rank, 0, 5)];
 
+    private static readonly BitmapImage[] _rankStarsBitmaps =
+    [
+        new(RankStarsIcon(1)),
+        new(RankStarsIcon(2)),
+        new(RankStarsIcon(3)),
+        new(RankStarsIcon(4)),
+        new(RankStarsIcon(5)),
+    ];
+
+    public static BitmapImage GetRankStarsBitmap(int rank) =>
+        _rankStarsBitmaps[Math.Clamp(rank, 1, 5) - 1];
+
     public static Uri? FightPropIcon(string? prop)
     {
         if (string.IsNullOrEmpty(prop)) return null;
@@ -67,6 +80,24 @@ internal static class StaticResources
     {
         if (string.IsNullOrEmpty(element)) return null;
         return new($"ms-appx:///Assets/UI/{element.ToUpperInvariant()}.png");
+    }
+
+    private static readonly Dictionary<string, string> _elementResistIcons = new()
+    {
+        ["Fire"]     = "PYRO",
+        ["Water"]    = "HYDRO",
+        ["Grass"]    = "DENDRO",
+        ["Elec"]     = "ELECTRO",
+        ["Wind"]     = "ANEMO",
+        ["Ice"]      = "CRYO",
+        ["Rock"]     = "GEO",
+        ["Physical"] = "PHYSICAL_ADD_HURT",
+    };
+
+    public static BitmapImage? ElementResistBitmap(string element)
+    {
+        if (!_elementResistIcons.TryGetValue(element, out var name)) return null;
+        return new BitmapImage(new Uri($"ms-appx:///Assets/UI/{name}.png"));
     }
 
     private static readonly Dictionary<string, BitmapImage> _fightPropBitmaps = [];

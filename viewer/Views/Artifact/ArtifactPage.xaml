@@ -6,7 +6,6 @@
     xmlns:cwc="using:CommunityToolkit.WinUI.Controls"
     xmlns:ctrl="using:Backpack.Viewer.Views.Controls"
     xmlns:ast="using:Backpack.Viewer.Views.Controls.AutoSuggestBox"
-    xmlns:layout="using:Microsoft.UI.Xaml.Controls"
     xmlns:vm="using:Backpack.Viewer.ViewModels">
 
   <UserControl.Resources>
@@ -17,11 +16,14 @@
           <ColumnDefinition Width="Auto" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Width="44" Height="44" Margin="0,0,12,0" VerticalAlignment="Center" CornerRadius="6">
-          <Image Source="{x:Bind QualitySource, Mode=OneWay}" Stretch="Fill" />
-          <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-          <Image Source="{x:Bind IconSource, Mode=OneWay}" Stretch="Uniform" />
-        </Grid>
+        <Image
+            Grid.Column="0"
+            Width="48"
+            Height="48"
+            Margin="0,0,12,0"
+            VerticalAlignment="Center"
+            Source="{x:Bind IconSource, Mode=OneWay}"
+            Stretch="Uniform" />
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
           <TextBlock
               Style="{StaticResource AppBodyStrongTextBlockStyle}"
@@ -83,13 +85,12 @@
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                 Style="{StaticResource AppCaptionTextBlockStyle}"
                 Text="{x:Bind SlotText, Mode=OneWay}" />
-            <ItemsRepeater
-                ItemsSource="{x:Bind RankItems, Mode=OneWay}"
-                ItemTemplate="{StaticResource KiraStarItemTemplate}">
-              <ItemsRepeater.Layout>
-                <layout:StackLayout Orientation="Horizontal" Spacing="1" />
-              </ItemsRepeater.Layout>
-            </ItemsRepeater>
+            <Image
+                Height="16"
+                Margin="0,2,0,0"
+                HorizontalAlignment="Left"
+                Source="{x:Bind RankStarsSource, Mode=OneWay}"
+                Stretch="Uniform" />
           </StackPanel>
           <TextBlock
               Grid.Column="2"

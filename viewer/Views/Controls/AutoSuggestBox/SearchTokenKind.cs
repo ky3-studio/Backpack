@@ -19,4 +19,6 @@ internal enum SearchTokenKind
     ArtifactSet,
     ArtifactSlot,
     Material,
+    Monster,
+    MonsterType,
 }

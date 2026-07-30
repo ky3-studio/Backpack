@@ -52,6 +52,7 @@ public sealed partial class App : Application, IDisposable
             .AddSingleton<AssetMetaService>()
             .AddSingleton<AvatarMetaService>()
             .AddSingleton<AvatarDetailService>()
+            .AddSingleton<MonsterMetaService>()
             .AddSingleton<System.Net.Http.HttpClient>()
             .AddSingleton<WeaponStoryService>()
             .AddSingleton<WeaponGuideService>()

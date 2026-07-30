@@ -19,7 +19,6 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     ];
 
     public ArtifactEntry                       Source                { get; }
-    public IReadOnlyList<int>                  RankItems             { get; }
     public string                              Level                 { get; }
     public string                              SlotText              { get; }
     public string                              MainStatValueDisplay  { get; }
@@ -28,18 +27,14 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public Visibility                          HasInstanceVisibility { get; }
     public Visibility                          HasAnyBonusVisibility { get; }
     public BitmapImage                         QualitySource         { get; }
+    public BitmapImage                         RankStarsSource       { get; }
     public Uri?                                IconUri               { get; }
 
-    public SubStatItemViewModel? SubStat0 => SubStatItems.Count > 0 ? SubStatItems[0] : null;
-    public SubStatItemViewModel? SubStat1 => SubStatItems.Count > 1 ? SubStatItems[1] : null;
-    public SubStatItemViewModel? SubStat2 => SubStatItems.Count > 2 ? SubStatItems[2] : null;
-    public SubStatItemViewModel? SubStat3 => SubStatItems.Count > 3 ? SubStatItems[3] : null;
     public Visibility SubStat0Vis => (SubStatItems.Count > 0).ToVisibility();
     public Visibility SubStat1Vis => (SubStatItems.Count > 1).ToVisibility();
     public Visibility SubStat2Vis => (SubStatItems.Count > 2).ToVisibility();
     public Visibility SubStat3Vis => (SubStatItems.Count > 3).ToVisibility();
 
-    // flat 属性：避免链式 Binding 的两次反射开销
     public string        SubStat0Name  => SubStatItems.Count > 0 ? SubStatItems[0].Name : string.Empty;
     public string        SubStat0Value => SubStatItems.Count > 0 ? SubStatItems[0].ValueDisplay : string.Empty;
     public BitmapImage?  SubStat0Badge => SubStatItems.Count > 0 ? SubStatItems[0].BadgeSource : null;
@@ -53,13 +48,9 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public string        SubStat3Value => SubStatItems.Count > 3 ? SubStatItems[3].ValueDisplay : string.Empty;
     public BitmapImage?  SubStat3Badge => SubStatItems.Count > 3 ? SubStatItems[3].BadgeSource : null;
 
-    // 套装加成简要版：每条效果截取前 32 字，避免长文字 TextWrapping 换行计算拖慢滚动
-    public string BonusSummary { get; }
-
     public ArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
     {
         Source      = entry;
-        RankItems   = [.. Enumerable.Range(0, Math.Clamp(entry.Rank, 0, 5))];
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         Level        = hasInstance ? $"+{entry.Level}" : string.Empty;
@@ -102,14 +93,10 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
 
         var allBonuses = meta.GetAllSetBonuses(entry.Set);
         BonusText      = string.Join("\n", allBonuses.Select(b => string.Format(SR.SetBonusFmt, b.Count, b.Desc)));
-        BonusSummary   = string.Join("\n", allBonuses.Select(b =>
-        {
-            var desc = b.Desc.Length > 32 ? b.Desc[..32] + "…" : b.Desc;
-            return string.Format(SR.SetBonusFmt, b.Count, desc);
-        }));
         HasAnyBonusVisibility = (allBonuses.Count > 0).ToVisibility();
 
         QualitySource = StaticResources.GetQualityBitmap(entry.Rank);
+        RankStarsSource = StaticResources.GetRankStarsBitmap(entry.Rank);
     }
 
     private static bool IsMainPropPercent(string mainStat) => mainStat is not

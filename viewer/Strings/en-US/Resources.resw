@@ -309,6 +309,42 @@
   <data name="ArtifactEmptyHint.Text" xml:space="preserve">
     <value>Select an artifact</value>
   </data>
+  <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search monsters…</value>
+  </data>
+  <data name="MonsterEmptyHint.Text" xml:space="preserve">
+    <value>Select a monster</value>
+  </data>
+  <data name="MonsterStatHeader.Text" xml:space="preserve">
+    <value>Base Stats</value>
+  </data>
+  <data name="MonsterHpLabel.Text" xml:space="preserve">
+    <value>Base HP</value>
+  </data>
+  <data name="MonsterAtkLabel.Text" xml:space="preserve">
+    <value>Base ATK</value>
+  </data>
+  <data name="MonsterDefLabel.Text" xml:space="preserve">
+    <value>Base DEF</value>
+  </data>
+  <data name="MonsterResistHeader.Text" xml:space="preserve">
+    <value>Resistances</value>
+  </data>
+  <data name="MonsterAffixHeader.Text" xml:space="preserve">
+    <value>Abilities</value>
+  </data>
+  <data name="MonsterDropHeader.Text" xml:space="preserve">
+    <value>Drops</value>
+  </data>
+  <data name="MonsterTypeOrdinary" xml:space="preserve">
+    <value>Ordinary</value>
+  </data>
+  <data name="MonsterTypeBoss" xml:space="preserve">
+    <value>Boss</value>
+  </data>
+  <data name="MonsterTypeOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search materials…</value>
   </data>
@@ -353,6 +389,9 @@
   </data>
   <data name="NavArtifact.Content" xml:space="preserve">
     <value>Artifacts</value>
+  </data>
+  <data name="NavMonster.Content" xml:space="preserve">
+    <value>Monsters</value>
   </data>
   <data name="NavHeaderData.Content" xml:space="preserve">
     <value>Data</value>
