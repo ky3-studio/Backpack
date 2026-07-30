@@ -8,7 +8,7 @@
 
 x64/
 src/x64/
-src/installer/output/
+installer/output/
 publish/
 
 SourceGeneration/bin/
