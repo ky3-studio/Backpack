@@ -5,7 +5,12 @@ namespace Backpack.Viewer.Services.Story;
 
 internal sealed class WeaponGuideService
 {
-    private static readonly HttpClient _http = new();
+    private readonly HttpClient _http;
+
+    public WeaponGuideService(HttpClient http)
+    {
+        _http = http;
+    }
 
     internal sealed record AvatarGuide(string Icon, int Rank, string Name);
 

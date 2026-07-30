@@ -315,10 +315,10 @@
   <data name="WeaponRecommendHeader.Text" xml:space="preserve">
     <value>Recommended Characters</value>
   </data>
-  <data name="WeaponGuideBuilds.Header" xml:space="preserve">
+  <data name="WeaponGuideBuildsTab.Content" xml:space="preserve">
     <value>Builds</value>
   </data>
-  <data name="WeaponGuideAbyss.Header" xml:space="preserve">
+  <data name="WeaponGuideAbyssTab.Content" xml:space="preserve">
     <value>Spiral Abyss</value>
   </data>
   <data name="NavWeapon.Content" xml:space="preserve">

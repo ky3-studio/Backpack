@@ -69,7 +69,7 @@
       <ctrl:ItemIcon
           Width="64"
           Height="64"
-          Icon="{x:Bind Icon}"
+          Icon="{x:Bind IconSource, Mode=OneWay}"
           Quality="{x:Bind Quality}"
           ToolTipService.ToolTip="{x:Bind Name}" />
     </DataTemplate>
@@ -215,10 +215,13 @@
                           <TextBlock
                               x:Uid="WeaponRecommendHeader"
                               Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-                          <Pivot Margin="-16,-16,0,0">
-                            <PivotItem x:Uid="WeaponGuideBuilds">
+                          <cwc:Segmented x:Name="GuideTabs" SelectedIndex="0">
+                            <cwc:SegmentedItem x:Uid="WeaponGuideBuildsTab" />
+                            <cwc:SegmentedItem x:Uid="WeaponGuideAbyssTab" />
+                          </cwc:Segmented>
+                          <cwc:SwitchPresenter TargetType="x:Int32" Value="{x:Bind GuideTabs.SelectedIndex, Mode=OneWay}">
+                            <cwc:Case Value="0">
                               <ItemsControl
-                                  Margin="16,8,0,0"
                                   ItemTemplate="{StaticResource WeaponAvatarTemplate}"
                                   ItemsSource="{x:Bind ViewModel.WeaponGuideBuilds, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
@@ -227,10 +230,9 @@
                                   </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                               </ItemsControl>
-                            </PivotItem>
-                            <PivotItem x:Uid="WeaponGuideAbyss">
+                            </cwc:Case>
+                            <cwc:Case Value="1">
                               <ItemsControl
-                                  Margin="16,8,0,0"
                                   ItemTemplate="{StaticResource WeaponAvatarTemplate}"
                                   ItemsSource="{x:Bind ViewModel.WeaponGuideAbyss, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
@@ -239,8 +241,8 @@
                                   </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                               </ItemsControl>
-                            </PivotItem>
-                          </Pivot>
+                            </cwc:Case>
+                          </cwc:SwitchPresenter>
                         </StackPanel>
                       </Border>
 

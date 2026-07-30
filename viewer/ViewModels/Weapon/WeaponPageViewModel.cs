@@ -12,9 +12,15 @@ namespace Backpack.Viewer.ViewModels.Weapon;
 
 internal sealed partial class WeaponPageViewModel : ObservableObject
 {
-    private readonly WeaponStoryService _storyService = new();
-    private readonly WeaponGuideService _guideService = new();
+    private readonly WeaponStoryService _storyService;
+    private readonly WeaponGuideService _guideService;
     private readonly DispatcherQueue _dispatcher = DispatcherQueue.GetForCurrentThread();
+
+    public WeaponPageViewModel(WeaponStoryService storyService, WeaponGuideService guideService)
+    {
+        _storyService = storyService;
+        _guideService = guideService;
+    }
 
     private ObservableCollection<GroupViewModel<WeaponViewModel>>? _groups;
     private WeaponViewModel? _selectedWeapon;
@@ -144,7 +150,7 @@ internal sealed partial class WeaponPageViewModel : ObservableObject
     }
 
     private static WeaponRecommendAvatar ToRecommendAvatar(WeaponGuideService.AvatarGuide g) =>
-        new(new BitmapImage(StaticResources.AvatarIcon(g.Icon)), StaticResources.GetQualityBitmap(g.Rank), g.Name);
+        new(StaticResources.AvatarIcon(g.Icon), StaticResources.GetQualityBitmap(g.Rank), g.Name);
 
     private void NotifyListChanged()
     {

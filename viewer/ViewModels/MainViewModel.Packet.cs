@@ -34,7 +34,7 @@ public sealed partial class MainViewModel
         var dbWeapons = _db.LoadWeapons();
         Weapons.Clear();
         if (dbWeapons.Count > 0)
-            foreach (var e in dbWeapons) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
+            foreach (var e in dbWeapons) Weapons.Add(new WeaponViewModel(e, _weaponMeta, _materialMeta));
         else
             LoadDefaultWeapons();
         RebuildWeaponGroups();

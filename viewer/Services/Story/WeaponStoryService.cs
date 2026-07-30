@@ -5,7 +5,12 @@ namespace Backpack.Viewer.Services.Story;
 
 internal sealed class WeaponStoryService
 {
-    private static readonly HttpClient _http = new();
+    private readonly HttpClient _http;
+
+    public WeaponStoryService(HttpClient http)
+    {
+        _http = http;
+    }
 
     public async Task<string?> FetchStoryAsync(uint weaponId)
     {

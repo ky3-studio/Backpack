@@ -41,7 +41,7 @@ public sealed partial class MainViewModel
     private void LoadDefaultWeapons()
     {
         foreach (var e in _weaponMeta.GetDefaultEntries())
-            Weapons.Add(new WeaponViewModel(e, _weaponMeta));
+            Weapons.Add(new WeaponViewModel(e, _weaponMeta, _materialMeta));
     }
 
     internal void ApplyWeapon(string json)
@@ -49,7 +49,7 @@ public sealed partial class MainViewModel
         var entries = JsonSerializer.Deserialize(json, Default.WeaponEntryArray);
         if (entries is null) return;
         Weapons.Clear();
-        foreach (var e in entries) Weapons.Add(new WeaponViewModel(e, _weaponMeta));
+        foreach (var e in entries) Weapons.Add(new WeaponViewModel(e, _weaponMeta, _materialMeta));
         RebuildWeaponGroups();
         _db.SaveWeapons(entries);
     }

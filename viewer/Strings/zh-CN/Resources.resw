@@ -315,10 +315,10 @@
   <data name="WeaponRecommendHeader.Text" xml:space="preserve">
     <value>推荐角色</value>
   </data>
-  <data name="WeaponGuideBuilds.Header" xml:space="preserve">
+  <data name="WeaponGuideBuildsTab.Content" xml:space="preserve">
     <value>推荐</value>
   </data>
-  <data name="WeaponGuideAbyss.Header" xml:space="preserve">
+  <data name="WeaponGuideAbyssTab.Content" xml:space="preserve">
     <value>深渊统计</value>
   </data>
   <data name="NavWeapon.Content" xml:space="preserve">

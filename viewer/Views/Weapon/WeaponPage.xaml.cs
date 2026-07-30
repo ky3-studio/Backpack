@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
+using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Backpack.Viewer.ViewModels.Weapon;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -25,9 +27,10 @@ public sealed partial class WeaponPage : UserControl
 
     public WeaponPage()
     {
-        ViewModel = new();
+        ViewModel = App.Services.GetRequiredService<WeaponPageViewModel>();
         ViewModel.WeaponSelected += OnViewModelWeaponSelected;
         InitializeComponent();
+        LevelSlider.Initialize(App.Services.GetRequiredService<WeaponMetaService>());
         ContentScroller.AddHandler(PointerPressedEvent,
             new PointerEventHandler(OnPagePointerPressed), handledEventsToo: true);
     }

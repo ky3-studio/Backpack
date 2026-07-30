@@ -1,6 +1,5 @@
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -11,7 +10,7 @@ public sealed partial class WeaponLevelSlider : UserControl
 {
     private static readonly int[] Breakpoints = [20, 40, 50, 60, 70, 80];
 
-    private readonly WeaponMetaService _meta;
+    private WeaponMetaService? _meta;
 
     private uint _weaponId;
     private int  _level    = 90;
@@ -21,10 +20,14 @@ public sealed partial class WeaponLevelSlider : UserControl
     public WeaponLevelSlider()
     {
         _suspendEvents = true;
-        _meta = App.Services.GetRequiredService<WeaponMetaService>();
         InitializeComponent();
         _suspendEvents = false;
         SubPropRow.Visibility = Visibility.Collapsed;
+    }
+
+    public void Initialize(WeaponMetaService meta)
+    {
+        _meta = meta;
     }
 
     public void SetWeapon(uint weaponId, int initialLevel = 90, bool initialPromoted = false)
@@ -61,6 +64,8 @@ public sealed partial class WeaponLevelSlider : UserControl
 
     private void Refresh()
     {
+        if (_meta is null) return;
+
         _suspendEvents = true;
 
         var promote = CalcPromote(_level, _promoted);

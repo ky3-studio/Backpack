@@ -1,6 +1,8 @@
 using Backpack.Viewer.Controls;
 using Backpack.Viewer.Services;
+using Backpack.Viewer.Services.Story;
 using Backpack.Viewer.ViewModels;
+using Backpack.Viewer.ViewModels.Weapon;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
@@ -50,6 +52,10 @@ public sealed partial class App : Application, IDisposable
             .AddSingleton<AssetMetaService>()
             .AddSingleton<AvatarMetaService>()
             .AddSingleton<AvatarDetailService>()
+            .AddSingleton<System.Net.Http.HttpClient>()
+            .AddSingleton<WeaponStoryService>()
+            .AddSingleton<WeaponGuideService>()
+            .AddTransient<WeaponPageViewModel>()
             .AddSingleton<MainViewModel>()
             .BuildServiceProvider();
 

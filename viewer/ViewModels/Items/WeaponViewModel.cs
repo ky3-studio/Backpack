@@ -3,7 +3,6 @@ using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 
@@ -42,7 +41,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     public IReadOnlyList<MaterialItemViewModel> CultivationMaterials { get; }
     public Visibility   CultivationVisibility => CultivationMaterials.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
-    public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta)
+    public WeaponViewModel(WeaponEntry entry, WeaponMetaService meta, MaterialMetaService materialMeta)
     {
         Source      = entry;
         RankItems   = [.. Enumerable.Range(0, Math.Clamp(entry.Rank, 0, 5))];
@@ -79,7 +78,6 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
 
         RefinementDescriptions = BuildRefinements(entry.Id, meta);
 
-        var materialMeta = App.Services.GetRequiredService<MaterialMetaService>();
         CultivationMaterials = [.. meta.GetCultivationItemIds(entry.Id).Select(id => new MaterialItemViewModel(id, materialMeta))];
 
         IconUri = meta.GetIcon(entry.Id);

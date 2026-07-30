@@ -1,17 +1,21 @@
+using Backpack.Viewer.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed class WeaponRecommendAvatar
+public sealed partial class WeaponRecommendAvatar : ObservableObject, IIconUpdatable
 {
-    public WeaponRecommendAvatar(BitmapImage icon, BitmapImage quality, string name)
-    {
-        Icon = icon;
-        Quality = quality;
-        Name = name;
-    }
+    [ObservableProperty]
+    private BitmapImage? _iconSource;
 
-    public BitmapImage Icon    { get; }
     public BitmapImage Quality { get; }
     public string      Name    { get; }
+
+    public WeaponRecommendAvatar(Uri iconUri, BitmapImage quality, string name)
+    {
+        Quality = quality;
+        Name = name;
+        GfxLoader.BeginLoad(iconUri, this);
+    }
 }
