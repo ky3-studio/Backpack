@@ -12,11 +12,11 @@ public sealed partial class MainViewModel
 
     private static readonly string[] _slotOrder =
     [
-        Localized.Get("SlotFlower"),
-        Localized.Get("SlotPlume"),
-        Localized.Get("SlotSands"),
-        Localized.Get("SlotGoblet"),
-        Localized.Get("SlotCirclet"),
+        SR.SlotFlower,
+        SR.SlotPlume,
+        SR.SlotSands,
+        SR.SlotGoblet,
+        SR.SlotCirclet,
     ];
 
     private void BuildArtifactGroups(IEnumerable<ArtifactViewModel> items)

@@ -13,7 +13,7 @@ public sealed partial class MainWindow
         if (gamePath is null) return;
 
         ViewModel.IsLaunching = true;
-        ViewModel.StatusText  = Localized.Get("StatusLaunching");
+        ViewModel.StatusText  = SR.StatusLaunching;
 
         try
         {
@@ -30,8 +30,8 @@ public sealed partial class MainWindow
         _syncDialog = new ContentDialog
         {
             XamlRoot        = Content.XamlRoot,
-            Title           = Localized.Get("SyncBagDialogTitle"),
-            CloseButtonText = Localized.Get("SyncBagDialogCancel"),
+            Title           = SR.SyncBagDialogTitle,
+            CloseButtonText = SR.SyncBagDialogCancel,
             DefaultButton   = ContentDialogButton.None,
             Content         = new StackPanel
             {
@@ -42,7 +42,7 @@ public sealed partial class MainWindow
                     new ProgressRing { IsActive = true, Width = 24, Height = 24 },
                     new TextBlock
                     {
-                        Text              = Localized.Get("SyncBagDialogWaiting"),
+                        Text              = SR.SyncBagDialogWaiting,
                         VerticalAlignment = VerticalAlignment.Center,
                         FontFamily        = (Microsoft.UI.Xaml.Media.FontFamily)Application.Current.Resources["AppFontFamily"]
                     }

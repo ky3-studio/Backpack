@@ -7,17 +7,9 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
+[DependencyProperty<ObservableCollection<AvatarViewModel>>("Avatars", PropertyChangedCallbackName = "OnAvatarsChanged")]
 public sealed partial class AvatarPage : UserControl
 {
-    public static readonly DependencyProperty AvatarsProperty =
-        DependencyProperty.Register(nameof(Avatars), typeof(ObservableCollection<AvatarViewModel>), typeof(AvatarPage),
-            new PropertyMetadata(null, OnAvatarsChanged));
-
-    public ObservableCollection<AvatarViewModel>? Avatars
-    {
-        get => (ObservableCollection<AvatarViewModel>?)GetValue(AvatarsProperty);
-        set => SetValue(AvatarsProperty, value);
-    }
 
     internal AvatarPageViewModel ViewModel { get; } = new();
 

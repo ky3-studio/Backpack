@@ -37,11 +37,11 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable, IS
 
         VariantLabel = meta.Variant switch
         {
-            FoodVariants.Suspicious => Localized.Get("FoodVariantSuspicious"),
-            FoodVariants.Delicious  => Localized.Get("FoodVariantDelicious"),
-            FoodVariants.Special    => Localized.Get("FoodVariantSpecial"),
-            FoodVariants.Sweet      => Localized.Get("FoodVariantSweet"),
-            _                       => Localized.Get("FoodVariantNormal"),
+            FoodVariants.Suspicious => SR.FoodVariantSuspicious,
+            FoodVariants.Delicious  => SR.FoodVariantDelicious,
+            FoodVariants.Special    => SR.FoodVariantSpecial,
+            FoodVariants.Sweet      => SR.FoodVariantSweet,
+            _                       => SR.FoodVariantNormal,
         };
 
         VariantForeground = new SolidColorBrush(meta.Variant switch

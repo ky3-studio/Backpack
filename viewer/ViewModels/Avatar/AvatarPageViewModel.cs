@@ -17,7 +17,7 @@ internal sealed class AvatarPageViewModel : FilterablePageViewModel<AvatarViewMo
     public Visibility SelectedAvatarVisible => _selectedAvatar is null ? Visibility.Collapsed : Visibility.Visible;
 
     public string TotalCountText => (CurrentItems?.Count ?? 0) is > 0 and var count
-        ? string.Format(Localized.Get("AvatarCountFmt"), count)
+        ? string.Format(SR.AvatarCountFmt, count)
         : string.Empty;
 
     public void Initialize(ObservableCollection<AvatarViewModel>? source)

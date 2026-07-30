@@ -71,8 +71,8 @@ public sealed partial class WeaponLevelSlider : UserControl
         var promote = CalcPromote(_level, _promoted);
         var (atk, sub) = _meta.CalcStats(_weaponId, _level, promote);
 
-        LevelTextBlock.Text    = $"{Localized.Get("LevelPrefix")}{_level}";
-        AtkTextBlock.Text      = atk > 0 ? atk.ToString() : Localized.Get("StatEmptyValue");
+        LevelTextBlock.Text    = $"{SR.LevelPrefix}{_level}";
+        AtkTextBlock.Text      = atk > 0 ? atk.ToString() : SR.StatEmptyValue;
         ValueSlider.Value      = _level;
         PromotedCheckBox.IsChecked = _promoted;
         PromotedCheckBox.Visibility = Breakpoints.Contains(_level) ? Visibility.Visible : Visibility.Collapsed;

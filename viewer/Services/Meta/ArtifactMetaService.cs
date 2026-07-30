@@ -107,11 +107,11 @@ public sealed partial class ArtifactMetaService
     {
         string[] allSlots =
         [
-            Localized.Get("SlotFlower"),
-            Localized.Get("SlotPlume"),
-            Localized.Get("SlotSands"),
-            Localized.Get("SlotGoblet"),
-            Localized.Get("SlotCirclet"),
+            SR.SlotFlower,
+            SR.SlotPlume,
+            SR.SlotSands,
+            SR.SlotGoblet,
+            SR.SlotCirclet,
         ];
         return [.. _map
             .OrderByDescending(kvp => kvp.Value.MaxRank).ThenBy(kvp => kvp.Value.SetId)
@@ -143,20 +143,20 @@ public sealed partial class ArtifactMetaService
 
     private static string IconSuffixToSlot(string suffix) => suffix switch
     {
-        "1" => Localized.Get("SlotGoblet"),
-        "2" => Localized.Get("SlotPlume"),
-        "3" => Localized.Get("SlotCirclet"),
-        "5" => Localized.Get("SlotSands"),
-        _   => Localized.Get("SlotFlower"),
+        "1" => SR.SlotGoblet,
+        "2" => SR.SlotPlume,
+        "3" => SR.SlotCirclet,
+        "5" => SR.SlotSands,
+        _   => SR.SlotFlower,
     };
 
     private static int SlotToIndex(string slot)
     {
-        if (slot == Localized.Get("SlotFlower"))  return 4;
-        if (slot == Localized.Get("SlotPlume"))   return 2;
-        if (slot == Localized.Get("SlotSands"))   return 5;
-        if (slot == Localized.Get("SlotGoblet"))  return 1;
-        if (slot == Localized.Get("SlotCirclet")) return 3;
+        if (slot == SR.SlotFlower)  return 4;
+        if (slot == SR.SlotPlume)   return 2;
+        if (slot == SR.SlotSands)   return 5;
+        if (slot == SR.SlotGoblet)  return 1;
+        if (slot == SR.SlotCirclet) return 3;
         return 4;
     }
 

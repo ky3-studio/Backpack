@@ -20,6 +20,6 @@ public sealed partial class MainWindow
         var file = await picker.PickSingleFileAsync();
         if (file is null) return;
         if (!ViewModel.GamePathService.TryAdd(file.Path))
-            ViewModel.SetupError = Localized.Get("PathInvalidMsg");
+            ViewModel.SetupError = SR.PathInvalidMsg;
     }
 }

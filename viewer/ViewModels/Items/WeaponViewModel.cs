@@ -52,9 +52,9 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
 
         if (hasInstance)
         {
-            Level       = $"{Localized.Get("LevelPrefix")}{entry.Level}";
-            LevelFull   = $"{Localized.Get("LevelPrefix")}{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Ascension, 0, 6)]}";
-            RefineLabel = string.Format(Localized.Get("WeaponRefineFmt"), entry.Refine);
+            Level       = $"{SR.LevelPrefix}{entry.Level}";
+            LevelFull   = $"{SR.LevelPrefix}{entry.Level}/{MaxLevelByPromote[Math.Clamp(entry.Ascension, 0, 6)]}";
+            RefineLabel = string.Format(SR.WeaponRefineFmt, entry.Refine);
             Refine      = $"R{entry.Refine}";
             var (atk, sub)     = meta.CalcStats(entry.Id, entry.Level, entry.Ascension);
             var (pName, pDesc) = meta.GetSkill(entry.Id, entry.Refine);

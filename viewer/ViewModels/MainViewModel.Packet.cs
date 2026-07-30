@@ -23,7 +23,7 @@ public sealed partial class MainViewModel
             case "prop":     ApplyProp(json);     break;
             case "finish":
                 IsLaunching = false;
-                StatusText  = $"{Localized.Get("StatusReceived")} · {DateTime.Now:HH:mm:ss}";
+                StatusText  = $"{SR.StatusReceived} · {DateTime.Now:HH:mm:ss}";
                 SyncCompleted?.Invoke();
                 break;
         }

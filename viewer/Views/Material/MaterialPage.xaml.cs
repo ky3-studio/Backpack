@@ -12,17 +12,9 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Backpack.Viewer.Views;
 
+[DependencyProperty<ObservableCollection<GroupViewModel<MaterialViewModel>>>("MaterialGroups", PropertyChangedCallbackName = "OnMaterialGroupsChanged")]
 public sealed partial class MaterialPage : UserControl, IDisposable
 {
-    public static readonly DependencyProperty MaterialGroupsProperty =
-        DependencyProperty.Register(nameof(MaterialGroups), typeof(ObservableCollection<GroupViewModel<MaterialViewModel>>), typeof(MaterialPage),
-            new PropertyMetadata(null, OnMaterialGroupsChanged));
-
-    public ObservableCollection<GroupViewModel<MaterialViewModel>>? MaterialGroups
-    {
-        get => (ObservableCollection<GroupViewModel<MaterialViewModel>>?)GetValue(MaterialGroupsProperty);
-        set => SetValue(MaterialGroupsProperty, value);
-    }
 
     internal IReadOnlyDictionary<string, SearchToken>? AvailableTokens { get; private set; }
     internal ObservableCollection<SearchToken> FilterTokens { get; } = [];

@@ -9,19 +9,9 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
+[DependencyProperty<ObservableCollection<GroupViewModel<WeaponViewModel>>>("WeaponGroups", PropertyChangedCallbackName = "OnWeaponGroupsChanged")]
 public sealed partial class WeaponPage : UserControl
 {
-    public static readonly DependencyProperty WeaponGroupsProperty =
-        DependencyProperty.Register(nameof(WeaponGroups),
-            typeof(ObservableCollection<GroupViewModel<WeaponViewModel>>), typeof(WeaponPage),
-            new PropertyMetadata(null, OnWeaponGroupsChanged));
-
-    public ObservableCollection<GroupViewModel<WeaponViewModel>>? WeaponGroups
-    {
-        get => (ObservableCollection<GroupViewModel<WeaponViewModel>>?)GetValue(WeaponGroupsProperty);
-        set => SetValue(WeaponGroupsProperty, value);
-    }
-
     internal WeaponPageViewModel ViewModel { get; }
 
     public WeaponPage()

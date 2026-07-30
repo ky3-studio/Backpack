@@ -22,7 +22,7 @@ internal static partial class GameLaunchService
         var gameDir    = Path.GetDirectoryName(gameExePath) ?? AppContext.BaseDirectory;
         var cfgFile    = Path.Combine(Path.GetTempPath(), $"BackpackViewer_{Guid.NewGuid():N}.tmp");
         var currentExe = Environment.ProcessPath
-            ?? throw new InvalidOperationException(Localized.Get("ErrNoProcessPath"));
+            ?? throw new InvalidOperationException(SR.ErrNoProcessPath);
 
         File.WriteAllLines(cfgFile, [
             gameExePath,
@@ -51,13 +51,13 @@ internal static partial class GameLaunchService
             catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
                 TryDelete(cfgFile);
-                throw new InvalidOperationException(Localized.Get("ErrElevationCancelled"));
+                throw new InvalidOperationException(SR.ErrElevationCancelled);
             }
 
             if (helper is null)
             {
                 TryDelete(cfgFile);
-                throw new InvalidOperationException(Localized.Get("ErrHelperStartFailed"));
+                throw new InvalidOperationException(SR.ErrHelperStartFailed);
             }
 
             using (helper)
@@ -69,10 +69,10 @@ internal static partial class GameLaunchService
                     TryDelete(cfgFile);
                     throw new InvalidOperationException(code switch
                     {
-                        1 => Localized.Get("ErrInvalidConfig"),
-                        2 => Localized.Get("ErrGameCreateFailed"),
-                        3 => Localized.Get("ErrDllInjFailed"),
-                        _ => string.Format(Localized.Get("ErrHelperExitCode"), code),
+                        1 => SR.ErrInvalidConfig,
+                        2 => SR.ErrGameCreateFailed,
+                        3 => SR.ErrDllInjFailed,
+                        _ => string.Format(SR.ErrHelperExitCode, code),
                     });
                 }
 

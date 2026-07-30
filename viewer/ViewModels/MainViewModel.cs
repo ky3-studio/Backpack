@@ -39,7 +39,7 @@ public sealed partial class MainViewModel : ObservableObject
     public partial bool IsGameRunning { get; set; } = false;
 
     [ObservableProperty]
-    public partial string StatusText { get; set; } = Localized.Get("StatusWaiting");
+    public partial string StatusText { get; set; } = SR.StatusWaiting;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SetupErrorVisibility))]

@@ -83,7 +83,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         int level      = Math.Max(1, entry.Level);
         int friendship = Math.Max(1, entry.Friendship);
 
-        LevelFull    = $"{Localized.Get("LevelPrefix")}{level}";
+        LevelFull    = $"{SR.LevelPrefix}{level}";
         FetterText   = friendship.ToString();
         PromoteItems = [.. Enumerable.Range(0, Math.Clamp(entry.Ascension, 0, 6))];
 
@@ -99,8 +99,8 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         HasWeaponVisibility = (weapon is not null).ToVisibility();
         WeaponName          = weapon?.Source.Name ?? string.Empty;
         WeaponRankItems    = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Rank, 0, 5))] : [];
-        WeaponLevelText     = weapon?.Source.Level > 0 ? $"{Localized.Get("LevelPrefix")}{weapon.Source.Level}" : string.Empty;
-        WeaponRefineText    = weapon is not null ? string.Format(Localized.Get("WeaponRefineFmt"), weapon.Source.Refine) : string.Empty;
+        WeaponLevelText     = weapon?.Source.Level > 0 ? $"{SR.LevelPrefix}{weapon.Source.Level}" : string.Empty;
+        WeaponRefineText    = weapon is not null ? string.Format(SR.WeaponRefineFmt, weapon.Source.Refine) : string.Empty;
         WeaponPromoteItems  = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Ascension, 0, 6))] : [];
         OnPropertyChanged(nameof(WeaponQualitySource));
         OnPropertyChanged(nameof(WeaponIconSource));
@@ -132,7 +132,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         {
             bool isActive = idx < entry.Constellation;
             string? extraText = t.ExtraLevel is { } el
-                ? $"{ExtraLevelSkillName(el.Index)} +{el.Value} {Localized.Get("ExtraLevelSuffix")}"
+                ? $"{ExtraLevelSkillName(el.Index)} +{el.Value} {SR.ExtraLevelSuffix}"
                 : null;
             return new TalentSlotViewModel(t.Name, t.Icon, isActive, t.Description, extraText);
         })];
@@ -148,7 +148,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
             _ => null,
         };
         var name = type is not null ? _meta?.Skills.FirstOrDefault(s => s.Type == type)?.Name : null;
-        return string.IsNullOrEmpty(name) ? Localized.Get("SkillFallback") : name;
+        return string.IsNullOrEmpty(name) ? SR.SkillFallback : name;
     }
 
     private void OnWeaponPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args)

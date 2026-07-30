@@ -10,7 +10,7 @@ internal sealed class SearchToken
 {
     private ImageSource? _icon;
 
-    public static readonly SearchToken NotFound = new(SearchTokenKind.None, Localized.Get("ControlAutoSuggestBoxNotFoundValue"), 0);
+    public static readonly SearchToken NotFound = new(SearchTokenKind.None, SR.ControlAutoSuggestBoxNotFoundValue, 0);
 
     public SearchToken(SearchTokenKind kind, string value, int order, Uri? packageIconUri = null, Uri? iconUri = null, Uri? sideIconUri = null, Color? quality = null, bool showText = true)
     {

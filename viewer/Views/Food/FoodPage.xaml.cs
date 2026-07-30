@@ -13,17 +13,9 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
+[DependencyProperty<ObservableCollection<GroupViewModel<FoodViewModel>>>("FoodGroups", PropertyChangedCallbackName = "OnFoodGroupsChanged")]
 public sealed partial class FoodPage : UserControl, IDisposable
 {
-    public static readonly DependencyProperty FoodGroupsProperty =
-        DependencyProperty.Register(nameof(FoodGroups), typeof(ObservableCollection<GroupViewModel<FoodViewModel>>), typeof(FoodPage),
-            new PropertyMetadata(null, OnFoodGroupsChanged));
-
-    public ObservableCollection<GroupViewModel<FoodViewModel>>? FoodGroups
-    {
-        get => (ObservableCollection<GroupViewModel<FoodViewModel>>?)GetValue(FoodGroupsProperty);
-        set => SetValue(FoodGroupsProperty, value);
-    }
 
     internal IReadOnlyDictionary<string, SearchToken>? AvailableTokens { get; private set; }
     internal ObservableCollection<SearchToken> FilterTokens { get; } = [];

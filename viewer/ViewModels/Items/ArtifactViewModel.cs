@@ -92,7 +92,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
         }
 
         var slotParts = new System.Collections.Generic.List<string> { entry.Slot };
-        if (hasInstance && entry.Locked) slotParts.Add(Localized.Get("Locked"));
+        if (hasInstance && entry.Locked) slotParts.Add(SR.Locked);
         SlotText = string.Join("  ", slotParts);
 
         var iconUri = meta.GetIcon(entry.Set, entry.Slot);
@@ -101,11 +101,11 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
             GfxLoader.BeginLoad(iconUri, this);
 
         var allBonuses = meta.GetAllSetBonuses(entry.Set);
-        BonusText      = string.Join("\n", allBonuses.Select(b => string.Format(Localized.Get("SetBonusFmt"), b.Count, b.Desc)));
+        BonusText      = string.Join("\n", allBonuses.Select(b => string.Format(SR.SetBonusFmt, b.Count, b.Desc)));
         BonusSummary   = string.Join("\n", allBonuses.Select(b =>
         {
             var desc = b.Desc.Length > 32 ? b.Desc[..32] + "…" : b.Desc;
-            return string.Format(Localized.Get("SetBonusFmt"), b.Count, desc);
+            return string.Format(SR.SetBonusFmt, b.Count, desc);
         }));
         HasAnyBonusVisibility = (allBonuses.Count > 0).ToVisibility();
 
