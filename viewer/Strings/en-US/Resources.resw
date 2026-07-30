@@ -312,6 +312,15 @@
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search materials…</value>
   </data>
+  <data name="FoodSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search food…</value>
+  </data>
+  <data name="GadgetSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search gadgets…</value>
+  </data>
+  <data name="AssetSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search assets…</value>
+  </data>
   <data name="WeaponFilterTitle.Text" xml:space="preserve">
     <value>Filter Weapons</value>
   </data>

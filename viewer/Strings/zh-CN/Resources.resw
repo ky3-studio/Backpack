@@ -312,6 +312,15 @@
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索材料…</value>
   </data>
+  <data name="FoodSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索食物…</value>
+  </data>
+  <data name="GadgetSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索杂项…</value>
+  </data>
+  <data name="AssetSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索资源…</value>
+  </data>
   <data name="WeaponFilterTitle.Text" xml:space="preserve">
     <value>筛选武器</value>
   </data>
