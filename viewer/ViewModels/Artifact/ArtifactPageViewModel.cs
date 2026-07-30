@@ -1,28 +1,18 @@
 using System.Collections.ObjectModel;
 using Backpack.Viewer.ViewModels.Search;
 using Backpack.Viewer.Views.Controls.AutoSuggestBox;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 
 namespace Backpack.Viewer.ViewModels.Artifact;
 
-internal sealed partial class ArtifactPageViewModel : ObservableObject
+internal sealed class ArtifactPageViewModel : FilterablePageViewModel<ArtifactViewModel>
 {
     private ObservableCollection<GroupViewModel<ArtifactViewModel>>? _groups;
     private ArtifactViewModel? _selectedArtifact;
-    private IReadOnlyList<ArtifactViewModel>? _currentItems;
 
-    public IReadOnlyDictionary<string, SearchToken>? AvailableTokens { get; private set; }
-    public ObservableCollection<SearchToken> FilterTokens { get; } = [];
-    public string? FilterText { get; set; }
-
-    public IReadOnlyList<ArtifactViewModel>? CurrentItems => _currentItems;
     public ArtifactViewModel? SelectedArtifact => _selectedArtifact;
-
     public Visibility EmptyStateVisible => _selectedArtifact is null ? Visibility.Visible : Visibility.Collapsed;
     public Visibility SelectedArtifactVisible => _selectedArtifact is null ? Visibility.Collapsed : Visibility.Visible;
-    public Visibility HasItems => (CurrentItems?.Count ?? 0) > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     public void Initialize(ObservableCollection<GroupViewModel<ArtifactViewModel>>? groups)
     {
@@ -39,34 +29,14 @@ internal sealed partial class ArtifactPageViewModel : ObservableObject
     public void SelectArtifact(ArtifactViewModel? vm)
     {
         if (vm is null && _selectedArtifact is not null) return;
-
         _selectedArtifact = vm;
         NotifySelectionChanged();
     }
 
-    [RelayCommand]
-    private void ApplyFilter()
-    {
-        RefreshItems();
-        NotifyListChanged();
-        EnsureSelection();
-    }
+    protected override IReadOnlyList<ArtifactViewModel>? GetSourceItems() =>
+        _groups?.SelectMany(g => g.Items).ToList();
 
-    private void EnsureSelection()
-    {
-        if (_selectedArtifact is not null && (_currentItems?.Contains(_selectedArtifact) ?? false)) return;
-
-        _selectedArtifact = _currentItems?.Count > 0 ? _currentItems[0] : null;
-        NotifySelectionChanged();
-    }
-
-    private void RefreshItems()
-    {
-        IReadOnlyList<ArtifactViewModel>? items = _groups?.SelectMany(g => g.Items).ToList();
-        _currentItems = SearchTokenFilter.Apply(items, FilterTokens, MatchValue);
-    }
-
-    private static string MatchValue(ArtifactViewModel vm, SearchTokenKind kind) => kind switch
+    protected override string MatchValue(ArtifactViewModel vm, SearchTokenKind kind) => kind switch
     {
         SearchTokenKind.ArtifactSet  => vm.Source.Set,
         SearchTokenKind.ArtifactSlot => vm.Source.Slot,
@@ -74,10 +44,13 @@ internal sealed partial class ArtifactPageViewModel : ObservableObject
         _                            => string.Empty,
     };
 
-    private void NotifyListChanged()
+    protected override void OnItemsRefreshed() => EnsureSelection();
+
+    private void EnsureSelection()
     {
-        OnPropertyChanged(nameof(CurrentItems));
-        OnPropertyChanged(nameof(HasItems));
+        if (_selectedArtifact is not null && (CurrentItems?.Contains(_selectedArtifact) ?? false)) return;
+        _selectedArtifact = CurrentItems?.Count > 0 ? CurrentItems[0] : null;
+        NotifySelectionChanged();
     }
 
     private void NotifySelectionChanged()

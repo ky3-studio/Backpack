@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using Backpack.Viewer.Models;
+using Backpack.Viewer.Services;
 using static Backpack.Viewer.Models.BagJsonContext;
 
 namespace Backpack.Viewer.ViewModels;
@@ -31,55 +32,39 @@ public sealed partial class MainViewModel
         _                => 0
     };
 
-    private void RebuildMaterialGroups()
+    private void RebuildMaterialGroups() =>
+        RebuildGroups(MaterialGroups, _materialMeta,
+            id => _activeCounts.GetValueOrDefault(id, 0UL),
+            entry => new MaterialViewModel(entry, _materialMeta));
+
+    private void RebuildGadgetGroups() =>
+        RebuildGroups(GadgetGroups, _gadgetMeta,
+            id => _activeCounts.GetValueOrDefault(id, 0UL),
+            entry => new GadgetViewModel(entry, _gadgetMeta));
+
+    private void RebuildAssetGroups() =>
+        RebuildGroups(AssetGroups, _assetMeta, AssetCount,
+            entry => new AssetViewModel(entry, _assetMeta));
+
+    private ulong AssetCount(uint id)
     {
-        MaterialGroups.Clear();
-        foreach (var (label, ids) in _materialMeta.Groups)
-        {
-            MaterialGroups.Add(new GroupViewModel<MaterialViewModel>(
-                label,
-                [.. ids.Select(id =>
-                {
-                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
-                    var entry = new MaterialEntry(id, _materialMeta.GetName(id), string.Empty, count);
-                    return new MaterialViewModel(entry, _materialMeta);
-                })]));
-        }
+        var propId = _assetMeta.GetPropId(id);
+        return propId != 0
+            ? (_activeProps.TryGetValue(propId, out var pv) ? (ulong)Math.Max(0L, pv) : 0UL)
+            : _activeCounts.GetValueOrDefault(id, 0UL);
     }
 
-    private void RebuildGadgetGroups()
+    private static void RebuildGroups<TVm>(
+        ObservableCollection<GroupViewModel<TVm>> target,
+        TabMetaService meta,
+        Func<uint, ulong> countOf,
+        Func<MaterialEntry, TVm> factory)
     {
-        GadgetGroups.Clear();
-        foreach (var (label, ids) in _gadgetMeta.Groups)
-        {
-            GadgetGroups.Add(new GroupViewModel<GadgetViewModel>(
+        target.Clear();
+        foreach (var (label, ids) in meta.Groups)
+            target.Add(new GroupViewModel<TVm>(
                 label,
-                [.. ids.Select(id =>
-                {
-                    var count = _activeCounts.TryGetValue(id, out var c) ? c : 0UL;
-                    var entry = new MaterialEntry(id, _gadgetMeta.GetName(id), string.Empty, count);
-                    return new GadgetViewModel(entry, _gadgetMeta);
-                })]));
-        }
-    }
-
-    private void RebuildAssetGroups()
-    {
-        AssetGroups.Clear();
-        foreach (var (label, ids) in _assetMeta.Groups)
-        {
-            AssetGroups.Add(new GroupViewModel<AssetViewModel>(
-                label,
-                [.. ids.Select(id =>
-                {
-                    var propId = _assetMeta.GetPropId(id);
-                    ulong count = propId != 0
-                        ? (_activeProps.TryGetValue(propId, out var pv) ? (ulong)Math.Max(0L, pv) : 0UL)
-                        : (_activeCounts.TryGetValue(id, out var c) ? c : 0UL);
-                    var entry = new MaterialEntry(id, _assetMeta.GetName(id), string.Empty, count);
-                    return new AssetViewModel(entry, _assetMeta);
-                })]));
-        }
+                [.. ids.Select(id => factory(new MaterialEntry(id, meta.GetName(id), string.Empty, countOf(id))))]));
     }
 
     private void RebuildFoodGroups()
