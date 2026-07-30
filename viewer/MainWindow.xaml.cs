@@ -67,7 +67,38 @@ public sealed partial class MainWindow : Window, IDisposable
 
         SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();
 
+        NavView.Loaded += (_, _) => NavView.SelectedItem = NavWeapon;
+
         Closed += (_, _) => Dispose();
+    }
+
+    private void OnNavSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
+    {
+        PageWeapon.Visibility   = Visibility.Collapsed;
+        PageAvatar.Visibility   = Visibility.Collapsed;
+        PageArtifact.Visibility = Visibility.Collapsed;
+        PageMaterial.Visibility = Visibility.Collapsed;
+        PageFood.Visibility     = Visibility.Collapsed;
+        PageGadget.Visibility   = Visibility.Collapsed;
+        PageAsset.Visibility    = Visibility.Collapsed;
+
+        if (e.IsSettingsSelected)
+            return;
+
+        if (e.SelectedItem is NavigationViewItem item)
+        {
+            _ = item.Name switch
+            {
+                nameof(NavWeapon)   => PageWeapon.Visibility   = Visibility.Visible,
+                nameof(NavAvatar)   => PageAvatar.Visibility   = Visibility.Visible,
+                nameof(NavArtifact) => PageArtifact.Visibility = Visibility.Visible,
+                nameof(NavMaterial) => PageMaterial.Visibility = Visibility.Visible,
+                nameof(NavFood)     => PageFood.Visibility     = Visibility.Visible,
+                nameof(NavGadget)   => PageGadget.Visibility   = Visibility.Visible,
+                nameof(NavAsset)    => PageAsset.Visibility    = Visibility.Visible,
+                _                   => Visibility.Collapsed,
+            };
+        }
     }
 
     public void Dispose()

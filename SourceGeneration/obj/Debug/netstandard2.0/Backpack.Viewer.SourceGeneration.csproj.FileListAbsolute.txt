@@ -1,0 +1,11 @@
+D:\Launcher\ky3-module\Backpack\SourceGeneration\bin\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.deps.json
+D:\Launcher\ky3-module\Backpack\SourceGeneration\bin\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.dll
+D:\Launcher\ky3-module\Backpack\SourceGeneration\bin\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.pdb
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.csproj.AssemblyReference.cache
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.GeneratedMSBuildEditorConfig.editorconfig
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.AssemblyInfoInputs.cache
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.AssemblyInfo.cs
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.csproj.CoreCompileInputs.cache
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.sourcelink.json
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.dll
+D:\Launcher\ky3-module\Backpack\SourceGeneration\obj\Debug\netstandard2.0\Backpack.Viewer.SourceGeneration.pdb

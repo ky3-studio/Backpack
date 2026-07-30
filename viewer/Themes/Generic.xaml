@@ -1,0 +1,78 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="using:Backpack.Viewer.Views.Controls">
+
+  <Style TargetType="ctrl:ItemIcon">
+    <Setter Property="Width" Value="80" />
+    <Setter Property="Height" Value="80" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ctrl:ItemIcon">
+          <Grid CornerRadius="{ThemeResource ControlCornerRadius}">
+            <Image Source="{TemplateBinding Quality}" Stretch="Fill" />
+            <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
+            <Image Source="{TemplateBinding Icon}" Stretch="Uniform" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="ctrl:HorizontalCard">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ctrl:HorizontalCard">
+          <Grid
+              Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
+              BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="{ThemeResource ControlCornerRadius}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Child="{TemplateBinding Left}" />
+            <Border
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Child="{TemplateBinding Right}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="ctrl:VerticalCard">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ctrl:VerticalCard">
+          <Border
+              Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
+              BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="{ThemeResource ControlCornerRadius}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Border HorizontalAlignment="Center" Child="{TemplateBinding Top}" />
+              <Border
+                  Grid.Row="1"
+                  Padding="2,2"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Child="{TemplateBinding Bottom}" />
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

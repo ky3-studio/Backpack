@@ -8,6 +8,8 @@ namespace Backpack.Viewer;
 
 public sealed partial class App : Application, IDisposable
 {
+    public static IServiceProvider Services { get; private set; } = null!;
+
     private MainWindow?      _window;
     private ServiceProvider? _services;
 
@@ -27,6 +29,7 @@ public sealed partial class App : Application, IDisposable
         GfxLoader.Initialize();
         await GfxLoader.WarmupAsync();
         _services = BuildServices();
+        Services  = _services;
         var hyperLinkSvc = _services.GetRequiredService<HyperLinkService>();
         hyperLinkSvc.Load();
         MiHoYo.RegisterService(hyperLinkSvc);

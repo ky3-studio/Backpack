@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json.Serialization;
+using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 
 namespace Backpack.Viewer.Services;
@@ -20,6 +21,7 @@ public sealed partial class WeaponMetaService
     private readonly Dictionary<uint, WeaponMeta>  _meta;
     private readonly Dictionary<string, float[]>   _curves;
     private readonly Dictionary<string, float[]>   _promotes;
+    private readonly Dictionary<uint, ExtraMeta>   _extra;
 
     public WeaponMetaService()
     {
@@ -27,6 +29,7 @@ public sealed partial class WeaponMetaService
         _meta     = JsonLoader.Load(Path.Combine(dir, "weapons.json"),        WeaponCtx.Default.WeaponMetaArray)          ?.ToDictionary(e => (uint)e.Id) ?? [];
         _curves   = JsonLoader.Load(Path.Combine(dir, "weapon_curves.json"),   WeaponCtx.Default.DictionaryStringSingleArray) ?? [];
         _promotes = JsonLoader.Load(Path.Combine(dir, "weapon_promotes.json"), WeaponCtx.Default.DictionaryStringSingleArray) ?? [];
+        _extra    = JsonLoader.Load(Path.Combine(dir, "weapon_extra.json"),    WeaponCtx.Default.ExtraMetaArray)              ?.ToDictionary(e => (uint)e.Id) ?? [];
     }
 
     public Uri? GetIcon(uint id)
@@ -73,11 +76,37 @@ public sealed partial class WeaponMetaService
         return (m.PassiveName ?? string.Empty, refs[idx]);
     }
 
-    public string GetFlavorText(uint id) =>
-        _meta.TryGetValue(id, out var m) ? m.FlavorText ?? string.Empty : string.Empty;
+    public string       GetDescription(uint id) =>
+        _extra.TryGetValue(id, out var e) ? e.Description ?? string.Empty : string.Empty;
+
+    public IReadOnlyList<uint> GetCultivationItemIds(uint id) =>
+        _extra.TryGetValue(id, out var e) && e.CultivationItems is { Length: > 0 } ci
+            ? ci.Select(x => (uint)x).ToArray()
+            : [];
+
+    public string GetSubProp(uint id) =>
+        _meta.TryGetValue(id, out var m) ? m.SubProp : string.Empty;
+
+    public string GetSubPropName(uint id)
+    {
+        if (!_meta.TryGetValue(id, out var m)) return string.Empty;
+        var key = m.SubProp switch
+        {
+            FightProps.HpPercent        => "FightPropHpPercent",
+            FightProps.AttackPercent    => "FightPropAttackPercent",
+            FightProps.DefensePercent   => "FightPropDefensePercent",
+            FightProps.ChargeEfficiency => "FightPropChargeEfficiency",
+            FightProps.CritRate         => "FightPropCritRate",
+            FightProps.CritDmg          => "FightPropCritDmg",
+            FightProps.PhysicalDmg      => "FightPropPhysicalDmg",
+            _                           => null,
+        };
+        return key is not null ? Localized.Get(key) : m.SpecialProp;
+    }
 
     [JsonSerializable(typeof(WeaponMeta[]))]
     [JsonSerializable(typeof(Dictionary<string, float[]>))]
+    [JsonSerializable(typeof(ExtraMeta[]))]
     private partial class WeaponCtx : JsonSerializerContext { }
 
     private sealed record WeaponMeta(
@@ -97,4 +126,11 @@ public sealed partial class WeaponMetaService
         [property: JsonPropertyName("flavorText")]  string?  FlavorText,
         [property: JsonPropertyName("refinements")] string[]? Refinements
     );
+
+    private sealed class ExtraMeta
+    {
+        [JsonPropertyName("Id")]               public int    Id               { get; set; }
+        [JsonPropertyName("Description")]      public string? Description     { get; set; }
+        [JsonPropertyName("CultivationItems")] public int[]? CultivationItems { get; set; }
+    }
 }

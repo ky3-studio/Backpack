@@ -11,7 +11,7 @@ public abstract partial class TabMetaService
 
     protected record MetaEntry(int Id, string Name, string Type, int Rank, string Icon, uint PropId = 0u);
 
-    protected TabMetaService(string subDir, (string File, string Key)[] tabDefs, bool sortByRank = false)
+    protected TabMetaService(string subDir, (string File, string Key)[] tabDefs, bool sortByRank = false, string? fallbackFile = null)
     {
         var dir    = Path.Combine(StaticResources.AssetsDir, subDir);
         var groups = new List<(string Label, IReadOnlyList<uint> Ids)>(tabDefs.Length);
@@ -34,6 +34,13 @@ public abstract partial class TabMetaService
                 groups.Add((Localized.Get(key), ids));
         }
         _groups = groups;
+
+        if (fallbackFile is not null)
+        {
+            var fallback = JsonLoader.Load(Path.Combine(dir, fallbackFile), TabCtx.Default.RawEntryArray) ?? [];
+            foreach (var e in fallback)
+                _map.TryAdd((uint)e.Id, new MetaEntry(e.Id, e.Name, e.Type, e.Rank, e.Icon, e.PropId));
+        }
     }
 
     public (Uri? IconUri, int Rank) GetMeta(uint id)

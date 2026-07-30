@@ -1,16 +1,19 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Backpack.Viewer.Services;
+using Backpack.Viewer.Services.Story;
 using Backpack.Viewer.ViewModels;
-using Backpack.Viewer.Views.Helpers;
+using Backpack.Viewer.Views.Controls.AutoSuggestBox;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.Views;
 
-public sealed partial class WeaponPage : UserControl, IDisposable
+public sealed partial class WeaponPage : UserControl
 {
     public static readonly DependencyProperty WeaponGroupsProperty =
         DependencyProperty.Register(nameof(WeaponGroups),
@@ -23,151 +26,147 @@ public sealed partial class WeaponPage : UserControl, IDisposable
         set => SetValue(WeaponGroupsProperty, value);
     }
 
-    private string _textQuery = string.Empty;
-    private readonly ObservableCollection<FilterOption> _typeFilters = new();
+    private readonly WeaponStoryService _storyService = new();
+    private readonly WeaponGuideService _guideService = new();
 
-    public IReadOnlyList<FilterOption>            RankFilters  { get; } =
-        [.. Enumerable.Range(1, 5).Reverse().Select(FilterOption.ForRank)];
-    public ObservableCollection<FilterOption>     TypeFilters  => _typeFilters;
+    private WeaponViewModel? _selectedWeapon;
+    private IReadOnlyList<WeaponViewModel>? _currentItems;
 
-    public IReadOnlyList<WeaponViewModel>? CurrentItems => ApplyFilters(GetBaseItems());
+    internal IReadOnlyDictionary<string, SearchToken>? AvailableTokens { get; private set; }
+    internal ObservableCollection<SearchToken>         FilterTokens { get; } = [];
+    public string?                                   FilterText   { get; set; }
+    public ICommand                                  FilterCommand { get; }
 
-    public int        ActiveFilterCount          =>
-        RankFilters.Count(f => f.IsSelected) + _typeFilters.Count(f => f.IsSelected);
-    public Visibility ActiveFilterBadgeVisibility =>
-        (RankFilters.Any(f => f.IsSelected) || _typeFilters.Any(f => f.IsSelected))
-            ? Visibility.Visible : Visibility.Collapsed;
+    public IReadOnlyList<WeaponViewModel>? CurrentItems   => _currentItems;
+    public WeaponViewModel?                SelectedWeapon => _selectedWeapon;
+    public string?                         WeaponStory    { get; private set; }
+    public Visibility WeaponStoryVisibility => string.IsNullOrEmpty(WeaponStory) ? Visibility.Collapsed : Visibility.Visible;
+    public IReadOnlyList<WeaponRecommendAvatar> WeaponGuideBuilds { get; private set; } = [];
+    public IReadOnlyList<WeaponRecommendAvatar> WeaponGuideAbyss  { get; private set; } = [];
+    public Visibility WeaponGuideVisibility => (WeaponGuideBuilds.Count > 0 || WeaponGuideAbyss.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
 
-    private readonly TabbedGroupController<GroupViewModel<WeaponViewModel>> _controller;
+    public Visibility EmptyStateVisibility    => _selectedWeapon is null ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility SelectedWeaponVisibility => _selectedWeapon is null ? Visibility.Collapsed : Visibility.Visible;
+    public Visibility HasItemsVisibility       => (CurrentItems?.Count ?? 0) > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    public string RefineDesc0 => _selectedWeapon?.RefinementDescriptions.Count > 0 ? _selectedWeapon.RefinementDescriptions[0] : string.Empty;
+    public string RefineDesc1 => _selectedWeapon?.RefinementDescriptions.Count > 1 ? _selectedWeapon.RefinementDescriptions[1] : string.Empty;
+    public string RefineDesc2 => _selectedWeapon?.RefinementDescriptions.Count > 2 ? _selectedWeapon.RefinementDescriptions[2] : string.Empty;
+    public string RefineDesc3 => _selectedWeapon?.RefinementDescriptions.Count > 3 ? _selectedWeapon.RefinementDescriptions[3] : string.Empty;
+    public string RefineDesc4 => _selectedWeapon?.RefinementDescriptions.Count > 4 ? _selectedWeapon.RefinementDescriptions[4] : string.Empty;
 
     public WeaponPage()
     {
+        FilterCommand = new RelayCommand(OnFilterChanged);
         InitializeComponent();
-        _controller = new TabbedGroupController<GroupViewModel<WeaponViewModel>>(
-            TabPivot, () => Bindings.Update());
-        SetupTemplate();
-    }
-
-    private void SetupTemplate()
-    {
-        CardRepeater.ItemTemplate = new PooledElementFactory((DataTemplate)Resources["WeaponCardTemplate"]);
-        ContentScroller.AddHandler(PointerPressedEvent, new PointerEventHandler(OnPagePointerPressed), handledEventsToo: true);
+        ContentScroller.AddHandler(PointerPressedEvent,
+            new PointerEventHandler(OnPagePointerPressed), handledEventsToo: true);
     }
 
     private static void OnWeaponGroupsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is WeaponPage page)
-        {
-            page._controller.Bind((ObservableCollection<GroupViewModel<WeaponViewModel>>?)e.NewValue);
-            page.RebuildTypeFilters((ObservableCollection<GroupViewModel<WeaponViewModel>>?)e.NewValue);
-        }
+            page.RebuildTokens((ObservableCollection<GroupViewModel<WeaponViewModel>>?)e.NewValue);
     }
 
-    private void RebuildTypeFilters(ObservableCollection<GroupViewModel<WeaponViewModel>>? groups)
+    private void RebuildTokens(ObservableCollection<GroupViewModel<WeaponViewModel>>? groups)
     {
-        _typeFilters.Clear();
-        if (groups is null) return;
-        foreach (var g in groups)
-            _typeFilters.Add(FilterOption.ForType(g.Header));
+        IEnumerable<WeaponViewModel> items = groups?.SelectMany(g => g.Items) ?? [];
+        AvailableTokens = WeaponSearchTokens.Build(items);
+        FilterTokens.Clear();
+        RefreshItems();
+
+        if (_selectedWeapon is null && CurrentItems?.Count > 0)
+            SelectWeapon(CurrentItems[0]);
+
+        Bindings.Update();
     }
 
-    private void OnTabChanged(object sender, SelectionChangedEventArgs e) =>
-        _controller.OnTabSelectionChanged(e);
-
-    private void OnElementPrepared(ItemsRepeater sender, ItemsRepeaterElementPreparedEventArgs args)
+    private void OnFilterChanged()
     {
-        if (args.Element is FrameworkElement fe)
-            fe.DataContext = sender.ItemsSourceView?.GetAt(args.Index);
+        RefreshItems();
+        Bindings.Update();
     }
 
-    private void OnElementClearing(ItemsRepeater sender, ItemsRepeaterElementClearingEventArgs args)
+    private void RefreshItems()
     {
-        if (args.Element is FrameworkElement fe)
-            fe.DataContext = null;
+        _currentItems = ApplyFilters(GetBaseItems());
     }
 
-    private IReadOnlyList<WeaponViewModel>? GetBaseItems()
-    {
-        var selectedTypes = _typeFilters.Where(f => f.IsSelected).Select(f => f.Label).ToHashSet();
-        if (selectedTypes.Count > 0)
-            return WeaponGroups?.SelectMany(g => g.Items)
-                               .Where(vm => selectedTypes.Contains(vm.Source.Type))
-                               .ToList();
-        return (_controller.SelectedGroup as GroupViewModel<WeaponViewModel>)?.Items;
-    }
+    private IReadOnlyList<WeaponViewModel>? GetBaseItems() =>
+        WeaponGroups?.SelectMany(g => g.Items).ToList();
 
     private IReadOnlyList<WeaponViewModel>? ApplyFilters(IReadOnlyList<WeaponViewModel>? items)
     {
         if (items is null) return null;
+        if (FilterTokens.Count == 0) return items;
+
         var result = items.AsEnumerable();
-        if (!string.IsNullOrWhiteSpace(_textQuery))
+        foreach (var group in FilterTokens.GroupBy(t => t.Kind))
         {
-            var q = _textQuery.Trim();
-            result = result.Where(vm => vm.Source.Name.Contains(q, StringComparison.OrdinalIgnoreCase));
+            var kind   = group.Key;
+            var values = group.Select(t => t.Value).ToHashSet();
+            result = result.Where(vm => values.Contains(MatchValue(vm, kind)));
         }
-        var selectedRanks = RankFilters.Where(f => f.IsSelected).Select(f => f.Rank).ToHashSet();
-        if (selectedRanks.Count > 0)
-            result = result.Where(vm => selectedRanks.Contains(vm.Source.Rank));
         return result.ToList();
     }
 
-    private IReadOnlyList<SearchSuggestion> GetSuggestions(string text)
+    private static string MatchValue(WeaponViewModel vm, SearchTokenKind kind) => kind switch
     {
-        if (string.IsNullOrWhiteSpace(text)) return [];
-        var q        = text.Trim();
-        var allItems = WeaponGroups?.SelectMany(g => g.Items) ?? [];
-        return allItems
-            .Where(vm => vm.Source.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
-            .Take(8)
-            .Select(vm => SearchSuggestion.ForName(vm.Source.Name))
-            .ToList();
+        SearchTokenKind.Weapon        => vm.Source.Name,
+        SearchTokenKind.WeaponType    => vm.Source.Type,
+        SearchTokenKind.ItemQuality   => WeaponSearchTokens.RankLabel(vm.Source.Rank),
+        SearchTokenKind.FightProperty => vm.SubPropName,
+        _                             => string.Empty,
+    };
+
+    private void OnWeaponSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var vm = e.AddedItems.OfType<WeaponViewModel>().FirstOrDefault();
+        if (vm is null && _selectedWeapon is not null) return;
+        SelectWeapon(vm);
+        Bindings.Update();
     }
 
-    private void OnFilterToggled(object sender, RoutedEventArgs e)
+    private void SelectWeapon(WeaponViewModel? vm)
     {
-        if (sender is ToggleButton tb && tb.Tag is FilterOption option)
+        _selectedWeapon = vm;
+        WeaponStory = null;
+        WeaponGuideBuilds = [];
+        WeaponGuideAbyss = [];
+        if (vm is not null)
         {
-            option.IsSelected = tb.IsChecked ?? false;
+            LevelSlider.SetWeapon(vm.Source.Id);
+            _ = FetchWeaponStoryAsync(vm.Source.Id);
+            _ = FetchWeaponGuidesAsync(vm.Source.Id);
+        }
+    }
+
+    private async Task FetchWeaponStoryAsync(uint weaponId)
+    {
+        var story = await _storyService.FetchStoryAsync(weaponId).ConfigureAwait(false);
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            if (_selectedWeapon?.Source.Id != weaponId) return;
+            WeaponStory = story;
             Bindings.Update();
-        }
+        });
     }
 
-    private void OnClearFilter(object sender, RoutedEventArgs e)
+    private async Task FetchWeaponGuidesAsync(uint weaponId)
     {
-        foreach (var f in RankFilters)  f.IsSelected = false;
-        foreach (var f in _typeFilters) f.IsSelected = false;
-        Bindings.Update();
-    }
-
-    private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-    {
-        switch (args.Reason)
+        var guides = await _guideService.FetchGuidesAsync(weaponId).ConfigureAwait(false);
+        DispatcherQueue.TryEnqueue(() =>
         {
-            case AutoSuggestionBoxTextChangeReason.UserInput:
-                sender.ItemsSource = GetSuggestions(sender.Text);
-                _textQuery         = sender.Text;
-                Bindings.Update();
-                break;
-            case AutoSuggestionBoxTextChangeReason.ProgrammaticChange when string.IsNullOrEmpty(sender.Text):
-                _textQuery = string.Empty;
-                Bindings.Update();
-                break;
-        }
+            if (_selectedWeapon?.Source.Id != weaponId) return;
+            WeaponGuideBuilds = [.. (guides?.Builds ?? []).Select(ToRecommendAvatar)];
+            WeaponGuideAbyss  = [.. (guides?.Abyss ?? []).Select(ToRecommendAvatar)];
+            Bindings.Update();
+        });
     }
 
-    private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-    {
-        if (args.SelectedItem is SearchSuggestion sug)
-            _textQuery = sug.TextValue;
-        Bindings.Update();
-    }
-
-    private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-    {
-        _textQuery         = args.QueryText;
-        sender.ItemsSource = null;
-        Bindings.Update();
-    }
+    private static WeaponRecommendAvatar ToRecommendAvatar(WeaponGuideService.AvatarGuide g) =>
+        new(new BitmapImage(StaticResources.AvatarIcon(g.Icon)), StaticResources.GetQualityBitmap(g.Rank), g.Name);
 
     private void OnPagePointerPressed(object sender, PointerRoutedEventArgs e)
     {
@@ -187,6 +186,4 @@ public sealed partial class WeaponPage : UserControl, IDisposable
         }
         return false;
     }
-
-    public void Dispose() => _controller.Dispose();
 }

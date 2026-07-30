@@ -22,7 +22,7 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <DebugType>none</DebugType>
     <LangVersion>preview</LangVersion>
-    <NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
+    <NoWarn>$(NoWarn);MVVMTK0045;NU1903</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +30,7 @@
     <Content Include="Assets\Weapon\weapons.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Weapon\weapon_curves.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Weapon\weapon_promotes.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Weapon\weapon_extra.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Artifact\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Artifact\artifact_main_props.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Material\*.json" CopyToOutputDirectory="PreserveNewest" />
@@ -42,11 +43,17 @@
     <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI\*.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\UI_Icon_Locked.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\UI_Icon_Fetter.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\UI_IconKira.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI_GachaShowPanel_Bg_Weapon.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Nav_Weapon.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Nav_Avatar.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Nav_Food.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\badge\*.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\PivotStyle.xaml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Styles\Controls.xaml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\x64\Release\backpack.dll" CopyToOutputDirectory="PreserveNewest" Link="modules\backpack.dll" Condition="Exists('..\x64\Release\backpack.dll')" />
   </ItemGroup>
 
@@ -58,9 +65,18 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.3.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.2.251219" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.2.251219" />
     <PackageReference Include="CommunityToolkit.WinUI.Media" Version="8.2.251219" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SourceGeneration\Backpack.Viewer.SourceGeneration.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"
+                      SetPlatform="Platform=AnyCPU" />
   </ItemGroup>
 
   <Target Name="RemoveUnusedLanguages" AfterTargets="Build">

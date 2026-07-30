@@ -14,90 +14,117 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-
     <Grid x:Name="TitleBarArea" Grid.Row="0">
       <TextBlock
           x:Name="AppTitleText"
-          Margin="16,0,0,0"
+          Margin="52,0,0,0"
           Style="{StaticResource AppCaptionTextBlockStyle}"
           VerticalAlignment="Center" />
     </Grid>
 
-    <Pivot
+    <NavigationView
+        x:Name="NavView"
         Grid.Row="1"
-        Style="{StaticResource CardPivotStyle}"
-        Visibility="{x:Bind ViewModel.DataVisibility, Mode=OneWay}">
+        FontFamily="{StaticResource AppFontFamily}"
+        CompactPaneLength="48"
+        OpenPaneLength="200"
+        PaneDisplayMode="Left"
+        IsBackButtonVisible="Collapsed"
+        IsPaneToggleButtonVisible="True"
+        SelectionChanged="OnNavSelectionChanged">
 
-      <Pivot.RightHeader>
-        <CommandBar Background="Transparent" DefaultLabelPosition="Right">
-          <AppBarButton
-              x:Uid="BtnSelectPath"
-              Click="OnPickGamePath">
-            <AppBarButton.Icon>
-              <FontIcon Glyph="&#xEBC4;" />
-            </AppBarButton.Icon>
-          </AppBarButton>
-          <AppBarButton
-              x:Uid="BtnKillGame"
-              IsEnabled="{x:Bind ViewModel.IsGameRunning, Mode=OneWay}"
-              Click="OnKillGame">
-            <AppBarButton.Icon>
-              <FontIcon Glyph="&#xE733;" />
-            </AppBarButton.Icon>
-          </AppBarButton>
-          <AppBarButton
-              x:Uid="BtnSyncBag"
-              IsEnabled="{x:Bind ViewModel.CanLaunch, Mode=OneWay}"
-              Click="OnSyncBag">
-            <AppBarButton.Icon>
-              <FontIcon Glyph="&#xE7FC;" />
-            </AppBarButton.Icon>
-          </AppBarButton>
-        </CommandBar>
-      </Pivot.RightHeader>
+      <NavigationView.Resources>
+        <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+        <Thickness x:Key="NavigationViewContentMargin">0</Thickness>
+        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+      </NavigationView.Resources>
 
-      <PivotItem x:Uid="TabWeapon">
-        <views:WeaponPage WeaponGroups="{x:Bind ViewModel.WeaponGroups}" />
-      </PivotItem>
+      <NavigationView.MenuItems>
+        <NavigationViewItem x:Name="NavWeapon"   x:Uid="NavWeapon">
+          <NavigationViewItem.Icon>
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Weapon.png" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavAvatar"   x:Uid="NavAvatar">
+          <NavigationViewItem.Icon>
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Avatar.png" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavArtifact" x:Uid="NavArtifact">
+          <NavigationViewItem.Icon>
+            <FontIcon Glyph="&#xE77B;" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItemHeader x:Uid="NavHeaderData" />
+        <NavigationViewItem x:Name="NavMaterial" x:Uid="NavMaterial">
+          <NavigationViewItem.Icon>
+            <FontIcon Glyph="&#xE8F1;" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavFood"     x:Uid="NavFood">
+          <NavigationViewItem.Icon>
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Food.png" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavGadget"   x:Uid="NavGadget">
+          <NavigationViewItem.Icon>
+            <FontIcon Glyph="&#xE74C;" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavAsset"    x:Uid="NavAsset">
+          <NavigationViewItem.Icon>
+            <FontIcon Glyph="&#xE8B9;" />
+          </NavigationViewItem.Icon>
+        </NavigationViewItem>
+      </NavigationView.MenuItems>
 
-      <PivotItem x:Uid="TabAvatar">
-        <views:AvatarPage Avatars="{x:Bind ViewModel.Avatars}" />
-      </PivotItem>
+      <NavigationView.FooterMenuItems />
 
-      <PivotItem x:Uid="TabArtifact">
-        <views:ArtifactPage ArtifactGroups="{x:Bind ViewModel.ArtifactGroups}" />
-      </PivotItem>
+      <Grid>
+        <ProgressRing
+            Width="48"
+            Height="48"
+            IsActive="{x:Bind ViewModel.IsLaunching, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.ProgressRingVisibility, Mode=OneWay}" />
 
-      <PivotItem x:Uid="TabMaterial">
-        <views:MaterialPage MaterialGroups="{x:Bind ViewModel.MaterialGroups}" />
-      </PivotItem>
+        <views:SetupPage
+            x:Name="SetupPageControl"
+            ViewModel="{x:Bind ViewModel}"
+            Visibility="{x:Bind ViewModel.SetupVisibility, Mode=OneWay}" />
 
-      <PivotItem x:Uid="TabFood">
-        <views:FoodPage FoodGroups="{x:Bind ViewModel.FoodGroups}" />
-      </PivotItem>
+        <Grid Visibility="{x:Bind ViewModel.DataVisibility, Mode=OneWay}">
+          <views:WeaponPage
+              x:Name="PageWeapon"
+              WeaponGroups="{x:Bind ViewModel.WeaponGroups}"
+              Visibility="Collapsed" />
+          <views:AvatarPage
+              x:Name="PageAvatar"
+              Avatars="{x:Bind ViewModel.Avatars}"
+              Visibility="Collapsed" />
+          <views:ArtifactPage
+              x:Name="PageArtifact"
+              ArtifactGroups="{x:Bind ViewModel.ArtifactGroups}"
+              Visibility="Collapsed" />
+          <views:MaterialPage
+              x:Name="PageMaterial"
+              MaterialGroups="{x:Bind ViewModel.MaterialGroups}"
+              Visibility="Collapsed" />
+          <views:FoodPage
+              x:Name="PageFood"
+              FoodGroups="{x:Bind ViewModel.FoodGroups}"
+              Visibility="Collapsed" />
+          <views:GadgetPage
+              x:Name="PageGadget"
+              GadgetGroups="{x:Bind ViewModel.GadgetGroups}"
+              Visibility="Collapsed" />
+          <views:AssetPage
+              x:Name="PageAsset"
+              AssetGroups="{x:Bind ViewModel.AssetGroups}"
+              Visibility="Collapsed" />
+        </Grid>
+      </Grid>
 
-      <PivotItem x:Uid="TabGadget">
-        <views:GadgetPage GadgetGroups="{x:Bind ViewModel.GadgetGroups}" />
-      </PivotItem>
-
-      <PivotItem x:Uid="TabAsset">
-        <views:AssetPage AssetGroups="{x:Bind ViewModel.AssetGroups}" />
-      </PivotItem>
-
-    </Pivot>
-
-    <ProgressRing
-        Grid.Row="1"
-        Width="48"
-        Height="48"
-        IsActive="{x:Bind ViewModel.IsLaunching, Mode=OneWay}"
-        Visibility="{x:Bind ViewModel.ProgressRingVisibility, Mode=OneWay}" />
-
-    <views:SetupPage
-        x:Name="SetupPageControl"
-        Grid.Row="1"
-        ViewModel="{x:Bind ViewModel}"
-        Visibility="{x:Bind ViewModel.SetupVisibility, Mode=OneWay}" />
+    </NavigationView>
 
   </Grid>
 

@@ -303,4 +303,112 @@
   <data name="WeaponFilterClear.Content" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="WeaponCountFmt" xml:space="preserve">
+    <value>{0} weapons</value>
+  </data>
+  <data name="WeaponEmptyHint.Text" xml:space="preserve">
+    <value>Select a weapon</value>
+  </data>
+  <data name="WeaponFlavorHeader.Text" xml:space="preserve">
+    <value>Weapon Story</value>
+  </data>
+  <data name="WeaponRecommendHeader.Text" xml:space="preserve">
+    <value>Recommended Characters</value>
+  </data>
+  <data name="WeaponGuideBuilds.Header" xml:space="preserve">
+    <value>Builds</value>
+  </data>
+  <data name="WeaponGuideAbyss.Header" xml:space="preserve">
+    <value>Spiral Abyss</value>
+  </data>
+  <data name="NavWeapon.Content" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
+  <data name="NavAvatar.Content" xml:space="preserve">
+    <value>Characters</value>
+  </data>
+  <data name="NavArtifact.Content" xml:space="preserve">
+    <value>Artifacts</value>
+  </data>
+  <data name="NavHeaderData.Content" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="NavMaterial.Content" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="NavFood.Content" xml:space="preserve">
+    <value>Food</value>
+  </data>
+  <data name="NavGadget.Content" xml:space="preserve">
+    <value>Gadgets</value>
+  </data>
+  <data name="NavAsset.Content" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="NavSetup.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="FightPropHpPercent" xml:space="preserve">
+    <value>HP%</value>
+  </data>
+  <data name="FightPropAttackPercent" xml:space="preserve">
+    <value>ATK%</value>
+  </data>
+  <data name="FightPropDefensePercent" xml:space="preserve">
+    <value>DEF%</value>
+  </data>
+  <data name="FightPropChargeEfficiency" xml:space="preserve">
+    <value>Energy Recharge</value>
+  </data>
+  <data name="FightPropCritRate" xml:space="preserve">
+    <value>CRIT Rate</value>
+  </data>
+  <data name="FightPropCritDmg" xml:space="preserve">
+    <value>CRIT DMG</value>
+  </data>
+  <data name="FightPropPhysicalDmg" xml:space="preserve">
+    <value>Physical DMG Bonus</value>
+  </data>
+  <data name="WeaponLevelHeader.Header" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="WeaponPromotedCheck.Content" xml:space="preserve">
+    <value>Ascended</value>
+  </data>
+  <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
+    <value>Base ATK</value>
+  </data>
+  <data name="WeaponLevelLabel.Text" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="StatEmptyValue" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="WeaponCultivationHeader" xml:space="preserve">
+    <value>Cultivation Materials</value>
+  </data>
+  <data name="WeaponRefine1.Header" xml:space="preserve">
+    <value>Refine 1</value>
+  </data>
+  <data name="WeaponRefine2.Header" xml:space="preserve">
+    <value>Refine 2</value>
+  </data>
+  <data name="WeaponRefine3.Header" xml:space="preserve">
+    <value>Refine 3</value>
+  </data>
+  <data name="WeaponRefine4.Header" xml:space="preserve">
+    <value>Refine 4</value>
+  </data>
+  <data name="WeaponRefine5.Header" xml:space="preserve">
+    <value>Refine 5</value>
+  </data>
+  <data name="ControlAutoSuggestBoxNotFoundValue" xml:space="preserve">
+    <value>No results found</value>
+  </data>
+  <data name="ControlAutoSuggestTokenBoxRemoveMenuItem" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ControlAutoSuggestTokenBoxSelectAllMenuItem" xml:space="preserve">
+    <value>Select all</value>
+  </data>
 </root>

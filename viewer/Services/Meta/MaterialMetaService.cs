@@ -18,5 +18,5 @@ public sealed class MaterialMetaService : TabMetaService
         ("materials_bait.json",             "MatTabBait"),
     ];
 
-    public MaterialMetaService() : base("Material", _tabDefs) { }
+    public MaterialMetaService() : base("Material", _tabDefs, fallbackFile: "materials.json") { }
 }

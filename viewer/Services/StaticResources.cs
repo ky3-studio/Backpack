@@ -30,6 +30,19 @@ internal static class StaticResources
         return new($"ms-appx:///Assets/Quality/{name}.png");
     }
 
+    public static Uri RankStarsIcon(int rank)
+    {
+        var name = Math.Clamp(rank, 1, 5) switch
+        {
+            5 => "FIVE_STAR",
+            4 => "FOUR_STAR",
+            3 => "THREE_STAR",
+            2 => "TWO_STAR",
+            _ => "ONE_STAR",
+        };
+        return new($"ms-appx:///Assets/UI/{name}.png");
+    }
+
     private static readonly BitmapImage[] _qualityBitmaps =
     [
         new(QualityIcon(0)),
@@ -42,4 +55,24 @@ internal static class StaticResources
 
     public static BitmapImage GetQualityBitmap(int rank) =>
         _qualityBitmaps[Math.Clamp(rank, 0, 5)];
+
+    public static Uri? FightPropIcon(string? prop)
+    {
+        if (string.IsNullOrEmpty(prop)) return null;
+        var name = prop.StartsWith("FIGHT_PROP_", StringComparison.Ordinal) ? prop["FIGHT_PROP_".Length..] : prop;
+        return new($"ms-appx:///Assets/UI/{name}.png");
+    }
+
+    private static readonly Dictionary<string, BitmapImage> _fightPropBitmaps = [];
+
+    public static BitmapImage? FightPropBitmap(string? prop)
+    {
+        if (FightPropIcon(prop) is not { } uri) return null;
+        if (!_fightPropBitmaps.TryGetValue(prop!, out var bmp))
+        {
+            bmp = new BitmapImage(uri);
+            _fightPropBitmaps[prop!] = bmp;
+        }
+        return bmp;
+    }
 }

@@ -303,4 +303,112 @@
   <data name="WeaponFilterClear.Content" xml:space="preserve">
     <value>清除</value>
   </data>
+  <data name="WeaponCountFmt" xml:space="preserve">
+    <value>{0} 件</value>
+  </data>
+  <data name="WeaponEmptyHint.Text" xml:space="preserve">
+    <value>选择一件武器</value>
+  </data>
+  <data name="WeaponFlavorHeader.Text" xml:space="preserve">
+    <value>武器故事</value>
+  </data>
+  <data name="WeaponRecommendHeader.Text" xml:space="preserve">
+    <value>推荐角色</value>
+  </data>
+  <data name="WeaponGuideBuilds.Header" xml:space="preserve">
+    <value>推荐</value>
+  </data>
+  <data name="WeaponGuideAbyss.Header" xml:space="preserve">
+    <value>深渊统计</value>
+  </data>
+  <data name="NavWeapon.Content" xml:space="preserve">
+    <value>武器</value>
+  </data>
+  <data name="NavAvatar.Content" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="NavArtifact.Content" xml:space="preserve">
+    <value>圣遗物</value>
+  </data>
+  <data name="NavHeaderData.Content" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="NavMaterial.Content" xml:space="preserve">
+    <value>材料</value>
+  </data>
+  <data name="NavFood.Content" xml:space="preserve">
+    <value>食物</value>
+  </data>
+  <data name="NavGadget.Content" xml:space="preserve">
+    <value>杂项</value>
+  </data>
+  <data name="NavAsset.Content" xml:space="preserve">
+    <value>资源</value>
+  </data>
+  <data name="NavSetup.Content" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="FightPropHpPercent" xml:space="preserve">
+    <value>生命值加成</value>
+  </data>
+  <data name="FightPropAttackPercent" xml:space="preserve">
+    <value>攻击力加成</value>
+  </data>
+  <data name="FightPropDefensePercent" xml:space="preserve">
+    <value>防御力加成</value>
+  </data>
+  <data name="FightPropChargeEfficiency" xml:space="preserve">
+    <value>元素充能效率</value>
+  </data>
+  <data name="FightPropCritRate" xml:space="preserve">
+    <value>暴击率</value>
+  </data>
+  <data name="FightPropCritDmg" xml:space="preserve">
+    <value>暴击伤害</value>
+  </data>
+  <data name="FightPropPhysicalDmg" xml:space="preserve">
+    <value>物理伤害加成</value>
+  </data>
+  <data name="WeaponLevelHeader.Header" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="WeaponPromotedCheck.Content" xml:space="preserve">
+    <value>突破后</value>
+  </data>
+  <data name="WeaponBaseAtkLabel.Text" xml:space="preserve">
+    <value>基础攻击力</value>
+  </data>
+  <data name="WeaponLevelLabel.Text" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="StatEmptyValue" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="WeaponCultivationHeader" xml:space="preserve">
+    <value>养成材料</value>
+  </data>
+  <data name="WeaponRefine1.Header" xml:space="preserve">
+    <value>精炼 1 阶</value>
+  </data>
+  <data name="WeaponRefine2.Header" xml:space="preserve">
+    <value>精炼 2 阶</value>
+  </data>
+  <data name="WeaponRefine3.Header" xml:space="preserve">
+    <value>精炼 3 阶</value>
+  </data>
+  <data name="WeaponRefine4.Header" xml:space="preserve">
+    <value>精炼 4 阶</value>
+  </data>
+  <data name="WeaponRefine5.Header" xml:space="preserve">
+    <value>精炼 5 阶</value>
+  </data>
+  <data name="ControlAutoSuggestBoxNotFoundValue" xml:space="preserve">
+    <value>未找到结果</value>
+  </data>
+  <data name="ControlAutoSuggestTokenBoxRemoveMenuItem" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ControlAutoSuggestTokenBoxSelectAllMenuItem" xml:space="preserve">
+    <value>选择全部</value>
+  </data>
 </root>

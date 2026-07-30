@@ -3,268 +3,376 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cw="using:CommunityToolkit.WinUI"
+    xmlns:cwc="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ctrl="using:Backpack.Viewer.Views.Controls"
+    xmlns:ast="using:Backpack.Viewer.Views.Controls.AutoSuggestBox"
+    xmlns:mihoyo="using:Backpack.Viewer.Controls"
     xmlns:vm="using:Backpack.Viewer.ViewModels">
 
   <UserControl.Resources>
-    <DataTemplate x:Key="WeaponCardTemplate">
-      <Grid Padding="10" Style="{ThemeResource GridShimmerStyle}">
-        <StackPanel Spacing="6">
 
-          <Grid Width="64" Height="64" HorizontalAlignment="Center" CornerRadius="8">
-            <Image Source="{Binding QualitySource}" Stretch="Fill" />
-            <Image Source="ms-appx:///Assets/Quality/UI_ImgSign_ItemIcon.png" Stretch="Fill" />
-            <Image Source="{Binding IconSource}" Stretch="Uniform" />
-          </Grid>
-
-          <TextBlock
-              FontSize="14"
-              HorizontalTextAlignment="Center"
-              Style="{StaticResource AppBodyStrongTextBlockStyle}"
-              Text="{Binding Source.Name}"
-              TextWrapping="Wrap" />
-
-          <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
-            <TextBlock
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{Binding Source.Type}" />
-            <ItemsRepeater
-                VerticalAlignment="Center"
-                ItemsSource="{Binding RankItems}"
-                ItemTemplate="{StaticResource KiraStarItemTemplate}">
-              <ItemsRepeater.Layout>
-                <StackLayout Orientation="Horizontal" Spacing="2" />
-              </ItemsRepeater.Layout>
-            </ItemsRepeater>
-          </StackPanel>
-
-          <StackPanel Spacing="3" Visibility="{Binding HasInstanceVisibility}">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-              </Grid.ColumnDefinitions>
-              <TextBlock
-                  x:Uid="WeaponBaseAtkLabel"
-                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                  Style="{StaticResource AppCaptionTextBlockStyle}" />
-              <TextBlock
-                  Grid.Column="1"
-                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                  Text="{Binding AtkDisplay}" />
-            </Grid>
-            <Grid Visibility="{Binding SubVisibility}">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-              </Grid.ColumnDefinitions>
-              <TextBlock
-                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                  Style="{StaticResource AppCaptionTextBlockStyle}"
-                  Text="{Binding Source.MainStat}" />
-              <TextBlock
-                  Grid.Column="1"
-                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                  Text="{Binding SubDisplay}" />
-            </Grid>
-          </StackPanel>
-
-          <StackPanel
-              HorizontalAlignment="Center"
-              Orientation="Horizontal"
-              Spacing="10"
-              Visibility="{Binding HasInstanceVisibility}">
-            <TextBlock
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{Binding LevelFull}" />
-            <TextBlock
-                Foreground="{ThemeResource WeaponGoldBrush}"
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{Binding RefineLabel}" />
-          </StackPanel>
-
-          <StackPanel Spacing="2" Visibility="{Binding HasInstanceVisibility}">
-            <TextBlock
-                Foreground="{ThemeResource WeaponGoldBrush}"
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{Binding PassiveName}"
-                Visibility="{Binding PassiveVisibility}" />
-            <TextBlock
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{Binding SkillDesc}"
-                TextWrapping="Wrap" />
-          </StackPanel>
-
-        </StackPanel>
+    <DataTemplate x:Key="WeaponListTemplate" x:DataType="vm:WeaponViewModel">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Image
+            Width="48"
+            Height="48"
+            Margin="0,0,12,6"
+            Source="{x:Bind IconSource, Mode=OneWay}"
+            Stretch="Uniform" />
+        <TextBlock
+            Grid.Column="1"
+            Margin="12,0,0,0"
+            VerticalAlignment="Center"
+            Text="{x:Bind Source.Name}" />
       </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="CultivationItemTemplate" x:DataType="vm:MaterialItemViewModel">
+      <ctrl:HorizontalCard>
+        <ctrl:HorizontalCard.Left>
+          <ctrl:ItemIcon
+              Width="40"
+              Height="40"
+              Icon="{x:Bind IconSource, Mode=OneWay}"
+              Quality="{x:Bind Quality}" />
+        </ctrl:HorizontalCard.Left>
+        <ctrl:HorizontalCard.Right>
+          <TextBlock
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Text="{x:Bind Name}" />
+        </ctrl:HorizontalCard.Right>
+      </ctrl:HorizontalCard>
+    </DataTemplate>
+
+    <DataTemplate x:Key="WeaponGridTemplate" x:DataType="vm:WeaponViewModel">
+      <ctrl:VerticalCard Width="82">
+        <ctrl:VerticalCard.Top>
+          <ctrl:ItemIcon
+              Icon="{x:Bind IconSource, Mode=OneWay}"
+              Quality="{x:Bind QualitySource}" />
+        </ctrl:VerticalCard.Top>
+        <ctrl:VerticalCard.Bottom>
+          <TextBlock
+              Margin="2,0"
+              Text="{x:Bind Source.Name}"
+              TextTrimming="CharacterEllipsis" />
+        </ctrl:VerticalCard.Bottom>
+      </ctrl:VerticalCard>
+    </DataTemplate>
+
+    <DataTemplate x:Key="WeaponAvatarTemplate" x:DataType="vm:WeaponRecommendAvatar">
+      <ctrl:ItemIcon
+          Width="64"
+          Height="64"
+          Icon="{x:Bind Icon}"
+          Quality="{x:Bind Quality}"
+          ToolTipService.ToolTip="{x:Bind Name}" />
+    </DataTemplate>
+
   </UserControl.Resources>
 
-  <Border Margin="16,8,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
-    <Border
-        Background="{ThemeResource SystemControlAcrylicElementBrush}"
-        BorderThickness="0"
-        CornerRadius="{ThemeResource ControlCornerRadius}">
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button x:Name="FocusSink" Width="0" Height="0" IsTabStop="False" UseSystemFocusVisuals="False" Padding="0" BorderThickness="0" Background="Transparent" />
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
 
-        <Pivot
-            x:Name="TabPivot"
-            Grid.Row="0"
-            Margin="8,0,0,0"
-            ItemsSource="{x:Bind WeaponGroups, Mode=OneWay}"
-            SelectionChanged="OnTabChanged">
-          <Pivot.HeaderTemplate>
-            <DataTemplate x:DataType="vm:GroupViewModel">
-              <TextBlock Text="{x:Bind Header}" />
-            </DataTemplate>
-          </Pivot.HeaderTemplate>
-          <Pivot.ItemTemplate>
-            <DataTemplate x:DataType="vm:GroupViewModel">
-              <Grid Visibility="Collapsed" />
-            </DataTemplate>
-          </Pivot.ItemTemplate>
-          <Pivot.RightHeader>
-            <StackPanel
-                Margin="0,0,16,0"
-                Orientation="Horizontal"
-                Spacing="6"
-                VerticalAlignment="Center">
-              <Button VerticalAlignment="Center">
-                <Grid>
-                  <FontIcon FontSize="16" Glyph="&#xE71C;" />
-                  <Border
-                      HorizontalAlignment="Right"
-                      VerticalAlignment="Top"
-                      Margin="0,-6,-6,0"
-                      Background="{ThemeResource AccentFillColorDefaultBrush}"
-                      CornerRadius="6"
-                      MinWidth="14"
-                      Padding="3,0"
-                      Visibility="{x:Bind ActiveFilterBadgeVisibility, Mode=OneWay}">
-                    <TextBlock
-                        FontSize="9"
-                        Foreground="White"
-                        HorizontalTextAlignment="Center"
-                        Text="{x:Bind ActiveFilterCount, Mode=OneWay}" />
-                  </Border>
-                </Grid>
-                <Button.Flyout>
-                  <Flyout Placement="BottomEdgeAlignedRight">
-                    <StackPanel Width="260" Spacing="2">
-                      <Grid Margin="4,0,4,8">
-                        <TextBlock
-                            x:Uid="WeaponFilterTitle"
-                            Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                            VerticalAlignment="Center" />
-                        <HyperlinkButton
-                            x:Uid="WeaponFilterClear"
-                            HorizontalAlignment="Right"
-                            Padding="4,0"
-                            Click="OnClearFilter"
-                            Visibility="{x:Bind ActiveFilterBadgeVisibility, Mode=OneWay}" />
-                      </Grid>
-                      <ItemsRepeater ItemsSource="{x:Bind RankFilters, Mode=OneTime}">
-                        <ItemsRepeater.Layout>
-                          <StackLayout Orientation="Vertical" Spacing="2" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                          <DataTemplate x:DataType="vm:FilterOption">
-                            <ToggleButton
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Left"
-                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                Click="OnFilterToggled"
-                                Padding="8,6"
-                                Tag="{x:Bind Mode=OneTime}">
-                              <StackPanel Orientation="Horizontal" Spacing="8">
-                                <ItemsRepeater ItemsSource="{x:Bind StarItems, Mode=OneTime}">
-                                  <ItemsRepeater.Layout>
-                                    <StackLayout Orientation="Horizontal" Spacing="1" />
-                                  </ItemsRepeater.Layout>
-                                  <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate>
-                                      <BitmapIcon
-                                          Width="12"
-                                          Height="12"
-                                          Foreground="{ThemeResource WeaponGoldBrush}"
-                                          UriSource="ms-appx:///Assets/UI_IconKira.png" />
-                                    </DataTemplate>
-                                  </ItemsRepeater.ItemTemplate>
-                                </ItemsRepeater>
-                                <TextBlock
-                                    Text="{x:Bind Label, Mode=OneTime}"
-                                    VerticalAlignment="Center" />
-                              </StackPanel>
-                            </ToggleButton>
-                          </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                      </ItemsRepeater>
-                      <Border
-                          Height="1"
-                          Margin="4,6"
-                          Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                      <ItemsRepeater ItemsSource="{x:Bind TypeFilters, Mode=OneWay}">
-                        <ItemsRepeater.Layout>
-                          <StackLayout Orientation="Vertical" Spacing="2" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                          <DataTemplate x:DataType="vm:FilterOption">
-                            <ToggleButton
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Left"
-                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
-                                Click="OnFilterToggled"
-                                Padding="8,6"
-                                Tag="{x:Bind Mode=OneTime}">
-                              <TextBlock Text="{x:Bind Label, Mode=OneTime}" />
-                            </ToggleButton>
-                          </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                      </ItemsRepeater>
-                    </StackPanel>
-                  </Flyout>
-                </Button.Flyout>
-              </Button>
-              <AutoSuggestBox
-                  x:Name="SearchBox"
-                  x:Uid="WeaponSearchBox"
-                  Width="320"
-                  VerticalAlignment="Center"
-                  QueryIcon="Find"
-                  TextMemberPath="TextValue"
-                  QuerySubmitted="OnQuerySubmitted"
-                  SuggestionChosen="OnSuggestionChosen"
-                  TextChanged="OnSearchTextChanged">
-                <AutoSuggestBox.ItemTemplate>
-                  <DataTemplate x:DataType="vm:SearchSuggestion">
-                    <TextBlock Text="{x:Bind DisplayLabel, Mode=OneTime}" />
-                  </DataTemplate>
-                </AutoSuggestBox.ItemTemplate>
-              </AutoSuggestBox>
-            </StackPanel>
-          </Pivot.RightHeader>
-        </Pivot>
-
-        <ScrollViewer x:Name="ContentScroller" Grid.Row="1" Padding="8,4,8,8" IsTabStop="True" UseSystemFocusVisuals="False">
-          <ItemsRepeater x:Name="CardRepeater"
-                         ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
-                         ElementPrepared="OnElementPrepared"
-                         ElementClearing="OnElementClearing">
-          <ItemsRepeater.Layout>
-            <UniformGridLayout
-                MinItemWidth="200"
-                MinColumnSpacing="8"
-                MinRowSpacing="8"
-                ItemsStretch="Fill" />
-          </ItemsRepeater.Layout>
-          </ItemsRepeater>
-        </ScrollViewer>
-      </Grid>
+    <Border Margin="16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+      <Border Style="{StaticResource AcrylicSecondaryBorderCardStyle}">
+        <CommandBar
+            BorderBrush="{x:Null}"
+            BorderThickness="0"
+            DefaultLabelPosition="Right">
+          <CommandBar.Content>
+            <ctrl:LayoutSwitch
+                x:Name="ItemsPanelSelector"
+                Margin="6,8,0,0" />
+          </CommandBar.Content>
+          <AppBarElementContainer>
+            <ast:AutoSuggestTokenBox
+                x:Name="SearchBox"
+                x:Uid="WeaponSearchBox"
+                Width="600"
+                Height="44"
+                Margin="6,-2,6,6"
+                HorizontalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                AvailableTokens="{x:Bind AvailableTokens, Mode=OneWay}"
+                FilterCommand="{x:Bind FilterCommand}"
+                ItemsSource="{x:Bind FilterTokens}"
+                MaximumTokens="5"
+                Style="{StaticResource DefaultAutoSuggestTokenBoxStyle}"
+                SuggestedItemTemplate="{StaticResource SearchTokenTemplate}"
+                SuggestedItemsSource="{x:Bind AvailableTokens.Values, Mode=OneWay}"
+                Text="{x:Bind FilterText, Mode=TwoWay}"
+                TokenItemTemplate="{StaticResource SearchTokenTemplate}">
+              <ast:AutoSuggestTokenBox.QueryIcon>
+                <FontIconSource Glyph="&#xE721;" />
+              </ast:AutoSuggestTokenBox.QueryIcon>
+            </ast:AutoSuggestTokenBox>
+          </AppBarElementContainer>
+        </CommandBar>
+      </Border>
     </Border>
-  </Border>
+
+    <cwc:SwitchPresenter
+        Grid.Row="1"
+        ContentTransitions="{ThemeResource EntranceThemeTransitions}"
+        Value="{x:Bind ItemsPanelSelector.Current, Mode=OneWay}">
+
+      <cwc:Case Value="List">
+        <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+          <Border Style="{StaticResource AcrylicBorderCardStyle}">
+            <SplitView
+                DisplayMode="Inline"
+                IsPaneOpen="True"
+                OpenPaneLength="{StaticResource CompatSplitViewOpenPaneLength}"
+                PaneBackground="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+              <SplitView.Pane>
+                <ListView
+                    x:Name="WeaponListView"
+                    Padding="{StaticResource ListViewInSplitPanePadding}"
+                    ItemTemplate="{StaticResource WeaponListTemplate}"
+                    ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnWeaponSelectionChanged" />
+              </SplitView.Pane>
+              <SplitView.Content>
+                <Grid>
+                  <StackPanel
+                      VerticalAlignment="Center"
+                      Visibility="{x:Bind EmptyStateVisibility, Mode=OneWay}">
+                    <Image
+                        Height="120"
+                        Source="{StaticResource UI_EmotionIcon89}" />
+                    <TextBlock
+                        x:Uid="WeaponEmptyHint"
+                        Margin="0,5,0,21"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
+                  </StackPanel>
+                  <ScrollViewer
+                      x:Name="ContentScroller"
+                      IsTabStop="True"
+                      UseSystemFocusVisuals="False"
+                      Visibility="{x:Bind SelectedWeaponVisibility, Mode=OneWay}">
+                    <StackPanel Padding="16" Spacing="16">
+
+                      <Border Padding="16" Style="{StaticResource BorderCardStyle}">
+                        <Grid>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                          </Grid.ColumnDefinitions>
+                          <ctrl:ItemIcon
+                              Width="96"
+                              Height="96"
+                              Icon="{x:Bind SelectedWeapon.IconSource, Mode=OneWay}"
+                              Quality="{x:Bind SelectedWeapon.QualitySource, Mode=OneWay}" />
+                          <StackPanel
+                              Grid.Column="1"
+                              Margin="16,0,0,0"
+                              VerticalAlignment="Center">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="10">
+                              <Image
+                                  Width="32"
+                                  Height="32"
+                                  VerticalAlignment="Center"
+                                  Source="{x:Bind SelectedWeapon.TypeIconSource, Mode=OneWay}" />
+                              <Image
+                                  Width="30"
+                                  Height="30"
+                                  VerticalAlignment="Center"
+                                  Source="{x:Bind SelectedWeapon.SubPropIcon, Mode=OneWay}"
+                                  Visibility="{x:Bind SelectedWeapon.SubPropIconVisibility, Mode=OneWay}" />
+                            </StackPanel>
+                            <TextBlock
+                                Margin="0,6,0,0"
+                                FontFamily="{StaticResource AppFontFamily}"
+                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                Text="{x:Bind SelectedWeapon.Source.Name, Mode=OneWay}" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                Opacity="0.7"
+                                Text="{x:Bind SelectedWeapon.Description, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                          </StackPanel>
+                        </Grid>
+                      </Border>
+
+                      <Border
+                          Padding="16"
+                          Style="{StaticResource BorderShimmerStyle}"
+                          Visibility="{x:Bind WeaponGuideVisibility, Mode=OneWay}">
+                        <StackPanel Spacing="16">
+                          <TextBlock
+                              x:Uid="WeaponRecommendHeader"
+                              Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+                          <Pivot Margin="-16,-16,0,0">
+                            <PivotItem x:Uid="WeaponGuideBuilds">
+                              <ItemsControl
+                                  Margin="16,8,0,0"
+                                  ItemTemplate="{StaticResource WeaponAvatarTemplate}"
+                                  ItemsSource="{x:Bind WeaponGuideBuilds, Mode=OneWay}">
+                                <ItemsControl.ItemsPanel>
+                                  <ItemsPanelTemplate>
+                                    <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
+                                  </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                              </ItemsControl>
+                            </PivotItem>
+                            <PivotItem x:Uid="WeaponGuideAbyss">
+                              <ItemsControl
+                                  Margin="16,8,0,0"
+                                  ItemTemplate="{StaticResource WeaponAvatarTemplate}"
+                                  ItemsSource="{x:Bind WeaponGuideAbyss, Mode=OneWay}">
+                                <ItemsControl.ItemsPanel>
+                                  <ItemsPanelTemplate>
+                                    <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
+                                  </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                              </ItemsControl>
+                            </PivotItem>
+                          </Pivot>
+                        </StackPanel>
+                      </Border>
+
+                      <ctrl:WeaponLevelSlider
+                          x:Name="LevelSlider"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch" />
+
+                      <Border
+                          Padding="16"
+                          Style="{StaticResource BorderShimmerStyle}"
+                          Visibility="{x:Bind SelectedWeapon.CultivationVisibility, Mode=OneWay}">
+                        <StackPanel Spacing="16">
+                          <TextBlock
+                              x:Uid="WeaponCultivationHeader"
+                              Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+                          <ItemsControl
+                              ItemTemplate="{StaticResource CultivationItemTemplate}"
+                              ItemsSource="{x:Bind SelectedWeapon.CultivationMaterials, Mode=OneWay}">
+                            <ItemsControl.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                <cwc:UniformGrid ColumnSpacing="8" Columns="3" RowSpacing="8" />
+                              </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                          </ItemsControl>
+                        </StackPanel>
+                      </Border>
+
+                      <Border
+                          Padding="16"
+                          Style="{StaticResource BorderShimmerStyle}"
+                          Visibility="{x:Bind SelectedWeapon.PassiveVisibility, Mode=OneWay}">
+                        <StackPanel Spacing="16">
+                          <TextBlock
+                              Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                              Text="{x:Bind SelectedWeapon.PassiveName, Mode=OneWay}" />
+                          <Pivot Margin="-16,-16,0,0">
+                            <PivotItem x:Uid="WeaponRefine1">
+                              <RichTextBlock
+                                  Margin="16,8,0,0"
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  TextWrapping="Wrap"
+                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc0, Mode=OneWay}" />
+                            </PivotItem>
+                            <PivotItem x:Uid="WeaponRefine2">
+                              <RichTextBlock
+                                  Margin="16,8,0,0"
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  TextWrapping="Wrap"
+                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc1, Mode=OneWay}" />
+                            </PivotItem>
+                            <PivotItem x:Uid="WeaponRefine3">
+                              <RichTextBlock
+                                  Margin="16,8,0,0"
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  TextWrapping="Wrap"
+                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc2, Mode=OneWay}" />
+                            </PivotItem>
+                            <PivotItem x:Uid="WeaponRefine4">
+                              <RichTextBlock
+                                  Margin="16,8,0,0"
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  TextWrapping="Wrap"
+                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc3, Mode=OneWay}" />
+                            </PivotItem>
+                            <PivotItem x:Uid="WeaponRefine5">
+                              <RichTextBlock
+                                  Margin="16,8,0,0"
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  TextWrapping="Wrap"
+                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc4, Mode=OneWay}" />
+                            </PivotItem>
+                          </Pivot>
+                        </StackPanel>
+                      </Border>
+
+                      <Border
+                          Padding="16"
+                          Style="{StaticResource BorderShimmerStyle}"
+                          Visibility="{x:Bind WeaponStoryVisibility, Mode=OneWay}">
+                        <StackPanel Spacing="16">
+                          <TextBlock
+                              x:Uid="WeaponFlavorHeader"
+                              Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+                          <TextBlock
+                              IsTextSelectionEnabled="True"
+                              Opacity="0.8"
+                              Text="{x:Bind WeaponStory, Mode=OneWay}"
+                              TextWrapping="Wrap" />
+                        </StackPanel>
+                      </Border>
+
+                    </StackPanel>
+                  </ScrollViewer>
+                </Grid>
+              </SplitView.Content>
+            </SplitView>
+          </Border>
+        </Border>
+      </cwc:Case>
+
+      <cwc:Case Value="Grid">
+        <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+          <Border Style="{StaticResource AcrylicBorderCardStyle}">
+            <Grid Padding="16,16,4,-6">
+              <StackPanel
+                  VerticalAlignment="Center"
+                  Visibility="{x:Bind EmptyStateVisibility, Mode=OneWay}">
+                <Image
+                    Height="120"
+                    Source="{StaticResource UI_EmotionIcon89}" />
+                <TextBlock
+                    x:Uid="WeaponEmptyHint"
+                    Margin="0,5,0,21"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}" />
+              </StackPanel>
+              <GridView
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  ItemContainerStyle="{StaticResource LargeGridViewItemStyle}"
+                  ItemTemplate="{StaticResource WeaponGridTemplate}"
+                  ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                  SelectionMode="Single"
+                  SelectionChanged="OnWeaponSelectionChanged"
+                  Visibility="{x:Bind HasItemsVisibility, Mode=OneWay}" />
+            </Grid>
+          </Border>
+        </Border>
+      </cwc:Case>
+
+    </cwc:SwitchPresenter>
+
+  </Grid>
 </UserControl>

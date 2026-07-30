@@ -16,12 +16,15 @@
       <ResourceDictionary.MergedDictionaries>
         <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
         <ResourceDictionary Source="ms-appx:///Styles/PivotStyle.xaml" />
+        <ResourceDictionary Source="ms-appx:///Styles/Controls.xaml" />
+        <ResourceDictionary Source="ms-appx:///Views/Controls/AutoSuggestBox/AutoSuggestTokenBox.xaml" />
       </ResourceDictionary.MergedDictionaries>
       <cwm:AttachedCardShadow
           x:Key="CompatCardShadow"
           BlurRadius="8"
           Opacity="{ThemeResource CompatShadowThemeOpacity}"
           Offset="0,4,0" />
+      <BitmapImage x:Key="UI_EmotionIcon89" UriSource="http://8.134.75.17/static/raw/EmotionIcon/UI_EmotionIcon89.png" />
       <Style x:Key="GridShimmerStyle" TargetType="Grid">
         <Setter Property="Background" Value="{ThemeResource ControlAltFillColorSecondaryBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource ControlStrokeColorDefaultBrush}" />
@@ -29,6 +32,10 @@
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
       </Style>
       <SolidColorBrush x:Key="WeaponGoldBrush" Color="#FFD780" />
+      <TransitionCollection x:Key="AddDeleteThemeTransitions"><AddDeleteThemeTransition /></TransitionCollection>
+      <TransitionCollection x:Key="ContentThemeTransitions"><ContentThemeTransition /></TransitionCollection>
+      <TransitionCollection x:Key="EntranceThemeTransitions"><EntranceThemeTransition /></TransitionCollection>
+      <TransitionCollection x:Key="NavigationThemeTransitions"><NavigationThemeTransition /></TransitionCollection>
       <DataTemplate x:Key="KiraStarItemTemplate">
         <BitmapIcon
             Width="14"
@@ -36,6 +43,8 @@
             Foreground="{ThemeResource WeaponGoldBrush}"
             UriSource="ms-appx:///Assets/UI_IconKira.png" />
       </DataTemplate>
+      <x:Double x:Key="CompatSplitViewOpenPaneLength">212</x:Double>
+      <Thickness x:Key="ListViewInSplitPanePadding">0,2</Thickness>
       <FontFamily x:Key="AppFontFamily">ms-appx:///Assets/Fonts/MiSans-Regular.ttf#MiSans</FontFamily>
       <FontFamily x:Key="ContentControlThemeFontFamily">ms-appx:///Assets/Fonts/MiSans-Regular.ttf#MiSans</FontFamily>
       <StaticResource x:Key="PivotHeaderItemFontFamily" ResourceKey="AppFontFamily" />
@@ -50,6 +59,12 @@
         <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
       </Style>
       <Style x:Key="AppCaptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
+      </Style>
+      <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
+      </Style>
+      <Style TargetType="RichTextBlock">
         <Setter Property="FontFamily" Value="{StaticResource AppFontFamily}" />
       </Style>
     </ResourceDictionary>

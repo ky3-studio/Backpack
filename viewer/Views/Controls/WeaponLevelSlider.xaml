@@ -1,0 +1,97 @@
+<UserControl
+    x:Class="Backpack.Viewer.Views.Controls.WeaponLevelSlider"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Border
+        Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
+        BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="{ThemeResource ControlCornerRadius}">
+        <StackPanel>
+
+            <Grid Padding="16,10" ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Uid="WeaponLevelLabel"
+                    VerticalAlignment="Center"
+                    FontWeight="SemiBold" />
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="12">
+                    <TextBlock
+                        x:Name="LevelTextBlock"
+                        VerticalAlignment="Center"
+                        FontSize="13" />
+                    <CheckBox
+                        x:Name="PromotedCheckBox"
+                        x:Uid="WeaponPromotedCheck"
+                        MinWidth="0"
+                        Margin="0,-8,0,-8"
+                        Padding="8,0,0,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Checked="OnPromotedChecked"
+                        Unchecked="OnPromotedUnchecked" />
+                    <Slider
+                        x:Name="ValueSlider"
+                        MinWidth="220"
+                        Margin="0,-12,0,-12"
+                        VerticalAlignment="Center"
+                        Maximum="90"
+                        Minimum="1"
+                        StepFrequency="1"
+                        ValueChanged="OnSliderValueChanged" />
+                </StackPanel>
+            </Grid>
+
+            <Border Height="1" Background="{ThemeResource ControlStrokeColorDefaultBrush}" />
+
+            <Grid Padding="16,8" ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Uid="WeaponBaseAtkLabel"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <TextBlock
+                    x:Name="AtkTextBlock"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontWeight="SemiBold" />
+            </Grid>
+
+            <Grid
+                x:Name="SubPropRow"
+                Padding="16,8"
+                ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="SubPropNameBlock"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <TextBlock
+                    x:Name="SubTextBlock"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontWeight="SemiBold" />
+            </Grid>
+
+        </StackPanel>
+    </Border>
+
+</UserControl>
