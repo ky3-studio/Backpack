@@ -9,6 +9,11 @@
 x64/Release/obj/
 x64/Debug/
 
+SourceGeneration/bin/
+SourceGeneration/obj/
+viewer/bin/
+viewer/obj/
+
 .vs/
 *.user
 *.suo
