@@ -102,14 +102,14 @@
                 Margin="6,-2,6,6"
                 HorizontalAlignment="Stretch"
                 VerticalContentAlignment="Center"
-                AvailableTokens="{x:Bind AvailableTokens, Mode=OneWay}"
-                FilterCommand="{x:Bind FilterCommand}"
-                ItemsSource="{x:Bind FilterTokens}"
+                AvailableTokens="{x:Bind ViewModel.AvailableTokens, Mode=OneWay}"
+                FilterCommand="{x:Bind ViewModel.ApplyFilterCommand}"
+                ItemsSource="{x:Bind ViewModel.FilterTokens}"
                 MaximumTokens="5"
                 Style="{StaticResource DefaultAutoSuggestTokenBoxStyle}"
                 SuggestedItemTemplate="{StaticResource SearchTokenTemplate}"
-                SuggestedItemsSource="{x:Bind AvailableTokens.Values, Mode=OneWay}"
-                Text="{x:Bind FilterText, Mode=TwoWay}"
+                SuggestedItemsSource="{x:Bind ViewModel.AvailableTokens.Values, Mode=OneWay}"
+                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay}"
                 TokenItemTemplate="{StaticResource SearchTokenTemplate}">
               <ast:AutoSuggestTokenBox.QueryIcon>
                 <FontIconSource Glyph="&#xE721;" />
@@ -138,7 +138,7 @@
                     x:Name="WeaponListView"
                     Padding="{StaticResource ListViewInSplitPanePadding}"
                     ItemTemplate="{StaticResource WeaponListTemplate}"
-                    ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.CurrentItems, Mode=OneWay}"
                     SelectionMode="Single"
                     SelectionChanged="OnWeaponSelectionChanged" />
               </SplitView.Pane>
@@ -146,7 +146,7 @@
                 <Grid>
                   <StackPanel
                       VerticalAlignment="Center"
-                      Visibility="{x:Bind EmptyStateVisibility, Mode=OneWay}">
+                      Visibility="{x:Bind ViewModel.EmptyStateVisible, Mode=OneWay}">
                     <Image
                         Height="120"
                         Source="{StaticResource UI_EmotionIcon89}" />
@@ -160,7 +160,7 @@
                       x:Name="ContentScroller"
                       IsTabStop="True"
                       UseSystemFocusVisuals="False"
-                      Visibility="{x:Bind SelectedWeaponVisibility, Mode=OneWay}">
+                      Visibility="{x:Bind ViewModel.SelectedWeaponVisible, Mode=OneWay}">
                     <StackPanel Padding="16" Spacing="16">
 
                       <Border Padding="16" Style="{StaticResource BorderCardStyle}">
@@ -172,8 +172,8 @@
                           <ctrl:ItemIcon
                               Width="96"
                               Height="96"
-                              Icon="{x:Bind SelectedWeapon.IconSource, Mode=OneWay}"
-                              Quality="{x:Bind SelectedWeapon.QualitySource, Mode=OneWay}" />
+                              Icon="{x:Bind ViewModel.SelectedWeapon.IconSource, Mode=OneWay}"
+                              Quality="{x:Bind ViewModel.SelectedWeapon.QualitySource, Mode=OneWay}" />
                           <StackPanel
                               Grid.Column="1"
                               Margin="16,0,0,0"
@@ -185,23 +185,23 @@
                                   Width="32"
                                   Height="32"
                                   VerticalAlignment="Center"
-                                  Source="{x:Bind SelectedWeapon.TypeIconSource, Mode=OneWay}" />
+                                  Source="{x:Bind ViewModel.SelectedWeapon.TypeIconSource, Mode=OneWay}" />
                               <Image
                                   Width="30"
                                   Height="30"
                                   VerticalAlignment="Center"
-                                  Source="{x:Bind SelectedWeapon.SubPropIcon, Mode=OneWay}"
-                                  Visibility="{x:Bind SelectedWeapon.SubPropIconVisibility, Mode=OneWay}" />
+                                  Source="{x:Bind ViewModel.SelectedWeapon.SubPropIcon, Mode=OneWay}"
+                                  Visibility="{x:Bind ViewModel.SelectedWeapon.SubPropIconVisibility, Mode=OneWay}" />
                             </StackPanel>
                             <TextBlock
                                 Margin="0,6,0,0"
                                 FontFamily="{StaticResource AppFontFamily}"
                                 Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="{x:Bind SelectedWeapon.Source.Name, Mode=OneWay}" />
+                                Text="{x:Bind ViewModel.SelectedWeapon.Source.Name, Mode=OneWay}" />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 Opacity="0.7"
-                                Text="{x:Bind SelectedWeapon.Description, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.SelectedWeapon.Description, Mode=OneWay}"
                                 TextWrapping="Wrap" />
                           </StackPanel>
                         </Grid>
@@ -210,7 +210,7 @@
                       <Border
                           Padding="16"
                           Style="{StaticResource BorderShimmerStyle}"
-                          Visibility="{x:Bind WeaponGuideVisibility, Mode=OneWay}">
+                          Visibility="{x:Bind ViewModel.WeaponGuideVisibility, Mode=OneWay}">
                         <StackPanel Spacing="16">
                           <TextBlock
                               x:Uid="WeaponRecommendHeader"
@@ -220,7 +220,7 @@
                               <ItemsControl
                                   Margin="16,8,0,0"
                                   ItemTemplate="{StaticResource WeaponAvatarTemplate}"
-                                  ItemsSource="{x:Bind WeaponGuideBuilds, Mode=OneWay}">
+                                  ItemsSource="{x:Bind ViewModel.WeaponGuideBuilds, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
                                   <ItemsPanelTemplate>
                                     <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
@@ -232,7 +232,7 @@
                               <ItemsControl
                                   Margin="16,8,0,0"
                                   ItemTemplate="{StaticResource WeaponAvatarTemplate}"
-                                  ItemsSource="{x:Bind WeaponGuideAbyss, Mode=OneWay}">
+                                  ItemsSource="{x:Bind ViewModel.WeaponGuideAbyss, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
                                   <ItemsPanelTemplate>
                                     <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
@@ -246,20 +246,19 @@
 
                       <ctrl:WeaponLevelSlider
                           x:Name="LevelSlider"
-                          HorizontalAlignment="Stretch"
-                          HorizontalContentAlignment="Stretch" />
+                          HorizontalAlignment="Stretch" />
 
                       <Border
                           Padding="16"
                           Style="{StaticResource BorderShimmerStyle}"
-                          Visibility="{x:Bind SelectedWeapon.CultivationVisibility, Mode=OneWay}">
+                          Visibility="{x:Bind ViewModel.SelectedWeapon.CultivationVisibility, Mode=OneWay}">
                         <StackPanel Spacing="16">
                           <TextBlock
                               x:Uid="WeaponCultivationHeader"
                               Style="{StaticResource AppBodyStrongTextBlockStyle}" />
                           <ItemsControl
                               ItemTemplate="{StaticResource CultivationItemTemplate}"
-                              ItemsSource="{x:Bind SelectedWeapon.CultivationMaterials, Mode=OneWay}">
+                              ItemsSource="{x:Bind ViewModel.SelectedWeapon.CultivationMaterials, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
                               <ItemsPanelTemplate>
                                 <cwc:UniformGrid ColumnSpacing="8" Columns="3" RowSpacing="8" />
@@ -272,46 +271,46 @@
                       <Border
                           Padding="16"
                           Style="{StaticResource BorderShimmerStyle}"
-                          Visibility="{x:Bind SelectedWeapon.PassiveVisibility, Mode=OneWay}">
+                          Visibility="{x:Bind ViewModel.SelectedWeapon.PassiveVisibility, Mode=OneWay}">
                         <StackPanel Spacing="16">
                           <TextBlock
                               Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                              Text="{x:Bind SelectedWeapon.PassiveName, Mode=OneWay}" />
+                              Text="{x:Bind ViewModel.SelectedWeapon.PassiveName, Mode=OneWay}" />
                           <Pivot Margin="-16,-16,0,0">
                             <PivotItem x:Uid="WeaponRefine1">
                               <RichTextBlock
                                   Margin="16,8,0,0"
                                   FontFamily="{StaticResource AppFontFamily}"
                                   TextWrapping="Wrap"
-                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc0, Mode=OneWay}" />
+                                  mihoyo:MiHoYo.Description="{x:Bind ViewModel.RefineDesc0, Mode=OneWay}" />
                             </PivotItem>
                             <PivotItem x:Uid="WeaponRefine2">
                               <RichTextBlock
                                   Margin="16,8,0,0"
                                   FontFamily="{StaticResource AppFontFamily}"
                                   TextWrapping="Wrap"
-                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc1, Mode=OneWay}" />
+                                  mihoyo:MiHoYo.Description="{x:Bind ViewModel.RefineDesc1, Mode=OneWay}" />
                             </PivotItem>
                             <PivotItem x:Uid="WeaponRefine3">
                               <RichTextBlock
                                   Margin="16,8,0,0"
                                   FontFamily="{StaticResource AppFontFamily}"
                                   TextWrapping="Wrap"
-                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc2, Mode=OneWay}" />
+                                  mihoyo:MiHoYo.Description="{x:Bind ViewModel.RefineDesc2, Mode=OneWay}" />
                             </PivotItem>
                             <PivotItem x:Uid="WeaponRefine4">
                               <RichTextBlock
                                   Margin="16,8,0,0"
                                   FontFamily="{StaticResource AppFontFamily}"
                                   TextWrapping="Wrap"
-                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc3, Mode=OneWay}" />
+                                  mihoyo:MiHoYo.Description="{x:Bind ViewModel.RefineDesc3, Mode=OneWay}" />
                             </PivotItem>
                             <PivotItem x:Uid="WeaponRefine5">
                               <RichTextBlock
                                   Margin="16,8,0,0"
                                   FontFamily="{StaticResource AppFontFamily}"
                                   TextWrapping="Wrap"
-                                  mihoyo:MiHoYo.Description="{x:Bind RefineDesc4, Mode=OneWay}" />
+                                  mihoyo:MiHoYo.Description="{x:Bind ViewModel.RefineDesc4, Mode=OneWay}" />
                             </PivotItem>
                           </Pivot>
                         </StackPanel>
@@ -320,7 +319,7 @@
                       <Border
                           Padding="16"
                           Style="{StaticResource BorderShimmerStyle}"
-                          Visibility="{x:Bind WeaponStoryVisibility, Mode=OneWay}">
+                          Visibility="{x:Bind ViewModel.WeaponStoryVisibility, Mode=OneWay}">
                         <StackPanel Spacing="16">
                           <TextBlock
                               x:Uid="WeaponFlavorHeader"
@@ -328,7 +327,7 @@
                           <TextBlock
                               IsTextSelectionEnabled="True"
                               Opacity="0.8"
-                              Text="{x:Bind WeaponStory, Mode=OneWay}"
+                              Text="{x:Bind ViewModel.WeaponStory, Mode=OneWay}"
                               TextWrapping="Wrap" />
                         </StackPanel>
                       </Border>
@@ -348,7 +347,7 @@
             <Grid Padding="16,16,4,-6">
               <StackPanel
                   VerticalAlignment="Center"
-                  Visibility="{x:Bind EmptyStateVisibility, Mode=OneWay}">
+                  Visibility="{x:Bind ViewModel.EmptyStateVisible, Mode=OneWay}">
                 <Image
                     Height="120"
                     Source="{StaticResource UI_EmotionIcon89}" />
@@ -363,10 +362,10 @@
                   HorizontalContentAlignment="Left"
                   ItemContainerStyle="{StaticResource LargeGridViewItemStyle}"
                   ItemTemplate="{StaticResource WeaponGridTemplate}"
-                  ItemsSource="{x:Bind CurrentItems, Mode=OneWay}"
+                  ItemsSource="{x:Bind ViewModel.CurrentItems, Mode=OneWay}"
                   SelectionMode="Single"
                   SelectionChanged="OnWeaponSelectionChanged"
-                  Visibility="{x:Bind HasItemsVisibility, Mode=OneWay}" />
+                  Visibility="{x:Bind ViewModel.HasItems, Mode=OneWay}" />
             </Grid>
           </Border>
         </Border>
