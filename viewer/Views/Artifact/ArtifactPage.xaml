@@ -85,6 +85,73 @@
       </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="OwnedSubStatTemplate" x:DataType="vm:OwnedSubStat">
+      <Grid Margin="0,2,0,2">
+        <TextBlock
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            Style="{StaticResource AppCaptionTextBlockStyle}"
+            Text="{x:Bind Name}" />
+        <TextBlock
+            HorizontalAlignment="Right"
+            Style="{StaticResource AppCaptionTextBlockStyle}"
+            Text="{x:Bind Value}" />
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="OwnedArtifactTemplate" x:DataType="vm:OwnedArtifactViewModel">
+      <Border Margin="0,0,0,8" Padding="12" Style="{StaticResource BorderCardStyle}">
+        <StackPanel Spacing="8">
+          <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Width="44"
+                Height="44"
+                VerticalAlignment="Center"
+                Source="{x:Bind IconSource, Mode=OneWay}"
+                Stretch="Uniform" />
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+              <TextBlock
+                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                  Text="{x:Bind PieceName}"
+                  TextTrimming="CharacterEllipsis" />
+              <TextBlock
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{x:Bind SlotName}" />
+              <Image
+                  Height="12"
+                  HorizontalAlignment="Left"
+                  Source="{x:Bind RankStarsSource}"
+                  Stretch="Uniform" />
+            </StackPanel>
+            <TextBlock
+                Grid.Column="2"
+                VerticalAlignment="Center"
+                Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                Text="{x:Bind LevelText}" />
+          </Grid>
+          <Grid>
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{x:Bind MainStatName}" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                Text="{x:Bind MainStatValue}" />
+          </Grid>
+          <ItemsControl
+              ItemTemplate="{StaticResource OwnedSubStatTemplate}"
+              ItemsSource="{x:Bind SubStats}" />
+        </StackPanel>
+      </Border>
+    </DataTemplate>
+
     <DataTemplate x:Key="ArtifactDetailTemplate" x:DataType="vm:ArtifactSetViewModel">
       <StackPanel Spacing="16">
 
@@ -197,6 +264,23 @@
                 Opacity="0.8"
                 Text="{x:Bind SelectedPiece.Story, Mode=OneWay}"
                 TextWrapping="Wrap" />
+          </StackPanel>
+        </Border>
+
+        <Border
+            Padding="16"
+            Style="{StaticResource BorderShimmerStyle}"
+            Visibility="{x:Bind OwnedVisibility, Mode=OneWay}">
+          <StackPanel Spacing="12">
+            <TextBlock x:Uid="ArtifactOwnedHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
+            <cwc:Segmented
+                ItemTemplate="{StaticResource ArtifactRankTabTemplate}"
+                ItemsSource="{x:Bind OwnedRankOptions}"
+                SelectedIndex="{x:Bind SelectedOwnedRankIndex, Mode=TwoWay}"
+                Visibility="{x:Bind OwnedRankSwitchVisibility}" />
+            <ItemsControl
+                ItemTemplate="{StaticResource OwnedArtifactTemplate}"
+                ItemsSource="{x:Bind VisibleOwnedPieces, Mode=OneWay}" />
           </StackPanel>
         </Border>
 

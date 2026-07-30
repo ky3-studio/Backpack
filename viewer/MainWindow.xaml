@@ -15,11 +15,40 @@
     </Grid.RowDefinitions>
 
     <Grid x:Name="TitleBarArea" Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
       <TextBlock
           x:Name="AppTitleText"
+          Grid.Column="0"
           Margin="52,0,0,0"
           Style="{StaticResource AppCaptionTextBlockStyle}"
           VerticalAlignment="Center" />
+
+      <Border
+          x:Name="TitleBarDragRegion"
+          Grid.Column="1"
+          Background="Transparent" />
+
+      <Button
+          x:Name="SyncButton"
+          Grid.Column="2"
+          Margin="0,0,180,0"
+          Padding="16,6"
+          VerticalAlignment="Center"
+          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+          Click="OnToggleDrawer"
+          CornerRadius="{ThemeResource ControlCornerRadius}"
+          IsEnabled="{x:Bind ViewModel.HasSelectedPath, Mode=OneWay}">
+        <TextBlock
+            x:Uid="SyncBagButton"
+            FontFamily="{StaticResource AppFontFamily}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+      </Button>
     </Grid>
 
     <NavigationView
@@ -102,6 +131,84 @@
       </Grid>
 
     </NavigationView>
+
+    <Grid
+        x:Name="DrawerScrim"
+        Grid.RowSpan="2"
+        Background="#40000000"
+        Tapped="OnScrimTapped"
+        Visibility="Collapsed" />
+
+    <Grid
+        x:Name="DrawerHost"
+        Grid.RowSpan="2"
+        Width="400"
+        HorizontalAlignment="Right"
+        Visibility="Collapsed">
+      <Grid.RenderTransform>
+        <TranslateTransform x:Name="DrawerSlide" X="400" />
+      </Grid.RenderTransform>
+      <Border Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+        <ScrollViewer Padding="16,52,16,16" VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="12">
+            <Border Padding="16" Style="{StaticResource BorderCardStyle}">
+              <StackPanel Spacing="10">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Click="OnSyncBag"
+                    IsEnabled="{x:Bind ViewModel.HasSelectedPath, Mode=OneWay}"
+                    Style="{StaticResource AccentButtonStyle}">
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="16" Glyph="&#xE7FC;" />
+                    <TextBlock x:Uid="DrawerSyncText" FontFamily="{StaticResource AppFontFamily}" />
+                  </StackPanel>
+                </Button>
+                <Button
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Click="OnKillGame"
+                    IsEnabled="{x:Bind ViewModel.IsGameRunning, Mode=OneWay}">
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="16" Glyph="&#xE733;" />
+                    <TextBlock x:Uid="DrawerKillText" FontFamily="{StaticResource AppFontFamily}" />
+                  </StackPanel>
+                </Button>
+              </StackPanel>
+            </Border>
+
+            <Border Padding="16" Style="{StaticResource BorderShimmerStyle}">
+              <StackPanel Spacing="4">
+                <TextBlock
+                    x:Uid="DrawerStatusLabel"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource AppCaptionTextBlockStyle}" />
+                <TextBlock
+                    FontFamily="{StaticResource AppFontFamily}"
+                    Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+              </StackPanel>
+            </Border>
+
+            <Border Padding="16" Style="{StaticResource BorderShimmerStyle}">
+              <StackPanel Spacing="8">
+                <TextBlock
+                    x:Uid="DrawerPathLabel"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource AppCaptionTextBlockStyle}" />
+                <TextBlock
+                    FontFamily="{StaticResource AppFontFamily}"
+                    Text="{x:Bind ViewModel.GamePathService.SelectedPath, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <Button HorizontalAlignment="Left" Click="OnDrawerPickPath">
+                  <TextBlock x:Uid="DrawerSwitchPathText" FontFamily="{StaticResource AppFontFamily}" />
+                </Button>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
 
   </Grid>
 

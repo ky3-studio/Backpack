@@ -30,7 +30,7 @@ public sealed partial class MainWindow : Window, IDisposable
         Title = $"Backpack {AppVersion.Value}";
         AppTitleText.Text = $"Backpack {AppVersion.Value}";
         ExtendsContentIntoTitleBar = true;
-        SetTitleBar(TitleBarArea);
+        SetTitleBar(TitleBarDragRegion);
         AppWindow.SetIcon(System.IO.Path.Combine(StaticResources.AssetsDir, "UI", "logo.ico"));
         const int logW = 1280, logH = 800;
         var    hwnd  = WinRT.Interop.WindowNative.GetWindowHandle(this);

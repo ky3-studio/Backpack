@@ -16,6 +16,9 @@ internal static partial class GameLaunchService
         return File.Exists(path) ? path : null;
     }
 
+    public static string GetOutputDir(string gameExePath) =>
+        Path.Combine(Path.GetDirectoryName(gameExePath) ?? AppContext.BaseDirectory, "output");
+
     public static async Task<int> LaunchAsync(string gameExePath)
     {
         var dllPath    = GetDllPath();

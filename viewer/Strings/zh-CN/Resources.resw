@@ -321,6 +321,27 @@
   <data name="ArtifactMainStatHeader.Text" xml:space="preserve">
     <value>主属性</value>
   </data>
+  <data name="ArtifactOwnedHeader.Text" xml:space="preserve">
+    <value>已有圣遗物</value>
+  </data>
+  <data name="SyncBagButton.Text" xml:space="preserve">
+    <value>同步数据</value>
+  </data>
+  <data name="DrawerSyncText.Text" xml:space="preserve">
+    <value>立即同步</value>
+  </data>
+  <data name="DrawerKillText.Text" xml:space="preserve">
+    <value>结束游戏</value>
+  </data>
+  <data name="DrawerStatusLabel.Text" xml:space="preserve">
+    <value>上次同步</value>
+  </data>
+  <data name="DrawerPathLabel.Text" xml:space="preserve">
+    <value>游戏路径</value>
+  </data>
+  <data name="DrawerSwitchPathText.Text" xml:space="preserve">
+    <value>切换路径</value>
+  </data>
   <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索怪物…</value>
   </data>

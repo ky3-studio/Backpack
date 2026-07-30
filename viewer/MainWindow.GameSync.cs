@@ -1,16 +1,85 @@
+using System;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Animation;
 
 namespace Backpack.Viewer;
 
 public sealed partial class MainWindow
 {
+    private bool _drawerOpen;
+
+    private void OnToggleDrawer(object sender, RoutedEventArgs e)
+    {
+        if (_drawerOpen) CloseDrawer();
+        else OpenDrawer();
+    }
+
+    private void OnScrimTapped(object sender, TappedRoutedEventArgs e) => CloseDrawer();
+
+    private void OpenDrawer()
+    {
+        _drawerOpen            = true;
+        DrawerScrim.Visibility = Visibility.Visible;
+        DrawerHost.Visibility  = Visibility.Visible;
+        AnimateDrawer(open: true);
+    }
+
+    private void CloseDrawer()
+    {
+        if (!_drawerOpen) return;
+        _drawerOpen = false;
+        AnimateDrawer(open: false, onComplete: () =>
+        {
+            DrawerScrim.Visibility = Visibility.Collapsed;
+            DrawerHost.Visibility  = Visibility.Collapsed;
+        });
+    }
+
+    private void AnimateDrawer(bool open, Action? onComplete = null)
+    {
+        var storyboard = new Storyboard();
+
+        var slide = new DoubleAnimation
+        {
+            From           = open ? 400 : 0,
+            To             = open ? 0 : 400,
+            Duration       = TimeSpan.FromMilliseconds(220),
+            EasingFunction = new CubicEase { EasingMode = open ? EasingMode.EaseOut : EasingMode.EaseIn },
+        };
+        Storyboard.SetTarget(slide, DrawerSlide);
+        Storyboard.SetTargetProperty(slide, "X");
+        storyboard.Children.Add(slide);
+
+        var scrimFade = new DoubleAnimation
+        {
+            From     = open ? 0 : 1,
+            To       = open ? 1 : 0,
+            Duration = TimeSpan.FromMilliseconds(220),
+        };
+        Storyboard.SetTarget(scrimFade, DrawerScrim);
+        Storyboard.SetTargetProperty(scrimFade, "Opacity");
+        storyboard.Children.Add(scrimFade);
+
+        if (onComplete is not null)
+            storyboard.Completed += (_, _) => onComplete();
+        storyboard.Begin();
+    }
+
+    private void OnDrawerPickPath(object sender, RoutedEventArgs e) => PickGamePath();
+
     private async void OnSyncBag(object sender, RoutedEventArgs e)
     {
+        CloseDrawer();
+
         var gamePath = ViewModel.GamePathService.SelectedPath;
         if (gamePath is null) return;
+
+        var outputDir    = GameLaunchService.GetOutputDir(gamePath);
+        var syncStartUtc = DateTime.UtcNow;
 
         ViewModel.IsLaunching = true;
         ViewModel.StatusText  = SR.StatusLaunching;
@@ -55,6 +124,9 @@ public sealed partial class MainWindow
         ViewModel.IsLaunching = false;
 
         KillLaunchedGame();
+
+        if (ViewModel.ImportFromOutput(outputDir, syncStartUtc))
+            ViewModel.StatusText = $"{SR.StatusReceived} · {DateTime.Now:HH:mm:ss}";
     }
 
     private void KillLaunchedGame()

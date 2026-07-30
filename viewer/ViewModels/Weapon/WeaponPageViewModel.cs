@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Backpack.Viewer.Services;
 using Backpack.Viewer.Services.Story;
 using Backpack.Viewer.ViewModels.Search;
@@ -46,18 +47,34 @@ internal sealed class WeaponPageViewModel : FilterablePageViewModel<WeaponViewMo
 
     public void Initialize(ObservableCollection<GroupViewModel<WeaponViewModel>>? groups)
     {
+        if (_groups is not null)
+            _groups.CollectionChanged -= OnSourceChanged;
         _groups = groups;
-        IEnumerable<WeaponViewModel> items = groups?.SelectMany(g => g.Items) ?? [];
+        if (_groups is not null)
+            _groups.CollectionChanged += OnSourceChanged;
+
+        Rebuild();
+    }
+
+    private void OnSourceChanged(object? sender, NotifyCollectionChangedEventArgs e) => Rebuild();
+
+    private void Rebuild()
+    {
+        IEnumerable<WeaponViewModel> items = _groups?.SelectMany(g => g.Items) ?? [];
         AvailableTokens = WeaponSearchTokens.Build(items);
-        FilterTokens.Clear();
         RefreshItems();
-
-        if (_selectedWeapon is null && CurrentItems?.Count > 0)
-            SelectWeapon(CurrentItems[0]);
-
         NotifyListChanged();
+        EnsureSelection();
         OnPropertyChanged(nameof(AvailableTokens));
     }
+
+    private void EnsureSelection()
+    {
+        if (_selectedWeapon is not null && (CurrentItems?.Contains(_selectedWeapon) ?? false)) return;
+        SelectWeapon(CurrentItems?.Count > 0 ? CurrentItems[0] : null);
+    }
+
+    protected override void OnItemsRefreshed() => EnsureSelection();
 
     public void SelectWeapon(WeaponViewModel? vm)
     {

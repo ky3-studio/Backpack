@@ -81,7 +81,7 @@ public sealed partial class MainViewModel : ObservableObject
             LoadDefaultWeapons();
         RebuildWeaponGroups();
 
-        LoadDefaultArtifacts();
+        BuildArtifacts(db.LoadArtifacts());
 
         RebuildAvatars(db.LoadAvatars());
 

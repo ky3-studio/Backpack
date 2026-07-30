@@ -13,8 +13,10 @@ public sealed partial class WeaponLevelSlider : UserControl
     private WeaponMetaService? _meta;
 
     private uint _weaponId;
-    private int  _level    = 90;
-    private bool _promoted = false;
+    private int  _level     = 90;
+    private int  _ascension = 6;
+    private bool _promoted  = false;
+    private bool _locked    = false;
     private bool _suspendEvents = false;
 
     public WeaponLevelSlider()
@@ -30,17 +32,19 @@ public sealed partial class WeaponLevelSlider : UserControl
         _meta = meta;
     }
 
-    public void SetWeapon(uint weaponId, int initialLevel = 90, bool initialPromoted = false)
+    public void SetWeapon(uint weaponId, int initialLevel = 90, int ascension = 6, bool locked = false)
     {
-        _weaponId = weaponId;
-        _level    = Math.Clamp(initialLevel, 1, 90);
-        _promoted = initialPromoted;
+        _weaponId  = weaponId;
+        _level     = Math.Clamp(initialLevel, 1, 90);
+        _ascension = Math.Clamp(ascension, 0, 6);
+        _locked    = locked;
+        _promoted  = false;
         Refresh();
     }
 
     private void OnSliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
     {
-        if (_suspendEvents) return;
+        if (_suspendEvents || _locked) return;
         var lvl = Math.Clamp((int)e.NewValue, 1, 90);
         if (_level == lvl) return;
         _level = lvl;
@@ -68,14 +72,24 @@ public sealed partial class WeaponLevelSlider : UserControl
 
         _suspendEvents = true;
 
-        var promote = CalcPromote(_level, _promoted);
+        var promote = _locked ? _ascension : CalcPromote(_level, _promoted);
         var (atk, sub) = _meta.CalcStats(_weaponId, _level, promote);
 
         LevelTextBlock.Text    = $"{SR.LevelPrefix}{_level}";
         AtkTextBlock.Text      = atk > 0 ? atk.ToString() : SR.StatEmptyValue;
-        ValueSlider.Value      = _level;
-        PromotedCheckBox.IsChecked = _promoted;
-        PromotedCheckBox.Visibility = Breakpoints.Contains(_level) ? Visibility.Visible : Visibility.Collapsed;
+
+        if (_locked)
+        {
+            ValueSlider.Visibility      = Visibility.Collapsed;
+            PromotedCheckBox.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            ValueSlider.Visibility      = Visibility.Visible;
+            ValueSlider.Value           = _level;
+            PromotedCheckBox.IsChecked  = _promoted;
+            PromotedCheckBox.Visibility = Breakpoints.Contains(_level) ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         if (!string.IsNullOrEmpty(sub))
         {

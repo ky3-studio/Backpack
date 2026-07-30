@@ -278,7 +278,21 @@
                           <TextBlock
                               Style="{StaticResource AppBodyStrongTextBlockStyle}"
                               Text="{x:Bind ViewModel.SelectedWeapon.PassiveName, Mode=OneWay}" />
-                          <Pivot Margin="-16,-16,0,0">
+                          <StackPanel
+                              Spacing="8"
+                              Visibility="{x:Bind ViewModel.SelectedWeapon.HasInstanceVisibility, Mode=OneWay}">
+                            <TextBlock
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Text="{x:Bind ViewModel.SelectedWeapon.RefineLabel, Mode=OneWay}" />
+                            <RichTextBlock
+                                FontFamily="{StaticResource AppFontFamily}"
+                                TextWrapping="Wrap"
+                                mihoyo:MiHoYo.Description="{x:Bind ViewModel.SelectedWeapon.SkillDesc, Mode=OneWay}" />
+                          </StackPanel>
+                          <Pivot
+                              Margin="-16,-16,0,0"
+                              Visibility="{x:Bind ViewModel.SelectedWeapon.CatalogVisibility, Mode=OneWay}">
                             <PivotItem x:Uid="WeaponRefine1">
                               <RichTextBlock
                                   Margin="16,8,0,0"

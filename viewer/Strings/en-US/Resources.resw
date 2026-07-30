@@ -321,6 +321,27 @@
   <data name="ArtifactMainStatHeader.Text" xml:space="preserve">
     <value>Main Stat</value>
   </data>
+  <data name="ArtifactOwnedHeader.Text" xml:space="preserve">
+    <value>Owned Artifacts</value>
+  </data>
+  <data name="SyncBagButton.Text" xml:space="preserve">
+    <value>Sync Data</value>
+  </data>
+  <data name="DrawerSyncText.Text" xml:space="preserve">
+    <value>Sync Now</value>
+  </data>
+  <data name="DrawerKillText.Text" xml:space="preserve">
+    <value>Close Game</value>
+  </data>
+  <data name="DrawerStatusLabel.Text" xml:space="preserve">
+    <value>Last Sync</value>
+  </data>
+  <data name="DrawerPathLabel.Text" xml:space="preserve">
+    <value>Game Path</value>
+  </data>
+  <data name="DrawerSwitchPathText.Text" xml:space="preserve">
+    <value>Change Path</value>
+  </data>
   <data name="MonsterSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search monsters…</value>
   </data>

@@ -32,7 +32,11 @@ public sealed partial class WeaponPage : UserControl
 
     private void OnViewModelWeaponSelected(uint weaponId)
     {
-        LevelSlider.SetWeapon(weaponId);
+        var w = ViewModel.SelectedWeapon;
+        if (w is not null && w.HasInstanceVisibility == Visibility.Visible)
+            LevelSlider.SetWeapon(weaponId, w.Source.Level, w.Source.Ascension, locked: true);
+        else
+            LevelSlider.SetWeapon(weaponId);
     }
 
     private void OnWeaponSelectionChanged(object sender, SelectionChangedEventArgs e)

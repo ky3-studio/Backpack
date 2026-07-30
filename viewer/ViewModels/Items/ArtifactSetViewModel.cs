@@ -1,5 +1,6 @@
 using Backpack.Viewer;
 using Backpack.Viewer.Localization;
+using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
@@ -29,6 +30,10 @@ public sealed partial class ArtifactSetViewModel : ObservableObject, IIconUpdata
     [NotifyPropertyChangedFor(nameof(MainStatRows))]
     private double _level;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(VisibleOwnedPieces))]
+    private int _selectedOwnedRankIndex;
+
     private readonly ArtifactMetaService _meta;
 
     public string                                SetName              { get; }
@@ -39,6 +44,16 @@ public sealed partial class ArtifactSetViewModel : ObservableObject, IIconUpdata
     public IReadOnlyList<int>                    Ranks                { get; }
     public IReadOnlyList<ArtifactRankOption>     RankOptions          { get; }
     public Visibility                            RankSwitchVisibility { get; }
+
+    public IReadOnlyList<OwnedArtifactViewModel> OwnedPieces               { get; private set; } = [];
+    public IReadOnlyList<ArtifactRankOption>     OwnedRankOptions          { get; private set; } = [];
+    public Visibility                            OwnedVisibility           { get; private set; } = Visibility.Collapsed;
+    public Visibility                            OwnedRankSwitchVisibility { get; private set; } = Visibility.Collapsed;
+
+    public IReadOnlyList<OwnedArtifactViewModel> VisibleOwnedPieces =>
+        OwnedRankOptions.Count == 0
+            ? []
+            : [.. OwnedPieces.Where(p => p.Rank == OwnedRankOptions[Math.Clamp(SelectedOwnedRankIndex, 0, OwnedRankOptions.Count - 1)].Rank)];
 
     public int         Rank            => Ranks[Math.Clamp(SelectedRankIndex, 0, Ranks.Count - 1)];
     public int         MaxLevel        => Rank * 4;
@@ -77,6 +92,15 @@ public sealed partial class ArtifactSetViewModel : ObservableObject, IIconUpdata
 
         if (IconUri is not null)
             GfxLoader.BeginLoad(IconUri, this);
+    }
+
+    public void AttachOwned(IReadOnlyList<ArtifactEntry> owned)
+    {
+        OwnedPieces = [.. owned.Select(e => new OwnedArtifactViewModel(e, _meta))];
+        var ranks = OwnedPieces.Select(p => p.Rank).Distinct().OrderByDescending(r => r).ToArray();
+        OwnedRankOptions          = [.. ranks.Select(r => new ArtifactRankOption(r, StaticResources.GetRankStarsBitmap(r)))];
+        OwnedVisibility           = (OwnedPieces.Count > 0).ToVisibility();
+        OwnedRankSwitchVisibility = (ranks.Length > 1).ToVisibility();
     }
 
     partial void OnSelectedRankIndexChanged(int value)

@@ -35,6 +35,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     public BitmapImage? SubPropIcon           { get; }
     public Visibility   SubPropIconVisibility => SubPropIcon is not null ? Visibility.Visible : Visibility.Collapsed;
     public Visibility   HasInstanceVisibility { get; }
+    public Visibility   CatalogVisibility     { get; }
     public Visibility   SubVisibility         { get; }
     public Visibility   PassiveVisibility     { get; }
     public BitmapImage  QualitySource         { get; }
@@ -49,6 +50,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
 
         var hasInstance = !string.IsNullOrEmpty(entry.Guid);
         HasInstanceVisibility = hasInstance.ToVisibility();
+        CatalogVisibility     = (!hasInstance).ToVisibility();
 
         if (hasInstance)
         {

@@ -39,7 +39,7 @@ public sealed partial class MainViewModel
             LoadDefaultWeapons();
         RebuildWeaponGroups();
 
-        LoadDefaultArtifacts();
+        BuildArtifacts(_db.LoadArtifacts());
 
         RebuildAvatars(_db.LoadAvatars());
 
