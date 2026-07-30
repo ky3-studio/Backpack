@@ -61,7 +61,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MonsterResistTemplate" x:DataType="vm:MonsterResistViewModel">
-      <StackPanel Orientation="Horizontal" Spacing="4">
+      <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="4">
         <Image Width="22" Height="22" VerticalAlignment="Center" Source="{x:Bind Icon}" />
         <TextBlock VerticalAlignment="Center" Style="{StaticResource AppCaptionTextBlockStyle}" Text="{x:Bind Value}" />
       </StackPanel>
@@ -107,27 +107,10 @@
       </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="MonsterAffixTemplate" x:DataType="vm:MonsterAffixViewModel">
-      <StackPanel Margin="0,0,0,10" Spacing="2">
-        <TextBlock
-            Style="{StaticResource AppBodyStrongTextBlockStyle}"
-            Text="{x:Bind Name}"
-            TextWrapping="Wrap"
-            Visibility="{x:Bind NameVisibility}" />
-        <RichTextBlock
-            FontFamily="{StaticResource AppFontFamily}"
-            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-            TextWrapping="Wrap"
-            Visibility="{x:Bind DescriptionVisibility}"
-            mihoyo:MiHoYo.Description="{x:Bind Description}" />
-      </StackPanel>
-    </DataTemplate>
-
     <DataTemplate x:Key="MonsterTipImageTemplate" x:DataType="vm:MonsterTipImageViewModel">
       <Image
-          MaxWidth="380"
           Margin="0,0,0,8"
-          HorizontalAlignment="Left"
+          HorizontalAlignment="Stretch"
           Source="{x:Bind IconSource, Mode=OneWay}"
           Stretch="Uniform" />
     </DataTemplate>
@@ -190,18 +173,6 @@
           </Grid>
         </Border>
 
-        <cwc:Segmented
-            HorizontalAlignment="Left"
-            ItemsSource="{x:Bind Variants, Mode=OneWay}"
-            SelectedItem="{x:Bind SelectedVariant, Mode=TwoWay}"
-            Visibility="{x:Bind VariantTabsVisibility, Mode=OneWay}">
-          <cwc:Segmented.ItemTemplate>
-            <DataTemplate x:DataType="vm:MonsterVariantViewModel">
-              <TextBlock Text="{x:Bind Label}" />
-            </DataTemplate>
-          </cwc:Segmented.ItemTemplate>
-        </cwc:Segmented>
-
         <Border
             Padding="16"
             Style="{StaticResource BorderShimmerStyle}"
@@ -240,10 +211,13 @@
                 Margin="0,6,0,0"
                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                 Style="{StaticResource AppCaptionTextBlockStyle}" />
-            <ItemsControl ItemTemplate="{StaticResource MonsterCoopHpTemplate}" ItemsSource="{x:Bind CoopHp, Mode=OneWay}">
+            <ItemsControl
+                HorizontalAlignment="Stretch"
+                ItemTemplate="{StaticResource MonsterCoopHpTemplate}"
+                ItemsSource="{x:Bind CoopHp, Mode=OneWay}">
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <cwc:WrapPanel HorizontalSpacing="20" VerticalSpacing="4" />
+                  <cwc:UniformGrid Columns="4" />
                 </ItemsPanelTemplate>
               </ItemsControl.ItemsPanel>
             </ItemsControl>
@@ -256,10 +230,13 @@
             Visibility="{x:Bind ResistsVisibility, Mode=OneWay}">
           <StackPanel Spacing="12">
             <TextBlock x:Uid="MonsterResistHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-            <ItemsControl ItemTemplate="{StaticResource MonsterResistTemplate}" ItemsSource="{x:Bind Resists, Mode=OneWay}">
+            <ItemsControl
+                HorizontalAlignment="Stretch"
+                ItemTemplate="{StaticResource MonsterResistTemplate}"
+                ItemsSource="{x:Bind Resists, Mode=OneWay}">
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <cwc:WrapPanel HorizontalSpacing="14" VerticalSpacing="8" />
+                  <cwc:UniformGrid Columns="8" />
                 </ItemsPanelTemplate>
               </ItemsControl.ItemsPanel>
             </ItemsControl>
@@ -275,16 +252,6 @@
               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
               TextWrapping="Wrap"
               mihoyo:MiHoYo.Description="{x:Bind Description}" />
-        </Border>
-
-        <Border
-            Padding="16"
-            Style="{StaticResource BorderShimmerStyle}"
-            Visibility="{x:Bind AffixesVisibility, Mode=OneWay}">
-          <StackPanel Spacing="12">
-            <TextBlock x:Uid="MonsterAffixHeader" Style="{StaticResource AppBodyStrongTextBlockStyle}" />
-            <ItemsControl ItemTemplate="{StaticResource MonsterAffixTemplate}" ItemsSource="{x:Bind Affixes, Mode=OneWay}" />
-          </StackPanel>
         </Border>
 
         <Border

@@ -102,6 +102,9 @@
   <data name="PathInvalidMsg" xml:space="preserve">
     <value>Invalid path. Please select YuanShen.exe (CN server only).</value>
   </data>
+  <data name="PathPickerFilterName" xml:space="preserve">
+    <value>Game Executable</value>
+  </data>
   <data name="SelectPathTitle.Text" xml:space="preserve">
     <value>Select Game Path</value>
   </data>
@@ -330,9 +333,6 @@
   <data name="MonsterResistHeader.Text" xml:space="preserve">
     <value>Resistances</value>
   </data>
-  <data name="MonsterAffixHeader.Text" xml:space="preserve">
-    <value>Abilities</value>
-  </data>
   <data name="MonsterDropHeader.Text" xml:space="preserve">
     <value>Drops</value>
   </data>
@@ -341,9 +341,6 @@
   </data>
   <data name="MonsterTipHeader.Text" xml:space="preserve">
     <value>Codex Notes</value>
-  </data>
-  <data name="MonsterFormPrefix" xml:space="preserve">
-    <value>Form </value>
   </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search materials…</value>
@@ -392,9 +389,6 @@
   </data>
   <data name="NavMonster.Content" xml:space="preserve">
     <value>Monsters</value>
-  </data>
-  <data name="NavHeaderData.Content" xml:space="preserve">
-    <value>Data</value>
   </data>
   <data name="NavMaterial.Content" xml:space="preserve">
     <value>Materials</value>

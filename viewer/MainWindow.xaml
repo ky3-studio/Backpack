@@ -26,11 +26,12 @@
         x:Name="NavView"
         Grid.Row="1"
         FontFamily="{StaticResource AppFontFamily}"
-        CompactPaneLength="48"
+        CompactPaneLength="64"
         OpenPaneLength="200"
         PaneDisplayMode="Left"
         IsBackButtonVisible="Collapsed"
         IsPaneToggleButtonVisible="True"
+        IsPaneVisible="{x:Bind ViewModel.HasSelectedPath, Mode=OneWay}"
         SelectionChanged="OnNavSelectionChanged">
 
       <NavigationView.Resources>
@@ -40,47 +41,14 @@
       </NavigationView.Resources>
 
       <NavigationView.MenuItems>
-        <NavigationViewItem x:Name="NavWeapon"   x:Uid="NavWeapon">
-          <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Weapon.png" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavAvatar"   x:Uid="NavAvatar">
-          <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Avatar.png" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavArtifact" x:Uid="NavArtifact">
-          <NavigationViewItem.Icon>
-            <FontIcon Glyph="&#xE77B;" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavMonster" x:Uid="NavMonster">
-          <NavigationViewItem.Icon>
-            <FontIcon Glyph="&#xE99A;" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItemHeader x:Uid="NavHeaderData" />
-        <NavigationViewItem x:Name="NavMaterial" x:Uid="NavMaterial">
-          <NavigationViewItem.Icon>
-            <FontIcon Glyph="&#xE8F1;" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavFood"     x:Uid="NavFood">
-          <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Food.png" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavGadget"   x:Uid="NavGadget">
-          <NavigationViewItem.Icon>
-            <FontIcon Glyph="&#xE74C;" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
-        <NavigationViewItem x:Name="NavAsset"    x:Uid="NavAsset">
-          <NavigationViewItem.Icon>
-            <FontIcon Glyph="&#xE8B9;" />
-          </NavigationViewItem.Icon>
-        </NavigationViewItem>
+        <NavigationViewItem x:Name="NavWeapon"   x:Uid="NavWeapon" />
+        <NavigationViewItem x:Name="NavAvatar"   x:Uid="NavAvatar" />
+        <NavigationViewItem x:Name="NavArtifact" x:Uid="NavArtifact" />
+        <NavigationViewItem x:Name="NavMonster"  x:Uid="NavMonster" />
+        <NavigationViewItem x:Name="NavMaterial" x:Uid="NavMaterial" />
+        <NavigationViewItem x:Name="NavFood"     x:Uid="NavFood" />
+        <NavigationViewItem x:Name="NavGadget"   x:Uid="NavGadget" />
+        <NavigationViewItem x:Name="NavAsset"    x:Uid="NavAsset" />
       </NavigationView.MenuItems>
 
       <NavigationView.FooterMenuItems />

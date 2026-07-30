@@ -102,6 +102,9 @@
   <data name="PathInvalidMsg" xml:space="preserve">
     <value>路径无效，请选择国服游戏本体（YuanShen.exe）。</value>
   </data>
+  <data name="PathPickerFilterName" xml:space="preserve">
+    <value>游戏程序</value>
+  </data>
   <data name="SelectPathTitle.Text" xml:space="preserve">
     <value>选择游戏路径</value>
   </data>
@@ -330,9 +333,6 @@
   <data name="MonsterResistHeader.Text" xml:space="preserve">
     <value>元素抗性</value>
   </data>
-  <data name="MonsterAffixHeader.Text" xml:space="preserve">
-    <value>技能与词条</value>
-  </data>
   <data name="MonsterDropHeader.Text" xml:space="preserve">
     <value>掉落物</value>
   </data>
@@ -341,9 +341,6 @@
   </data>
   <data name="MonsterTipHeader.Text" xml:space="preserve">
     <value>图鉴笔记</value>
-  </data>
-  <data name="MonsterFormPrefix" xml:space="preserve">
-    <value>形态 </value>
   </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索材料…</value>
@@ -392,9 +389,6 @@
   </data>
   <data name="NavMonster.Content" xml:space="preserve">
     <value>怪物</value>
-  </data>
-  <data name="NavHeaderData.Content" xml:space="preserve">
-    <value>数据</value>
   </data>
   <data name="NavMaterial.Content" xml:space="preserve">
     <value>材料</value>

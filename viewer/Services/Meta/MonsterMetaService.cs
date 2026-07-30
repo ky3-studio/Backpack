@@ -47,10 +47,18 @@ public sealed partial class MonsterMetaService
 
     private static MonsterMeta ToMeta(RawData d)
     {
-        List<MonsterVariant> variants = [];
+        MonsterVariant? variant = null;
         if (d.Entries is not null)
-            foreach (var (_, raw) in d.Entries)
-                variants.Add(ToVariant(raw));
+        {
+            RawVariant? chosen = null;
+            foreach (var raw in d.Entries.Values)
+            {
+                chosen ??= raw;
+                if (raw.Id == d.Id) { chosen = raw; break; }
+            }
+            if (chosen is not null)
+                variant = ToVariant(chosen);
+        }
 
         List<MonsterTip> tips = [];
         if (d.Tips is not null)
@@ -61,7 +69,7 @@ public sealed partial class MonsterMetaService
         return new MonsterMeta(
             (uint)d.Id, d.Name ?? string.Empty, d.Title ?? string.Empty,
             d.SpecialName ?? string.Empty, d.Type ?? string.Empty,
-            d.Icon, d.Description ?? string.Empty, variants, tips);
+            d.Icon, d.Description ?? string.Empty, variant, tips);
     }
 
     private static MonsterVariant ToVariant(RawVariant raw)
@@ -77,12 +85,6 @@ public sealed partial class MonsterMetaService
                     case "FIGHT_PROP_BASE_ATTACK":  atkBase = p.InitValue; atkCurve = p.Type ?? string.Empty; break;
                     case "FIGHT_PROP_BASE_DEFENSE": defBase = p.InitValue; defCurve = p.Type ?? string.Empty; break;
                 }
-
-        List<MonsterAffix> affixes = [];
-        if (raw.Affix is not null)
-            foreach (var a in raw.Affix)
-                if (!string.IsNullOrEmpty(a.Name) || !string.IsNullOrEmpty(a.Description))
-                    affixes.Add(new MonsterAffix(a.Name ?? string.Empty, a.Description ?? string.Empty));
 
         var r = raw.Resistance;
         IReadOnlyList<MonsterResist> resists = r is null ? [] :
@@ -105,26 +107,25 @@ public sealed partial class MonsterMetaService
 
         return new MonsterVariant(
             (uint)raw.Id, raw.Type ?? string.Empty, raw.Type == "MONSTER_BOSS",
-            affixes, hasBase, hpBase, atkBase, defBase,
+            hasBase, hpBase, atkBase, defBase,
             hpCurve, atkCurve, defCurve, resists, drops);
     }
 
     public sealed record MonsterMeta(
-        uint                          Id,
-        string                        Name,
-        string                        Title,
-        string                        SpecialName,
-        string                        Type,
-        string                        Icon,
-        string                        Description,
-        IReadOnlyList<MonsterVariant> Variants,
-        IReadOnlyList<MonsterTip>     Tips);
+        uint                      Id,
+        string                    Name,
+        string                    Title,
+        string                    SpecialName,
+        string                    Type,
+        string                    Icon,
+        string                    Description,
+        MonsterVariant?           Variant,
+        IReadOnlyList<MonsterTip> Tips);
 
     public sealed record MonsterVariant(
         uint                         Id,
         string                       VariantType,
         bool                         IsBoss,
-        IReadOnlyList<MonsterAffix>  Affixes,
         bool                         HasBaseValue,
         float                        HpBase,
         float                        AtkBase,
@@ -134,8 +135,6 @@ public sealed partial class MonsterMetaService
         string                       DefCurve,
         IReadOnlyList<MonsterResist> Resists,
         IReadOnlyList<MonsterDrop>   Drops);
-
-    public sealed record MonsterAffix(string Name, string Description);
 
     public sealed record MonsterResist(string Element, float Value);
 
@@ -169,16 +168,9 @@ public sealed partial class MonsterMetaService
     {
         [JsonPropertyName("id")]         public int                            Id         { get; set; }
         [JsonPropertyName("type")]       public string?                        Type       { get; set; }
-        [JsonPropertyName("affix")]      public RawAffix[]?                    Affix      { get; set; }
         [JsonPropertyName("prop")]       public RawProp[]?                     Prop       { get; set; }
         [JsonPropertyName("resistance")] public RawResistance?                 Resistance { get; set; }
         [JsonPropertyName("reward")]     public Dictionary<string, RawReward>? Reward     { get; set; }
-    }
-
-    private sealed class RawAffix
-    {
-        [JsonPropertyName("name")]        public string? Name        { get; set; }
-        [JsonPropertyName("description")] public string? Description { get; set; }
     }
 
     private sealed class RawProp

@@ -65,7 +65,7 @@ public sealed partial class MainWindow : Window, IDisposable
         };
         _gameMonitor.Start();
 
-        SetupPageControl.AddPathRequested += (_, _) => _ = PickGamePathAsync();
+        SetupPageControl.AddPathRequested += (_, _) => PickGamePath();
 
         NavView.Loaded += (_, _) => NavView.SelectedItem = NavWeapon;
 
