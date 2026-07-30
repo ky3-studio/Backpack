@@ -297,6 +297,21 @@
   <data name="WeaponSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索武器…</value>
   </data>
+  <data name="AvatarSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索角色…</value>
+  </data>
+  <data name="AvatarEmptyHint.Text" xml:space="preserve">
+    <value>选择一位角色</value>
+  </data>
+  <data name="ArtifactSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索圣遗物…</value>
+  </data>
+  <data name="ArtifactEmptyHint.Text" xml:space="preserve">
+    <value>选择一件圣遗物</value>
+  </data>
+  <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索材料…</value>
+  </data>
   <data name="WeaponFilterTitle.Text" xml:space="preserve">
     <value>筛选武器</value>
   </data>

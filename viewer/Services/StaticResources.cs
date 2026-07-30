@@ -63,6 +63,12 @@ internal static class StaticResources
         return new($"ms-appx:///Assets/UI/{name}.png");
     }
 
+    public static Uri? ElementIcon(string? element)
+    {
+        if (string.IsNullOrEmpty(element)) return null;
+        return new($"ms-appx:///Assets/UI/{element.ToUpperInvariant()}.png");
+    }
+
     private static readonly Dictionary<string, BitmapImage> _fightPropBitmaps = [];
 
     public static BitmapImage? FightPropBitmap(string? prop)

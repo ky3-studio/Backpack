@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Backpack.Viewer.Services;
 using Backpack.Viewer.Services.Story;
+using Backpack.Viewer.ViewModels.Search;
 using Backpack.Viewer.Views.Controls.AutoSuggestBox;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -96,29 +97,14 @@ internal sealed partial class WeaponPageViewModel : ObservableObject
     private void RefreshItems()
     {
         IReadOnlyList<WeaponViewModel>? items = _groups?.SelectMany(g => g.Items).ToList();
-        _currentItems = ApplyFilters(items);
-    }
-
-    private IReadOnlyList<WeaponViewModel>? ApplyFilters(IReadOnlyList<WeaponViewModel>? items)
-    {
-        if (items is null) return null;
-        if (FilterTokens.Count == 0) return items;
-
-        var result = items.AsEnumerable();
-        foreach (var group in FilterTokens.GroupBy(t => t.Kind))
-        {
-            var kind   = group.Key;
-            var values = group.Select(t => t.Value).ToHashSet();
-            result = result.Where(vm => values.Contains(MatchValue(vm, kind)));
-        }
-        return result.ToList();
+        _currentItems = SearchTokenFilter.Apply(items, FilterTokens, MatchValue);
     }
 
     private static string MatchValue(WeaponViewModel vm, SearchTokenKind kind) => kind switch
     {
         SearchTokenKind.Weapon        => vm.Source.Name,
         SearchTokenKind.WeaponType    => vm.Source.Type,
-        SearchTokenKind.ItemQuality   => WeaponSearchTokens.RankLabel(vm.Source.Rank),
+        SearchTokenKind.ItemQuality   => CommonSearchTokens.RankLabel(vm.Source.Rank),
         SearchTokenKind.FightProperty => vm.SubPropName,
         _                             => string.Empty,
     };

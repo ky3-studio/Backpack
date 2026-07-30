@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 
 namespace Backpack.Viewer.Views;
 
@@ -54,19 +53,8 @@ public sealed partial class WeaponPage : UserControl
     private void OnPagePointerPressed(object sender, PointerRoutedEventArgs e)
     {
         if (SearchBox.FocusState == FocusState.Unfocused) return;
-        if (e.OriginalSource is DependencyObject src && IsChildOf(src, SearchBox)) return;
+        if (e.OriginalSource is DependencyObject src && UiHelper.IsChildOf(src, SearchBox)) return;
         DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Low,
             () => _ = FocusManager.TryFocusAsync(ContentScroller, FocusState.Pointer));
-    }
-
-    private static bool IsChildOf(DependencyObject element, DependencyObject parent)
-    {
-        var current = element;
-        while (current is not null)
-        {
-            if (ReferenceEquals(current, parent)) return true;
-            current = VisualTreeHelper.GetParent(current);
-        }
-        return false;
     }
 }

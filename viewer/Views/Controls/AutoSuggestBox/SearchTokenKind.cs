@@ -16,4 +16,7 @@ internal enum SearchTokenKind
     Food,
     FoodEffect,
     FoodCategory,
+    ArtifactSet,
+    ArtifactSlot,
+    Material,
 }

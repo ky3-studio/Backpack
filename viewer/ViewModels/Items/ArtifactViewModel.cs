@@ -28,6 +28,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
     public Visibility                          HasInstanceVisibility { get; }
     public Visibility                          HasAnyBonusVisibility { get; }
     public BitmapImage                         QualitySource         { get; }
+    public Uri?                                IconUri               { get; }
 
     public SubStatItemViewModel? SubStat0 => SubStatItems.Count > 0 ? SubStatItems[0] : null;
     public SubStatItemViewModel? SubStat1 => SubStatItems.Count > 1 ? SubStatItems[1] : null;
@@ -95,6 +96,7 @@ public sealed partial class ArtifactViewModel : ObservableObject, IIconUpdatable
         SlotText = string.Join("  ", slotParts);
 
         var iconUri = meta.GetIcon(entry.Set, entry.Slot);
+        IconUri = iconUri;
         if (iconUri is not null)
             GfxLoader.BeginLoad(iconUri, this);
 

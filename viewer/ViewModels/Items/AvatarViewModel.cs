@@ -18,6 +18,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     public string      Name           { get; }
     public string      Element        { get; }
     public int         Rarity         { get; }
+    public string      WeaponTypeName { get; }
+    public Uri?        IconUri        { get; }
+    public Uri?        ElementIconUri { get; }
     public IReadOnlyList<int> RankItems { get; }
     public BitmapImage QualitySource  { get; }
 
@@ -50,6 +53,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         Name          = _meta?.Name      ?? entry.Name    ?? entry.Id.ToString();
         Element       = _meta?.ElementCn  ?? entry.Element ?? string.Empty;
         Rarity        = _meta?.Rarity     ?? Math.Max(1, entry.Rarity);
+        WeaponTypeName = _meta is not null ? WeaponTypes.FromRaw(_meta.WeaponType) : string.Empty;
+        ElementIconUri = StaticResources.ElementIcon(_meta?.Element);
+        IconUri        = _meta is not null ? StaticResources.AvatarIcon(_meta.Icon) : null;
         RankItems     = [.. Enumerable.Range(0, Math.Clamp(Rarity, 0, 5))];
         QualitySource = StaticResources.GetQualityBitmap(Rarity);
 
@@ -58,10 +64,10 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         if (_meta is not null)
         {
             GfxLoader.BeginLoad(StaticResources.AvatarIcon(_meta.Icon), this);
-            GfxLoader.BeginLoad(StaticResources.AvatarIcon(_meta.Icon), new CardIconProxy(v => CardIconSource = v));
-            GfxLoader.BeginLoad(StaticResources.AvatarIcon(_meta.SideIcon), new SideProxy(v => SideIconSource = v));
+            GfxLoader.BeginLoad(StaticResources.AvatarIcon(_meta.Icon), new IconSink(v => CardIconSource = v));
+            GfxLoader.BeginLoad(StaticResources.AvatarIcon(_meta.SideIcon), new IconSink(v => SideIconSource = v));
             if (!string.IsNullOrEmpty(_meta.Namecard))
-                GfxLoader.BeginLoad(StaticResources.AvatarCard(_meta.Namecard), new CardProxy(v => CardSource = v));
+                GfxLoader.BeginLoad(StaticResources.AvatarCard(_meta.Namecard), new IconSink(v => CardSource = v));
         }
     }
 
@@ -122,35 +128,32 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
             return new SkillSlotViewModel(s.Name, s.Icon, total, s.Type, desc, skillParams);
         })];
 
-        var skillNames = _meta.Skills.Select(s => s.Name).ToArray();
         Talents = [.. _meta.Talents.Select((t, idx) =>
         {
             bool isActive = idx < entry.Constellation;
             string? extraText = t.ExtraLevel is { } el
-                ? $"{(el.Index < skillNames.Length ? skillNames[el.Index] : Localized.Get("SkillFallback"))} +{el.Value} {Localized.Get("ExtraLevelSuffix")}"
+                ? $"{ExtraLevelSkillName(el.Index)} +{el.Value} {Localized.Get("ExtraLevelSuffix")}"
                 : null;
             return new TalentSlotViewModel(t.Name, t.Icon, isActive, t.Description, extraText);
         })];
+    }
+
+    private string ExtraLevelSkillName(int slot)
+    {
+        var type = slot switch
+        {
+            1 => "normal",
+            2 => "skill",
+            9 => "burst",
+            _ => null,
+        };
+        var name = type is not null ? _meta?.Skills.FirstOrDefault(s => s.Type == type)?.Name : null;
+        return string.IsNullOrEmpty(name) ? Localized.Get("SkillFallback") : name;
     }
 
     private void OnWeaponPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args)
     {
         if (args.PropertyName == nameof(WeaponViewModel.IconSource))
             OnPropertyChanged(nameof(WeaponIconSource));
-    }
-
-    private sealed class CardIconProxy(Action<BitmapImage?> setter) : IIconUpdatable
-    {
-        public BitmapImage? IconSource { get => null; set => setter(value); }
-    }
-
-    private sealed class CardProxy(Action<BitmapImage?> setter) : IIconUpdatable
-    {
-        public BitmapImage? IconSource { get => null; set => setter(value); }
-    }
-
-    private sealed class SideProxy(Action<BitmapImage?> setter) : IIconUpdatable
-    {
-        public BitmapImage? IconSource { get => null; set => setter(value); }
     }
 }

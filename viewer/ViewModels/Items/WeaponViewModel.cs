@@ -87,7 +87,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
             GfxLoader.BeginLoad(IconUri, this);
 
         if (TypeIconName(entry.Type) is { } typeIcon)
-            GfxLoader.BeginLoad(StaticResources.SkillIcon(typeIcon), new TypeIconProxy(b => TypeIconSource = b));
+            GfxLoader.BeginLoad(StaticResources.SkillIcon(typeIcon), new IconSink(b => TypeIconSource = b));
 
         QualitySource = StaticResources.GetQualityBitmap(entry.Rank);
     }
@@ -113,9 +113,4 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
         WeaponTypes.Catalyst => "Skill_A_Catalyst_MD",
         _                    => null,
     };
-
-    private sealed class TypeIconProxy(Action<BitmapImage?> setter) : IIconUpdatable
-    {
-        public BitmapImage? IconSource { get => null; set => setter(value); }
-    }
 }

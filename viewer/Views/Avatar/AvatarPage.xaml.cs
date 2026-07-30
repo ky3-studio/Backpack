@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using Backpack.Viewer.Localization;
 using Backpack.Viewer.ViewModels;
+using Backpack.Viewer.ViewModels.Avatar;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 
 namespace Backpack.Viewer.Views;
 
@@ -13,53 +13,37 @@ public sealed partial class AvatarPage : UserControl
         DependencyProperty.Register(nameof(Avatars), typeof(ObservableCollection<AvatarViewModel>), typeof(AvatarPage),
             new PropertyMetadata(null, OnAvatarsChanged));
 
-    public static readonly DependencyProperty SelectedAvatarProperty =
-        DependencyProperty.Register(nameof(SelectedAvatar), typeof(AvatarViewModel), typeof(AvatarPage),
-            new PropertyMetadata(null));
-
-    public static readonly DependencyProperty TotalCountTextProperty =
-        DependencyProperty.Register(nameof(TotalCountText), typeof(string), typeof(AvatarPage),
-            new PropertyMetadata(string.Empty));
-
-    public ObservableCollection<AvatarViewModel> Avatars
+    public ObservableCollection<AvatarViewModel>? Avatars
     {
-        get => (ObservableCollection<AvatarViewModel>)GetValue(AvatarsProperty);
+        get => (ObservableCollection<AvatarViewModel>?)GetValue(AvatarsProperty);
         set => SetValue(AvatarsProperty, value);
     }
 
-    public AvatarViewModel? SelectedAvatar
-    {
-        get => (AvatarViewModel?)GetValue(SelectedAvatarProperty);
-        set => SetValue(SelectedAvatarProperty, value);
-    }
+    internal AvatarPageViewModel ViewModel { get; } = new();
 
-    public string TotalCountText
+    public AvatarPage()
     {
-        get => (string)GetValue(TotalCountTextProperty);
-        private set => SetValue(TotalCountTextProperty, value);
+        InitializeComponent();
+        ContentScroller.AddHandler(PointerPressedEvent,
+            new PointerEventHandler(OnPagePointerPressed), handledEventsToo: true);
     }
-
-    public AvatarPage() => InitializeComponent();
 
     private static void OnAvatarsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var page = (AvatarPage)d;
-        if (e.OldValue is ObservableCollection<AvatarViewModel> old)
-            old.CollectionChanged -= page.OnCollectionChanged;
-        if (e.NewValue is ObservableCollection<AvatarViewModel> col)
-        {
-            col.CollectionChanged += page.OnCollectionChanged;
-            page.SelectedAvatar = col.Count > 0 ? col[0] : null;
-        }
-        page.UpdateCount();
+        if (d is AvatarPage page)
+            page.ViewModel.Initialize((ObservableCollection<AvatarViewModel>?)e.NewValue);
     }
 
-    private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    private void OnAvatarSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        SelectedAvatar ??= Avatars?.Count > 0 ? Avatars[0] : null;
-        UpdateCount();
+        ViewModel.SelectAvatar(e.AddedItems.OfType<AvatarViewModel>().FirstOrDefault());
     }
 
-    private void UpdateCount()
-        => TotalCountText = Avatars is { Count: > 0 } col ? string.Format(Localized.Get("AvatarCountFmt"), col.Count) : string.Empty;
+    private void OnPagePointerPressed(object sender, PointerRoutedEventArgs e)
+    {
+        if (SearchBox.FocusState == FocusState.Unfocused) return;
+        if (e.OriginalSource is DependencyObject src && UiHelper.IsChildOf(src, SearchBox)) return;
+        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Low,
+            () => _ = FocusManager.TryFocusAsync(ContentScroller, FocusState.Pointer));
+    }
 }

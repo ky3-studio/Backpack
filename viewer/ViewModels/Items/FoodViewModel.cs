@@ -2,6 +2,7 @@ using Backpack.Viewer;
 using Backpack.Viewer.Localization;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
+using Backpack.Viewer.ViewModels.Search;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -10,13 +11,15 @@ using Windows.UI;
 
 namespace Backpack.Viewer.ViewModels;
 
-public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
+public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable, ISearchableItem
 {
     [ObservableProperty]
     private BitmapImage? _iconSource;
 
     public string         Name                { get; }
     public string         Count               { get; }
+    public int            Rank                { get; }
+    public Uri?           IconUri             { get; }
     public string         Character           { get; }
     public string         IngredientsText     { get; }
     public string         VariantLabel        { get; }
@@ -51,6 +54,8 @@ public sealed partial class FoodViewModel : ObservableObject, IIconUpdatable
         });
 
         GfxLoader.BeginLoad(StaticResources.MaterialIcon(meta.Icon), this);
+        IconUri         = StaticResources.MaterialIcon(meta.Icon);
+        Rank            = meta.Rank;
         QualitySource   = StaticResources.GetQualityBitmap(meta.Rank);
         Ingredients     = ingredients;
         IngredientsText = string.Join("  ", meta.Ingredients.Select(i => $"{i.Name} ×{i.Amount}"));

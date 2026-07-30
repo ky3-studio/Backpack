@@ -26,4 +26,15 @@ internal static class UiHelper
         });
         new Flyout { Content = panel }.ShowAt(anchor);
     }
+
+    internal static bool IsChildOf(DependencyObject element, DependencyObject parent)
+    {
+        var current = element;
+        while (current is not null)
+        {
+            if (ReferenceEquals(current, parent)) return true;
+            current = VisualTreeHelper.GetParent(current);
+        }
+        return false;
+    }
 }

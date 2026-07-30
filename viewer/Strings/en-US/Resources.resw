@@ -297,6 +297,21 @@
   <data name="WeaponSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search weapons…</value>
   </data>
+  <data name="AvatarSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search characters…</value>
+  </data>
+  <data name="AvatarEmptyHint.Text" xml:space="preserve">
+    <value>Select a character</value>
+  </data>
+  <data name="ArtifactSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search artifacts…</value>
+  </data>
+  <data name="ArtifactEmptyHint.Text" xml:space="preserve">
+    <value>Select an artifact</value>
+  </data>
+  <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search materials…</value>
+  </data>
   <data name="WeaponFilterTitle.Text" xml:space="preserve">
     <value>Filter Weapons</value>
   </data>
