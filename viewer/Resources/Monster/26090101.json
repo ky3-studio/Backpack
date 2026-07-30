@@ -1,0 +1,356 @@
+{
+  "response": 200,
+  "data": {
+    "id": 26090101,
+    "name": "浮游水蕈兽",
+    "type": "异种魔兽",
+    "icon": "UI_MonsterIcon_Fungus_Un_Gamma_Water",
+    "route": "Floating Hydro Fungus",
+    "title": "浮游水蕈兽",
+    "specialName": "孢子飘浮，所以蕈兽也飘浮？",
+    "description": "拥有一定智能的孢子生物。具有强大的环境适应能力。\\n据说很难吃。但这种蕈兽因为含有丰富的水分，所以也能成为应急水源…",
+    "entries": {
+      "26090101": {
+        "id": 26090101,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.584,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.2,
+          "waterSubHurt": 0.2,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112059": {
+            "name": "蕈兽孢子",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112059",
+            "count": "0.2101"
+          },
+          "112060": {
+            "name": "荧光孢粉",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112060",
+            "count": "0.056"
+          },
+          "112061": {
+            "name": "孢囊晶尘",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112061",
+            "count": "0.014"
+          },
+          "112062": {
+            "name": "失活菌核",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112062",
+            "count": "1.0505"
+          },
+          "112063": {
+            "name": "休眠菌核",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112063",
+            "count": "0.2801"
+          },
+          "112064": {
+            "name": "茁壮菌核",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112064",
+            "count": "0.07"
+          }
+        }
+      },
+      "26090190": {
+        "id": 26090190,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 16.3008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 43.40736,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.2,
+          "waterSubHurt": 0.2,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "26090191": {
+        "id": 26090191,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.584,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.2,
+          "waterSubHurt": 0.2,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "26090192": {
+        "id": 26090192,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.8975,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 66.3,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "26090193": {
+        "id": 26090193,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 48.22431,
+            "type": "GROW_CURVE_ACTIVITY_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 13.2,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 200,
+            "type": "GROW_CURVE_ACTIVITY_DEFENSE_2"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "26090194": {
+        "id": 26090194,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 11.345488,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 53.633217,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "84609011": {
+        "id": 84609011,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.584,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.2,
+          "waterSubHurt": 0.2,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "301401": {
+        "images": [
+          "UI_Tutorial_136"
+        ],
+        "description": "孢子演化而成的，具有基础智能的魔物。初次受到<color=#FFE14BFF>雷元素或火元素攻击</color>后，将依据元素类型进入活化或枯焦状态。击败状态改变后的蕈兽，可能能收获不同的战利品…"
+      }
+    }
+  }
+}

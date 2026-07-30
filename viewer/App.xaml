@@ -41,7 +41,7 @@
             Width="14"
             Height="14"
             Foreground="{ThemeResource WeaponGoldBrush}"
-            UriSource="ms-appx:///Assets/UI_IconKira.png" />
+            UriSource="ms-appx:///Assets/UI/UI_IconKira.png" />
       </DataTemplate>
       <x:Double x:Key="CompatSplitViewOpenPaneLength">212</x:Double>
       <Thickness x:Key="ListViewInSplitPanePadding">0,2</Thickness>

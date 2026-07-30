@@ -1,0 +1,277 @@
+{
+  "response": 200,
+  "data": {
+    "id": 29150101,
+    "name": "多托雷",
+    "type": "值得铭记的强敌",
+    "icon": "UI_MonsterIcon_DrData",
+    "route": "Il Dottore",
+    "title": "「左道的胜义尊」",
+    "specialName": "多托雷",
+    "description": "为了将左道的实验进行到底，在摆脱了凡俗肉身的桎梏后，如今的多托雷已与贯穿提瓦特的世界树融为一体。\\n这个世界本就先于「理」而存在。\\n在被「理」所观测之前，谁也无法确定世间万物的起始与终末。\\n然而弱者为了逃避自由的重负，却甘愿向「确定性」的王座俯首。\\n唯有敢于勘破俗见的觉悟者，才有机会取得创造「新世界」的资格。\\n那是属于「可能性」的领域，那是永远不会迎来终结的伟大实验。\\n让这枯燥乏味、一成不变的世界变得有趣起来吧…\\n「你怎么知道，我就不能做得更好呢？」",
+    "entries": {
+      "29150102": {
+        "id": 29150102,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 869.376,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 150.72,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "300"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "101111": {
+            "name": "央陆单手剑原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101111"
+          },
+          "101112": {
+            "name": "央陆弓原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101112"
+          },
+          "101113": {
+            "name": "央陆双手剑原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101113"
+          },
+          "101114": {
+            "name": "央陆法器原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101114"
+          },
+          "101115": {
+            "name": "央陆长柄武器原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101115"
+          },
+          "104111": {
+            "name": "燃愿玛瑙碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104111"
+          },
+          "104112": {
+            "name": "燃愿玛瑙断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104112"
+          },
+          "104113": {
+            "name": "燃愿玛瑙块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104113"
+          },
+          "104114": {
+            "name": "燃愿玛瑙",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104114"
+          },
+          "104141": {
+            "name": "最胜紫晶碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104141"
+          },
+          "104142": {
+            "name": "最胜紫晶断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104142"
+          },
+          "104143": {
+            "name": "最胜紫晶块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104143"
+          },
+          "104144": {
+            "name": "最胜紫晶",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104144"
+          },
+          "104161": {
+            "name": "哀叙冰玉碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104161"
+          },
+          "104162": {
+            "name": "哀叙冰玉断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104162"
+          },
+          "104163": {
+            "name": "哀叙冰玉块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104163"
+          },
+          "104164": {
+            "name": "哀叙冰玉",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104164"
+          },
+          "113021": {
+            "name": "异梦溶媒",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113021",
+            "count": "0.33"
+          },
+          "113087": {
+            "name": "赝作的树脂",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113087"
+          },
+          "113088": {
+            "name": "扭曲的枯枝",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113088"
+          },
+          "113089": {
+            "name": "亵渎的新芽",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113089"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          }
+        }
+      },
+      "29150104": {
+        "id": 29150104,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "数据博士-二阶段-任务",
+            "description": "数据博士-二阶段-任务",
+            "abilityName": [
+              "Monster_DrData_Erosion_AQ"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 1086.72,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 37.68,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": null,
+    "codexImage": "UI_Codex_Monster_DrData_01"
+  }
+}

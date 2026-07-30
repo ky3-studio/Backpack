@@ -9,7 +9,7 @@ public sealed partial class HyperLinkService
 
     public void Load()
     {
-        var path = Path.Combine(StaticResources.AssetsDir, "HyperLinkName.json");
+        var path = Path.Combine(StaticResources.MetadataDir, "HyperLinkName", "HyperLinkName.json");
         if (!File.Exists(path)) return;
         try
         {

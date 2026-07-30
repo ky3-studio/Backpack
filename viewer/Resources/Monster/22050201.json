@@ -1,0 +1,327 @@
+{
+  "response": 200,
+  "data": {
+    "id": 22050201,
+    "name": "嗜雷·兽境猎犬",
+    "type": "深渊",
+    "icon": "UI_MonsterIcon_Hound_Riftstalker_Electric",
+    "route": "Thundercraven Rifthound",
+    "title": "兽境猎犬",
+    "specialName": "隙间侵入的异兽",
+    "description": "能够侵蚀世界边界的魔血之兽。「黄金」的造物。\\n曾经肆虐大陆，然后遭到反抗与猎捕而一度绝迹。但最近它们却又再度出现了。威胁到了清泉镇与奔狼领的黑狼之群，说的正是它们。",
+    "entries": {
+      "22050201": {
+        "id": 22050201,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010024,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010024,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 95.088,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 40.192,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.25,
+          "grassSubHurt": 0.25,
+          "waterSubHurt": 0.25,
+          "elecSubHurt": 0.25,
+          "windSubHurt": 0.25,
+          "iceSubHurt": 0.25,
+          "rockSubHurt": 0.25,
+          "physicalSubHurt": 0.25
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112056": {
+            "name": "隐兽指爪",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112056",
+            "count": "5.2526"
+          },
+          "112057": {
+            "name": "隐兽利爪",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112057",
+            "count": "1.4006"
+          },
+          "112058": {
+            "name": "隐兽鬼爪",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112058",
+            "count": "0.3502"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          }
+        }
+      },
+      "22050202": {
+        "id": 22050202,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "3.6结晶化怪物不入战",
+            "description": "3.6结晶化怪物不入战",
+            "abilityName": [
+              "MonsterAffix_NeverCombat_ForCrystallization"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010024,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010024,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 95.088,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 40.192,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.25,
+          "grassSubHurt": 0.25,
+          "waterSubHurt": 0.25,
+          "elecSubHurt": 0.25,
+          "windSubHurt": 0.25,
+          "iceSubHurt": 0.25,
+          "rockSubHurt": 0.25,
+          "physicalSubHurt": 0.25
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22050203": {
+        "id": 22050203,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.0WQ-灵体材质冻结石化瞬切配置",
+            "description": "使怪物在被冻结、石化时材质过渡为瞬间完成",
+            "abilityName": [
+              "MonsterAffix_ShaderLerpDurationToZero"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010024,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010024,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 95.088,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 40.192,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.25,
+          "grassSubHurt": 0.25,
+          "waterSubHurt": 0.25,
+          "elecSubHurt": 0.25,
+          "windSubHurt": 0.25,
+          "iceSubHurt": 0.25,
+          "rockSubHurt": 0.25,
+          "physicalSubHurt": 0.25
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22050204": {
+        "id": 22050204,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 274.062,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 12.3075,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.25,
+          "grassSubHurt": 0.25,
+          "waterSubHurt": 0.25,
+          "elecSubHurt": 0.25,
+          "windSubHurt": 0.25,
+          "iceSubHurt": 0.25,
+          "rockSubHurt": 0.25,
+          "physicalSubHurt": 0.25
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22050205": {
+        "id": 22050205,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010014,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 32.6016,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 15.072,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.2,
+          "grassSubHurt": 0.2,
+          "waterSubHurt": 0.2,
+          "elecSubHurt": 0.2,
+          "windSubHurt": 0.2,
+          "iceSubHurt": 0.2,
+          "rockSubHurt": 0.2,
+          "physicalSubHurt": 0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "29201": {
+        "images": [
+          "UI_Tutorial_110b"
+        ],
+        "description": "兽境幼兽的成年体…虽然看起来是这样，但这种魔物有没有自然成长的规律，迄今仍是谜团。兽境猎犬的攻击会施加可叠加的「侵蚀」状态，使队伍中所有角色<color=#FFE14BFF>持续损失生命值</color>。此外，承受对应的元素攻击后，兽境猎犬将进入「嗜魔」状态，<color=#FFE14BFF>以该元素抗性的降低为代价，变得极为凶猛</color>。"
+      }
+    }
+  }
+}

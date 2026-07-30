@@ -14,7 +14,7 @@ public sealed partial class ArtifactMetaService
 
     public ArtifactMetaService()
     {
-        var dir   = Path.Combine(StaticResources.AssetsDir, "Artifact");
+        var dir   = Path.Combine(StaticResources.MetadataDir, "Artifact");
         var items = JsonLoader.Load(Path.Combine(dir, "artifacts.json"), ArtifactCtx.Default.ArtifactMetaArray) ?? [];
 
         _map = items

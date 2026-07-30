@@ -1,0 +1,218 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23080301,
+    "name": "巡陆艇·强侦攻坚型",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Fatuimecha_CoreB_MoveB_AttackB_Grass",
+    "route": "Force Recon Storm Landcruiser",
+    "title": "巡陆艇",
+    "specialName": "强侦攻坚型",
+    "description": "将海军理念应用在地面战之上的自律机关，正所谓「巡弋于陆地的武装舰艇」。\\n装有履带式行走机构的巡陆艇通常被用于攻坚作战，得益于优秀的底盘承载与越野能力，它们可以搭载更为厚重的装甲和武装，轻松通过泥泞与融雪的恶劣地形。强侦型的武装包含了一门多管自动机铳，使得巡陆艇能够在接近作战与远程打击中自由选择战术。无论保持距离执行侦察任务，还是在烈度可观的交战中攻夺敌军情报，这型巡陆艇都能轻松胜任。",
+    "entries": {
+      "23080301": {
+        "id": 23080301,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 27.168,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 27.632,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      },
+      "23080302": {
+        "id": 23080302,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 27.168,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 27.632,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      }
+    },
+    "tips": null
+  }
+}

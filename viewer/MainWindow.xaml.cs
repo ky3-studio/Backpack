@@ -31,7 +31,7 @@ public sealed partial class MainWindow : Window, IDisposable
         AppTitleText.Text = $"Backpack {AppVersion.Value}";
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBarArea);
-        AppWindow.SetIcon(System.IO.Path.Combine(StaticResources.AssetsDir, "logo.ico"));
+        AppWindow.SetIcon(System.IO.Path.Combine(StaticResources.AssetsDir, "UI", "logo.ico"));
         const int logW = 1280, logH = 800;
         var    hwnd  = WinRT.Interop.WindowNative.GetWindowHandle(this);
         double scale = GetDpiForWindow(hwnd) / 96.0;

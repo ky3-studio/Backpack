@@ -26,7 +26,7 @@ public sealed partial class FoodMetaService
 
     public FoodMetaService()
     {
-        var foodDir = Path.Combine(StaticResources.AssetsDir, "Food");
+        var foodDir = Path.Combine(StaticResources.MetadataDir, "Food");
         var groups  = new List<(string Label, IReadOnlyList<uint> Ids)>(_tabDefs.Length);
 
         foreach (var (file, key) in _tabDefs)

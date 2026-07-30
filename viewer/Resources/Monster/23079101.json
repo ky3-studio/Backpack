@@ -1,0 +1,409 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23079101,
+    "name": "愚人众特辖队·火刃突击队",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Oprichnik_Male_Strong_LanceArquebus",
+    "route": "Oprichniki Fireblade Shock Trooper",
+    "title": "愚人众特辖队·火刃突击队",
+    "specialName": 3325557643,
+    "description": "隶属于愚人众特辖队的精锐士官，擅长以巨剑与敌人近身相搏。\\n无论是在抵御漆黑灾厄的战斗中，还是在与那些胆敢阻拦女皇理想的无知者们的战斗中，冲在最前线的突击队都是伤亡最高的编制之一，历经数战而依然生还者自然是精锐中的精锐。总是有人甘愿成为帝国的火与剑，正如总是有人不甘于命运的不义与旧世界的不公。",
+    "entries": {
+      "23079101": {
+        "id": 23079101,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克3",
+            "description": "铁皮集群-坦克3",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank3"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010011,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010011,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 59.7696,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23079102": {
+        "id": 23079102,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克3",
+            "description": "铁皮集群-坦克3",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank3"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010011,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010011,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 59.7696,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23079104": {
+        "id": 23079104,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克3",
+            "description": "铁皮集群-坦克3",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank3"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 92.82672,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 58.107735,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "23079190": {
+        "id": 23079190,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 604.5138,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 60.315,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "23079191": {
+        "id": 23079191,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克3",
+            "description": "铁皮集群-坦克3",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank3"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "309401": {
+        "images": [
+          "UI_Tutorial_233"
+        ],
+        "description": "隶属于愚人众特辖队的士兵，亦是战场上维持战线的精锐力量，驱使着经过改造，由月矩力驱动的强力武器…不过既然他们运用的也是月矩力，说不定<color=#FFE14BFF>找准他们驱动武器准备发起强力攻击的时机</color>，也能用月矩力对他们造成影响…"
+      }
+    }
+  }
+}

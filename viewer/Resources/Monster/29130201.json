@@ -1,0 +1,268 @@
+{
+  "response": 200,
+  "data": {
+    "id": 29130201,
+    "name": "「博士」",
+    "type": "值得铭记的强敌",
+    "icon": "UI_MonsterIcon_Dotorre_Moon",
+    "route": "The Doctor",
+    "title": "「赝月的异端者」",
+    "specialName": "多托雷",
+    "description": "以「异端」的恶名昭著于世，愚人众执行官第二席的「博士」，在攫取了三月的权柄后，如今已踏上通往「新世界」神座的阶梯。\\n我们本应拥有一切。\\n理，放逐了所有不可思之物，使世人再也无法抵达本性；\\n生与死，制造了肉体凡胎的牢笼，禁锢一切灵魂的野心；\\n时与空，限制了人类思想的边界，使人们变得短视顺从。\\n从此，虚伪的神明统治了世界，每一个都以真理之名宣称自己唯一正确，却没有一个配得上这般名头。\\n生命的流变并不具有秩序的结构，唯有抹除施加在这个世界上的层层枷锁，才能窥见一切事物的本质。\\n那便是新世界的光芒。\\n「你们难道愿意忍受这个迂腐陈旧的世界吗？」",
+    "entries": {
+      "29130201": {
+        "id": 29130201,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 1204.256,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.988,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "29130202": {
+        "id": 29130202,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 1698,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 175.84,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "300"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "101116": {
+            "name": "垠土单手剑原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101116"
+          },
+          "101117": {
+            "name": "垠土弓原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101117"
+          },
+          "101118": {
+            "name": "垠土双手剑原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101118"
+          },
+          "101119": {
+            "name": "垠土法器原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101119"
+          },
+          "101120": {
+            "name": "垠土长柄武器原胚",
+            "rank": 4,
+            "icon": "UI_ItemIcon_101120"
+          },
+          "104121": {
+            "name": "涤净青金碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104121"
+          },
+          "104122": {
+            "name": "涤净青金断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104122"
+          },
+          "104123": {
+            "name": "涤净青金块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104123"
+          },
+          "104124": {
+            "name": "涤净青金",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104124"
+          },
+          "104141": {
+            "name": "最胜紫晶碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104141"
+          },
+          "104142": {
+            "name": "最胜紫晶断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104142"
+          },
+          "104143": {
+            "name": "最胜紫晶块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104143"
+          },
+          "104144": {
+            "name": "最胜紫晶",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104144"
+          },
+          "104161": {
+            "name": "哀叙冰玉碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104161"
+          },
+          "104162": {
+            "name": "哀叙冰玉断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104162"
+          },
+          "104163": {
+            "name": "哀叙冰玉块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104163"
+          },
+          "104164": {
+            "name": "哀叙冰玉",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104164"
+          },
+          "113021": {
+            "name": "异梦溶媒",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113021",
+            "count": "0.33"
+          },
+          "113081": {
+            "name": "贤医的假面",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113081"
+          },
+          "113082": {
+            "name": "狂人的约束",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113082"
+          },
+          "113083": {
+            "name": "异端的瓶剂",
+            "rank": 5,
+            "icon": "UI_ItemIcon_113083"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          }
+        }
+      }
+    },
+    "tips": null,
+    "codexImage": "UI_Codex_Monster_Dotorre_Moon_01"
+  }
+}

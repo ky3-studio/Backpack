@@ -1,0 +1,232 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23074101,
+    "name": "愚人众特辖队·先锋士",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_NodKrai_Oprichnik_Male",
+    "route": "Oprichniki Vanguard",
+    "title": "特辖队",
+    "specialName": "疗愈师",
+    "description": "隶属于愚人众特辖队的士兵，装备了工兵器械，有着很强的白刃战能力。\\n为满足作战任务的需求，愚人众特辖队设立了先锋士，以铲除行军的障碍。至于障碍究竟是什么，那并不重要，无论是天堑还是如天堑般难以跨过的强敌，凡是阻挡苍星的圣帜前进之物，他们都会不计代价地将其清除。",
+    "entries": {
+      "23074101": {
+        "id": 23074101,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮集群-坦克4",
+            "description": "铁皮集群-坦克4",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank4"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 16.3008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23074102": {
+        "id": 23074102,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮集群-坦克4",
+            "description": "铁皮集群-坦克4",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank4"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 16.3008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23075101": {
+        "id": 23075101,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮集群-坦克4",
+            "description": "铁皮集群-坦克4",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank4"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 16.3008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 22.608,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      }
+    },
+    "tips": null
+  }
+}

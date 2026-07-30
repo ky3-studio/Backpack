@@ -112,7 +112,7 @@
                       <Image
                           Width="16"
                           Height="16"
-                          Source="ms-appx:///Assets/UI_Icon_Fetter.png" />
+                          Source="ms-appx:///Assets/UI/UI_Icon_Fetter.png" />
                       <TextBlock
                           Margin="4,0,0,2"
                           VerticalAlignment="Center"
@@ -273,7 +273,7 @@
                           <Image
                               Width="16"
                               Height="16"
-                              Source="ms-appx:///Assets/UI_Icon_Locked.png"
+                              Source="ms-appx:///Assets/UI/UI_Icon_Locked.png"
                               Visibility="{x:Bind LockedVisibility}" />
                         </Grid>
                       </Button.Content>

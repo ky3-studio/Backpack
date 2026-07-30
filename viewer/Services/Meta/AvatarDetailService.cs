@@ -7,7 +7,7 @@ namespace Backpack.Viewer.Services;
 
 public sealed partial class AvatarDetailService
 {
-    private readonly string                    _dir   = Path.Combine(StaticResources.AssetsDir, "AvatarDetail");
+    private readonly string                    _dir   = Path.Combine(StaticResources.MetadataDir, "AvatarDetail");
     private readonly Dictionary<uint, SnapAvatar?> _cache = new();
     private static readonly Regex              _paramRegex = new(@"\{param(\d+):([^}]+)\}", RegexOptions.Compiled);
 

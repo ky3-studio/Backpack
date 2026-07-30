@@ -5,152 +5,222 @@ namespace Backpack.Viewer.Services;
 
 public sealed partial class MonsterMetaService
 {
-    private readonly Dictionary<uint, MonsterMeta> _map;
-    private readonly Dictionary<int, Dictionary<int, float>> _curves;
+    public static readonly IReadOnlyList<double> CoopHpMultipliers = [1.0, 1.5, 2.0, 2.5];
+
+    private readonly List<MonsterMeta> _monsters = [];
+    private readonly Dictionary<int, Dictionary<string, float>> _curves = [];
 
     public MonsterMetaService()
     {
-        var dir = Path.Combine(StaticResources.AssetsDir, "Monster");
+        var dir = Path.Combine(StaticResources.MetadataDir, "Monster");
 
-        var raw = JsonLoader.Load(Path.Combine(dir, "Monster.json"), MonsterCtx.Default.RawMonsterArray) ?? [];
-        _map = new Dictionary<uint, MonsterMeta>(raw.Length);
-        foreach (var e in raw)
-        {
-            if (e.Id <= 0 || string.IsNullOrEmpty(e.Name) || string.IsNullOrEmpty(e.Icon) || e.Icon.Contains("_None"))
-                continue;
-            _map[(uint)e.Id] = ToMeta(e);
-        }
+        var curveDoc = JsonLoader.Load(Path.Combine(dir, "MonsterCurve", "MonsterCurve.json"), MonsterCtx.Default.RawCurveResponse);
+        if (curveDoc?.Data is not null)
+            foreach (var (levelKey, entry) in curveDoc.Data)
+                if (int.TryParse(levelKey, out var level) && entry.CurveInfos is not null)
+                    _curves[level] = entry.CurveInfos;
 
-        var curveRaw = JsonLoader.Load(Path.Combine(dir, "MonsterCurve.json"), MonsterCtx.Default.RawCurveLevelArray) ?? [];
-        _curves = new Dictionary<int, Dictionary<int, float>>(curveRaw.Length);
-        foreach (var lv in curveRaw)
-        {
-            var byType = new Dictionary<int, float>(lv.Curves.Length);
-            foreach (var c in lv.Curves) byType[c.Type] = c.Value;
-            _curves[lv.Level] = byType;
-        }
+        if (Directory.Exists(dir))
+            foreach (var file in Directory.EnumerateFiles(dir, "*.json"))
+            {
+                var doc = JsonLoader.Load(file, MonsterCtx.Default.RawMonsterResponse);
+                if (doc?.Data is { } d && d.Id > 0 && !string.IsNullOrEmpty(d.Name) &&
+                    !string.IsNullOrEmpty(d.Icon) && !d.Icon.Contains("_None"))
+                    _monsters.Add(ToMeta(d));
+            }
     }
 
-    public MonsterMeta? GetMeta(uint id) => _map.GetValueOrDefault(id);
-
     public IReadOnlyList<MonsterMeta> GetDefaultEntries() =>
-        [.. _map.Values.OrderBy(m => TypeOrder(m.Type)).ThenBy(m => m.Id)];
+        [.. _monsters.OrderBy(m => m.Type).ThenBy(m => m.Id)];
 
-    public (int Hp, int Atk, int Def) CalcStats(MonsterMeta m, int level)
+    public (int Hp, int Atk, int Def) CalcStats(MonsterVariant v, int level)
     {
-        if (!m.HasBaseValue) return (0, 0, 0);
+        if (!v.HasBaseValue) return (0, 0, 0);
         var lv = Math.Clamp(level, 1, 200);
-        if (!_curves.TryGetValue(lv, out var byType)) return (0, 0, 0);
-        float Mul(int curveType) => byType.TryGetValue(curveType, out var v) ? v : 1f;
-        var hp  = (int)Math.Round(m.HpBase  * Mul(m.HpCurve));
-        var atk = (int)Math.Round(m.AtkBase * Mul(m.AtkCurve));
-        var def = (int)Math.Round(m.DefBase * Mul(m.DefCurve));
+        if (!_curves.TryGetValue(lv, out var byKey)) return (0, 0, 0);
+        float Mul(string key) => !string.IsNullOrEmpty(key) && byKey.TryGetValue(key, out var m) ? m : 1f;
+        var hp  = (int)Math.Round(v.HpBase  * Mul(v.HpCurve));
+        var atk = (int)Math.Round(v.AtkBase * Mul(v.AtkCurve));
+        var def = (int)Math.Round(v.DefBase * Mul(v.DefCurve));
         return (hp, atk, def);
     }
 
-    private static int TypeOrder(int type) => type switch { 1 => 0, 2 => 1, _ => 2 };
-
-    private static MonsterMeta ToMeta(RawMonster e)
+    private static MonsterMeta ToMeta(RawData d)
     {
-        int hpCurve = 0, atkCurve = 0, defCurve = 0;
-        if (e.GrowCurves is not null)
-            foreach (var g in e.GrowCurves)
-                switch (g.Type)
-                {
-                    case 1: hpCurve  = g.Value; break;
-                    case 4: atkCurve = g.Value; break;
-                    case 7: defCurve = g.Value; break;
-                }
+        List<MonsterVariant> variants = [];
+        if (d.Entries is not null)
+            foreach (var (_, raw) in d.Entries)
+                variants.Add(ToVariant(raw));
 
-        var bv = e.BaseValue;
-        IReadOnlyList<MonsterResist> resists = bv is null ? [] :
-        [
-            new("Fire",     bv.FireSubHurt),
-            new("Water",    bv.WaterSubHurt),
-            new("Grass",    bv.GrassSubHurt),
-            new("Elec",     bv.ElecSubHurt),
-            new("Wind",     bv.WindSubHurt),
-            new("Ice",      bv.IceSubHurt),
-            new("Rock",     bv.RockSubHurt),
-            new("Physical", bv.PhysicalSubHurt),
-        ];
+        List<MonsterTip> tips = [];
+        if (d.Tips is not null)
+            foreach (var (_, tip) in d.Tips)
+                if (!string.IsNullOrEmpty(tip.Description) || tip.Images is { Length: > 0 })
+                    tips.Add(new MonsterTip(tip.Images ?? [], tip.Description ?? string.Empty));
 
         return new MonsterMeta(
-            (uint)e.Id, e.Name ?? string.Empty, e.Title ?? string.Empty,
-            e.Description ?? string.Empty, e.Icon, e.Type,
-            e.Affixes ?? [], e.Drops ?? [],
-            bv is not null, bv?.HpBase ?? 0f, bv?.AttackBase ?? 0f, bv?.DefenseBase ?? 0f,
-            hpCurve, atkCurve, defCurve, resists);
+            (uint)d.Id, d.Name ?? string.Empty, d.Title ?? string.Empty,
+            d.SpecialName ?? string.Empty, d.Type ?? string.Empty,
+            d.Icon, d.Description ?? string.Empty, variants, tips);
     }
 
-    public sealed record MonsterResist(string Element, float Value);
+    private static MonsterVariant ToVariant(RawVariant raw)
+    {
+        string hpCurve = string.Empty, atkCurve = string.Empty, defCurve = string.Empty;
+        float hpBase = 0f, atkBase = 0f, defBase = 0f;
+        var hasBase = raw.Prop is { Length: > 0 };
+        if (raw.Prop is not null)
+            foreach (var p in raw.Prop)
+                switch (p.PropType)
+                {
+                    case "FIGHT_PROP_BASE_HP":      hpBase  = p.InitValue; hpCurve  = p.Type ?? string.Empty; break;
+                    case "FIGHT_PROP_BASE_ATTACK":  atkBase = p.InitValue; atkCurve = p.Type ?? string.Empty; break;
+                    case "FIGHT_PROP_BASE_DEFENSE": defBase = p.InitValue; defCurve = p.Type ?? string.Empty; break;
+                }
+
+        List<MonsterAffix> affixes = [];
+        if (raw.Affix is not null)
+            foreach (var a in raw.Affix)
+                if (!string.IsNullOrEmpty(a.Name) || !string.IsNullOrEmpty(a.Description))
+                    affixes.Add(new MonsterAffix(a.Name ?? string.Empty, a.Description ?? string.Empty));
+
+        var r = raw.Resistance;
+        IReadOnlyList<MonsterResist> resists = r is null ? [] :
+        [
+            new("Fire",     r.FireSubHurt),
+            new("Water",    r.WaterSubHurt),
+            new("Grass",    r.GrassSubHurt),
+            new("Elec",     r.ElecSubHurt),
+            new("Wind",     r.WindSubHurt),
+            new("Ice",      r.IceSubHurt),
+            new("Rock",     r.RockSubHurt),
+            new("Physical", r.PhysicalSubHurt),
+        ];
+
+        List<MonsterDrop> drops = [];
+        if (raw.Reward is not null)
+            foreach (var (idKey, rw) in raw.Reward)
+                if (uint.TryParse(idKey, out var did) && !string.IsNullOrEmpty(rw.Name))
+                    drops.Add(new MonsterDrop(did, rw.Name, rw.Rank, rw.Icon ?? string.Empty, rw.Count));
+
+        return new MonsterVariant(
+            (uint)raw.Id, raw.Type ?? string.Empty, raw.Type == "MONSTER_BOSS",
+            affixes, hasBase, hpBase, atkBase, defBase,
+            hpCurve, atkCurve, defCurve, resists, drops);
+    }
 
     public sealed record MonsterMeta(
         uint                          Id,
         string                        Name,
         string                        Title,
-        string                        Description,
+        string                        SpecialName,
+        string                        Type,
         string                        Icon,
-        int                           Type,
-        IReadOnlyList<string>         Affixes,
-        IReadOnlyList<int>            Drops,
-        bool                          HasBaseValue,
-        float                         HpBase,
-        float                         AtkBase,
-        float                         DefBase,
-        int                           HpCurve,
-        int                           AtkCurve,
-        int                           DefCurve,
-        IReadOnlyList<MonsterResist>  Resists);
+        string                        Description,
+        IReadOnlyList<MonsterVariant> Variants,
+        IReadOnlyList<MonsterTip>     Tips);
 
-    [JsonSerializable(typeof(RawMonster[]))]
-    [JsonSerializable(typeof(RawCurveLevel[]))]
+    public sealed record MonsterVariant(
+        uint                         Id,
+        string                       VariantType,
+        bool                         IsBoss,
+        IReadOnlyList<MonsterAffix>  Affixes,
+        bool                         HasBaseValue,
+        float                        HpBase,
+        float                        AtkBase,
+        float                        DefBase,
+        string                       HpCurve,
+        string                       AtkCurve,
+        string                       DefCurve,
+        IReadOnlyList<MonsterResist> Resists,
+        IReadOnlyList<MonsterDrop>   Drops);
+
+    public sealed record MonsterAffix(string Name, string Description);
+
+    public sealed record MonsterResist(string Element, float Value);
+
+    public sealed record MonsterDrop(uint Id, string Name, int Rank, string Icon, string? Count);
+
+    public sealed record MonsterTip(IReadOnlyList<string> Images, string Description);
+
+    [JsonSerializable(typeof(RawMonsterResponse))]
+    [JsonSerializable(typeof(RawCurveResponse))]
     private partial class MonsterCtx : JsonSerializerContext { }
 
-    private sealed class RawMonster
+    private sealed class RawMonsterResponse
     {
-        [JsonPropertyName("Id")]          public int             Id          { get; set; }
-        [JsonPropertyName("Name")]        public string?         Name        { get; set; }
-        [JsonPropertyName("Title")]       public string?         Title       { get; set; }
-        [JsonPropertyName("Description")] public string?         Description { get; set; }
-        [JsonPropertyName("Icon")]        public string          Icon        { get; set; } = string.Empty;
-        [JsonPropertyName("Type")]        public int             Type        { get; set; }
-        [JsonPropertyName("Affixes")]     public string[]?       Affixes     { get; set; }
-        [JsonPropertyName("Drops")]       public int[]?          Drops       { get; set; }
-        [JsonPropertyName("BaseValue")]   public RawBaseValue?   BaseValue   { get; set; }
-        [JsonPropertyName("GrowCurves")]  public RawGrowCurve[]? GrowCurves  { get; set; }
+        [JsonPropertyName("data")] public RawData? Data { get; set; }
     }
 
-    private sealed class RawBaseValue
+    private sealed class RawData
     {
-        [JsonPropertyName("HpBase")]          public float HpBase          { get; set; }
-        [JsonPropertyName("AttackBase")]      public float AttackBase      { get; set; }
-        [JsonPropertyName("DefenseBase")]     public float DefenseBase     { get; set; }
-        [JsonPropertyName("FireSubHurt")]     public float FireSubHurt     { get; set; }
-        [JsonPropertyName("GrassSubHurt")]    public float GrassSubHurt    { get; set; }
-        [JsonPropertyName("WaterSubHurt")]    public float WaterSubHurt    { get; set; }
-        [JsonPropertyName("ElecSubHurt")]     public float ElecSubHurt     { get; set; }
-        [JsonPropertyName("WindSubHurt")]     public float WindSubHurt     { get; set; }
-        [JsonPropertyName("IceSubHurt")]      public float IceSubHurt      { get; set; }
-        [JsonPropertyName("RockSubHurt")]     public float RockSubHurt     { get; set; }
-        [JsonPropertyName("PhysicalSubHurt")] public float PhysicalSubHurt { get; set; }
+        [JsonPropertyName("id")]          public int                             Id          { get; set; }
+        [JsonPropertyName("name")]        public string?                         Name        { get; set; }
+        [JsonPropertyName("type")]        public string?                         Type        { get; set; }
+        [JsonPropertyName("icon")]        public string                          Icon        { get; set; } = string.Empty;
+        [JsonPropertyName("title")]       public string?                         Title       { get; set; }
+        [JsonPropertyName("specialName")] public string?                         SpecialName { get; set; }
+        [JsonPropertyName("description")] public string?                         Description { get; set; }
+        [JsonPropertyName("entries")]     public Dictionary<string, RawVariant>? Entries     { get; set; }
+        [JsonPropertyName("tips")]        public Dictionary<string, RawTip>?     Tips        { get; set; }
     }
 
-    private sealed class RawGrowCurve
+    private sealed class RawVariant
     {
-        [JsonPropertyName("Type")]  public int Type  { get; set; }
-        [JsonPropertyName("Value")] public int Value { get; set; }
+        [JsonPropertyName("id")]         public int                            Id         { get; set; }
+        [JsonPropertyName("type")]       public string?                        Type       { get; set; }
+        [JsonPropertyName("affix")]      public RawAffix[]?                    Affix      { get; set; }
+        [JsonPropertyName("prop")]       public RawProp[]?                     Prop       { get; set; }
+        [JsonPropertyName("resistance")] public RawResistance?                 Resistance { get; set; }
+        [JsonPropertyName("reward")]     public Dictionary<string, RawReward>? Reward     { get; set; }
+    }
+
+    private sealed class RawAffix
+    {
+        [JsonPropertyName("name")]        public string? Name        { get; set; }
+        [JsonPropertyName("description")] public string? Description { get; set; }
+    }
+
+    private sealed class RawProp
+    {
+        [JsonPropertyName("propType")]  public string? PropType  { get; set; }
+        [JsonPropertyName("initValue")] public float   InitValue { get; set; }
+        [JsonPropertyName("type")]      public string? Type      { get; set; }
+    }
+
+    private sealed class RawResistance
+    {
+        [JsonPropertyName("fireSubHurt")]     public float FireSubHurt     { get; set; }
+        [JsonPropertyName("grassSubHurt")]    public float GrassSubHurt    { get; set; }
+        [JsonPropertyName("waterSubHurt")]    public float WaterSubHurt    { get; set; }
+        [JsonPropertyName("elecSubHurt")]     public float ElecSubHurt     { get; set; }
+        [JsonPropertyName("windSubHurt")]     public float WindSubHurt     { get; set; }
+        [JsonPropertyName("iceSubHurt")]      public float IceSubHurt      { get; set; }
+        [JsonPropertyName("rockSubHurt")]     public float RockSubHurt     { get; set; }
+        [JsonPropertyName("physicalSubHurt")] public float PhysicalSubHurt { get; set; }
+    }
+
+    private sealed class RawReward
+    {
+        [JsonPropertyName("name")]  public string? Name  { get; set; }
+        [JsonPropertyName("rank")]  public int     Rank  { get; set; }
+        [JsonPropertyName("icon")]  public string? Icon  { get; set; }
+        [JsonPropertyName("count")] public string? Count { get; set; }
+    }
+
+    private sealed class RawTip
+    {
+        [JsonPropertyName("images")]      public string[]? Images      { get; set; }
+        [JsonPropertyName("description")] public string?   Description { get; set; }
+    }
+
+    private sealed class RawCurveResponse
+    {
+        [JsonPropertyName("data")] public Dictionary<string, RawCurveLevel>? Data { get; set; }
     }
 
     private sealed class RawCurveLevel
     {
-        [JsonPropertyName("Level")]  public int             Level  { get; set; }
-        [JsonPropertyName("Curves")] public RawCurvePoint[] Curves { get; set; } = [];
-    }
-
-    private sealed class RawCurvePoint
-    {
-        [JsonPropertyName("Type")]  public int   Type  { get; set; }
-        [JsonPropertyName("Value")] public float Value { get; set; }
+        [JsonPropertyName("curveInfos")] public Dictionary<string, float>? CurveInfos { get; set; }
     }
 }

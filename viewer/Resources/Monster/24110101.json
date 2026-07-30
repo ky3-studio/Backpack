@@ -1,0 +1,245 @@
+{
+  "response": 200,
+  "data": {
+    "id": 24110101,
+    "name": "辖域守护者",
+    "type": "自律机关",
+    "icon": "UI_MonsterIcon_Watcher_Normal_01",
+    "route": "Domain Keeper",
+    "title": "受造之物",
+    "specialName": "守护者",
+    "description": "原初的大能者流溢而出的影之造物，守卫高天之柱殿的守护者。\\n作为空之柱殿的守卫，虽被赋予了「眼」，却只能颂赞永恒实在的「理型」，无从得见现象世界的纷繁，因此不被视为天使的同类。这般自相乖离之事究竟是其造主理性的设计，又或是它们所侍奉的主人终究也不理解原初那一位的心意，恐怕已无从得知。",
+    "entries": {
+      "24110101": {
+        "id": 24110101,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 95.088,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112140": {
+            "name": "失色的焰剑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112140",
+            "count": "3.9394"
+          },
+          "112141": {
+            "name": "残失的焰剑",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112141",
+            "count": "1.0505"
+          },
+          "112142": {
+            "name": "宝饰的焰剑",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112142",
+            "count": "0.2626"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          }
+        }
+      },
+      "24110111": {
+        "id": 24110111,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 95.088,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112140": {
+            "name": "失色的焰剑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112140",
+            "count": "3.9394"
+          },
+          "112141": {
+            "name": "残失的焰剑",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112141",
+            "count": "1.0505"
+          },
+          "112142": {
+            "name": "宝饰的焰剑",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112142",
+            "count": "0.2626"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          }
+        }
+      }
+    },
+    "tips": {
+      "310501": {
+        "images": [
+          "UI_Tutorial_247"
+        ],
+        "description": "原初的大能者流溢而出的影之造物，拥有监控并反制元素攻击的功能。战斗中，辖域守护者会进入「愚妄之眼」状态。在该状态下，辖域守护者<color=#FFE14BFF>会分别记录受到的火/水/雷/冰元素伤害的次数</color>。当其中任意元素的伤害次数达到<color=#FFE14BFF>3</color>次，辖域守护者将退出该状态，并转化为对应元素形态，获得该<color=#FFE14BFF>元素附着及对应抗性提升</color>。"
+      }
+    }
+  }
+}

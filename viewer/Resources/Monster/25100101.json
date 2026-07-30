@@ -1,0 +1,392 @@
+{
+  "response": 200,
+  "data": {
+    "id": 25100101,
+    "name": "海乱鬼·雷腾",
+    "type": "其他人类势力",
+    "icon": "UI_MonsterIcon_Samurai_Kairagi_01",
+    "route": "Kairagi: Dancing Thunder",
+    "title": "海乱鬼·雷腾",
+    "specialName": "「剑舞文之助」",
+    "description": "落草为寇的流浪武人。\\n有着高强的武道修养，却因为种种原因而没有用武之地，走投无路中踏上了恶逆之道。会利用本应在数百年前失传的惟神技术制造的符纸，为刀剑附上雷霆的力量。",
+    "entries": {
+      "25100101": {
+        "id": 25100101,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "海乱鬼成就判定词缀",
+            "description": "非幽灵海乱鬼成就判定",
+            "abilityName": [
+              "MonsterAffix_Samurai_Kairagi_Watcher_82107"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 65.2032,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 94.2,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112044": {
+            "name": "破旧的刀镡",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112044",
+            "count": "1.6808"
+          },
+          "112045": {
+            "name": "影打刀镡",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112045",
+            "count": "0.4482"
+          },
+          "112046": {
+            "name": "名刀镡",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112046",
+            "count": "0.112"
+          }
+        }
+      },
+      "25100102": {
+        "id": 25100102,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 103.2384,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 25.12,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25100103": {
+        "id": 25100103,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "海乱鬼成就判定词缀",
+            "description": "非幽灵海乱鬼成就判定",
+            "abilityName": [
+              "MonsterAffix_Samurai_Kairagi_Watcher_82107"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "5.0WQ-灵体材质冻结石化瞬切配置",
+            "description": "使怪物在被冻结、石化时材质过渡为瞬间完成",
+            "abilityName": [
+              "MonsterAffix_ShaderLerpDurationToZero"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 81.504,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25100190": {
+        "id": 25100190,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "4.7-怪物对推-敌方地面怪物标记特效",
+            "description": "4.7-怪物对推-敌方地面怪物标记特效",
+            "abilityName": [
+              "MvM_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 16.3008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.4,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25100191": {
+        "id": 25100191,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 88.23,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 94.35,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25100192": {
+        "id": 25100192,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 41.256317,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 33.005054,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "84510012": {
+        "id": 84510012,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 65.2032,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 94.2,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": null
+  }
+}

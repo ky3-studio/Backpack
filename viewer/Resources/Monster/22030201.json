@@ -1,0 +1,222 @@
+{
+  "response": 200,
+  "data": {
+    "id": 22030201,
+    "name": "深渊咏者·渊火",
+    "type": "深渊",
+    "icon": "UI_MonsterIcon_Invoker_Deacon_Fire",
+    "route": "Abyss Lector: Fathomless Flames",
+    "title": "漆黑渊薮的噬身之火",
+    "specialName": "深渊咏者·奥奇里克",
+    "description": "驱使深渊之火，追寻着章典之意义的魔物。隶属于「深渊教团」。\\n地上之人对他们的称呼其实和本意略有偏差。「咏者」也有「读经士」之意。诵读恩典之章，便会拥有强大的力量。",
+    "entries": {
+      "22030201": {
+        "id": 22030201,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "咏者使徒通用爬塔开盾前挣脱词缀",
+            "description": "咏者使徒通用爬塔开盾前挣脱词缀",
+            "abilityName": [
+              "MonsterAffix_Invoker_GeneralHandleFrozen"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010031,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010031,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 108.672,
+            "type": "GROW_CURVE_HP"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 56.52,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112017": {
+            "name": "晦暗刻像",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112017",
+            "count": "0.5253"
+          },
+          "112018": {
+            "name": "夤夜刻像",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112018",
+            "count": "0.1401"
+          },
+          "112019": {
+            "name": "幽邃刻像",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112019",
+            "count": "0.035"
+          },
+          "112020": {
+            "name": "地脉的旧枝",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112020",
+            "count": "5.2526"
+          },
+          "112021": {
+            "name": "地脉的枯叶",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112021",
+            "count": "1.4006"
+          },
+          "112022": {
+            "name": "地脉的新芽",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112022",
+            "count": "0.3502"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          }
+        }
+      },
+      "22030202": {
+        "id": 22030202,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "剧情任务-脱战逻辑标签",
+            "description": "剧情任务-脱战逻辑标签",
+            "abilityName": [
+              "MonsterAffix_Quest_ReturnToBorn"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "咏者使徒通用爬塔开盾前挣脱词缀",
+            "description": "咏者使徒通用爬塔开盾前挣脱词缀",
+            "abilityName": [
+              "MonsterAffix_Invoker_GeneralHandleFrozen"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010031,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010031,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 108.672,
+            "type": "GROW_CURVE_HP"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 56.52,
+            "type": "GROW_CURVE_ATTACK"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "300701": {
+        "images": [
+          "UI_Tutorial_123a"
+        ],
+        "description": "「深渊教团」的魔物，低声吟颂着漆黑烈焰的温暖。\\n它的一些攻击对角色造成伤害时，会赋予深渊之火的烙印，在短时间后爆发，使队伍中所有角色<color=#FFE14BFF>损失大量生命值</color>。利用护盾，或许可以预防烙印的附着。处于场上的角色可能因为烙印爆发损失的生命值而倒下。\\n深渊咏者·渊火进入渊火加护的状态后，可以通过<color=#FFE14BFF>破坏黯火炉心，更加快速地破除渊火加护</color>。"
+      }
+    }
+  }
+}

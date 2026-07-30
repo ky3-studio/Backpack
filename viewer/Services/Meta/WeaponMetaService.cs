@@ -25,7 +25,7 @@ public sealed partial class WeaponMetaService
 
     public WeaponMetaService()
     {
-        var dir   = Path.Combine(StaticResources.AssetsDir, "Weapon");
+        var dir   = Path.Combine(StaticResources.MetadataDir, "Weapon");
         _meta     = JsonLoader.Load(Path.Combine(dir, "weapons.json"),        WeaponCtx.Default.WeaponMetaArray)          ?.ToDictionary(e => (uint)e.Id) ?? [];
         _curves   = JsonLoader.Load(Path.Combine(dir, "weapon_curves.json"),   WeaponCtx.Default.DictionaryStringSingleArray) ?? [];
         _promotes = JsonLoader.Load(Path.Combine(dir, "weapon_promotes.json"), WeaponCtx.Default.DictionaryStringSingleArray) ?? [];

@@ -336,14 +336,14 @@
   <data name="MonsterDropHeader.Text" xml:space="preserve">
     <value>掉落物</value>
   </data>
-  <data name="MonsterTypeOrdinary" xml:space="preserve">
-    <value>普通魔物</value>
+  <data name="MonsterCoopHeader.Text" xml:space="preserve">
+    <value>多人生命</value>
   </data>
-  <data name="MonsterTypeBoss" xml:space="preserve">
-    <value>首领</value>
+  <data name="MonsterTipHeader.Text" xml:space="preserve">
+    <value>图鉴笔记</value>
   </data>
-  <data name="MonsterTypeOther" xml:space="preserve">
-    <value>其他</value>
+  <data name="MonsterFormPrefix" xml:space="preserve">
+    <value>形态 </value>
   </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>搜索材料…</value>

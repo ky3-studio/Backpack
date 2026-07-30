@@ -1,0 +1,169 @@
+{
+  "response": 200,
+  "data": {
+    "id": 25510801,
+    "name": "绒翼龙武士·长空明焰",
+    "type": "其他人类势力",
+    "icon": "UI_MonsterIcon_Tribalwarrior_Slingshot_Flamingo",
+    "route": "Qucusaurus Warrior: Blazing Sky",
+    "title": "绒翼龙武士·长空明焰",
+    "specialName": "授获龙冠的勇武",
+    "description": "来自山崖之上，勇武受到认可，得以获授龙冠的强大武士。\\n绒翼龙在诸多龙众之中也是相当骄傲的一族，能够得到它们承认的绒翼龙武士亦同享这一份骄矜。据说从前部族的勇士在看到绯色的翼龙将火石从高处投掷以取乐时，迸发出了连环爆炸的弹药的想法。这一逐渐完善的想法，据说就是「花羽会」诸多火器的雏形。",
+    "entries": {
+      "25510801": {
+        "id": 25510801,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010011,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010011,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25510802": {
+        "id": 25510802,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "怪物billboard标记03-红色感叹号",
+            "description": "怪物头顶标记",
+            "abilityName": [
+              "MonsterAffix_BillBoard_FixedMark_03"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010011,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010011,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25510890": {
+        "id": 25510890,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "部落战士精英 - 语音移除",
+            "description": "任务按需求使用，避免穿帮",
+            "abilityName": [
+              "Monster_TribalWarrior_NoVoAlter"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 32.60882,
+            "type": "GROW_CURVE_ACTIVITY_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 56.1,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 200,
+            "type": "GROW_CURVE_ACTIVITY_DEFENSE_2"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": null
+  }
+}

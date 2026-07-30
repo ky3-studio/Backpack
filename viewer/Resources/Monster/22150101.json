@@ -1,0 +1,481 @@
+{
+  "response": 200,
+  "data": {
+    "id": 22150101,
+    "name": "深黯魇语之主",
+    "type": "深渊",
+    "icon": "UI_MonsterIcon_Lloigor_Primo",
+    "route": "Lord of the Hidden Depths: Whisperer of Nightmares",
+    "title": "无面无域的支配者",
+    "specialName": "深黯魇语之主",
+    "description": "伏行于深黯的裂隙，窥伺此世的深渊魔物。据说那怪异、亵渎的无面形貌不过是投射于世界上的影像，其真实姿态乃是以纯粹深渊能量形式存在的无形之物。\\n即便是妄图支配这个世界的入侵者，也不得不在一定程度上遵从世界原本的法则。直至高天的面纱破碎、地骨的护堤崩毁，来自群星的失乡者都只能像这般匿避于世界的边缘，以疯狂与谵妄的低语，徒劳无功地渗入此世吧…但世界安稳的秩序，又会持续到何时呢？",
+    "entries": {
+      "22150101": {
+        "id": 22150101,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 366.768,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "200"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "104141": {
+            "name": "最胜紫晶碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104141"
+          },
+          "104142": {
+            "name": "最胜紫晶断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104142"
+          },
+          "104143": {
+            "name": "最胜紫晶块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104143"
+          },
+          "104144": {
+            "name": "最胜紫晶",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104144"
+          },
+          "113084": {
+            "name": "魇翼枯骸",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113084",
+            "count": "2.5556"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400137": {
+            "name": "祭雷之人",
+            "rank": 3,
+            "icon": "UI_RelicIcon_15011_3"
+          },
+          "400138": {
+            "name": "祭雷之人",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15011_3"
+          }
+        }
+      },
+      "22150102": {
+        "id": 22150102,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "罗伊格尔深渊版词缀",
+            "description": "罗伊格尔深渊版词缀",
+            "abilityName": [
+              "MonsterAffix_Lloigor_AbyssTag"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 366.768,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22150103": {
+        "id": 22150103,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "罗伊格尔wq版词缀",
+            "description": "罗伊格尔wq版词缀",
+            "abilityName": [
+              "MonsterAffix_Lloigor_WQTag"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 220.0608,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 52.752,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22150104": {
+        "id": 22150104,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 431.90787,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22150105": {
+        "id": 22150105,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "罗伊格尔深渊版词缀",
+            "description": "罗伊格尔深渊版词缀",
+            "abilityName": [
+              "MonsterAffix_Lloigor_AbyssTag"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 431.90787,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22150106": {
+        "id": 22150106,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "罗伊格尔深渊版词缀",
+            "description": "罗伊格尔深渊版词缀",
+            "abilityName": [
+              "MonsterAffix_Lloigor_AbyssTag"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 431.90787,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "310201": {
+        "images": [
+          "UI_Tutorial_244"
+        ],
+        "description": "穿过深黯裂隙的魔物之王。深黯魇语之主会在战斗中张开「深黯护盾」，并召唤数名「深黯钓客」。该护盾只能被带有元素的攻击与反应伤害击破，使用<color=#FFE14BFF>月曜反应伤害</color>能更高效破坏此护盾。此外，击败被召唤的「深黯钓客」，亦可对其护盾造成伤害。"
+      }
+    }
+  }
+}

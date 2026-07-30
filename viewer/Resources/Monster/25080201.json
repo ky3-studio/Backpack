@@ -1,0 +1,184 @@
+{
+  "response": 200,
+  "data": {
+    "id": 25080201,
+    "name": "野伏·火付番",
+    "type": "其他人类势力",
+    "icon": "UI_MonsterIcon_Samurai_Ronin_02",
+    "route": "Nobushi: Hitsukeban",
+    "title": "野伏·火付番",
+    "specialName": "「剑舞文之助」",
+    "description": "落草为寇的流浪武人，虽然常被称为「野伏」，但并不隶属于某个统一的团体。\\n不仅掌握着精湛的剑术，还会使用具有元素的焰硝药粉攻击。从客观来说，或许这是背离武之道，转而寻求胜之途的体现吧。\\n为了生计与财富，有时候甚至会与盗宝团、愚人众沆瀣一气。",
+    "entries": {
+      "25080201": {
+        "id": 25080201,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 27.168,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 20.096,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112044": {
+            "name": "破旧的刀镡",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112044",
+            "count": "1.6808"
+          },
+          "112045": {
+            "name": "影打刀镡",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112045",
+            "count": "0.4482"
+          },
+          "112046": {
+            "name": "名刀镡",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112046",
+            "count": "0.112"
+          }
+        }
+      },
+      "25080202": {
+        "id": 25080202,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 76.0704,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 10.048,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25080203": {
+        "id": 25080203,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.0WQ-灵体材质冻结石化瞬切配置",
+            "description": "使怪物在被冻结、石化时材质过渡为瞬间完成",
+            "abilityName": [
+              "MonsterAffix_ShaderLerpDurationToZero"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "5.4梦见月个人线-噩梦浪人标记",
+            "description": "5.4梦见月个人线-噩梦浪人标记",
+            "abilityName": [
+              "MonsterAffix_Samurai_Ronin_Mizuki_NightmareTag"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 27.168,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 20.096,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": null
+  }
+}

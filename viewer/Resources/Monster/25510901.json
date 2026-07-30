@@ -1,0 +1,193 @@
+{
+  "response": 200,
+  "data": {
+    "id": 25510901,
+    "name": "暝视龙武士·寒涌持者",
+    "type": "其他人类势力",
+    "icon": "UI_MonsterIcon_Tribalwarrior_Chainsword_Shamansaurus",
+    "route": "Iktomisaurus Warrior: Icy Tidebearer",
+    "title": "暝视龙武士·寒涌持者",
+    "specialName": "授获龙冠的勇武",
+    "description": "来自谜烟之内，勇武受到认可，得以获授龙冠的强大武士。\\n来自「烟谜主」的部族勇士通常不以真正意义上的力量见长。令他们能够自如操纵武器的是长久修行产生的意念。所以相较于战斗的天赋，「烟谜主」的勇士更看重「灵觉」的天赋。据说，「灵觉」最为出众的武士，甚至能够凭借特殊涂鸦和精神的力量抬起一人高的巨石。",
+    "entries": {
+      "25510901": {
+        "id": 25510901,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010016,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010016,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 45.216,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112104": {
+            "name": "卫从的木哨",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112104",
+            "count": "1.2606"
+          },
+          "112105": {
+            "name": "战士的铁哨",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112105",
+            "count": "0.3362"
+          },
+          "112106": {
+            "name": "龙冠武士的金哨",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112106",
+            "count": "0.084"
+          }
+        }
+      },
+      "25510902": {
+        "id": 25510902,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2灵视龙创生的头套人（wq）",
+            "description": "5.2灵视龙头套人创生死亡（wq）",
+            "abilityName": [
+              "MonsterEliteAffix_Shamansaurus_CreateMonsterDieV52"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010016,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010016,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 45.216,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25510990": {
+        "id": 25510990,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "部落战士精英 - 语音移除",
+            "description": "任务按需求使用，避免穿帮",
+            "abilityName": [
+              "Monster_TribalWarrior_NoVoAlter"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 33.527378,
+            "type": "GROW_CURVE_ACTIVITY_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 44.88,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 200,
+            "type": "GROW_CURVE_ACTIVITY_DEFENSE_2"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": null
+  }
+}

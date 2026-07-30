@@ -42,12 +42,12 @@
       <NavigationView.MenuItems>
         <NavigationViewItem x:Name="NavWeapon"   x:Uid="NavWeapon">
           <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Weapon.png" />
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Weapon.png" />
           </NavigationViewItem.Icon>
         </NavigationViewItem>
         <NavigationViewItem x:Name="NavAvatar"   x:Uid="NavAvatar">
           <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Avatar.png" />
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Avatar.png" />
           </NavigationViewItem.Icon>
         </NavigationViewItem>
         <NavigationViewItem x:Name="NavArtifact" x:Uid="NavArtifact">
@@ -68,7 +68,7 @@
         </NavigationViewItem>
         <NavigationViewItem x:Name="NavFood"     x:Uid="NavFood">
           <NavigationViewItem.Icon>
-            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Nav_Food.png" />
+            <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/UI/Nav_Food.png" />
           </NavigationViewItem.Icon>
         </NavigationViewItem>
         <NavigationViewItem x:Name="NavGadget"   x:Uid="NavGadget">

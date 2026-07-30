@@ -13,7 +13,7 @@ public abstract partial class TabMetaService
 
     protected TabMetaService(string subDir, (string File, string Key)[] tabDefs, bool sortByRank = false, string? fallbackFile = null)
     {
-        var dir    = Path.Combine(StaticResources.AssetsDir, subDir);
+        var dir    = Path.Combine(StaticResources.MetadataDir, subDir);
         var groups = new List<(string Label, IReadOnlyList<uint> Ids)>(tabDefs.Length);
 
         foreach (var (file, key) in tabDefs)

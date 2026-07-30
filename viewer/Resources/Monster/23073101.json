@@ -1,0 +1,160 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23073101,
+    "name": "愚人众特辖队·榴铳手",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_NodKrai_Oprichnik_Female",
+    "route": "Oprichniki Grenadier",
+    "title": "特辖队",
+    "specialName": "支援兵",
+    "description": "隶属于愚人众特辖队的士兵，装备了单兵榴铳，可在近距离发起若狂风骤雨一般的轰击。\\n愚人众特辖队虽拥有数量庞大、功能齐全的支援火力，但在士官们的坚持下，部队依然保留了大量榴铳手。毕竟，对于前线来说，纸面上再强大的火力，也不如一门随叫随到的单兵榴铳实在。",
+    "entries": {
+      "23073101": {
+        "id": 23073101,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.584,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 20.096,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23073102": {
+        "id": 23073102,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 13.584,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 20.096,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      }
+    },
+    "tips": null
+  }
+}

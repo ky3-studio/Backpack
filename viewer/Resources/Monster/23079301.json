@@ -1,0 +1,353 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23079301,
+    "name": "愚人众特辖队·雷霰近卫军",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Oprichnik_Female_Slim_MachineGun",
+    "route": "Oprichniki Thunderblitz Gvardiya",
+    "title": "特辖队",
+    "specialName": "雷霰近卫军",
+    "description": "隶属于愚人众特辖队的精锐士官，擅长操持双铳进行战斗。\\n与先遣队不同，特辖队的士官几乎皆由至冬皇家军事学院所出，无论是以贵族的身份，还是以平民的天赋。毕竟在女皇仁爱的理想中，两者原本便也不存在区别。正如传统中只能由妖精缙绅担任的「近卫军」，如今也已演变为特辖队士官的荣誉头衔，平等地授予那些构筑新世界的人们。",
+    "entries": {
+      "23079301": {
+        "id": 23079301,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010014,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010014,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23079302": {
+        "id": 23079302,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010014,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010014,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112125": {
+            "name": "磨损的执凭",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112125",
+            "count": "1.2606"
+          },
+          "112126": {
+            "name": "精致的执凭",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112126",
+            "count": "0.3362"
+          },
+          "112127": {
+            "name": "霜镌的执凭",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112127",
+            "count": "0.084"
+          }
+        }
+      },
+      "23079304": {
+        "id": 23079304,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 53.81259,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 36.50217,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "23079390": {
+        "id": 23079390,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程",
+            "description": "铁皮集群-远程",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Range"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 54.336,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 50.24,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "309401": {
+        "images": [
+          "UI_Tutorial_233"
+        ],
+        "description": "隶属于愚人众特辖队的士兵，亦是战场上维持战线的精锐力量，驱使着经过改造，由月矩力驱动的强力武器…不过既然他们运用的也是月矩力，说不定<color=#FFE14BFF>找准他们驱动武器准备发起强力攻击的时机</color>，也能用月矩力对他们造成影响…"
+      }
+    }
+  }
+}

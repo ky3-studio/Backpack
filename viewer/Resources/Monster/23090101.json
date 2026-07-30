@@ -1,0 +1,254 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23090101,
+    "name": "超重型陆巡舰·机动战垒",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Fatuimecha_AMP",
+    "route": "Super-Heavy Landrover: Mechanized Fortress",
+    "title": "超重型陆巡舰·机动战垒",
+    "specialName": "全地形战争机关",
+    "description": "军械宫与月矩力试验设计局合作研发的超重型机关，在内部文件中被称作德兹斯拉沃型。\\n设计者最初的意图似乎是创造用于搬运货物的重型全地形民用运输装置，因此搭载了大量切割与挖掘设备，但后续的通用生产型号已经被改为了搭载复数重型武器的军用版本。\\n毕竟在月下的尘世，即便是最为完美而神圣的规划也会偏离原初的意旨，更何况是凡人因渺小的善意而创造的、原本便不完美的机械呢。",
+    "entries": {
+      "23090101": {
+        "id": 23090101,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 298.848,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "200"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "104111": {
+            "name": "燃愿玛瑙碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104111"
+          },
+          "104112": {
+            "name": "燃愿玛瑙断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104112"
+          },
+          "104113": {
+            "name": "燃愿玛瑙块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104113"
+          },
+          "104114": {
+            "name": "燃愿玛瑙",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104114"
+          },
+          "104161": {
+            "name": "哀叙冰玉碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104161"
+          },
+          "104162": {
+            "name": "哀叙冰玉断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104162"
+          },
+          "104163": {
+            "name": "哀叙冰玉块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104163"
+          },
+          "104164": {
+            "name": "哀叙冰玉",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104164"
+          },
+          "113080": {
+            "name": "循环式军用月矩核心",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113080",
+            "count": "2.5556"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400047": {
+            "name": "冒险家",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10010_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400127": {
+            "name": "祭火之人",
+            "rank": 3,
+            "icon": "UI_RelicIcon_15009_3"
+          },
+          "400128": {
+            "name": "祭火之人",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15009_3"
+          }
+        }
+      },
+      "23090102": {
+        "id": 23090102,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "AMP机器人-深渊词缀",
+            "description": "6.2 40体 深渊词缀",
+            "abilityName": [
+              "Monster_Fatuimecha_AMP_02_InAbyss"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 298.848,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "310001": {
+        "images": [
+          "UI_Tutorial_241"
+        ],
+        "description": "能够进行温度自调节的机体，亦是超重型的战争机器。机动战垒在受到<color=#FFE14BFF>火元素攻击</color>后将持续积累高热值，并且进入「过热状态」，此时若持续升温，机动战垒将自行开启冰元素护罩进行降温。若是能够打断其降温的进程，说不定能对它的运作造成极大的阻碍…"
+      }
+    }
+  }
+}

@@ -336,14 +336,14 @@
   <data name="MonsterDropHeader.Text" xml:space="preserve">
     <value>Drops</value>
   </data>
-  <data name="MonsterTypeOrdinary" xml:space="preserve">
-    <value>Ordinary</value>
+  <data name="MonsterCoopHeader.Text" xml:space="preserve">
+    <value>Co-op HP</value>
   </data>
-  <data name="MonsterTypeBoss" xml:space="preserve">
-    <value>Boss</value>
+  <data name="MonsterTipHeader.Text" xml:space="preserve">
+    <value>Codex Notes</value>
   </data>
-  <data name="MonsterTypeOther" xml:space="preserve">
-    <value>Other</value>
+  <data name="MonsterFormPrefix" xml:space="preserve">
+    <value>Form </value>
   </data>
   <data name="MaterialSearchBox.PlaceholderText" xml:space="preserve">
     <value>Search materials…</value>

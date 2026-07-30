@@ -17,7 +17,7 @@
           MaxHeight="120"
           Margin="0,16,0,0"
           HorizontalAlignment="Center"
-          Source="ms-appx:///Assets/logo.png" />
+          Source="ms-appx:///Assets/UI/logo.png" />
 
       <TextBlock
           x:Uid="SelectPathTitle"

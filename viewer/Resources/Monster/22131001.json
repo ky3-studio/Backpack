@@ -1,0 +1,283 @@
+{
+  "response": 200,
+  "data": {
+    "id": 22131001,
+    "name": "荒野狂狩士",
+    "type": "深渊",
+    "icon": "UI_MonsterIcon_WildHunt_Elite",
+    "route": "Wilderness Hunter",
+    "title": "狂猎之影",
+    "specialName": "荒野狂狩士",
+    "description": "伴随着漆黑的迷雾，徘徊在荒原冻土上的幽魂。他们的出现似乎预兆着更可怕的灾难。\\n在北陆茫茫的冻土之下，掩埋着失落古国的伟大战士。即便存在过的痕迹早已被抹去，勇士们的英魂依旧守护着黄金之国的故土。如今这些灵魂因深渊的污染而苏醒，所有敢于入侵之人都会被他们当作猎物。",
+    "entries": {
+      "22131001": {
+        "id": 22131001,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 141.2736,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112134": {
+            "name": "幽雾化形",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112134",
+            "count": "2.6263"
+          },
+          "112135": {
+            "name": "幽雾片甲",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112135",
+            "count": "0.7003"
+          },
+          "112136": {
+            "name": "幽雾兜盔",
+            "rank": 4,
+            "icon": "UI_ItemIcon_112136",
+            "count": "0.1751"
+          },
+          "400022": {
+            "name": "战狂",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400023": {
+            "name": "战狂",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10005_4"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          }
+        }
+      },
+      "22131002": {
+        "id": 22131002,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "狂猎怪物难度降低词缀",
+            "description": "延长假死持续时间、提高非满辉队伍转伤比率",
+            "abilityName": [
+              "MonsterAffix_WildHunt_Simplify"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 141.2736,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22131003": {
+        "id": 22131003,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "6.3 深渊城狂猎换皮怪词缀",
+            "description": "禁用月耀触发虚血机制",
+            "abilityName": [
+              "MonsterAffix_WildHunt_Disable_Instable"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010030,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010030,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 141.2736,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "22131090": {
+        "id": 22131090,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 338.5277,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 60.315,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "309301": {
+        "images": [
+          "UI_Tutorial_232"
+        ],
+        "description": "永久徘徊于荒原冻土，受深渊侵蚀的幽魂…被冠以狂猎之名的怪物只能将其生命上限全部削减以进行压制，除此之外没有将其完全击倒的办法。\\n<color=#FFE14BFF>将其生命全部削减或施放被月兆·满辉强化的技能时</color>，可以令其陷入短暂的「失色哀恸」状态，在此状态下，造成伤害，削减其生命上限将其压制吧！"
+      }
+    }
+  }
+}

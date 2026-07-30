@@ -1,0 +1,370 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23085301,
+    "name": "巡陆艇·尖端火力地效型",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Fatuimecha_CoreC_MoveF_AttackB_Fire",
+    "route": "Cutting Edge Fire Support Ground Effect Landcruiser",
+    "title": "巡陆艇",
+    "specialName": "尖端火力地效型",
+    "description": "均衡了尖端技术、生产成本与出动率，为战斗序列赋予强大穿透力的精锐巡陆艇，是阵线上的重要支点。\\n换装了高功率喷流引擎后，此型地效型巡陆艇获得了复数火器运用能力，可将不错的火力及时投送至阵线任何一处。因此，在愚人众与皇家军事学院共同编写的作战条令中，它们在大规模作战中，应被单独编为一支「快速反应部队」，用于防范敌人的突破或反冲击，以及在战局占优时扩大战果。当然，所有的尖端巡陆艇都有着单独执行任务的能力，在长期执勤作战中，它们随时可以作为一支小队的核心，充分发挥各式愚人众兵种的战力…",
+    "entries": {
+      "23085301": {
+        "id": 23085301,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程飞行",
+            "description": "铁皮集群-远程飞行",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_RangeAir"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 81.504,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      },
+      "23085302": {
+        "id": 23085302,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程飞行",
+            "description": "铁皮集群-远程飞行",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_RangeAir"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 81.504,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      },
+      "23085303": {
+        "id": 23085303,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 163.008,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 105.504,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "23085304": {
+        "id": 23085304,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 81.504,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 75.36,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "309501": {
+        "images": [
+          "UI_Tutorial_234"
+        ],
+        "description": "巡弋于陆地的武装舰艇，具备强大的武装，经过改造后，能够借由月矩力施展特殊的功能。在它们运用月矩力时，利用<color=#FFE14BFF>感电或月感电元素反应，攻击到一定次数</color>，即可令其停止。\\n不过既然它用的是月矩力…说不定此时利用月矩力的性质，也能在进攻中取得奇效。"
+      }
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "response": 200,
+  "data": {
+    "id": 25310101,
+    "name": "镀金旅团·沙中净水",
+    "type": "其他人类势力",
+    "icon": "UI_MonsterIcon_Eremite_Female_Slim_PushDagger",
+    "route": "Eremite Desert Clearwater",
+    "title": "镀金旅团·沙中净水",
+    "specialName": "沙下泉流般跃动的刀舞者",
+    "description": "来自黄金一般的沙漠，是松散佣兵团体中的一员。为了报酬，愿意为任何人效力。\\n迷失在砂砾作歌的旧梦之中的少女，将厮杀的趣味视作执行委托时真正有价值的报偿。传说诞在这一族中的女子常受沙漠中的游魂青睐，因而往往早夭。或许只有血管中澎湃着战斗的旋律时，她才能摆脱魂灵的低语吧。\\n使用的武器中封印着残破的厄灵，会在危急时苏醒。只有战败者的哀嚎才能平息其忿怒——不论败者是武器的主人，抑或是敌人。",
+    "entries": {
+      "25310101": {
+        "id": 25310101,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010012,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010012,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010012,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 48.9024,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 40.192,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112065": {
+            "name": "褪色红绸",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112065",
+            "count": "1.0505"
+          },
+          "112066": {
+            "name": "镶边红绸",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112066",
+            "count": "0.2801"
+          },
+          "112067": {
+            "name": "织金红绸",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112067",
+            "count": "0.07"
+          }
+        }
+      },
+      "25310190": {
+        "id": 25310190,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "4.7-怪物对推-敌方地面怪物标记特效",
+            "description": "4.7-怪物对推-敌方地面怪物标记特效",
+            "abilityName": [
+              "MvM_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 11.5464,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 55.8,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25310191": {
+        "id": 25310191,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "5.2怪物自走棋敌方单位标记",
+            "description": "脚底光环、出生特效",
+            "abilityName": [
+              "MonsterChess_Monster_Common_EnemyBottom"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 77.775,
+            "type": "GROW_CURVE_ACTIVITY_HP_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 66.3,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_1"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "25310192": {
+        "id": 25310192,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": null,
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 80.373856,
+            "type": "GROW_CURVE_ACTIVITY_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 42.9,
+            "type": "GROW_CURVE_ACTIVITY_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 200,
+            "type": "GROW_CURVE_ACTIVITY_DEFENSE_2"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "84531012": {
+        "id": 84531012,
+        "type": "MONSTER_ORDINARY",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010012,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010012,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010012,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 48.9024,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 40.192,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": -0.2
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "301801": {
+        "images": [
+          "UI_Tutorial_139"
+        ],
+        "description": "来自沙漠的松散佣兵团体中的刀舞者。在承受一定伤害后，会解放封印在武器中的厄灵，<color=#FFE14BFF>进入魔化状态</color>，大幅提升战斗能力。魔化状态结束后，会陷入一定时间的虚弱状态。"
+      }
+    }
+  }
+}

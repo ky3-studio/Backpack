@@ -10,6 +10,6 @@ public sealed partial class MainViewModel
     {
         Monsters.Clear();
         foreach (var m in _monsterMeta.GetDefaultEntries())
-            Monsters.Add(new MonsterViewModel(m, _monsterMeta, _materialMeta));
+            Monsters.Add(new MonsterViewModel(m, _monsterMeta));
     }
 }

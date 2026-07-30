@@ -6,7 +6,7 @@
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <RootNamespace>Backpack.Viewer</RootNamespace>
     <AssemblyName>BackpackViewer</AssemblyName>
-    <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\UI\logo.ico</ApplicationIcon>
     <UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
@@ -27,31 +27,10 @@
 
   <ItemGroup>
     <Content Include="Assets\Fonts\*.ttf" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Weapon\weapons.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Weapon\weapon_curves.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Weapon\weapon_promotes.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Weapon\weapon_extra.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Artifact\artifacts.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Artifact\artifact_main_props.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Material\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Food\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Gadget\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Asset\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Avatar\avatar_meta.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Monster\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\HyperLinkName.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\AvatarDetail\*.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\logo.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\logo.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\**\*.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\Quality\*.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\UI\*.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\UI_Icon_Locked.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\UI_Icon_Fetter.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\UI_IconKira.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\UI_GachaShowPanel_Bg_Weapon.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Nav_Weapon.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Nav_Avatar.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Assets\Nav_Food.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\UI\logo.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\badge\*.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\PivotStyle.xaml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\Controls.xaml" CopyToOutputDirectory="PreserveNewest" />
@@ -85,11 +64,11 @@
   </ItemGroup>
 
   <Target Name="RemoveUnusedLanguages" AfterTargets="Build">
-    <Exec Command="for /d %%d in (&quot;$(OutDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; rd /s /q &quot;%%d&quot;" />
+    <Exec Command="for /d %%d in (&quot;$(OutDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; if /I not &quot;%%~nxd&quot;==&quot;Resources&quot; rd /s /q &quot;%%d&quot;" />
   </Target>
 
   <Target Name="RemoveUnusedLanguagesFromPublish" AfterTargets="Publish">
-    <Exec Command="for /d %%d in (&quot;$(PublishDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; if /I not &quot;%%~nxd&quot;==&quot;data&quot; rd /s /q &quot;%%d&quot;" />
+    <Exec Command="for /d %%d in (&quot;$(PublishDir)*&quot;) do if /I not &quot;%%~nxd&quot;==&quot;zh-CN&quot; if /I not &quot;%%~nxd&quot;==&quot;en-us&quot; if /I not &quot;%%~nxd&quot;==&quot;Assets&quot; if /I not &quot;%%~nxd&quot;==&quot;Styles&quot; if /I not &quot;%%~nxd&quot;==&quot;Microsoft.UI.Xaml&quot; if /I not &quot;%%~nxd&quot;==&quot;runtimes&quot; if /I not &quot;%%~nxd&quot;==&quot;modules&quot; if /I not &quot;%%~nxd&quot;==&quot;Resources&quot; if /I not &quot;%%~nxd&quot;==&quot;data&quot; rd /s /q &quot;%%d&quot;" />
   </Target>
 
   <Target Name="IncludePriInPublish" AfterTargets="ComputeFilesToPublish">

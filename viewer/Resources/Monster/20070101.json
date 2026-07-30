@@ -1,0 +1,225 @@
+{
+  "response": 200,
+  "data": {
+    "id": 20070101,
+    "name": "雷音权现",
+    "type": "元素生命",
+    "icon": "UI_MonsterIcon_Raijin",
+    "route": "Thunder Manifestation",
+    "title": "雷音权现",
+    "specialName": "霆雷的忿恨意志",
+    "description": "异常的雷元素生命。虽然外貌上与纯水精灵有相似之处，却不具备她的智慧与记忆。\\n驱动雷音权现的是更为原始纯粹的愤怒。\\n据说这种生物只会随着雷霆降生在遗留着强大忿恨的地方，譬如说支离破碎、雷云黝黝的天云峠。只要土地中的怨恨不消，那雷鸣也不会断绝吧。",
+    "entries": {
+      "20070101": {
+        "id": 20070101,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010034,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010034,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010034,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 190.176,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 90.432,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "200"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "104141": {
+            "name": "最胜紫晶碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104141"
+          },
+          "104142": {
+            "name": "最胜紫晶断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104142"
+          },
+          "104143": {
+            "name": "最胜紫晶块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104143"
+          },
+          "104144": {
+            "name": "最胜紫晶",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104144"
+          },
+          "113029": {
+            "name": "雷霆数珠",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113029",
+            "count": "2.5556"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400137": {
+            "name": "祭雷之人",
+            "rank": 3,
+            "icon": "UI_RelicIcon_15011_3"
+          },
+          "400138": {
+            "name": "祭雷之人",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15011_3"
+          }
+        }
+      },
+      "20070102": {
+        "id": 20070102,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010034,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010034,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010034,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 244.512,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 90.432,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "28401": {
+        "images": [
+          "UI_Tutorial_104"
+        ],
+        "description": "忿恨的雷声具象而成的元素生命体，会运用雷鸣的攻击与探针<color=#FFE14BFF>锁定敌人</color>。存在被锁定的对象时，雷音权现会进入狂怒状态，并优先歼灭被锁定的目标。"
+      }
+    }
+  }
+}

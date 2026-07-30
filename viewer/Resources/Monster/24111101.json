@@ -1,0 +1,352 @@
+{
+  "response": 200,
+  "data": {
+    "id": 24111101,
+    "name": "守望者·堕天",
+    "type": "自律机关",
+    "icon": "UI_MonsterIcon_Watcher_Primo_01",
+    "route": "Watcher: Fallen Vigil",
+    "title": "世界望楼之守望",
+    "specialName": "开眼者",
+    "description": "原初的大能者流溢而出的影之造物，曾居于高天之上的守望者，终因开眼而堕入尘世。\\n守望者只应沉默地于世界之柱殿守望，一切逾越规则的探求，皆是与谋求世界破灭等同的不赦之罪。\\n身为世界望楼的统权，执掌其造主所赋予的纠正一切「革新进化之事」的权柄。在历经百千劫的无明后，终于选择开眼直面世界的谎言与真实，却也因此违背了造主的意志。\\n守望者不知晓那位离去的主人因何离去，唯有永恒的惩罚依然驻留在凝滞的隙间…",
+    "entries": {
+      "24111101": {
+        "id": 24111101,
+        "type": "MONSTER_BOSS",
+        "affix": null,
+        "hpDrops": [
+          {
+            "id": 22010040,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 326.016,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "102": {
+            "name": "冒险阅历",
+            "rank": 3,
+            "icon": "UI_ItemIcon_102",
+            "count": "200"
+          },
+          "105": {
+            "name": "好感经验",
+            "rank": 3,
+            "icon": "UI_ItemIcon_105"
+          },
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "104171": {
+            "name": "坚牢黄玉碎屑",
+            "rank": 2,
+            "icon": "UI_ItemIcon_104171"
+          },
+          "104172": {
+            "name": "坚牢黄玉断片",
+            "rank": 3,
+            "icon": "UI_ItemIcon_104172"
+          },
+          "104173": {
+            "name": "坚牢黄玉块",
+            "rank": 4,
+            "icon": "UI_ItemIcon_104173"
+          },
+          "104174": {
+            "name": "坚牢黄玉",
+            "rank": 5,
+            "icon": "UI_ItemIcon_104174"
+          },
+          "113086": {
+            "name": "堕天的落羽",
+            "rank": 4,
+            "icon": "UI_ItemIcon_113086",
+            "count": "2.5556"
+          },
+          "400032": {
+            "name": "教官",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400033": {
+            "name": "教官",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10007_4"
+          },
+          "400042": {
+            "name": "流放者",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400043": {
+            "name": "流放者",
+            "rank": 4,
+            "icon": "UI_RelicIcon_10009_4"
+          },
+          "400062": {
+            "name": "游医",
+            "rank": 3,
+            "icon": "UI_RelicIcon_10013_4"
+          },
+          "400088": {
+            "name": "角斗士的终幕礼",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400089": {
+            "name": "角斗士的终幕礼",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15001_4"
+          },
+          "400098": {
+            "name": "流浪大地的乐团",
+            "rank": 4,
+            "icon": "UI_RelicIcon_15003_4"
+          },
+          "400099": {
+            "name": "流浪大地的乐团",
+            "rank": 5,
+            "icon": "UI_RelicIcon_15003_4"
+          }
+        }
+      },
+      "24111103": {
+        "id": 24111103,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010040,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 388.90405,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "24111104": {
+        "id": 24111104,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010040,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 388.90405,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      },
+      "24111105": {
+        "id": 24111105,
+        "type": "MONSTER_BOSS",
+        "affix": [
+          {
+            "name": "地脉挑战怪物成就屏蔽判定gv",
+            "description": "地脉挑战怪物成就屏蔽判定gv",
+            "abilityName": [
+              "MonsterAffix_LeyLineChallenge_GeneralAchievementCheck"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010040,
+            "hpPercent": 75
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 50
+          },
+          {
+            "id": 22010040,
+            "hpPercent": 25
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 388.90405,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 100.48,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": null
+      }
+    },
+    "tips": {
+      "310601": {
+        "images": [
+          "UI_Tutorial_248"
+        ],
+        "description": "曾居高天之上的守望者，拥有监控并反制元素攻击的权能。战斗中，守望者·堕天会进入「监望之统摄」状态。在该状态下，守望者·堕天<color=#FFE14BFF>会分别记录受到的火/水/雷/冰元素伤害的次数</color>，当有次数达到<color=#FFE14BFF>3</color>次，便会退出该状态，并记录该元素为监控目标。若未能成功监控任何元素，则记录为空。正在被监控的元素，需要造成更多次伤害方可被再次监控。"
+      },
+      "310602": {
+        "images": [
+          "UI_Tutorial_248"
+        ],
+        "description": "在完成两次元素监控后，守望者·堕天将准备施展「现象之谵妄」，释放此前监控到的元素类型，并召唤两个对应元素的「活性元素星」。若元素记录为空，则会召唤难以破坏的「惰性元素星」。<color=#FFE14BFF>击破全部元素星</color>，即可终止「现象之谵妄」的准备。"
+      }
+    }
+  }
+}

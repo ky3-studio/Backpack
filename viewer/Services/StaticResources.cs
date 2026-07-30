@@ -5,7 +5,8 @@ namespace Backpack.Viewer.Services;
 
 internal static class StaticResources
 {
-    public static string AssetsDir { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");
+    public static string AssetsDir   { get; } = Path.Combine(AppContext.BaseDirectory, "Assets");
+    public static string MetadataDir { get; } = Path.Combine(AppContext.BaseDirectory, "Resources");
 
     private const string Base = "http://8.134.75.17/static/raw/";
 
@@ -17,6 +18,17 @@ internal static class StaticResources
     public static Uri SkillIcon(string icon)      => new($"{Base}Skill/{icon}.png");
     public static Uri TalentIcon(string icon)     => new($"{Base}Talent/{icon}.png");
     public static Uri MonsterIcon(string icon)    => new($"{Base}MonsterIcon/{icon}.png");
+    public static Uri TutorialIcon(string icon)   => new($"{Base}Tutorial/{icon}.png");
+
+    public static Uri? DropIcon(string? icon)
+    {
+        if (string.IsNullOrEmpty(icon)) return null;
+        var folder =
+            icon.StartsWith("UI_RelicIcon", StringComparison.Ordinal) ? "RelicIcon" :
+            icon.StartsWith("UI_EquipIcon", StringComparison.Ordinal) ? "EquipIcon" :
+            "ItemIcon";
+        return new($"{Base}{folder}/{icon}.png");
+    }
 
     public static Uri QualityIcon(int rank)
     {

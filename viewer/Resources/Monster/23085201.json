@@ -1,0 +1,233 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23085201,
+    "name": "巡陆艇·尖端全能斥候型",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Fatuimecha_CoreC_MoveC_AttackD_AttackC_AttackB_Water",
+    "route": "Cutting Edge All-Purpose Scout Landcruiser",
+    "title": "巡陆艇",
+    "specialName": "尖端全能斥候型",
+    "description": "均衡了尖端技术、生产成本与出动率，为战斗序列赋予强大穿透力的精锐巡陆艇，是阵线上的重要支点。\\n全能斥候型的武装同样兼顾了远近作战，不止能担任斥候型巡陆艇的领队，还可以在高烈度战斗中，为全能攻坚型提供近距离支援，诸如越过专门的「反巡陆艇壕沟」，拔除对方难缠的火力点。该型巡陆艇也能及时跟随矛头向纵深突破，并向两翼发展，快速打击敌军后方的各式关键目标…",
+    "entries": {
+      "23085201": {
+        "id": 23085201,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克1",
+            "description": "铁皮集群-坦克1",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank1"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 108.672,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 62.8,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      },
+      "23085202": {
+        "id": 23085202,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-S-蓝",
+            "description": "铁皮机器-S-蓝",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_South"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-坦克1",
+            "description": "铁皮集群-坦克1",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_Tank1"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 66
+          },
+          {
+            "id": 22010010,
+            "hpPercent": 33
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 108.672,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 62.8,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      }
+    },
+    "tips": {
+      "309501": {
+        "images": [
+          "UI_Tutorial_234"
+        ],
+        "description": "巡弋于陆地的武装舰艇，具备强大的武装，经过改造后，能够借由月矩力施展特殊的功能。在它们运用月矩力时，利用<color=#FFE14BFF>感电或月感电元素反应，攻击到一定次数</color>，即可令其停止。\\n不过既然它用的是月矩力…说不定此时利用月矩力的性质，也能在进攻中取得奇效。"
+      }
+    }
+  }
+}

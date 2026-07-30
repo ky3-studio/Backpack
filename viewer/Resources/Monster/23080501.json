@@ -1,0 +1,117 @@
+{
+  "response": 200,
+  "data": {
+    "id": 23080501,
+    "name": "巡陆艇·强侦地效型",
+    "type": "愚人众",
+    "icon": "UI_MonsterIcon_Fatuimecha_CoreB_MoveE_AttackB_Wind",
+    "route": "Force Recon Ground Effect Landcruiser",
+    "title": "巡陆艇",
+    "specialName": "强侦地效型",
+    "description": "将海军理念应用在地面战之上的自律机关，正所谓「巡弋于陆地的武装舰艇」。\\n「地效型」的动力机构通过向地面高速喷射流体的方式，在维持向上推力的同时获得一定压力差，从而使得巡陆艇能够在距离地面一定的高度「飞行」，以更经济的方式获得可观的战斗航速，并避开地雷等陷阱，实现高效突击。不过，碍于成本和续航时间的限制，大规模量产的地效巡陆艇的载荷有限，目前以搭载强侦型武装为主…",
+    "entries": {
+      "23080501": {
+        "id": 23080501,
+        "type": "MONSTER_ORDINARY",
+        "affix": [
+          {
+            "name": "铁皮机器-磁动力",
+            "description": "铁皮机器-磁动力",
+            "abilityName": [
+              "Monster_Fatuimecha_EnergyType_Kuuvahki"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-N-红",
+            "description": "铁皮机器-N-红",
+            "abilityName": [
+              "Monster_Fatuimecha_KuuvahkiType_North"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮机器-磁单极",
+            "description": "铁皮机器-磁单极",
+            "abilityName": [
+              "Monster_Fatuimecha_Kuuvahki_SingleMagnet"
+            ],
+            "isCommon": null
+          },
+          {
+            "name": "铁皮集群-远程飞行",
+            "description": "铁皮集群-远程飞行",
+            "abilityName": [
+              "Monster_Fatuimecha_SquadAI_RangeAir"
+            ],
+            "isCommon": null
+          }
+        ],
+        "hpDrops": [
+          {
+            "id": 22010010,
+            "hpPercent": 60
+          }
+        ],
+        "prop": [
+          {
+            "propType": "FIGHT_PROP_BASE_HP",
+            "initValue": 21.7344,
+            "type": "GROW_CURVE_HP_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_ATTACK",
+            "initValue": 27.632,
+            "type": "GROW_CURVE_ATTACK_2"
+          },
+          {
+            "propType": "FIGHT_PROP_BASE_DEFENSE",
+            "initValue": 500,
+            "type": "GROW_CURVE_DEFENSE"
+          }
+        ],
+        "resistance": {
+          "critical": [
+            0,
+            0
+          ],
+          "fireSubHurt": 0.1,
+          "grassSubHurt": 0.1,
+          "waterSubHurt": 0.1,
+          "elecSubHurt": 0.1,
+          "windSubHurt": 0.1,
+          "iceSubHurt": 0.1,
+          "rockSubHurt": 0.1,
+          "physicalSubHurt": 0.1
+        },
+        "fundamentalForce": null,
+        "reward": {
+          "202": {
+            "name": "摩拉",
+            "rank": 3,
+            "icon": "UI_ItemIcon_202"
+          },
+          "112122": {
+            "name": "毁损机轴",
+            "rank": 1,
+            "icon": "UI_ItemIcon_112122",
+            "count": "1.6808"
+          },
+          "112123": {
+            "name": "加固机轴",
+            "rank": 2,
+            "icon": "UI_ItemIcon_112123",
+            "count": "0.4482"
+          },
+          "112124": {
+            "name": "精制机轴",
+            "rank": 3,
+            "icon": "UI_ItemIcon_112124",
+            "count": "0.112"
+          }
+        }
+      }
+    },
+    "tips": null
+  }
+}
