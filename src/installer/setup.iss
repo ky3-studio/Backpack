@@ -1,12 +1,12 @@
 #define AppName       "Backpack Viewer"
-#define AppVersion GetVersionNumbersString(".\..\publish\BackpackViewer.exe")
+#define AppVersion GetVersionNumbersString(".\..\..\publish\BackpackViewer.exe")
 #define AppPublisher  "KY3 STUDIO"
 #define AppExe        "BackpackViewer.exe"
 #define AppId         "{{4B2E1C9A-6F3D-4E7B-8A2C-1D5E9F3B7C4A}"
-#define SrcDir        ".\..\publish"
+#define SrcDir        ".\..\..\publish"
 #define NativeDir     ".\..\x64\Release"
-#define IconFile      ".\..\viewer\Assets\logo.ico"
-#define OutDir        ".\..\..\..\release-output"
+#define IconFile      ".\..\..\viewer\Assets\logo.ico"
+#define OutDir        ".\..\..\..\..\release-output"
 
 [Setup]
 AppId={#AppId}

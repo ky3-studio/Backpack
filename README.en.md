@@ -231,7 +231,7 @@ Percent stats: `value` to 1 dp, `rolls` entries to 2 dp. Flat stats are integers
 **C++ parsing layer**
 
 ```bash
-msbuild backpack.vcxproj /p:Configuration=Release /p:Platform=x64
+msbuild src\backpack.vcxproj /p:Configuration=Release /p:Platform=x64
 ```
 
 **C# viewer**

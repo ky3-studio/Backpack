@@ -6,8 +6,10 @@
 *.pdb
 *.tlog
 
-x64/Release/obj/
-x64/Debug/
+x64/
+src/x64/
+src/installer/output/
+publish/
 
 SourceGeneration/bin/
 SourceGeneration/obj/

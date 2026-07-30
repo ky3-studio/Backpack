@@ -17,13 +17,13 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Build backpack.dll
-        run: msbuild backpack.vcxproj /p:Configuration=Release /p:Platform=x64 /v:minimal
+        run: msbuild src/backpack.vcxproj /p:Configuration=Release /p:Platform=x64 /v:minimal
 
       - name: Upload backpack.dll
         uses: actions/upload-artifact@v4
         with:
           name: native
-          path: x64/Release/backpack.dll
+          path: src/x64/Release/backpack.dll
 
   viewer:
     name: C# Viewer + Installer
@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: native
-          path: x64/Release
+          path: src/x64/Release
 
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
@@ -59,11 +59,11 @@ jobs:
             Invoke-WebRequest -Uri $url -OutFile $dest
           }
       - name: Build installer
-        working-directory: installer
+        working-directory: src/installer
         run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" setup.iss /Ooutput'
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
           name: installer
-          path: installer/output/*.exe
+          path: src/installer/output/*.exe

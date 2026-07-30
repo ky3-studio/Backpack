@@ -31,6 +31,7 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
     public string       Description           { get; }
     public string       SubPropName           { get; }
     public Uri?         IconUri               { get; }
+    public Uri?         SubPropIconUri        { get; }
     public BitmapImage? SubPropIcon           { get; }
     public Visibility   SubPropIconVisibility => SubPropIcon is not null ? Visibility.Visible : Visibility.Collapsed;
     public Visibility   HasInstanceVisibility { get; }
@@ -73,8 +74,9 @@ public sealed partial class WeaponViewModel : ObservableObject, IIconUpdatable
         PassiveVisibility = (!string.IsNullOrEmpty(PassiveName)).ToVisibility();
 
         Description = meta.GetDescription(entry.Id);
-        SubPropName = meta.GetSubPropName(entry.Id);
-        SubPropIcon = StaticResources.FightPropBitmap(meta.GetSubProp(entry.Id));
+        SubPropName    = meta.GetSubPropName(entry.Id);
+        SubPropIconUri = StaticResources.FightPropIcon(meta.GetSubProp(entry.Id));
+        SubPropIcon    = StaticResources.FightPropBitmap(meta.GetSubProp(entry.Id));
 
         RefinementDescriptions = BuildRefinements(entry.Id, meta);
 

@@ -54,7 +54,7 @@
     <Content Include="Assets\badge\*.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\PivotStyle.xaml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Styles\Controls.xaml" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\x64\Release\backpack.dll" CopyToOutputDirectory="PreserveNewest" Link="modules\backpack.dll" Condition="Exists('..\x64\Release\backpack.dll')" />
+    <Content Include="..\src\x64\Release\backpack.dll" CopyToOutputDirectory="PreserveNewest" Link="modules\backpack.dll" Condition="Exists('..\src\x64\Release\backpack.dll')" />
   </ItemGroup>
 
   <ItemGroup>

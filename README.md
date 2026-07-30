@@ -231,7 +231,7 @@
 **C++ 解析层**
 
 ```bash
-msbuild backpack.vcxproj /p:Configuration=Release /p:Platform=x64
+msbuild src\backpack.vcxproj /p:Configuration=Release /p:Platform=x64
 ```
 
 **C# 查看器**

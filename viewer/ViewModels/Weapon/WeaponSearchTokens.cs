@@ -20,14 +20,17 @@ internal static class WeaponSearchTokens
             tokens[vm.Source.Name] = new SearchToken(SearchTokenKind.Weapon, vm.Source.Name, order++, sideIconUri: vm.IconUri);
 
         foreach (var type in list.Select(vm => vm.Source.Type).Where(t => !string.IsNullOrEmpty(t)).Distinct())
-            tokens[type] = new SearchToken(SearchTokenKind.WeaponType, type, order++);
+            tokens[type] = new SearchToken(SearchTokenKind.WeaponType, type, order++, iconUri: TypeIconUri(type));
 
         foreach (var rank in list.Select(vm => vm.Source.Rank).Where(r => r > 0).Distinct().OrderByDescending(r => r))
             tokens[RankLabel(rank)] = new SearchToken(SearchTokenKind.ItemQuality, RankLabel(rank), order++, iconUri: StaticResources.RankStarsIcon(rank), showText: false);
 
-        foreach (var subProp in list.Select(vm => vm.SubPropName).Where(p => !string.IsNullOrEmpty(p)).Distinct())
-            tokens[subProp] = new SearchToken(SearchTokenKind.FightProperty, subProp, order++);
+        foreach (var group in list.Where(vm => !string.IsNullOrEmpty(vm.SubPropName)).GroupBy(vm => vm.SubPropName))
+            tokens[group.Key] = new SearchToken(SearchTokenKind.FightProperty, group.Key, order++, iconUri: group.First().SubPropIconUri);
 
         return tokens;
     }
+
+    private static Uri? TypeIconUri(string type) =>
+        WeaponViewModel.TypeIconName(type) is { } icon ? StaticResources.SkillIcon(icon) : null;
 }
