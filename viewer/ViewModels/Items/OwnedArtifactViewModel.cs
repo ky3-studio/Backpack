@@ -2,6 +2,7 @@ using Backpack.Viewer;
 using Backpack.Viewer.Models;
 using Backpack.Viewer.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Backpack.Viewer.ViewModels;
@@ -34,7 +35,16 @@ public sealed partial class OwnedArtifactViewModel : ObservableObject, IIconUpda
         var mainValue = meta.GetMainPropValue(entry.Rank, entry.Level, entry.MainStat);
         MainStatValue = FormatValue(entry.MainStat, mainValue);
 
-        SubStats = [.. entry.SubStats.Select(s => new OwnedSubStat(s.Type, FormatSub(s.Type, s.Value)))];
+        SubStats = [.. entry.SubStats.Select(s =>
+        {
+            var count = s.Rolls?.Length ?? 0;
+            return new OwnedSubStat(
+                s.Type,
+                FormatSub(s.Type, s.Value),
+                StaticResources.RollBadge(count),
+                FormatRollValues(s.Type, s.Rolls),
+                count > 0 ? Visibility.Visible : Visibility.Collapsed);
+        })];
 
         var icon = meta.GetIcon(entry.Set, entry.Slot);
         if (icon is not null)
@@ -50,6 +60,14 @@ public sealed partial class OwnedArtifactViewModel : ObservableObject, IIconUpda
         ArtifactMetaService.IsMainPropPercent(shortName)
             ? $"{value:F1}%"
             : ((int)Math.Round(value)).ToString();
+
+    private static string FormatRollValues(string shortName, double[]? rolls)
+    {
+        if (rolls is null || rolls.Length == 0) return string.Empty;
+        var isPct = ArtifactMetaService.IsMainPropPercent(shortName);
+        var parts = rolls.Select(v => isPct ? v.ToString("F1") : ((int)Math.Round(v)).ToString());
+        return string.Join(" + ", parts);
+    }
 }
 
-public sealed record OwnedSubStat(string Name, string Value);
+public sealed record OwnedSubStat(string Name, string Value, BitmapImage? RollBadge, string RollValues, Visibility RollVisibility);

@@ -30,12 +30,6 @@
               Text="{x:Bind SetName}"
               TextTrimming="CharacterEllipsis"
               TextWrapping="NoWrap" />
-          <Image
-              Height="12"
-              Margin="0,3,0,0"
-              HorizontalAlignment="Left"
-              Source="{x:Bind RankStarsSource}"
-              Stretch="Uniform" />
         </StackPanel>
       </Grid>
     </DataTemplate>
@@ -86,20 +80,46 @@
     </DataTemplate>
 
     <DataTemplate x:Key="OwnedSubStatTemplate" x:DataType="vm:OwnedSubStat">
-      <Grid Margin="0,2,0,2">
+      <Grid Margin="0,3,0,3" ColumnSpacing="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Spacing="2">
+          <TextBlock
+              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+              Style="{StaticResource AppCaptionTextBlockStyle}"
+              Text="{x:Bind Name}" />
+          <StackPanel
+              Orientation="Horizontal"
+              Spacing="5"
+              Visibility="{x:Bind RollVisibility}">
+            <Image
+                Width="15"
+                Height="15"
+                VerticalAlignment="Center"
+                Source="{x:Bind RollBadge}"
+                Stretch="Uniform" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                Style="{StaticResource AppCaptionTextBlockStyle}"
+                Text="{x:Bind RollValues}" />
+          </StackPanel>
+        </StackPanel>
         <TextBlock
-            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-            Style="{StaticResource AppCaptionTextBlockStyle}"
-            Text="{x:Bind Name}" />
-        <TextBlock
-            HorizontalAlignment="Right"
+            Grid.Column="1"
+            VerticalAlignment="Top"
             Style="{StaticResource AppCaptionTextBlockStyle}"
             Text="{x:Bind Value}" />
       </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="OwnedArtifactTemplate" x:DataType="vm:OwnedArtifactViewModel">
-      <Border Margin="0,0,0,8" Padding="12" Style="{StaticResource BorderCardStyle}">
+      <Border
+          Width="290"
+          Padding="12"
+          Style="{StaticResource BorderCardStyle}">
         <StackPanel Spacing="8">
           <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
@@ -280,7 +300,13 @@
                 Visibility="{x:Bind OwnedRankSwitchVisibility}" />
             <ItemsControl
                 ItemTemplate="{StaticResource OwnedArtifactTemplate}"
-                ItemsSource="{x:Bind VisibleOwnedPieces, Mode=OneWay}" />
+                ItemsSource="{x:Bind VisibleOwnedPieces, Mode=OneWay}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <cwc:WrapPanel HorizontalSpacing="8" VerticalSpacing="8" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
           </StackPanel>
         </Border>
 

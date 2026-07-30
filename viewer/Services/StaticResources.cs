@@ -81,6 +81,14 @@ internal static class StaticResources
     public static BitmapImage GetRankStarsBitmap(int rank) =>
         _rankStarsBitmaps[Math.Clamp(rank, 1, 5) - 1];
 
+    private static readonly BitmapImage?[] _rollBadges = new BitmapImage?[12];
+
+    public static BitmapImage? RollBadge(int count)
+    {
+        if (count is < 1 or > 11) return null;
+        return _rollBadges[count] ??= new BitmapImage(new Uri($"ms-appx:///Assets/badge/badge-{count}.ico"));
+    }
+
     public static Uri? FightPropIcon(string? prop)
     {
         if (string.IsNullOrEmpty(prop)) return null;
