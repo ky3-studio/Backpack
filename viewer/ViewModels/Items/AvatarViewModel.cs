@@ -39,6 +39,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     [ObservableProperty] private IReadOnlyList<TalentSlotViewModel> _talents   = [];
     [ObservableProperty] private IReadOnlyList<TalentSlotViewModel> _inherents = [];
 
+    [ObservableProperty] private Visibility _hasArtifactsVisibility = Visibility.Collapsed;
+    [ObservableProperty] private IReadOnlyList<OwnedArtifactViewModel> _artifacts = [];
+
     public BitmapImage? WeaponQualitySource => _weapon?.QualitySource;
     public BitmapImage? WeaponIconSource    => _weapon?.IconSource;
 
@@ -46,7 +49,8 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     private readonly AvatarMetaService.AvatarMeta? _meta;
 
     public AvatarViewModel(AvatarEntry entry, AvatarMetaService avatarMeta,
-        AvatarDetailService? avatarDetail = null, WeaponViewModel? weapon = null)
+        AvatarDetailService? avatarDetail = null, WeaponViewModel? weapon = null,
+        IReadOnlyList<OwnedArtifactViewModel>? artifacts = null)
     {
         Source = entry;
         _meta  = avatarMeta.GetMeta(entry.Id);
@@ -60,7 +64,7 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         RankItems     = [.. Enumerable.Range(0, Math.Clamp(Rarity, 0, 5))];
         QualitySource = StaticResources.GetQualityBitmap(Rarity);
 
-        ApplyEntry(entry, weapon, avatarDetail);
+        ApplyEntry(entry, weapon, avatarDetail, artifacts);
 
         if (_meta is not null)
         {
@@ -73,13 +77,15 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     }
 
     public void Update(AvatarEntry entry, WeaponViewModel? weapon = null,
-        AvatarDetailService? avatarDetail = null)
+        AvatarDetailService? avatarDetail = null,
+        IReadOnlyList<OwnedArtifactViewModel>? artifacts = null)
     {
         Source = entry;
-        ApplyEntry(entry, weapon, avatarDetail);
+        ApplyEntry(entry, weapon, avatarDetail, artifacts);
     }
 
-    private void ApplyEntry(AvatarEntry entry, WeaponViewModel? weapon, AvatarDetailService? avatarDetail)
+    private void ApplyEntry(AvatarEntry entry, WeaponViewModel? weapon, AvatarDetailService? avatarDetail,
+        IReadOnlyList<OwnedArtifactViewModel>? artifacts)
     {
         int level      = Math.Max(1, entry.Level);
         int friendship = Math.Max(1, entry.Friendship);
@@ -105,6 +111,11 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         WeaponPromoteItems  = weapon is not null ? [.. Enumerable.Range(0, Math.Clamp(weapon.Source.Ascension, 0, 6))] : [];
         OnPropertyChanged(nameof(WeaponQualitySource));
         OnPropertyChanged(nameof(WeaponIconSource));
+
+        Artifacts              = artifacts is { Count: > 0 }
+            ? [.. artifacts.OrderBy(a => ArtifactSlotRank(a.SlotName))]
+            : [];
+        HasArtifactsVisibility = (Artifacts.Count > 0).ToVisibility();
 
         if (_meta is null)
         {
@@ -164,6 +175,16 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
         };
         var name = type is not null ? _meta?.Skills.FirstOrDefault(s => s.Type == type)?.Name : null;
         return string.IsNullOrEmpty(name) ? SR.SkillFallback : name;
+    }
+
+    private static int ArtifactSlotRank(string slot)
+    {
+        if (slot == SR.SlotFlower)  return 0;
+        if (slot == SR.SlotPlume)   return 1;
+        if (slot == SR.SlotSands)   return 2;
+        if (slot == SR.SlotGoblet)  return 3;
+        if (slot == SR.SlotCirclet) return 4;
+        return 5;
     }
 
     private void OnWeaponPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args)

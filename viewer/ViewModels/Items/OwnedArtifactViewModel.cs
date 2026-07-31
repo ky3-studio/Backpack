@@ -20,6 +20,7 @@ public sealed partial class OwnedArtifactViewModel : ObservableObject, IIconUpda
     public string                     MainStatValue   { get; }
     public int                        Rank            { get; }
     public BitmapImage                RankStarsSource { get; }
+    public BitmapImage                QualitySource   { get; }
     public IReadOnlyList<OwnedSubStat> SubStats       { get; }
 
     public OwnedArtifactViewModel(ArtifactEntry entry, ArtifactMetaService meta)
@@ -30,6 +31,7 @@ public sealed partial class OwnedArtifactViewModel : ObservableObject, IIconUpda
         LevelText       = $"+{entry.Level}";
         Rank            = entry.Rank;
         RankStarsSource = StaticResources.GetRankStarsBitmap(entry.Rank);
+        QualitySource   = StaticResources.GetQualityBitmap(entry.Rank);
 
         MainStatName  = entry.MainStat;
         var mainValue = meta.GetMainPropValue(entry.Rank, entry.Level, entry.MainStat);
