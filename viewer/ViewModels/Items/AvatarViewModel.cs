@@ -35,8 +35,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     [ObservableProperty] private string _weaponRefineText   = string.Empty;
     [ObservableProperty] private IReadOnlyList<int> _weaponPromoteItems = [];
 
-    [ObservableProperty] private IReadOnlyList<SkillSlotViewModel>  _skills  = [];
-    [ObservableProperty] private IReadOnlyList<TalentSlotViewModel> _talents = [];
+    [ObservableProperty] private IReadOnlyList<SkillSlotViewModel>  _skills    = [];
+    [ObservableProperty] private IReadOnlyList<TalentSlotViewModel> _talents   = [];
+    [ObservableProperty] private IReadOnlyList<TalentSlotViewModel> _inherents = [];
 
     public BitmapImage? WeaponQualitySource => _weapon?.QualitySource;
     public BitmapImage? WeaponIconSource    => _weapon?.IconSource;
@@ -107,8 +108,9 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
 
         if (_meta is null)
         {
-            Skills  = [];
-            Talents = [];
+            Skills    = [];
+            Talents   = [];
+            Inherents = [];
             return;
         }
 
@@ -136,6 +138,19 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
                 : null;
             return new TalentSlotViewModel(t.Name, t.Icon, isActive, t.Description, extraText);
         })];
+
+        var detailInherents = avatarDetail?.GetInherents(entry.Id) ?? [];
+        if (detailInherents.Count > 0)
+        {
+            var phaseById = _meta.Inherents.ToDictionary(m => m.Id, m => m.UnlockPhase);
+            Inherents = [.. detailInherents.Select(i =>
+                new TalentSlotViewModel(i.Name, i.Icon, entry.Ascension >= phaseById.GetValueOrDefault(i.Id), i.Description, null))];
+        }
+        else
+        {
+            Inherents = [.. _meta.Inherents.Select(i =>
+                new TalentSlotViewModel(i.Name, i.Icon, entry.Ascension >= i.UnlockPhase, i.Description, null))];
+        }
     }
 
     private string ExtraLevelSkillName(int slot)

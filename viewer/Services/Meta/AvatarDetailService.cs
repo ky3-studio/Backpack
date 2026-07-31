@@ -55,6 +55,15 @@ public sealed partial class AvatarDetailService
         return (desc, rows);
     }
 
+    public IReadOnlyList<InherentInfo> GetInherents(uint avatarId)
+    {
+        var list = Load(avatarId)?.SkillDepot?.Inherents;
+        if (list is null) return [];
+        return [.. list.Select(i => new InherentInfo(i.Id, i.Name ?? string.Empty, i.Icon ?? string.Empty, i.Description ?? string.Empty))];
+    }
+
+    public sealed record InherentInfo(uint Id, string Name, string Icon, string Description);
+
 
     private SnapAvatar? Load(uint avatarId)
     {
@@ -78,8 +87,17 @@ public sealed partial class AvatarDetailService
     private sealed class SnapAvatar     { public SnapSkillDepot?     SkillDepot   { get; init; } }
     private sealed class SnapSkillDepot
     {
-        public List<SnapSkill>? Skills      { get; init; }
-        public SnapSkill?       EnergySkill { get; init; }
+        public List<SnapSkill>?    Skills      { get; init; }
+        public SnapSkill?          EnergySkill { get; init; }
+        public List<SnapInherent>? Inherents   { get; init; }
+    }
+
+    private sealed class SnapInherent
+    {
+        public uint    Id          { get; init; }
+        public string? Name        { get; init; }
+        public string? Icon        { get; init; }
+        public string? Description { get; init; }
     }
 
     private sealed class SnapSkill

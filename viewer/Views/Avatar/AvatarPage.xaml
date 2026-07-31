@@ -12,6 +12,50 @@
 
   <UserControl.Resources>
 
+    <DataTemplate x:Key="TalentSlotTemplate" x:DataType="vm:TalentSlotViewModel">
+      <Button
+          Margin="0,0,2,0"
+          Padding="2"
+          Background="Transparent"
+          BorderBrush="{x:Null}">
+        <Button.Content>
+          <Grid>
+            <Image
+                Width="36"
+                Height="36"
+                Opacity="{x:Bind ActiveOpacity}"
+                Source="{x:Bind IconSource, Mode=OneWay}"
+                Stretch="Uniform" />
+            <Image
+                Width="16"
+                Height="16"
+                Source="ms-appx:///Assets/UI/UI_Icon_Locked.png"
+                Visibility="{x:Bind LockedVisibility}" />
+          </Grid>
+        </Button.Content>
+        <Button.Flyout>
+          <Flyout Placement="Bottom">
+            <StackPanel MaxWidth="320" Spacing="6">
+              <TextBlock
+                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                  Text="{x:Bind Name}"
+                  TextWrapping="Wrap" />
+              <RichTextBlock
+                  FontFamily="{StaticResource AppFontFamily}"
+                  Opacity="0.85"
+                  TextWrapping="Wrap"
+                  ctrl:MiHoYo.Description="{x:Bind Description}" />
+              <TextBlock
+                  Foreground="{ThemeResource WeaponGoldBrush}"
+                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                  Text="{x:Bind ExtraLevelText}"
+                  Visibility="{x:Bind ExtraLevelVisibility}" />
+            </StackPanel>
+          </Flyout>
+        </Button.Flyout>
+      </Button>
+    </DataTemplate>
+
     <DataTemplate x:Key="AvatarListTemplate" x:DataType="vm:AvatarViewModel">
       <Grid Margin="0,6,0,6">
         <Grid.ColumnDefinitions>
@@ -168,138 +212,102 @@
 
               </StackPanel>
 
-              <ItemsRepeater
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Bottom"
-                  ItemsSource="{x:Bind Skills, Mode=OneWay}">
-                <ItemsRepeater.Layout>
-                  <StackLayout Orientation="Vertical" Spacing="0" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                  <DataTemplate x:DataType="vm:SkillSlotViewModel">
-                    <Button
-                        Margin="0,2,0,0"
-                        Padding="4"
-                        Background="Transparent"
-                        BorderBrush="{x:Null}">
-                      <Button.Content>
-                        <Grid>
-                          <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100" />
-                          </Grid.ColumnDefinitions>
-                          <Image
-                              Grid.Column="0"
-                              Width="36"
-                              Height="36"
-                              Source="{x:Bind IconSource, Mode=OneWay}" />
-                          <TextBlock
-                              Grid.Column="1"
-                              Margin="6,0,0,2"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              Foreground="White"
-                              Style="{StaticResource BaseTextBlockStyle}"
-                              Text="{x:Bind LevelText}" />
-                        </Grid>
-                      </Button.Content>
-                      <Button.Flyout>
-                        <Flyout Placement="Left">
-                          <StackPanel MaxWidth="320" Spacing="6">
-                            <StackPanel.Resources>
-                              <Thickness x:Key="SettingsCardPadding">16</Thickness>
-                              <x:Double x:Key="SettingsCardWrapThreshold">0</x:Double>
-                              <x:Double x:Key="SettingsCardWrapNoIconThreshold">0</x:Double>
-                              <x:Double x:Key="SettingsCardMinHeight">0</x:Double>
-                            </StackPanel.Resources>
+              <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <ItemsRepeater ItemsSource="{x:Bind Skills, Mode=OneWay}">
+                  <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Vertical" Spacing="0" />
+                  </ItemsRepeater.Layout>
+                  <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SkillSlotViewModel">
+                      <Button
+                          Margin="0,2,0,0"
+                          Padding="4"
+                          Background="Transparent"
+                          BorderBrush="{x:Null}">
+                        <Button.Content>
+                          <Grid>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="Auto" />
+                              <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Column="0"
+                                Width="36"
+                                Height="36"
+                                Source="{x:Bind IconSource, Mode=OneWay}" />
                             <TextBlock
-                                Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                                Text="{x:Bind Name}" />
-                            <TextBlock
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource AppCaptionTextBlockStyle}"
-                                Text="{x:Bind TypeDisplay}" />
-                            <RichTextBlock
-                                FontFamily="{StaticResource AppFontFamily}"
-                                Opacity="0.85"
-                                TextWrapping="Wrap"
-                                Visibility="{x:Bind DescriptionVisibility}"
-                                ctrl:MiHoYo.Description="{x:Bind Description}" />
-                            <ItemsControl
-                                Margin="0,6,0,0"
-                                ItemsSource="{x:Bind Params}"
-                                Visibility="{x:Bind ParamsVisibility}">
-                              <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="models:SkillParamRow">
-                                  <cwc:SettingsCard
-                                      Margin="0,2,0,0"
-                                      Padding="12,0"
-                                      Header="{x:Bind Label}">
-                                    <TextBlock Margin="0,8" Text="{x:Bind Value}" />
-                                  </cwc:SettingsCard>
-                                </DataTemplate>
-                              </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                          </StackPanel>
-                        </Flyout>
-                      </Button.Flyout>
-                    </Button>
-                  </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-              </ItemsRepeater>
+                                Grid.Column="1"
+                                Margin="6,0,0,2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="{x:Bind LevelText}" />
+                          </Grid>
+                        </Button.Content>
+                        <Button.Flyout>
+                          <Flyout Placement="Left">
+                            <StackPanel MaxWidth="320" Spacing="6">
+                              <StackPanel.Resources>
+                                <Thickness x:Key="SettingsCardPadding">16</Thickness>
+                                <x:Double x:Key="SettingsCardWrapThreshold">0</x:Double>
+                                <x:Double x:Key="SettingsCardWrapNoIconThreshold">0</x:Double>
+                                <x:Double x:Key="SettingsCardMinHeight">0</x:Double>
+                              </StackPanel.Resources>
+                              <TextBlock
+                                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                                  Text="{x:Bind Name}" />
+                              <TextBlock
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                  Style="{StaticResource AppCaptionTextBlockStyle}"
+                                  Text="{x:Bind TypeDisplay}" />
+                              <RichTextBlock
+                                  FontFamily="{StaticResource AppFontFamily}"
+                                  Opacity="0.85"
+                                  TextWrapping="Wrap"
+                                  Visibility="{x:Bind DescriptionVisibility}"
+                                  ctrl:MiHoYo.Description="{x:Bind Description}" />
+                              <ItemsControl
+                                  Margin="0,6,0,0"
+                                  ItemsSource="{x:Bind Params}"
+                                  Visibility="{x:Bind ParamsVisibility}">
+                                <ItemsControl.ItemTemplate>
+                                  <DataTemplate x:DataType="models:SkillParamRow">
+                                    <cwc:SettingsCard
+                                        Margin="0,2,0,0"
+                                        Padding="12,0"
+                                        Header="{x:Bind Label}">
+                                      <TextBlock Margin="0,8" Text="{x:Bind Value}" />
+                                    </cwc:SettingsCard>
+                                  </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                              </ItemsControl>
+                            </StackPanel>
+                          </Flyout>
+                        </Button.Flyout>
+                      </Button>
+                    </DataTemplate>
+                  </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+                <ItemsRepeater
+                    Margin="2,4,0,0"
+                    HorizontalAlignment="Left"
+                    ItemTemplate="{StaticResource TalentSlotTemplate}"
+                    ItemsSource="{x:Bind Inherents, Mode=OneWay}">
+                  <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Vertical" Spacing="0" />
+                  </ItemsRepeater.Layout>
+                </ItemsRepeater>
+              </StackPanel>
 
               <ItemsRepeater
                   HorizontalAlignment="Left"
                   VerticalAlignment="Bottom"
+                  ItemTemplate="{StaticResource TalentSlotTemplate}"
                   ItemsSource="{x:Bind Talents, Mode=OneWay}">
                 <ItemsRepeater.Layout>
                   <StackLayout Orientation="Horizontal" Spacing="0" />
                 </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                  <DataTemplate x:DataType="vm:TalentSlotViewModel">
-                    <Button
-                        Margin="0,0,2,0"
-                        Padding="2"
-                        Background="Transparent"
-                        BorderBrush="{x:Null}">
-                      <Button.Content>
-                        <Grid>
-                          <Image
-                              Width="36"
-                              Height="36"
-                              Opacity="{x:Bind ActiveOpacity}"
-                              Source="{x:Bind IconSource, Mode=OneWay}"
-                              Stretch="Uniform" />
-                          <Image
-                              Width="16"
-                              Height="16"
-                              Source="ms-appx:///Assets/UI/UI_Icon_Locked.png"
-                              Visibility="{x:Bind LockedVisibility}" />
-                        </Grid>
-                      </Button.Content>
-                      <Button.Flyout>
-                        <Flyout Placement="Bottom">
-                          <StackPanel MaxWidth="320" Spacing="6">
-                            <TextBlock
-                                Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                                Text="{x:Bind Name}"
-                                TextWrapping="Wrap" />
-                            <RichTextBlock
-                                FontFamily="{StaticResource AppFontFamily}"
-                                Opacity="0.85"
-                                TextWrapping="Wrap"
-                                ctrl:MiHoYo.Description="{x:Bind Description}" />
-                            <TextBlock
-                                Foreground="{ThemeResource WeaponGoldBrush}"
-                                Style="{StaticResource AppCaptionTextBlockStyle}"
-                                Text="{x:Bind ExtraLevelText}"
-                                Visibility="{x:Bind ExtraLevelVisibility}" />
-                          </StackPanel>
-                        </Flyout>
-                      </Button.Flyout>
-                    </Button>
-                  </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
               </ItemsRepeater>
 
             </Grid>
