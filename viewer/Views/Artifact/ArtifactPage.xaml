@@ -24,12 +24,18 @@
             VerticalAlignment="Center"
             Source="{x:Bind IconSource, Mode=OneWay}"
             Stretch="Uniform" />
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
           <TextBlock
               Style="{StaticResource AppBodyStrongTextBlockStyle}"
               Text="{x:Bind SetName}"
               TextTrimming="CharacterEllipsis"
               TextWrapping="NoWrap" />
+          <TextBlock
+              FontFamily="{StaticResource AppFontFamily}"
+              Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+              Style="{StaticResource AppCaptionTextBlockStyle}"
+              Text="{x:Bind OwnedCountText}"
+              Visibility="{x:Bind OwnedVisibility}" />
         </StackPanel>
       </Grid>
     </DataTemplate>

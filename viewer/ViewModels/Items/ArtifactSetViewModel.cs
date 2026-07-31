@@ -49,6 +49,7 @@ public sealed partial class ArtifactSetViewModel : ObservableObject, IIconUpdata
     public IReadOnlyList<ArtifactRankOption>     OwnedRankOptions          { get; private set; } = [];
     public Visibility                            OwnedVisibility           { get; private set; } = Visibility.Collapsed;
     public Visibility                            OwnedRankSwitchVisibility { get; private set; } = Visibility.Collapsed;
+    public string                                OwnedCountText            { get; private set; } = string.Empty;
 
     public IReadOnlyList<OwnedArtifactViewModel> VisibleOwnedPieces =>
         OwnedRankOptions.Count == 0
@@ -101,6 +102,7 @@ public sealed partial class ArtifactSetViewModel : ObservableObject, IIconUpdata
         OwnedRankOptions          = [.. ranks.Select(r => new ArtifactRankOption(r, StaticResources.GetRankStarsBitmap(r)))];
         OwnedVisibility           = (OwnedPieces.Count > 0).ToVisibility();
         OwnedRankSwitchVisibility = (ranks.Length > 1).ToVisibility();
+        OwnedCountText            = string.Format(SR.OwnedCountFmt, OwnedPieces.Count);
     }
 
     partial void OnSelectedRankIndexChanged(int value)

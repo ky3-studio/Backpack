@@ -23,11 +23,19 @@
             Margin="0,0,12,6"
             Source="{x:Bind IconSource, Mode=OneWay}"
             Stretch="Uniform" />
-        <TextBlock
+        <StackPanel
             Grid.Column="1"
             Margin="12,0,0,0"
             VerticalAlignment="Center"
-            Text="{x:Bind Source.Name}" />
+            Spacing="2">
+          <TextBlock Text="{x:Bind Source.Name}" />
+          <TextBlock
+              x:Uid="OwnedTag"
+              FontFamily="{StaticResource AppFontFamily}"
+              Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+              Style="{StaticResource AppCaptionTextBlockStyle}"
+              Visibility="{x:Bind HasInstanceVisibility}" />
+        </StackPanel>
       </Grid>
     </DataTemplate>
 

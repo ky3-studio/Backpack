@@ -327,6 +327,12 @@
   <data name="SyncBagButton.Text" xml:space="preserve">
     <value>同步数据</value>
   </data>
+  <data name="OwnedTag.Text" xml:space="preserve">
+    <value>已拥有</value>
+  </data>
+  <data name="OwnedCountFmt" xml:space="preserve">
+    <value>已拥有 {0} 件</value>
+  </data>
   <data name="DrawerSyncText.Text" xml:space="preserve">
     <value>立即同步</value>
   </data>

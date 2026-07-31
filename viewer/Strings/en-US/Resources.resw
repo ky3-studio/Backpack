@@ -327,6 +327,12 @@
   <data name="SyncBagButton.Text" xml:space="preserve">
     <value>Sync Data</value>
   </data>
+  <data name="OwnedTag.Text" xml:space="preserve">
+    <value>Owned</value>
+  </data>
+  <data name="OwnedCountFmt" xml:space="preserve">
+    <value>Owned ×{0}</value>
+  </data>
   <data name="DrawerSyncText.Text" xml:space="preserve">
     <value>Sync Now</value>
   </data>

@@ -42,7 +42,7 @@
           BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
           Click="OnToggleDrawer"
           CornerRadius="{ThemeResource ControlCornerRadius}"
-          IsEnabled="{x:Bind ViewModel.HasSelectedPath, Mode=OneWay}">
+          Visibility="{x:Bind ViewModel.LaunchButtonVisibility, Mode=OneWay}">
         <TextBlock
             x:Uid="SyncBagButton"
             FontFamily="{StaticResource AppFontFamily}"
