@@ -8,6 +8,7 @@
 #include <cstring>
 #include <algorithm>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace Avatar {
@@ -25,7 +26,24 @@ struct Inst {
     std::vector<SkillLv>   skills;
     std::vector<ExtraLv>   extras;
     std::vector<uint64_t>  equips;
+    std::vector<std::pair<uint32_t, float>> fightProps;
 };
+
+static bool KeepFightProp(uint32_t k) {
+    switch (k) {
+        case 1: case 4: case 7:
+        case 20: case 22: case 23:
+        case 26: case 27: case 28:
+        case 29: case 30:
+        case 40: case 41: case 42: case 43: case 44: case 45: case 46:
+        case 50: case 51: case 52: case 53: case 54: case 55: case 56:
+        case 80: case 81:
+        case 2000: case 2001: case 2002:
+            return true;
+        default:
+            return false;
+    }
+}
 
 static const AvatarDbEntry* Lookup(uint32_t id) {
     for (size_t i = 0; i < kAvatarDbSize; ++i)
@@ -87,19 +105,28 @@ static std::string BuildJson(const std::vector<Inst>& avatars) {
         }
         equips_str += "]";
 
+        std::string fp_str = "{";
+        for (size_t j = 0; j < a.fightProps.size(); ++j) {
+            char buf[48];
+            sprintf_s(buf, "\"%u\":%.6g", a.fightProps[j].first, a.fightProps[j].second);
+            fp_str += buf;
+            if (j + 1 < a.fightProps.size()) fp_str += ",";
+        }
+        fp_str += "}";
+
         const AvatarDbEntry* info = Lookup(a.id);
         char line[4096];
         sprintf_s(line,
             "    {\"id\":%u,\"name\":\"%s\",\"element\":\"%s\",\"rarity\":%u,"
             "\"level\":%u,\"ascension\":%u,\"friendship\":%u,\"constellation\":%u,"
-            "\"skills\":%s,\"passives\":%s,\"equips\":%s}%s\n",
+            "\"skills\":%s,\"passives\":%s,\"equips\":%s,\"fightProps\":%s}%s\n",
             a.id,
             info ? info->name    : "",
             info ? info->element : "",
             info ? static_cast<unsigned>(info->rarity) : 0u,
             a.level, a.ascension, a.friendship,
             static_cast<unsigned>(a.talents.size()),
-            skills_str.c_str(), passives_str.c_str(), equips_str.c_str(),
+            skills_str.c_str(), passives_str.c_str(), equips_str.c_str(), fp_str.c_str(),
             (i + 1 < avatars.size()) ? "," : "");
         out += line;
     }
@@ -171,6 +198,23 @@ std::string OnPacket(const uint8_t* body, uint32_t len) {
                     return true;
                 });
                 if (ex.gid) inst.extras.push_back(ex);
+
+            } else if (f.num == 7 && f.wt == 2) {
+                uint32_t key    = 0;
+                bool     hasVal = false;
+                float    val    = 0.0f;
+                Proto::Walk(f.ptr, f.len, [&](const Proto::Field& mp) -> bool {
+                    if (mp.num == 1 && mp.wt == 0) {
+                        key = static_cast<uint32_t>(mp.u64);
+                    } else if (mp.num == 2 && mp.wt == 5) {
+                        uint32_t bits = static_cast<uint32_t>(mp.u64);
+                        std::memcpy(&val, &bits, sizeof(val));
+                        hasVal = true;
+                    }
+                    return true;
+                });
+                if (key && hasVal && KeepFightProp(key))
+                    inst.fightProps.emplace_back(key, val);
             }
 
             return true;

@@ -23,5 +23,6 @@ public sealed record AvatarEntry(
     [property: JsonPropertyName("constellation")] int           Constellation,
     [property: JsonPropertyName("skills")]        SkillEntry[]  Skills,
     [property: JsonPropertyName("passives")]      PassiveEntry[] Passives,
-    [property: JsonPropertyName("equips")]        string[]      Equips
+    [property: JsonPropertyName("equips")]        string[]      Equips,
+    [property: JsonPropertyName("fightProps")]    Dictionary<string, float>? FightProps = null
 );

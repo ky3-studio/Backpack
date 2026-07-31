@@ -62,6 +62,23 @@ inline void Walk(const uint8_t* buf, size_t len, Fn&& cb) {
             Field f{fn, wt, 0, buf + pos, static_cast<size_t>(l)};
             pos += static_cast<size_t>(l);
             if (!cb(f)) return;
+        } else if (wt == 5) {
+            if (pos + 4 > len) break;
+            uint32_t v = static_cast<uint32_t>(buf[pos])
+                       | static_cast<uint32_t>(buf[pos + 1]) << 8
+                       | static_cast<uint32_t>(buf[pos + 2]) << 16
+                       | static_cast<uint32_t>(buf[pos + 3]) << 24;
+            pos += 4;
+            Field f{fn, wt, v, nullptr, 0};
+            if (!cb(f)) return;
+        } else if (wt == 1) {
+            if (pos + 8 > len) break;
+            uint64_t v = 0;
+            for (int i = 0; i < 8; ++i)
+                v |= static_cast<uint64_t>(buf[pos + i]) << (i * 8);
+            pos += 8;
+            Field f{fn, wt, v, nullptr, 0};
+            if (!cb(f)) return;
         } else {
             if (!detail::Skip(buf, len, pos, wt)) break;
         }

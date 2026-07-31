@@ -504,4 +504,97 @@
   <data name="ControlAutoSuggestTokenBoxSelectAllMenuItem" xml:space="preserve">
     <value>Select all</value>
   </data>
+  <data name="StatPanelTitle" xml:space="preserve">
+    <value>Character Stats</value>
+  </data>
+  <data name="StatGroupBase" xml:space="preserve">
+    <value>Base Stats</value>
+  </data>
+  <data name="StatGroupAdvanced" xml:space="preserve">
+    <value>Advanced Stats</value>
+  </data>
+  <data name="StatGroupElemental" xml:space="preserve">
+    <value>Elemental Stats</value>
+  </data>
+  <data name="StatHp" xml:space="preserve">
+    <value>Max HP</value>
+  </data>
+  <data name="StatAtk" xml:space="preserve">
+    <value>ATK</value>
+  </data>
+  <data name="StatDef" xml:space="preserve">
+    <value>DEF</value>
+  </data>
+  <data name="StatElementMastery" xml:space="preserve">
+    <value>Elemental Mastery</value>
+  </data>
+  <data name="StatCritRate" xml:space="preserve">
+    <value>CRIT Rate</value>
+  </data>
+  <data name="StatCritDmg" xml:space="preserve">
+    <value>CRIT DMG</value>
+  </data>
+  <data name="StatEnergyRecharge" xml:space="preserve">
+    <value>Energy Recharge</value>
+  </data>
+  <data name="StatHealingBonus" xml:space="preserve">
+    <value>Healing Bonus</value>
+  </data>
+  <data name="StatIncomingHealing" xml:space="preserve">
+    <value>Incoming Healing Bonus</value>
+  </data>
+  <data name="StatCdReduction" xml:space="preserve">
+    <value>CD Reduction</value>
+  </data>
+  <data name="StatShieldStrength" xml:space="preserve">
+    <value>Shield Strength</value>
+  </data>
+  <data name="StatPhysicalDmg" xml:space="preserve">
+    <value>Physical DMG Bonus</value>
+  </data>
+  <data name="StatPyroDmg" xml:space="preserve">
+    <value>Pyro DMG Bonus</value>
+  </data>
+  <data name="StatElectroDmg" xml:space="preserve">
+    <value>Electro DMG Bonus</value>
+  </data>
+  <data name="StatHydroDmg" xml:space="preserve">
+    <value>Hydro DMG Bonus</value>
+  </data>
+  <data name="StatDendroDmg" xml:space="preserve">
+    <value>Dendro DMG Bonus</value>
+  </data>
+  <data name="StatAnemoDmg" xml:space="preserve">
+    <value>Anemo DMG Bonus</value>
+  </data>
+  <data name="StatGeoDmg" xml:space="preserve">
+    <value>Geo DMG Bonus</value>
+  </data>
+  <data name="StatCryoDmg" xml:space="preserve">
+    <value>Cryo DMG Bonus</value>
+  </data>
+  <data name="StatPhysicalRes" xml:space="preserve">
+    <value>Physical RES</value>
+  </data>
+  <data name="StatPyroRes" xml:space="preserve">
+    <value>Pyro RES</value>
+  </data>
+  <data name="StatElectroRes" xml:space="preserve">
+    <value>Electro RES</value>
+  </data>
+  <data name="StatHydroRes" xml:space="preserve">
+    <value>Hydro RES</value>
+  </data>
+  <data name="StatDendroRes" xml:space="preserve">
+    <value>Dendro RES</value>
+  </data>
+  <data name="StatAnemoRes" xml:space="preserve">
+    <value>Anemo RES</value>
+  </data>
+  <data name="StatGeoRes" xml:space="preserve">
+    <value>Geo RES</value>
+  </data>
+  <data name="StatCryoRes" xml:space="preserve">
+    <value>Cryo RES</value>
+  </data>
 </root>

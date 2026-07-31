@@ -504,4 +504,97 @@
   <data name="ControlAutoSuggestTokenBoxSelectAllMenuItem" xml:space="preserve">
     <value>选择全部</value>
   </data>
+  <data name="StatPanelTitle" xml:space="preserve">
+    <value>角色属性</value>
+  </data>
+  <data name="StatGroupBase" xml:space="preserve">
+    <value>基础属性</value>
+  </data>
+  <data name="StatGroupAdvanced" xml:space="preserve">
+    <value>进阶属性</value>
+  </data>
+  <data name="StatGroupElemental" xml:space="preserve">
+    <value>元素属性</value>
+  </data>
+  <data name="StatHp" xml:space="preserve">
+    <value>生命值</value>
+  </data>
+  <data name="StatAtk" xml:space="preserve">
+    <value>攻击力</value>
+  </data>
+  <data name="StatDef" xml:space="preserve">
+    <value>防御力</value>
+  </data>
+  <data name="StatElementMastery" xml:space="preserve">
+    <value>元素精通</value>
+  </data>
+  <data name="StatCritRate" xml:space="preserve">
+    <value>暴击率</value>
+  </data>
+  <data name="StatCritDmg" xml:space="preserve">
+    <value>暴击伤害</value>
+  </data>
+  <data name="StatEnergyRecharge" xml:space="preserve">
+    <value>元素充能效率</value>
+  </data>
+  <data name="StatHealingBonus" xml:space="preserve">
+    <value>治疗加成</value>
+  </data>
+  <data name="StatIncomingHealing" xml:space="preserve">
+    <value>受治疗加成</value>
+  </data>
+  <data name="StatCdReduction" xml:space="preserve">
+    <value>冷却缩减</value>
+  </data>
+  <data name="StatShieldStrength" xml:space="preserve">
+    <value>护盾强效</value>
+  </data>
+  <data name="StatPhysicalDmg" xml:space="preserve">
+    <value>物理伤害加成</value>
+  </data>
+  <data name="StatPyroDmg" xml:space="preserve">
+    <value>火元素伤害加成</value>
+  </data>
+  <data name="StatElectroDmg" xml:space="preserve">
+    <value>雷元素伤害加成</value>
+  </data>
+  <data name="StatHydroDmg" xml:space="preserve">
+    <value>水元素伤害加成</value>
+  </data>
+  <data name="StatDendroDmg" xml:space="preserve">
+    <value>草元素伤害加成</value>
+  </data>
+  <data name="StatAnemoDmg" xml:space="preserve">
+    <value>风元素伤害加成</value>
+  </data>
+  <data name="StatGeoDmg" xml:space="preserve">
+    <value>岩元素伤害加成</value>
+  </data>
+  <data name="StatCryoDmg" xml:space="preserve">
+    <value>冰元素伤害加成</value>
+  </data>
+  <data name="StatPhysicalRes" xml:space="preserve">
+    <value>物理抗性</value>
+  </data>
+  <data name="StatPyroRes" xml:space="preserve">
+    <value>火元素抗性</value>
+  </data>
+  <data name="StatElectroRes" xml:space="preserve">
+    <value>雷元素抗性</value>
+  </data>
+  <data name="StatHydroRes" xml:space="preserve">
+    <value>水元素抗性</value>
+  </data>
+  <data name="StatDendroRes" xml:space="preserve">
+    <value>草元素抗性</value>
+  </data>
+  <data name="StatAnemoRes" xml:space="preserve">
+    <value>风元素抗性</value>
+  </data>
+  <data name="StatGeoRes" xml:space="preserve">
+    <value>岩元素抗性</value>
+  </data>
+  <data name="StatCryoRes" xml:space="preserve">
+    <value>冰元素抗性</value>
+  </data>
 </root>

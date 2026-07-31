@@ -22,7 +22,7 @@ public sealed partial class BackpackDbService : IDisposable
         using var vCmd = _db.CreateCommand();
         vCmd.CommandText = "PRAGMA user_version";
         var version = (long)(vCmd.ExecuteScalar() ?? 0L);
-        if (version < 2)
+        if (version < 3)
         {
             Exec("DROP TABLE IF EXISTS weapons");
             Exec("DROP TABLE IF EXISTS artifacts");
@@ -72,12 +72,13 @@ public sealed partial class BackpackDbService : IDisposable
                 constellation INTEGER NOT NULL,
                 skills        TEXT    NOT NULL,
                 passives      TEXT    NOT NULL,
-                equips        TEXT    NOT NULL
+                equips        TEXT    NOT NULL,
+                fight_props   TEXT    NOT NULL DEFAULT '{}'
             );
             """);
 
-        if (version < 2)
-            Exec("PRAGMA user_version = 2");
+        if (version < 3)
+            Exec("PRAGMA user_version = 3");
     }
 
     private void Exec(string sql)

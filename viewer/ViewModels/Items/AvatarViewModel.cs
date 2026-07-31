@@ -42,8 +42,11 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
     [ObservableProperty] private Visibility _hasArtifactsVisibility = Visibility.Collapsed;
     [ObservableProperty] private IReadOnlyList<OwnedArtifactViewModel> _artifacts = [];
 
+    [ObservableProperty] private IReadOnlyList<AvatarStatRow> _statRows = [];
+
     public BitmapImage? WeaponQualitySource => _weapon?.QualitySource;
     public BitmapImage? WeaponIconSource    => _weapon?.IconSource;
+    public string       StatPanelTitle      => SR.StatPanelTitle;
 
     private WeaponViewModel? _weapon;
     private readonly AvatarMetaService.AvatarMeta? _meta;
@@ -117,6 +120,8 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
             : [];
         HasArtifactsVisibility = (Artifacts.Count > 0).ToVisibility();
 
+        BuildStats(entry);
+
         if (_meta is null)
         {
             Skills    = [];
@@ -163,6 +168,80 @@ public sealed partial class AvatarViewModel : ObservableObject, IIconUpdatable
                 new TalentSlotViewModel(i.Name, i.Icon, entry.Ascension >= i.UnlockPhase, i.Description, null))];
         }
     }
+
+    private void BuildStats(AvatarEntry entry)
+    {
+        var fp = entry.FightProps;
+        bool hasData = fp is { Count: > 0 };
+
+        float Get(int k) => hasData && fp!.TryGetValue(k.ToString(), out var v) ? v : 0f;
+        float Res(int k) => hasData ? 0.15f + Get(k) : 0f;
+        static string Pct(float v) => (v * 100f).ToString("0.0") + "%";
+        static string Whole(float v) => Math.Round(v).ToString("0");
+        static string? Green(float total, float baseVal)
+        {
+            int g = (int)Math.Round(total) - (int)Math.Round(baseVal);
+            return g > 0 ? g.ToString() : null;
+        }
+
+        var rows = new List<AvatarStatRow>
+        {
+            new("HP",              SR.StatHp,             Whole(Get(2000)), Green(Get(2000), Get(1))),
+            new("CRITICAL",        SR.StatCritRate,       Pct(Get(20))),
+            new("ATTACK",          SR.StatAtk,            Whole(Get(2001)), Green(Get(2001), Get(4))),
+            new("CRITICAL_HURT",   SR.StatCritDmg,        Pct(Get(22))),
+            new("DEFENSE",         SR.StatDef,            Whole(Get(2002)), Green(Get(2002), Get(7))),
+            new("HEAL_ADD",        SR.StatHealingBonus,   Pct(Get(26))),
+            new("ELEMENT_MASTERY", SR.StatElementMastery, Whole(Get(28))),
+            new("HEALED_ADD",      SR.StatIncomingHealing,Pct(Get(27))),
+        };
+
+        int charKey = CharElementKey();
+        var elemDmg = new (int key, string icon, string label)[]
+        {
+            (40, "PYRO",    SR.StatPyroDmg),
+            (41, "ELECTRO", SR.StatElectroDmg),
+            (42, "HYDRO",   SR.StatHydroDmg),
+            (43, "DENDRO",  SR.StatDendroDmg),
+            (44, "ANEMO",   SR.StatAnemoDmg),
+            (45, "GEO",     SR.StatGeoDmg),
+            (46, "CRYO",    SR.StatCryoDmg),
+        };
+        foreach (var (key, icon, label) in elemDmg)
+            if (key == charKey || Get(key) > 0)
+                rows.Add(new(icon, label, Pct(Get(key))));
+        if (Get(30) > 0)
+            rows.Add(new("PHYSICAL_ADD_HURT", SR.StatPhysicalDmg, Pct(Get(30))));
+
+        rows.Add(new("CHARGE_EFFICIENCY", SR.StatEnergyRecharge, Pct(Get(23))));
+        if (Get(80) > 0)
+            rows.Add(new(null, SR.StatCdReduction, Pct(Get(80))));
+        if (Get(81) > 0)
+            rows.Add(new("SHIELD_COST_MINUS_RATIO", SR.StatShieldStrength, Pct(Get(81))));
+
+        rows.Add(new("PHYSICAL_ADD_HURT", SR.StatPhysicalRes, Pct(Res(29))));
+        rows.Add(new("PYRO",    SR.StatPyroRes,    Pct(Res(50))));
+        rows.Add(new("ELECTRO", SR.StatElectroRes, Pct(Res(51))));
+        rows.Add(new("HYDRO",   SR.StatHydroRes,   Pct(Res(52))));
+        rows.Add(new("DENDRO",  SR.StatDendroRes,  Pct(Res(53))));
+        rows.Add(new("ANEMO",   SR.StatAnemoRes,   Pct(Res(54))));
+        rows.Add(new("GEO",     SR.StatGeoRes,     Pct(Res(55))));
+        rows.Add(new("CRYO",    SR.StatCryoRes,    Pct(Res(56))));
+
+        StatRows = rows;
+    }
+
+    private int CharElementKey() => _meta?.Element?.ToUpperInvariant() switch
+    {
+        "PYRO"    => 40,
+        "ELECTRO" => 41,
+        "HYDRO"   => 42,
+        "DENDRO"  => 43,
+        "ANEMO"   => 44,
+        "GEO"     => 45,
+        "CRYO"    => 46,
+        _         => 0,
+    };
 
     private string ExtraLevelSkillName(int slot)
     {

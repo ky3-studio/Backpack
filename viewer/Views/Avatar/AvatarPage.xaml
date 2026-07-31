@@ -56,112 +56,6 @@
       </Button>
     </DataTemplate>
 
-    <DataTemplate x:Key="OwnedSubStatTemplate" x:DataType="vm:OwnedSubStat">
-      <StackPanel Spacing="0">
-        <Border
-            Height="1"
-            Margin="0,8,0,0"
-            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-        <Grid Margin="0,8,0,0" ColumnSpacing="8">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-          </Grid.ColumnDefinitions>
-          <StackPanel Grid.Column="0" Spacing="2">
-            <TextBlock
-                Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                Style="{StaticResource AppCaptionTextBlockStyle}"
-                Text="{x:Bind Name}" />
-            <StackPanel
-                Orientation="Horizontal"
-                Spacing="5"
-                Visibility="{x:Bind RollVisibility}">
-              <Image
-                  Width="15"
-                  Height="15"
-                  VerticalAlignment="Center"
-                  Source="{x:Bind RollBadge}"
-                  Stretch="Uniform" />
-              <TextBlock
-                  VerticalAlignment="Center"
-                  Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                  Style="{StaticResource AppCaptionTextBlockStyle}"
-                  Text="{x:Bind RollValues}" />
-            </StackPanel>
-          </StackPanel>
-          <TextBlock
-              Grid.Column="1"
-              VerticalAlignment="Top"
-              Style="{StaticResource AppCaptionTextBlockStyle}"
-              Text="{x:Bind Value}" />
-        </Grid>
-      </StackPanel>
-    </DataTemplate>
-
-    <DataTemplate x:Key="OwnedArtifactTemplate" x:DataType="vm:OwnedArtifactViewModel">
-      <Border
-          Width="290"
-          Padding="12"
-          Style="{StaticResource BorderCardStyle}">
-        <StackPanel Spacing="0">
-          <Grid ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Image
-                Grid.Column="0"
-                Width="44"
-                Height="44"
-                VerticalAlignment="Center"
-                Source="{x:Bind IconSource, Mode=OneWay}"
-                Stretch="Uniform" />
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
-              <TextBlock
-                  Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                  Text="{x:Bind PieceName}"
-                  TextTrimming="CharacterEllipsis" />
-              <TextBlock
-                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                  Style="{StaticResource AppCaptionTextBlockStyle}"
-                  Text="{x:Bind SlotName}" />
-              <Image
-                  Height="12"
-                  HorizontalAlignment="Left"
-                  Source="{x:Bind RankStarsSource}"
-                  Stretch="Uniform" />
-            </StackPanel>
-            <TextBlock
-                Grid.Column="2"
-                VerticalAlignment="Center"
-                Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                Text="{x:Bind LevelText}" />
-          </Grid>
-          <Border
-              Height="1"
-              Margin="0,8,0,0"
-              Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-          <Grid Margin="0,8,0,0">
-            <TextBlock
-                VerticalAlignment="Center"
-                Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                Style="{StaticResource AppBodyTextBlockStyle}"
-                Text="{x:Bind MainStatName}" />
-            <TextBlock
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                FontSize="18"
-                Style="{StaticResource AppBodyStrongTextBlockStyle}"
-                Text="{x:Bind MainStatValue}" />
-          </Grid>
-          <ItemsControl
-              ItemTemplate="{StaticResource OwnedSubStatTemplate}"
-              ItemsSource="{x:Bind SubStats}" />
-        </StackPanel>
-      </Border>
-    </DataTemplate>
-
     <DataTemplate x:Key="AvatarListTemplate" x:DataType="vm:AvatarViewModel">
       <Grid Margin="0,6,0,6">
         <Grid.ColumnDefinitions>
@@ -422,6 +316,64 @@
 
           </Grid>
 
+      </Border>
+
+      <Border
+          Padding="16"
+          Style="{StaticResource BorderShimmerStyle}">
+        <StackPanel Spacing="0">
+          <TextBlock
+              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+              Style="{StaticResource AppBodyStrongTextBlockStyle}"
+              Text="{x:Bind StatPanelTitle}" />
+          <ItemsControl ItemsSource="{x:Bind StatRows, Mode=OneWay}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:AvatarStatRow">
+                <StackPanel Spacing="0">
+                  <Border
+                      Height="1"
+                      Margin="0,8,0,0"
+                      Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                  <Grid Margin="0,8,0,0" ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="24" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Width="22"
+                        Height="22"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind Icon}"
+                        Stretch="Uniform"
+                        Visibility="{x:Bind IconVisibility}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource AppBodyTextBlockStyle}"
+                        Text="{x:Bind Label}" />
+                    <TextBlock
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                        Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                        Text="{x:Bind Value}" />
+                    <TextBlock
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        Foreground="#8BC34A"
+                        Style="{StaticResource AppBodyStrongTextBlockStyle}"
+                        Text="{x:Bind Extra}"
+                        Visibility="{x:Bind ExtraVisibility}" />
+                  </Grid>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
       </Border>
 
       <ItemsControl

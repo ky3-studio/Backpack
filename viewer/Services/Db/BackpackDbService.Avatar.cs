@@ -11,7 +11,7 @@ public sealed partial class BackpackDbService
     {
         using var cmd = _db.CreateCommand();
         cmd.CommandText =
-            "SELECT id,level,ascension,friendship,constellation,skills,passives,equips FROM avatars ORDER BY level DESC,id";
+            "SELECT id,level,ascension,friendship,constellation,skills,passives,equips,fight_props FROM avatars ORDER BY level DESC,id";
         using var r    = cmd.ExecuteReader();
         var list = new List<AvatarEntry>();
         while (r.Read())
@@ -24,7 +24,8 @@ public sealed partial class BackpackDbService
                 r.GetInt32(4),
                 JsonSerializer.Deserialize(r.GetString(5), Default.SkillEntryArray)   ?? [],
                 JsonSerializer.Deserialize(r.GetString(6), Default.PassiveEntryArray) ?? [],
-                JsonSerializer.Deserialize(r.GetString(7), Default.StringArray)        ?? []
+                JsonSerializer.Deserialize(r.GetString(7), Default.StringArray)        ?? [],
+                JsonSerializer.Deserialize(r.GetString(8), Default.DictionaryStringSingle) ?? []
             ));
         return list;
     }
@@ -38,8 +39,8 @@ public sealed partial class BackpackDbService
 
         using var ins = _db.CreateCommand();
         ins.CommandText =
-            "INSERT OR REPLACE INTO avatars (id,level,ascension,friendship,constellation,skills,passives,equips) " +
-            "VALUES ($id,$l,$a,$f,$c,$s,$p,$eq)";
+            "INSERT OR REPLACE INTO avatars (id,level,ascension,friendship,constellation,skills,passives,equips,fight_props) " +
+            "VALUES ($id,$l,$a,$f,$c,$s,$p,$eq,$fp)";
         var pid = ins.Parameters.Add("$id", SqliteType.Integer);
         var pl  = ins.Parameters.Add("$l",  SqliteType.Integer);
         var pa  = ins.Parameters.Add("$a",  SqliteType.Integer);
@@ -48,6 +49,7 @@ public sealed partial class BackpackDbService
         var ps  = ins.Parameters.Add("$s",  SqliteType.Text);
         var pp  = ins.Parameters.Add("$p",  SqliteType.Text);
         var peq = ins.Parameters.Add("$eq", SqliteType.Text);
+        var pfp = ins.Parameters.Add("$fp", SqliteType.Text);
 
         foreach (var a in avatars)
         {
@@ -59,6 +61,7 @@ public sealed partial class BackpackDbService
             ps.Value  = JsonSerializer.Serialize(a.Skills,    Default.SkillEntryArray);
             pp.Value  = JsonSerializer.Serialize(a.Passives,  Default.PassiveEntryArray);
             peq.Value = JsonSerializer.Serialize(a.Equips,    Default.StringArray);
+            pfp.Value = JsonSerializer.Serialize(a.FightProps ?? [], Default.DictionaryStringSingle);
             ins.ExecuteNonQuery();
         }
         tx.Commit();
