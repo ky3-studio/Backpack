@@ -1,5 +1,9 @@
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Backpack.Viewer.Localization;
 using Backpack.Viewer.Services;
 using Backpack.Viewer.ViewModels;
 using Backpack.Viewer.ViewModels.Search;
@@ -9,6 +13,7 @@ using Backpack.Viewer.Views.Helpers;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using WinRT.Interop;
 
 namespace Backpack.Viewer.Views;
 
@@ -87,6 +92,69 @@ public sealed partial class MaterialPage : UserControl, IDisposable
     {
         if (args.Element is FrameworkElement fe)
             fe.DataContext = null;
+    }
+
+    public async void ExportMaterials()
+    {
+        var materialGroups = MaterialGroups;
+        if (materialGroups is null || materialGroups.Count == 0)
+            return;
+
+        var hwnd = WindowNative.GetWindowHandle(App.AppWindow);
+        var path = Win32FilePicker.SaveFile(
+            hwnd,
+            SR.MaterialExportDialogTitle,
+            "materials.csv",
+            "csv",
+            SR.MaterialExportFilterName,
+            "*.csv");
+        if (string.IsNullOrEmpty(path))
+            return;
+        if (!path.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
+            path += ".csv";
+
+        var sb = new StringBuilder();
+        ReadOnlySpan<string?> header =
+            [Csv(SR.MaterialExportColCategory), Csv(SR.MaterialExportColName), Csv(SR.MaterialExportColCount)];
+        sb.AppendLine(string.Join(',', header));
+        foreach (var group in materialGroups)
+        {
+            foreach (var item in group.Items)
+            {
+                ReadOnlySpan<string?> row = [Csv(group.Header), Csv(item.Name), Csv(item.RawCount.ToString())];
+                sb.AppendLine(string.Join(',', row));
+            }
+        }
+
+        try
+        {
+            await File.WriteAllTextAsync(path, sb.ToString(), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
+            await ShowResultDialog(SR.MaterialExportSuccessTitle, string.Format(SR.MaterialExportSuccessFmt, path));
+        }
+        catch (Exception ex)
+        {
+            await ShowResultDialog(SR.MaterialExportFailedTitle, ex.Message);
+        }
+
+        static string Csv(string value)
+        {
+            if (value.IndexOfAny(new[] { ',', '"', '\n', '\r' }) < 0)
+                return value;
+            return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
+    }
+
+    private async Task ShowResultDialog(string title, string message)
+    {
+        if (XamlRoot is null)
+            return;
+        await new ContentDialog
+        {
+            XamlRoot        = XamlRoot,
+            Title           = title,
+            Content         = message,
+            CloseButtonText = SR.CommonOk,
+        }.ShowAsync();
     }
 
     public void Dispose() => _controller.Dispose();

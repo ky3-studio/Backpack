@@ -597,4 +597,34 @@
   <data name="StatCryoRes" xml:space="preserve">
     <value>Cryo RES</value>
   </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MaterialExportButton.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="MaterialExportColCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="MaterialExportColCount" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="MaterialExportColName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="MaterialExportDialogTitle" xml:space="preserve">
+    <value>Export Material Data</value>
+  </data>
+  <data name="MaterialExportFailedTitle" xml:space="preserve">
+    <value>Export Failed</value>
+  </data>
+  <data name="MaterialExportFilterName" xml:space="preserve">
+    <value>CSV File</value>
+  </data>
+  <data name="MaterialExportSuccessFmt" xml:space="preserve">
+    <value>Exported to: {0}</value>
+  </data>
+  <data name="MaterialExportSuccessTitle" xml:space="preserve">
+    <value>Export Successful</value>
+  </data>
 </root>

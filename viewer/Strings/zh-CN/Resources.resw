@@ -597,4 +597,34 @@
   <data name="StatCryoRes" xml:space="preserve">
     <value>冰元素抗性</value>
   </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="MaterialExportButton.Text" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="MaterialExportColCategory" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="MaterialExportColCount" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="MaterialExportColName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="MaterialExportDialogTitle" xml:space="preserve">
+    <value>导出材料数据</value>
+  </data>
+  <data name="MaterialExportFailedTitle" xml:space="preserve">
+    <value>导出失败</value>
+  </data>
+  <data name="MaterialExportFilterName" xml:space="preserve">
+    <value>CSV 文件</value>
+  </data>
+  <data name="MaterialExportSuccessFmt" xml:space="preserve">
+    <value>已导出到：{0}</value>
+  </data>
+  <data name="MaterialExportSuccessTitle" xml:space="preserve">
+    <value>导出成功</value>
+  </data>
 </root>

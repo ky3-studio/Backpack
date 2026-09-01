@@ -12,6 +12,7 @@ public abstract partial class SimpleItemViewModel : ObservableObject, IIconUpdat
 
     public string      Name          { get; }
     public string      Count         { get; }
+    public ulong       RawCount      { get; }
     public int         Rank          { get; }
     public Uri?        IconUri       { get; }
     public BitmapImage QualitySource { get; }
@@ -20,6 +21,7 @@ public abstract partial class SimpleItemViewModel : ObservableObject, IIconUpdat
     {
         Name    = name;
         Count   = count.ToString("N0");
+        RawCount = count;
         Rank    = meta.Rank;
         IconUri = meta.IconUri;
         if (meta.IconUri is not null)

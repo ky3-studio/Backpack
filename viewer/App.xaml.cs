@@ -12,6 +12,8 @@ public sealed partial class App : Application, IDisposable
 {
     public static IServiceProvider Services { get; private set; } = null!;
 
+    public static Window? AppWindow { get; private set; }
+
     private MainWindow?      _window;
     private ServiceProvider? _services;
 
@@ -36,6 +38,7 @@ public sealed partial class App : Application, IDisposable
         hyperLinkSvc.Load();
         MiHoYo.RegisterService(hyperLinkSvc);
         _window = new MainWindow(_services);
+        AppWindow = _window;
         _window.Activate();
     }
 
