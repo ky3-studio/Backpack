@@ -102,6 +102,7 @@
         <NavigationViewItem x:Name="NavFood"     x:Uid="NavFood" />
         <NavigationViewItem x:Name="NavGadget"   x:Uid="NavGadget" />
         <NavigationViewItem x:Name="NavAsset"    x:Uid="NavAsset" />
+        <NavigationViewItem x:Name="NavSaintCard" x:Uid="NavSaintCard" />
       </NavigationView.MenuItems>
 
       <NavigationView.FooterMenuItems />
@@ -150,6 +151,9 @@
           <views:AssetPage
               x:Name="PageAsset"
               AssetGroups="{x:Bind ViewModel.AssetGroups}"
+              Visibility="Collapsed" />
+          <views:SaintCardPage
+              x:Name="PageSaintCard"
               Visibility="Collapsed" />
         </Grid>
       </Grid>

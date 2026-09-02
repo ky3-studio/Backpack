@@ -82,6 +82,7 @@ public sealed partial class MainWindow : Window, IDisposable
         PageFood.Visibility     = Visibility.Collapsed;
         PageGadget.Visibility   = Visibility.Collapsed;
         PageAsset.Visibility    = Visibility.Collapsed;
+        PageSaintCard.Visibility = Visibility.Collapsed;
         ExportButton.Visibility = Visibility.Collapsed;
 
         if (e.IsSettingsSelected)
@@ -99,17 +100,23 @@ public sealed partial class MainWindow : Window, IDisposable
                 nameof(NavFood)     => PageFood.Visibility     = Visibility.Visible,
                 nameof(NavGadget)   => PageGadget.Visibility   = Visibility.Visible,
                 nameof(NavAsset)    => PageAsset.Visibility    = Visibility.Visible,
+                nameof(NavSaintCard) => PageSaintCard.Visibility = Visibility.Visible,
                 _                   => Visibility.Collapsed,
             };
 
-            ExportButton.Visibility = item.Name == nameof(NavMaterial)
+            ExportButton.Visibility = item.Name is nameof(NavMaterial) or nameof(NavSaintCard)
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
     }
 
-    private void OnExportMaterial(object sender, RoutedEventArgs e) =>
-        PageMaterial.ExportMaterials();
+    private void OnExportMaterial(object sender, RoutedEventArgs e)
+    {
+        if (NavView.SelectedItem is NavigationViewItem { Name: nameof(NavSaintCard) })
+            PageSaintCard.Export();
+        else
+            PageMaterial.ExportMaterials();
+    }
 
     public void Dispose()
     {

@@ -141,8 +141,11 @@
   <data name="ErrHelperExitCode" xml:space="preserve">
     <value>Injection helper exited with code {0}</value>
   </data>
-  <data name="MatTabSaintCard" xml:space="preserve">
+  <data name="NavSaintCard.Content" xml:space="preserve">
     <value>Saint Cards</value>
+  </data>
+  <data name="SaintCardExportDialogTitle" xml:space="preserve">
+    <value>Export Saint Card Data</value>
   </data>
   <data name="MatTabCharAscension" xml:space="preserve">
     <value>Char Ascension</value>

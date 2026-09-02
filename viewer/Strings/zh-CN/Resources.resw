@@ -141,8 +141,11 @@
   <data name="ErrHelperExitCode" xml:space="preserve">
     <value>注入进程异常退出 ({0})</value>
   </data>
-  <data name="MatTabSaintCard" xml:space="preserve">
+  <data name="NavSaintCard.Content" xml:space="preserve">
     <value>月谕圣牌</value>
+  </data>
+  <data name="SaintCardExportDialogTitle" xml:space="preserve">
+    <value>导出月谕圣牌数据</value>
   </data>
   <data name="MatTabCharAscension" xml:space="preserve">
     <value>角色突破</value>
