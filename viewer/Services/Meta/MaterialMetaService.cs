@@ -4,6 +4,7 @@ public sealed class MaterialMetaService : TabMetaService
 {
     private static readonly (string File, string Key)[] _tabDefs =
     [
+        ("materials_saint_card.json",       "MatTabSaintCard"),
         ("materials_char_ascension.json",   "MatTabCharAscension"),
         ("materials_weapon_ascension.json", "MatTabWeaponAscension"),
         ("materials_talent.json",           "MatTabTalent"),
