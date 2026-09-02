@@ -82,6 +82,7 @@ public sealed partial class MainWindow : Window, IDisposable
         PageFood.Visibility     = Visibility.Collapsed;
         PageGadget.Visibility   = Visibility.Collapsed;
         PageAsset.Visibility    = Visibility.Collapsed;
+        ExportButton.Visibility = Visibility.Collapsed;
 
         if (e.IsSettingsSelected)
             return;
@@ -100,8 +101,15 @@ public sealed partial class MainWindow : Window, IDisposable
                 nameof(NavAsset)    => PageAsset.Visibility    = Visibility.Visible,
                 _                   => Visibility.Collapsed,
             };
+
+            ExportButton.Visibility = item.Name == nameof(NavMaterial)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
+
+    private void OnExportMaterial(object sender, RoutedEventArgs e) =>
+        PageMaterial.ExportMaterials();
 
     public void Dispose()
     {
